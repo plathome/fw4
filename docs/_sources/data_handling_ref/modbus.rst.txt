@@ -1,0 +1,1054 @@
+.. _data_handler_reference_modbus:
+
+*********************
+PD Handler Modbus
+*********************
+
+==============================
+Modbusファンクションコード
+==============================
+
+.. list-table:: PD Handler Modbusに用いられているファンクションコード
+    :widths: 10 30 60
+    :header-rows: 1
+
+    * - コード
+      - 名称
+      - 機能説明
+    * - 0x01
+      - Read Coils
+      - デジタル出力に設定されているビット値を読み込む。
+    * - 0x02
+      - Read Discrete Input
+      - デジタル入力のビット値を読み込む。
+    * - 0x03
+      - Read Holding Registers
+      - レジスタ出力に設定されている値を読み込む。
+    * - 0x04
+      - Read Input Registers
+      - レジスタ入力の値を読み込む。
+    * - 0x05
+      - Write Single Coil
+      - デジタル出力1ビットのビット値を設定する。
+    * - 0x06
+      - Write Single Register
+      - レジスタ出力１レジスタの値を設定する。
+    * - 0x07
+      - Read Exception Status
+      - クライアント／サーバー間でエラーステータスを通知する。
+    * - 0x09
+      - Write Single Discrete Input
+      - デジタル入力1ビットのビット値を設定する。
+    * - 0x0a
+      - Write Single Input Register
+      - レジスタ入力１レジスタの値を設定する。
+    * - 0x0f
+      - Write Multiple Coils
+      - 連続する複数のデジタル出力のビット値を設定する。
+    * - 0x10
+      - Write Multiple Registers
+      - 連続する複数のレジスタ出力の値を設定する。
+    * - 0x11
+      - Report Slave ID
+      - 接続可能なスレーブ（サーバー）機器のIDを通知する。
+    * - 0x13
+      - Write Multiple Discrete Input
+      - 連続する複数のデジタル入力のビット値を設定する。
+    * - 0x14
+      - Write Multiple Input Registers
+      - 連続する複数のレジスタ入力の値を設定する。
+    * - 0x16
+      - Mark Write Registers
+      - レジスタ出力をマスクする。
+    * - 0x17
+      - Write and Read Registers
+      - 連続する複数のレジスタ出力の値を設定し、その値を読み込む。
+
+0x09, 0x0a, 0x13, 0x14 物理的な入力を持たないPD Handler Modbus Serverの
+デジタル入力もしくはレジスタ入力をクラウド側から設定できるよう用意された、
+本来のModbusプロトコルには存在しない独自拡張のファンクションです。
+
+.. raw:: latex
+
+   \clearpage 
+
+Modbus ファンクションコードは、
+設定ファイルもしくはCSV ファイルあるいはクラウド側からの制御においてJSON 文字列の'function' キーの値に設定される. 
+'0x' から始まる16 進表記のファンクションコードを文字列として'function' キーの値に設定することも可能ですが、
+16 進表記とは別に整数表記と文字列表記を用いることも可能です。
+
+.. list-table:: “function”キーに用いるファンクションコードの別称
+    :widths: 10 30 10 30
+    :header-rows: 1
+
+    * - コード
+      - 名称
+      - 整数表記 
+      - 文字列表記
+    * - 0x01
+      - Read Coils
+      - 1
+      - read_coils
+    * - 0x02
+      - Read Discrete Input
+      - 2
+      - read_discrete_input
+    * - 0x03
+      - Read Holding Registers
+      - 3
+      - read_holding_registers
+    * - 0x04
+      - Read Input Registers
+      - 4
+      - read_input_registers
+    * - 0x05
+      - Write Single Coil
+      - 5
+      - write_single_coil
+    * - 0x06
+      - Write Single Register
+      - 6
+      - write_single_register
+    * - 0x07
+      - Read Exception Status
+      - 7
+      - read_exception_status
+    * - 0x09
+      - Write Single Discrete Input
+      - 9
+      - write_single_input_register
+    * - 0x0a
+      - Write Single Input Register
+      - 10
+      - write_single_input_register
+    * - 0x0f
+      - Write Multiple Coils
+      - 15
+      - write_multiple_coils
+    * - 0x10
+      - Write Multiple Registers
+      - 16
+      - write_multiple_register
+    * - 0x11
+      - Report Slave ID
+      - 17
+      - report_slave_id
+    * - 0x13
+      - Write Multiple Discrete Input
+      - 19
+      - write_muliple_discrete_input
+    * - 0x14
+      - Write Multiple Input Registers
+      - 20
+      - write_multiple_input_registers
+    * - 0x16
+      - Mark Write Registers
+      - 22
+      - mark_write_registers
+    * - 0x17
+      - Write and Read Registers
+      - 23
+      - write_and_read_registers
+
+============================
+PD Handler Modbus Client
+============================
+
+デォルトパス
+================
+
+PD Handler Modbus Client に関連するファイルのデォルトパスは次の通りです。
+
+.. list-table:: PD Handler Modbus Client に関連するファイルのデォルトパス
+    :header-rows: 1
+
+    * - パス名
+      - 説明
+    * - /usr/sbin/pd_handler_modbus_client
+      - 常駐実行オブジェクト（デーモン）
+    * - /lib/systemd/system/pd_handler_modbus_client.service
+      - Systemd Serviceファイル
+    * - /etc/init.d/pd_handler_modbus_client
+      - RCファイル
+    * - /var/webui/config/pd_handler_modbus_client.conf
+      - 設定ファイル
+    * - /var/webui/upload_dir/pd_handler_modbus_client.csv
+      - CSVファイル
+    * - /var/run/pd_handler_modbus_client.pid
+      - PIDファイル
+
+.. raw:: latex
+
+   \clearpage 
+
+設定ファイルの書式
+=======================
+
+構文
+--------
+
+.. literalinclude:: pd_handler_modbus_client.conf
+
+ルートオブジェクト
+----------------------
+
+.. list-table:: ルートオブジェクト
+    :widths: 20 12 68
+    :header-rows: 1
+    
+    * - キー
+      - データ型
+      - 説明
+    * - csv_file	
+      - 文字列
+      - CSVファイルのパス名. デフォルト値は'/var/webui/upload_dir/pd-data/pd_handler_modbus_client.csv'. (MAXPATHLEN)
+    * - clients
+      - JSON obj
+      - clients オブジェクト
+
+.. raw:: latex
+
+   \clearpage 
+
+clients オブジェクト
+------------------------
+
+clients オブジェクトは、PD Handler Modbus Client の動作を規定する設定オブジェクトです。
+clients オブジェクトの配列数は、最大256 個です。
+Modbus のプロトコル(TCP, RTC) に依存するオブジェクトとプロトコルに依存しない共通のオブジェクトがあります。
+
+.. list-table:: clients オブジェクト
+    :widths: 20 12 68
+    :header-rows: 1
+    
+    * - キー
+      - データ型
+      - 説明
+    * - enable
+      - 論理値
+      - デフォルト値は false
+    * - localname
+      - 文字列
+      - デバイスのローカル名. (32byte)
+    * - bind
+      - 文字列
+      - 制御メッセージを受け取るソケット名. 文字列の先頭が '@' の場合は abstract namespace と解釈する.
+        空の場合は、デフォルト値 '\@/pd_handler/<localname>.sock' が設定される. (MAXPATHLEN)
+    * - push_to
+      - 文字列
+      - データの送り先ソケット名. 文字列の先頭が '@' の場合は abstract namespace と解釈する.
+        空の場合は、デフォルト値 '\@/pd_repeater/<localname>.sock' が設定される. (MAXPATHLEN)
+    * - buffer_size
+      - 整数値
+      - データのバッファサイズ(byte). デフォルト値は 4096
+    * - receive
+      - 論理値
+      - クラウドからメッセージを受け取る下流方向制御)か否か. デフォルト値は false
+    * - writeout
+      - 論理値
+      - push_to に指定するソケットに出力するか否か. デフォルト値は true.
+    * - protocol
+      - 文字列
+      - 接続プロトコル 'tcp' 又は 'rtu' を指定. デフォルト値は 'tcp'.
+    * - interval
+      - 整数値
+      - データを取得する間隔(sec). デフォルト値は 60.
+    * - timeout
+      - 整数値
+      - データを取得出来ない場合のタイムアウト(msec). デフォルト値は 5000.
+    * - time_sync
+      - 論理値
+      - 基準時刻制御モード. デフォルト値は false
+    * - base_time
+      - 文字列
+      - 基準時刻制御モードの基準時刻を 'HH:MM' 形式で指定する. デフォルト値は '00:00'
+    * - node
+      - 文字列
+      - 【TCP 接続】PLC 機器の IP アドレス. デフォルト値は'127.0.0.1'
+    * - port
+      - 整数値
+      - 【TCP 接続】PLC 機器のポート番号. デフォルト値は 502
+    * - device
+      - 文字列
+      - 【RTU接続】のデバイス名. デフォルト値は '/dev/tty00'
+    * - rtu_speed
+      - 整数値
+      - 【RTU接続】のビットレート. デフォルト値は 115200
+    * - rtu_bits
+      - 整数値
+      - 【RTU接続】のビット数. 8 又は 7. デフォルト値は 8.
+    * - rtu_parity
+      - 文字列
+      - 【RTU接続】のパリティ. 'none','even','odd' のいずれか. デフォルト値は'none'.
+    * - rtu_stop
+      - 整数値
+      - 【RTU接続】のストップビット.  1 又は 2. デフォルト値は 1.
+    * - rtu_rts_delay
+      - 整数値
+      - 【RTU接続】の RTS ディレイ値(usec). 0 の場合は自動設定される値.
+    * - rtu_reset
+      - 整数値
+      - 設定される値を越えて接続エラーが連続して発生した場合に 'device' キーに設定されるデバイスをリセットする. デフォルト値は 10.
+    * - memo
+      - 文字列
+      - 出力に付加されるユーザー定義文字列. (256byte)
+    * - infos
+      - JSON Object
+      - 出力に付加されるユーザー定義オブジェクト
+    * - acquisitions
+      - JSON配列
+      - acquisitions オブジェクト
+
+acquisitions オブジェクト
+-----------------------------
+
+.. list-table:: acquisitions オブジェクト
+    :widths: 20 12 68
+    :header-rows: 1
+    
+    * - キー
+      - データ型
+      - 説明
+    * - unit
+      - 整数
+      - PLC 機器の Modbus ユニットID. 1 ～ 247 又は255 (TCP接続のみ)
+    * - function
+      - 文字列又は整数
+      - Modbus プロトコルのデータ読み出しファンクション名又はファンクション番号. 
+        文字列の場合は、'read_coils', 'read_discrete input', 'read_holding_registers','read_input_registers' 又は'0x01'～'0x04'、
+        整数値の場合は文字列の順に1～4. デフォルト値は'read_holding_r_gisters'.
+    * - data_type
+      - 文字列又は整数
+      - 文字列の場合は'uint16_t','int16_t','uint32lsb_t','int32lsb_t', 'uint32msb_t','int32msb_t' のいずれか. 
+        整数値の場合は文字列の順に 0～5.
+        function が'read_coils' 又は'read discrete_input'の場合は、'uint16_t' に固定される. デフォルト値は'uint16 t'.
+    * - address
+      - 文字列又は整数
+      - 読み込み介しレジスタアドレスを指定する. 文字列の先頭に'0x'が付加されている場合は16 進表記と解釈される.
+        デフォルト値は'0x0'.
+    * - number
+      - 文字列又は整数
+      - 読み込むビット数またはレジスタ数、文字列の先頭に'0x' が付加されている場合は16 進表記と解釈される.
+        data_type が'uint32lsb_t', 'int32ls_t','uint32msb_t','int32msb_t' の場合は、内部的に2 倍の値で扱われる. デフォルト値は1.
+
+.. raw:: latex
+
+   \clearpage 
+
+利用可能なファンクションコード
+==================================
+
+PD Handler Modbus Client で利用可能なファンクションコードを示します。
+
+.. list-table:: PD Handler Modbus Client で利用可能なファンクションコード
+    :header-rows: 1
+
+    * - コード
+      - 名称
+      - ローカル
+      - クラウド
+    * - 0x01
+      - Read Coils
+      - 〇
+      - 〇
+    * - 0x02
+      - Read Discrete Input
+      - 〇
+      - 〇
+    * - 0x03
+      - Read Holding Registers
+      - 〇
+      - 〇
+    * - 0x04
+      - Read Input Registers
+      - 〇
+      - 〇
+    * - 0x05
+      - Write Single Coil
+      - 
+      - 〇
+    * - 0x06
+      - Write Single Register
+      - 
+      - 〇
+    * - 0x07
+      - Read Exception Status
+      - 
+      - 
+    * - 0x09
+      - Write Single Discrete Input
+      - 
+      - 	
+    * - 0x0a
+      - Write Single Input Register
+      - 
+      - 
+    * - 0x0f
+      - Write Multiple Coils
+      - 
+      - 〇
+    * - 0x10
+      - Write Multiple Registers
+      - 
+      - 〇
+    * - 0x11
+      - Report Slave ID	
+      - 
+      - 〇
+    * - 0x13
+      - Write Multiple Discrete Input
+      - 
+      - 
+    * - 0x14
+      - Write Multiple Input Registers
+      - 
+      - 	
+    * - 0x16
+      - Mask Write Registers
+      - 
+      - 
+    * - 0x17
+      - Write And Read Registers
+      - 
+      - 〇
+
+ローカルは、設定ファイルもしくはCSV ファイルに指定可能なファンクションコード、
+クラウドはクラウド側か指定可能なファンクションコードを意図します。
+
+.. raw:: latex
+
+   \clearpage 
+
+CSVファイル
+================
+
+/var/webui/config/pd_handler_modbus_client.conf のcsv_fileキーに設定されるCSVファイルを置くことで、
+/var/webui/config/pd_handler_modbus_client.conf で設定された１つのデバイス番号に対し
+複数の取得Modbusクライアントデバイスを設定することができます。
+
+CSVファイルの書式は、次の通りです。 ::
+
+    デバイス番号，ユニットID，読込方式，データタイプ，読込開始アドレス，読込レジスタ数
+
+.. list-table:: PD Handler Modbus ClientのCSVファイルの書式
+    :widths: 20 15 65
+    :header-rows: 1
+
+    * - パラメータ
+      - データの形式
+      - 説明
+    * - デバイス番号
+      - 半角英数字
+      - WebUIにより割り振れたデバイス番号を記載します。
+        WebUIに設定されていないデバイス番号は無視されます。
+        先頭が'#'または”/”の場合は、コメント行として扱われます。
+    * - ユニットID
+      - 半角数字
+      - PLC機器のModbus ユニットIDを設定します。　ユニットIDは、１～247または255を記載します。
+    * - 読込方式
+      - 半角英数字
+      - 読込方式として次の何れかを記載します。
+
+        デジタル出力:
+            'read_coils'又は '0x01' 又は ‘1'
+        デジタル入力:
+            'read_discrete_input' 又は '0x02' 又は ‘2'
+        レジスタ出力:
+            'read_holding_registers' 又は '0x03' 又は '3'
+        レジスタ入力:
+            'read_input_registers' 又は'0x04' 又は ‘4'
+    * - データタイプ
+      - 半角英数字
+      - データタイプとして次の何れかを記載します。
+
+        符号なし16ビット整数:
+            'uint16_t' 又は '0'
+        符号付き16ビット整数:
+            'int16_t' 又は '1'
+        符号なし32ビット整数/リトルエンディアン:
+            'uint32lsb_t' 又は ‘2'
+        符号付き32ビット整数/リトルエンディアン:
+            'int32lsb_t' 又は ‘3'
+        符号なし32ビット整数/ビッグエンディアン:
+            'uint32msb_t' 又は ‘4'
+        符号付き32ビット整数/ビッグエンディアン:
+            'int32msb_t' 又は ‘5'
+    * - 読込開始アドレス
+      - 半角英数字
+      - 読み込みたいデータが格納されているPLC機器上の開始アドレスを設定します。　
+        先頭が'0x'の場合は16進数と解釈されます。
+    * - 読込レジスタ数
+      - 半角数字
+      - 読み込みたいレジスタ数を記載します。 
+
+各パラメータの区切りはカンマ、先頭がシャープ '#' もしくはスラッシュ '/' の行はコメント行と見なされます。
+
+CSVファイルが読み込まれるとclientsオブジェクトに設定されたModbusクライアントデバイスは上書きされます
+そのため、CSVファイルにはclientsオブジェクトに設定したModbusクライアントデバイスを含む取得したい全ての
+Modbusクライアントデバイスを記載して下さい。
+
+.. raw:: latex
+
+   \clearpage 
+
+基準時刻制御
+================
+
+| 基準時刻制御は、特定の時刻にデータを取得する機能です。
+| clients オブジェクトのtime_sysncキーを true に設定し、intervalキーとbase_timeキーで取得間隔と取得時刻を設定します。
+| 基準時刻制御における「取得時間間隔」は300, 600, 900, 1800, 3600, 7200, 10800, 14400, 21600, 28800, 43200と86400の倍数に限られます。「取得時間間隔」としてこれら以外の値が設定されるとPD Handler Modbus Client内で次のように扱われます。
+
+
+.. list-table:: 基準時刻制御における取得時間間隔の設定と実動作値
+    :header-rows: 1
+
+    * - 取得時間間隔の設定値
+      - 実動作値
+    * - 0  ～ 599
+      - 300
+    * - 600 ～ 899
+      - 600
+    * - 900 ～ 1799
+      - 900
+    * - 1800 ～ 3599
+      - 1800
+    * - 3600 ～ 7199
+      - 3600
+    * - 7200 ～ 10799
+      - 7200
+    * - 10800 ～ 14399
+      - 10800
+    * - 14400 ～ 21599
+      - 14400
+    * - 21600 ～ 28799
+      - 21600
+    * - 28800 ～ 43199
+      - 28800
+    * - 43200 ～ 86399
+      - 43200
+    * - 86400 ～
+      - 86400 の倍数
+
+| 「基準時刻」とは動作の起点となる時刻で、例えば「取得時間間隔」を300とし、「基準時刻」を '00:01' とした場合、データの取得は 00:01, 00:06, 00:11 ... 00:56, 01:01 ... 23:56, 00:01の定刻に行われます。
+| データの取得開始時刻は「基準時刻」に設定さた時刻そのものではなく、「基準時刻」と「取得時間間隔」から算定される直近の時刻となります。
+| 例えば08:30に「基準時刻」'01:05'、 「取得時間間隔」10800の設定が行われた場合、最初のデータ取得は10:05に行われ、以降13:05, 16:05, 19:05, 22:05, 01:05の順におこなわれます。
+
+.. raw:: latex
+
+   \clearpage 
+
+メッセージオブジェクト
+==========================
+
+入出力メッセージに用いられる JSON オブジェクトを示します。
+
+.. list-table:: PD Handler Modbus Client のメッセージオブジェクト
+    :widths: 15 25 15 15 60
+    :header-rows: 1
+
+    * - キー
+      - 内容
+      - データ型
+      - 方向
+      - 備考
+    * - time
+      - データ取得日時
+      - 文字列
+      - 出力
+      - ISO8601拡張書式
+    * - prototocol
+      - プロトコル
+      - 文字列
+      - 入出力
+      - 'tcp' 又は 'rtu'
+    * - node
+      - 取得先 IP アドレス
+      - 文字列
+      - 入出力
+      - TCP接続時のみ
+    * - port
+      - ポート番号
+      - 整数値
+      - 入出力
+      - TCP接続時のみ. 
+    * - device
+      - デバイスファイル名
+      - 文字列
+      - 入出力
+      - RTU接続時のみ
+    * - unit
+      - Modbus Unit ID
+      - 整数値
+      - 入出力
+      - 
+    * - memo
+      - メモ
+      - 文字列
+      - 出力
+      - memo キーに設定された値
+    * - address
+      - 読み／書き込みアドレス
+      - 整数値
+      - 入出力	
+      - 
+    * - number
+      - 読み込むレジスタ数
+      - 整数値
+      - 入力
+      - 
+    * - function
+      - Modbus function code
+      - 整数値
+      - 入出力
+      - 
+    * - data_type
+      - データの型
+      - 文字列
+      - 入出力
+      - 'uint16_t', 'int16_t', 'uint32lsb_t', 'int32lsb_t', 'uint32msb_t', 'int32msb_t' のいずれか
+    * - valuse
+      - 読み／書き込み
+      -  整数配列
+      - 入出力
+      - 	
+    * - reply_to
+      - リクエストメッセージのMD5
+      - 文字列
+      - 出力
+      - 
+    * - result
+      - 制御ステータス
+      - 文字列
+      - 出力
+      - 'done', 'not queuing', 'failed' のいずれか
+    * - reason
+      - エラーの理由
+      - 文字列
+      - 出力
+      - 
+      
+.. raw:: latex
+
+   \clearpage 
+
+クラウドからの制御
+======================
+
+| クラウドから PD Repeater を介し制御(JSON)文字列を送ることで、接続されている PLC 機器のレジスタを読み書きすることができます。
+| 制御文字列には、PLC 機器を特定するため clients オブジェクトの protocol, node, port, もしくは device とacquisitions オブジェクトの unit, function, data_type, address, number および書き込みファンクションにおいては、valuseに値を記載します。
+| node, port, もしくは device は、設定ファイルに設定されているものでなければなりません。物理的に接続されていても設定ファイルに設定されていない node, port, もしくは device を操作することはできません。
+
+例えば、TCP 接続されている PLC 機器の入力レジスタを読み込むのであれば、その制御文字列は次のようになります。 ::
+
+    {
+       "protocol": "tcp", "node": "192.168.1.8", "port": 502,
+       "unit": 255, "function": "0x04",
+       "data_type": "uint16_t", "address": "0x160", "number": 5
+    }
+
+これに対する、応答メッセージは、次のようになります。 ::
+
+    {
+        "time": "2017-09-05T15:30:05.758+09:00",
+        "reply_to": "452556d8daf1f7eb483d00ee03718e8e", "result": "done",
+        "memo": "Modbus Client 00",
+        "protocol": "tcp", "node": "192.168.1.8", "port": 502,
+        "unit":255, "address":352, "function": 4, "data_type": "uint16_t",
+        "values": [65535, 0, 1, 2, 3]
+    }
+
+ここで、reply_to は、制御文字列の MD5 です。
+
+シリアル接続の PLC 機器の出力レジスタを書き込むのであれば、その制御文字列は次のようになります。 ::
+
+    {
+        "protocol": "rtu", "device": "/dev/ttyMDF1",
+        "unit":16, "function": "0x10", "data_type": "uint32lsb_t", "address": "0x120",
+        "values": [4567, 891011]
+    }
+
+ここで data_type が 32bit の場合、values は上位/下位の 16 bits に分割されて処理されるため、書き込む値の数が 1 であっても function は Write Multiple Registers を使用しなくてはなりません。
+
+これに対する、応答メッセージは、次のようになります。 ::
+
+    {
+        "time": "2017-09-05T16:35:13.653+09:00",
+        "reply_to": "fe9b49ff045f435a371303a82281f3f9", "result": "done",
+        "memo": "Modbus Client 01",
+        "protocol": "rtu", "device": "/dev/ttyMDF1",
+        "unit": 16, "address": 288, "function": 16, "data_type": "uint32_t",
+        "values": [4567, 891011]
+    }
+
+.. raw:: latex
+
+   \clearpage 
+
+============================
+PD Handler Modbus Server
+============================
+
+| Modbusサーバーは次表に示すレジスタマップを保持し、PLC機器からのModbusプロトコルによる接続を待ち受け、PLC機器の書き込み操作によりレジスタの値を更新すると共に更新されたレジスタとその値をPD Repeaterを介してクラウドに送ります。
+| また、PD Repeaterを介してクラウドから送られる制御メッセージ(JSON文字列)に基づきレジスタマップを読み書きすることもできます。
+| レジスタマップは、60 秒毎に更新があればレジスタマップファイルregisters.map に出力されます。
+
+.. list-table:: PD Handler Modbus Serverのレジスタマップ
+    :header-rows: 1
+
+    * - レジスタ
+      - 開始アドレス
+      - サイズ
+    * - デジタル出力(Coils)
+      - 0x000
+      - uint8_t × 2048
+    * - デジタル入力(Discrete Input)
+      - 0x000
+      - uint8_t × 2048
+    * - レジスタ出力(Holdig Registers)
+      - 0x000
+      - uint16_t × 2048
+    * - レジスタ入力(Input Registers)
+      - 0x000
+      - uint16_t × 2048
+
+デォルトパス
+================
+
+PD Handler Modbus Server に関連するファイルのデォルトパスは次の通りです。
+
+.. list-table:: PD Handler Modbus Server に関連するファイルのデォルトパス
+    :header-rows: 1
+
+    * - パス名
+      - 説明
+    * - /usr/sbin/pd_handler_modbus_server
+      - 常駐実行オブジェクト（デーモン）
+    * - /lib/systemd/system/pd_handler_modbus_server.service
+      - Systemd Serviceファイル
+    * - /etc/init.d/pd_handler_modbus_server
+      - RCファイル
+    * - /var/webui/config/pd_handler_modbus_server.conf
+      - 設定ファイル
+    * - /var/webui/.modbus_server/registers.map
+      - レジスタマップファイル
+    * - /var/run/pd_handler_modbus_server.pid
+      - PIDファイル
+
+.. raw:: latex
+
+   \clearpage 
+
+設定ファイルの書式
+=======================
+
+構文
+--------
+
+.. literalinclude:: pd_handler_modbus_server.conf
+
+ルートオブジェクト
+----------------------
+
+.. list-table:: ルートオブジェクト
+    :widths: 20 12 68
+    :header-rows: 1
+    
+    * - キー
+      - データ型
+      - 説明
+    * - registers_file
+      - 文字列
+      - レジスタマップファイルのパス名. デフォルト値は'/var/webui/.modbus_server/pd-data/registers.map'. (MAXPATHLEN)
+    * - servers
+      - JSON obj
+      - servers オブジェクト
+
+.. raw:: latex
+
+   \clearpage 
+
+servers オブジェクト
+------------------------
+
+server オブジェクトは、PD Handler Modbus Serverの動作を規定する設定オブジェクトです。
+server オブジェクトの配列数は、最大8 個. 
+Modbus のプロトコル(TCP, RTC) に依存するオブジェクトとプロトコルに依存しない共通のオブジェクトがあります。
+
+.. list-table:: servers オブジェクト
+    :widths: 20 12 68
+    :header-rows: 1
+
+    * - キー
+      - データ型
+      - 説明
+    * - enable
+      - 論理値
+      - デフォルト値は false
+    * - localname
+      - 文字列
+      - デバイスのローカル名. (32byte)
+    * - bind
+      - 文字列
+      - 制御メッセージを受け取るソケット名.
+        文字列の先頭が '@' の場合は abstract namespace と解釈する.
+        空の場合は、デフォルト値 '\@/pd_handler/<localname>.sock' が設定される. (MAXPATHLEN)
+    * - push_to
+      - 文字列
+      - データの送り先ソケット名.
+        文字列の先頭が '@' の場合は abstract namespace と解釈する.
+        空の場合は、デフォルト値 '\@/pd_repeater/<localname>.sock' が設定される. (MAXPATHLEN)
+    * - buffer_size
+      - 整数値
+      - データのバッファサイズ(byte). デフォルト値は 4096
+    * - receive
+      - 論理値
+      - クラウドからメッセージを受け取る下流方向制御)か否か. デフォルト値は false.
+    * - writeout
+      - 論理値
+      - push_to に指定するソケットに出力するか否か. デフォルト値は true.
+    * - protocol
+      - 文字列
+      - 接続プロトコル 'tcp' 又は 'rtu' を指定. デフォルト値は 'tcp'.
+    * - timeout
+      - 整数値
+      - データを取得出来ない場合のタイムアウト(msec). デフォルト値は 5000.
+    * - node
+      - 文字列
+      - 【TCP接続】PLC 機器からの接続を待ち受ける IP アドレス. デフォルト値は'0.0.0.0'
+    * - port
+      - 整数値
+      - 【TCP接続】PLC 機器からの接続を待ち受ける TCP ポート番号. デフォルト値は 502
+    * - device
+      - 文字列
+      - 【RTU接続】PLC 機器からの接続を待ち受けるシリアル接続デバイス名. デフォルト値は '/dev/tty00'
+    * - rtu_speed
+      - 整数値
+      - 【RTU接続】PLC 機器からの接続を待ち受けるシリアル接続ビットレート. デフォルト値は 115200
+    * - rtu_bits
+      - 整数値
+      - 【RTU接続】PLC 機器からの接続を待ち受けるシリアル接続ビット数. 8 又は 7. デフォルト値は 8.
+    * - rtu_parity
+      - 文字列
+      - 【RTU接続】PLC 機器からの接続を待ち受けるシリアル接続パリティ. 'none','even','odd' のいずれか. デフォルト値は'none'.
+    * - rtu_stop
+      - 整数値
+      - 【RTU接続】PLC 機器からの接続を待ち受けるシリアル接続ストップビット.  1 又は 2. デフォルト値は 1.
+    * - rtu_rts_delay
+      - 整数値
+      - 【RTU接続】PLC 機器からの接続を待ち受けるシリアル接続の RTS ディレイ値(usec). 0 の場合は自動設定される値.
+    * - unit
+      - 整数値
+      - 自身に付与する Modbus ユニット ID. 整数値 1 〜 247.
+    * - memo
+      - 文字列
+      - 出力に付加されるユーザー定義文字列. (256byte)
+    * - infos
+      - JSON Object
+      - 出力に付加されるユーザー定義オブジェクト
+
+.. raw:: latex
+
+   \clearpage 
+
+利用可能なファンクションコード
+==================================
+
+PD Handler Modbus Server で利用可能なファンクションコードを示します。
+
+.. list-table:: PD Handler Modbus Server で利用可能なファンクションコード
+    :header-rows: 1
+
+    * - コード
+      - 名称
+      - ローカル
+      - クラウド
+    * - 0x01
+      - Read Coils
+      - 〇
+      - 〇
+    * - 0x02
+      - Read Discrete Input
+      - 〇
+      - 〇
+    * - 0x03
+      - Read Holding Registers
+      - 〇
+      - 〇
+    * - 0x04
+      - Read Input Registers
+      - 〇
+      - 〇
+    * - 0x05
+      - Write Single Coil
+      - 〇
+      - 〇
+    * - 0x06
+      - Write Single Register
+      - 〇
+      - 〇
+    * - 0x07
+      - Read Exception Status
+      - 〇
+      - 
+    * - 0x09
+      - Write Single Discrete Input
+      - 
+      - 〇	
+    * - 0x0a
+      - Write Single Input Register
+      - 
+      - 〇
+    * - 0x0f
+      - Write Multiple Coils
+      - 〇
+      - 〇
+    * - 0x10
+      - Write Multiple Registers
+      - 〇
+      - 〇
+    * - 0x11
+      - Report Slave ID	
+      - 〇
+      - 〇
+    * - 0x13
+      - Write Multiple Discrete Input
+      - 
+      - 〇
+    * - 0x14
+      - Write Multiple Input Registers
+      - 
+      - 〇	
+    * - 0x16
+      - Mask Write Registers
+      - 〇
+      - 
+    * - 0x17
+      - Write And Read Registers
+      - 〇
+      - 〇
+
+ローカルは、設定ファイルもしくはCSV ファイルに指定可能なファンクションコード、
+クラウドはクラウド側か指定可能なファンクションコードを意図します。
+
+.. raw:: latex
+
+   \clearpage 
+
+クラウドからからの制御
+==========================
+
+| クラウドから PD Repeater を介し制御(JSON)文字列を送ることで、レジスタマップを読み書きすることができます。
+| acquisitions オブジェクトの function, data_type, address, number 相当のパラメタと、書き込みファンクションにおいては、valuse に値を記載します。
+| PD Handler Modbus Client とは異なり自身のレジスタマップを読み書きするため、node, portもしくは device の設定は必要としません。
+
+例えば、入力レジスタを読み込むのであれば、その制御文字列は次のようになります。 ::
+
+    {
+        "function": "0x04", "data_type": "uint16_t", "address": "0x160", "number": 5
+    }
+
+これに対する応答メッセージは、次のようになります。 ::
+
+    {
+        "time": "2017-09-05T15:30:05.758+09:00",
+        "reply_to": "14239b236795a8a9e06d60a25c015f2e", "result": "done",
+        "memo": "Modbus Server 00",
+        "protocol": "tcp", "node":"192.168.1.8", "port": 502,
+        "unit":255, "address": 352, "function":4, "data_type": "uint16_t",
+        "values": [65535, 0, 1, 2, 3]
+    }
+
+ここで、reply_to は、制御文字列の MD5 です。
+| レジスタマップに node, port, もしくは device の区別はありませんが、PD Repeater からは異なる localname を持つ個別のデバイスと位置付けられるため、応答メッセージには、制御文字列を受けだ Unix ドメインソケットと対をなす node, port, もしくは device が付加されます。
+
+入力レジスタを書き込むのであれば、その制御文字列は次のようになります。 ::
+
+    {
+        "function": "0x14", "data_type": "uint32_t", "address": "0x140",
+        "values": [4567, 8910, 561, 435]
+    }
+
+これに対する応答メッセージは、次のようになります。 ::
+
+    {
+        "time": "2017-09-05T16:35:13.653+09:00",
+        "reply_to": "d5bcc347ad36fa6e7090d0f763108882", "result": "done",
+        "memo": "Modbus Server 01",
+        "protocol": "rtu", "device": "/dev/ttyMDF1",
+        "unit":17, "address":320, "function":20, "data_type": "uint32_t",
+        "values": [4567, 8910, 561, 435]
+    }
+
+.. raw:: latex
+
+   \clearpage 
+
+レジスタマップのダンプと作成
+================================
+
+レジスタマップファイル(/var/webui/.modbus_server/registers.map)の内容は、
+/usr/sbin/pd_handler_modbus_register コマンドを用いて CSVファイルへダンプもしくは、
+CSVファイルからレジスタマップファイルを作成することができます。
+
+pd_handler_modbus_register コマンドのコマンドオプションを示します。 ::
+
+    root# /usr/sbin/pd_handler_modbus_register -h
+    usages: pd_handler_modbus_register [-d][-f <mapfile>][-C <CSV file>]
+        -d            Dump a registers map file to CSV file.
+        -f mapfile    Registers map file. [default: /var/webui/.modbus_server/registers.map]
+        -C CSV file   CSV file path for in/out [default: stdin/stdout]
+
+レジスタマップファイルの CSV ファイルへダンプ例を示します。 ::
+
+    root# /usr/sbin/pd_handler_modbus_register -d
+        #address, coil, discrete_input, register, input_register, comment
+        0,0,0,0,0,
+        1,1,0,0,0,
+        2,0,0,65534,0,
+        3,0,0,0,0,
+        4,1,0,3,0,
+        5,0,1,2,0,
+        6,1,0,1,0,
+        7,0,1,0,65534,
+        8,0,0,65535,65535,
+        9,0,1,65534,0,
+        10,0,0,0,1,
+        11,0,1,0,0,
+        12,0,0,0,0,
+        13,0,0,0,0,
+        14,0,0,0,0,
+        15,0,0,0,0,
+             :
+        2047,,0,0,0,0,
+
+ここで、数値の並びは、
+
+アドレス(0〜2047)、ディジタル出力値、ディジタル入力値、レジスタ出力値、レジスタ入力値の順です。
+
+値は全て符号なし 16 ビットです。
+レジスタマップファイルはコメントを保持しないため、コメント欄は常に空欄となります。
+
+CSV ファイルからレジスタマップファイルを作成する場合は、次のような CVS ファイルを用意し、
+pd_handler_modbus_register コマンドでレジスタマップファイルに変換します。 ::
+
+    // default register map
+           #address, coil, discrete_input, register, input_register, comment
+	  0,0,0,0,0,
+	  1,1,1,1,1,
+	  8,0,1,65535,65534,
+	  16,0,0,32767,65535,
+	  17,0,0,65535,65535,
+        
+
+CSVファイルは、アドレス 0〜2047 の全てを用意する必要はなく、値を設定する必要があるアドレスだけで構いません。
+値は全て符号なし 16 ビットで指定し、ディジタル出力値とディジタル入力値は必ず 0 又は 1 とします。
+記載されていないアドレスのレジスタ値は 0 がセットされます。
+先頭が '\#' もしくは '/' の行はコメントと見なされます。
+
+pd_handler_modbus_register コマンドによるレジスタマップファイルへの変換方法は次の通りです。 :: 
+
+    root# /usr/sbin/pd_handler_modbus_register -C default_register_map.csv
+
+.. raw:: latex
+
+   \clearpage 

@@ -1,0 +1,98 @@
+.. _data_handler_custum_application:
+
+**************************************
+独自開発データ収集アプリケーション
+**************************************
+
+データの収集において弊社用意するアプリケーション(PD Handler)を用いず、
+各デバイス等からデータを取得するアプリケーションをユーザーが独自に開発し、
+PD Repeaterと連携しクラウドにデータを送信する方法を説明します。
+
+構成イメージは次の通りです。
+
+.. figure:: application.png
+  :scale: 65%
+
+.. _data_handler_custum_application_conf:
+
+ユーザー定義デバイスの登録と送受信先の設定
+=============================================
+
+1. | WEB UIの「サービス」→「基本」→「ユーザーデバイス登録」タブより、
+     独自に開発したアプリケーションをユーザー定義デバイスとして登録します。
+   | サービス機能の基本設定については、:ref:`webui` の :ref:`webui_service`  を参照して下さい。
+   | ユーザー定義のデバイスの登録とは、デバイス番号を割り振りメモ情報を付与する作業です。
+2. 独自に開発したアプリケーションが利用するデバイスファイルやハードウェアが弊社用意するアプリケーション(PD Handler)のそれと競合する場合は、
+   WEB UIの「IoTデータ」→「アプリ設定」タブのアプリケーション制御メニューより、
+   該当するアプリケーションがが起動しないように設定します。
+3. 独自開発のアプリケーションの起動／停止制御については :ref:`data_handler_custom_rc` を参照して下さい。
+4. | WEB UIの「IoTデータ」→「送受信設定」タブの「送受信設定」メニューより、送受信先の選択と送受信設定の内個々のデバイスに依存しない設定を行います。
+   | 送受信設定については :ref:`pd_repeater` を参照して下さい。
+5. | WEB UIの「IoTデータ」→「送受信設定」タブの「デバイス設定（ユーザー定義）」メニューよりユーザー定義デバイスの送受信設定を行います。
+   | ユーザー定義デバイスの送受信設定については "ref:`pd_handler_user_dev` を参照して下さい。
+
+PD Repeaterへのデータ書き込み
+=================================
+
+| PD RepeaterはWEB UIにて設定したデバイス番号を元に、抽象名前空間(abstract)の Unix ドメインソケットを作成します。
+  (作成する対象は送信対象を"送信する"とし、送信先が有効でかつlocal以外が設定されているデバイスです。)
+| このUnixドメインソケットに対して書き込みを行った場合、書き込んだデータをクラウドへデータを送信します。
+| 対象のUnixドメインソケットのパス規則は以下の通りとなります。
+| (:ref:`data_handler_application` に示すユーザー定義のコンフィグを使用する場合、
+  このパス名を任意のパス名に変更することが出来ます。) 
+
+      \\0/pd_repeater/<デバイス番号>.sock
+　
+　
+
+以下に、'{ "x": 1 }'を各々で PD Repeater の Unixドメインソケットに書き込みを行ったサンプルを示します。
+
+■ コマンドラインでの書き込みサンプルは以下となります。
+
+<デバイス番号>：userdev_0000001としてPD Repeaterへ書き込んだ場合 ::
+
+    # echo -n ‘{ "x": 1}' | socat stdin abstract-connect:/pd_repeater/userdev_0000001.sock
+
+.. note::
+  socatコマンドはインストールされていません。そのため、'apt-get install socat' にてインストールしてください。
+
+.. raw:: latex
+
+   \clearpage
+
+■ PHPでのスクリプトサンプルは以下となります。
+
+<デバイス番号>：userdev_0000001として書き込んだ場合 ::
+
+    <?php
+         $value = '{ "x": 1 }';
+         $sock = socket_create(AF_UNIX , SOCK_STREAM , 0);
+         socket_set_nonblock($sock);
+         socket_set_option( $sock, SOL_SOCKET, SO_SNDTIMEO, array( "sec"=>1, "usec"=>0 ) );
+         socket_connect($sock , "\0/pd_repeater/userdev_0000001.sock" , 0 );
+         socket_write($sock, $value);
+         socket_close($sock);
+    ?>
+
+■ Node.jsでのスクリプトサンプルは以下となります。
+
+<デバイス番号>：userdev_0000001として書き込んだ場合 ::
+
+    var absocket = require('abstract-socket');
+    try {
+            var absclient = absocket.connect('\0/pd_repeater/userdev_0000001.sock', function() {
+                    console.log('connect ok');
+            });
+            absclient.write('{"x": 1}');
+        absclient.end();
+    } catch(e) {
+            console.log('fail');
+    }
+    process.exit();
+
+.. note::
+  abstract-socketはインストールされていません。そのため、" npm install abstract-socket"にてインストールしてください。
+
+.. raw:: latex
+
+   \clearpage

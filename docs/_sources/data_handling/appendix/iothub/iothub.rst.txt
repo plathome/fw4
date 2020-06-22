@@ -1,0 +1,28 @@
+.. _data_handler_appendix_iothub:
+
+********************************************
+IoT Hub / IoT Edgeへのデータ送信について
+********************************************
+
+PD RepeaterからAzure IoT Hubに送信する場合、
+ホストマシン(OpenBlocks)からインターネット経由にて送信を行います。
+そのため、クラウドサイドにて使用するデータのみへとフィルタを行う場合、
+送信するデータはホストマシン(OpenBlocks内)にて絞り込みを行うか、
+Azure内の別のサービスと連携して処理を行う必要があります。
+
+.. figure:: iothub.png
+  :scale: 100%
+
+PD RepeaterからAzure IoT Edgeに送信する場合、
+ホストマシン(OpenBlocks)からホスト内に存在するコンテナまたはAzure IoT Edgeが稼働している別のマシンに対してデータ送信を行います。
+Azure IoT Edgeでは、データのフィルタを行うコンテナを行うことでデータ処理が行えます。
+また、通常稼働ではオフライン環境での動作をサポートしており、IoT Hubへのデータ送信が必須ではありません。
+(コンテナのダウンロード及び構成変更等についてはIoT Hubとの通信が必要となります。)
+
+.. figure:: iotedge.png
+  :scale: 100%
+
+.. raw:: latex
+
+   \clearpage
+

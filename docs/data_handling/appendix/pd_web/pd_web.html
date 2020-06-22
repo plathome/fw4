@@ -1,0 +1,513 @@
+
+<!DOCTYPE html>
+
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <title>PH社独自仕様Webサーバー（PD Web） &#8212; OpenBlocks FW4 1.0.0 ドキュメント</title>
+    <link rel="stylesheet" href="../../../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script src="../../../_static/translations.js"></script>
+    
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+    <link rel="index" title="索引" href="../../../genindex.html" />
+    <link rel="search" title="検索" href="../../../search.html" />
+    <link rel="next" title="IoT Hub / IoT Edgeへのデータ送信について" href="../iothub/iothub.html" />
+    <link rel="prev" title="データ送信量及び回線速度について" href="../part01_10.html" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="content-language" content="ja" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <meta name="description" content="OpenBlocksに搭載しているFW4のドキュメントです。初期セットアップ方法や各種クラウドへのIoTデータの送受信(PD Repeater, PD Handler)、AirManageへの接続方法、自作開発に必用な情報等を記載しています。" />
+    <meta name="keywords" content="OpenBlocks,IoT,AirManage,WEB UI,PD,Repeater,Handler" />
+    <meta http-equiv="Content-Script-Type" content="text/JavaScript" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <meta name="subject" content="OpenBlocks FW4の各種ドキュメントです。" />
+    <meta name="abstract" content="OpenBlocksに搭載しているFW4のドキュメントです。初期セットアップ方法や各種クラウドへのIoTデータの送受信(PD Repeater, PD Handler)、AirManageへの接続方法、自作開発に必用な情報等を記載しています。" />
+    <meta name="owner" content="ぷらっとホーム株式会社" />
+    <meta name="copyright" content="2020 Plat'Home Co., Ltd. All rights reserved." />
+    <meta name="robots" content="INDEX,FOLLOW" />
+  </head><body>
+<div class="header">
+	<div class="header_container">
+		<a href="https://www.plathome.co.jp">
+			<!-- <img src="/_static/logo_plathome_technology.png" width="137.5" alt="Plat'Home"> -->
+			<img src="/_static/logo_plathome_white.png" width="137.5" alt="Plat'Home">
+		</a>
+		<div class="right">
+			<a class="headlink" href="https://www.plathome.co.jp">
+				会社TOP
+			</a>
+		</div>
+		<div class="right">
+			<a class="headlink" href="https://docs.plathome.co.jp">
+				HOME
+			</a>
+		</div>
+	</div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>ナビゲーション</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="総合索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="../iothub/iothub.html" title="IoT Hub / IoT Edgeへのデータ送信について"
+             accesskey="N">次へ</a> |</li>
+        <li class="right" >
+          <a href="../part01_10.html" title="データ送信量及び回線速度について"
+             accesskey="P">前へ</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">OpenBlocks FW4 1.0.0 ドキュメント</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../data_handling.html" >データハンドリングガイド</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../appendix.html" accesskey="U">補足事項</a> &#187;</li> 
+      </ul>
+    </div>
+</div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="phweb-pd-web">
+<span id="data-handler-pd-web"></span><h1>PH社独自仕様Webサーバー（PD Web）<a class="headerlink" href="#phweb-pd-web" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>HTTPを用いた双方向通信を実現するために弊社が独自に仕様を定義したWebサーバーです。</p>
+<div class="section" id="pd-web">
+<h2>PD Webの概要<a class="headerlink" href="#pd-web" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<ul class="simple">
+<li><dl class="simple">
+<dt>PD Web はHTTPにおいて双方向通信を提供します。</dt><dd><ul>
+<li><p>下流方向へのペイロード転送は、上流方向へのPOSTに対する応答メッセージとして提供されます。</p></li>
+<li><p>上流方向へ送るべきペイロードが存在しない場合、PD Repeaterは、
+「受信ポーリング間隔」に指定される間隔で空接続を行います。</p></li>
+<li><p>下流方向へ送るべきペイロードが存在しない場合、Webサーバーは応答ヘッダーのみを返します。
+PD Repeaterは応答メッセージが空でない場合、
+push_toキーに指定される下流モジュールのUNIXドメインソケットにペイロードを転送します。</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>PD Web の認証方式は双方向のトークン認証です。</dt><dd><ul>
+<li><p>PD RepeaterとWebサーバーには、デバイス毎に指定されたIDと鍵(Key)の情報を持ちます。</p></li>
+<li><p>PD Repeaterは、リクエストヘッダに記載するバージョン番号（PD Web仕様のバージョン番号）・ID・タイムスタンプ・
+ペイロードのハッシュ値(MD5)から構成される署名対象文字列（リクエスト用）を鍵(Key)で著名した
+ハッシュ値(Shignature)をリクエスト用のトークンとします。</p></li>
+<li><p>Webサーバーは、バージョン番号・ID・タイムスタンプ・ペイロードのハッシュ値(MD5)にリクエストヘッダの
+トークンを加えた署名対象文字列（応答用）を鍵(Key)で著名したハッシュ値(Shignature)を応答用のトークンとします。</p></li>
+<li><p>応答ヘッダーのShignatureもしくはペイロードのMD5が期待される値と一致しない場合、
+以降、PD Repeaterは応答ヘッダーに期待されるShignatureが返されるまでペイロードを空とします。</p></li>
+<li><p>Webサーバー一括のBASIC認証を併用することも可能です。</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>エラーハンドリング</dt><dd><ul>
+<li><p>PD Repeaterとwebサーバー間のエラーハンドリングはHTTPステータスコードのみで行われます。
+ステータスが200～299以外の場合は、応答ヘッダーの内容に関わらず下流モジュールへのペイロードの転送は行われません。</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>ペイロードのフォーマットとトランザクション管理</dt><dd><ul>
+<li><p>上流方向のペイロードのフォーマットはJSON文字列であり、
+複数のメッセージをまとめて転送できるようメッセージの数に限らず最上位階層は配列となります。</p></li>
+<li><p>PD Repeaterの下流方向のメッセージフォーマットは第2-5-2章に示す通りですが、
+ペイロードのフォーマットは規定されていません。下流方向のペイロードのフォーマットは
+PD Repeaterからペイロードを受け取る下流のモジュールの仕様に依存します。</p></li>
+<li><p>ペイロードのトランザクション（到達や再送処理）管理は、Webサーバーと下流のモジュール間で行われることを前提とし、
+PD Repeaterはトランザクションの管理を行いません。</p></li>
+<li><p>弊社が提供するPD Handler ModbusとPD Agentはトランザクション管理用途に下流方向のペイロードの
+ハッシュ値(MD5)をJSON文字列 &quot;reply_to&quot; キーの値として返す仕様となっています。</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="pd-webhttp">
+<h2>PD WebのHTTPヘッダー<a class="headerlink" href="#pd-webhttp" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>PD Webで規定されているHTTPヘッダーは次の通りです。</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>HTTPヘッダー</p></th>
+<th class="head"><p>内容</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>X-Pd-Web-Version</p></td>
+<td><p>PD Web の仕様のバージョン番号</p></td>
+</tr>
+<tr class="row-odd"><td><p>X-Pd-Web-Id</p></td>
+<td><p>クライアントのID</p></td>
+</tr>
+<tr class="row-even"><td><p>X-Pd-Web-Time</p></td>
+<td><p>RFC3339準拠のタイムスタンプ</p></td>
+</tr>
+<tr class="row-odd"><td><p>X-Pd-Web-Md5</p></td>
+<td><p>ハッシュ値</p></td>
+</tr>
+<tr class="row-even"><td><p>X-Pd-Web-Signature</p></td>
+<td><p>ヘッダ情報と鍵(Key)から作成されたハッシュ値</p></td>
+</tr>
+<tr class="row-odd"><td><p>Content-Type</p></td>
+<td><p>application/json;charset=UTF-8</p></td>
+</tr>
+</tbody>
+</table>
+<p>PD Repeaterからの要求ヘッダーの例を示します。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Host</span><span class="p">:</span> <span class="mf">127.0</span><span class="o">.</span><span class="mi">01</span>
+<span class="n">Accept</span><span class="p">:</span> <span class="o">*/*</span>
+<span class="n">X</span><span class="o">-</span><span class="n">Pd</span><span class="o">-</span><span class="n">Web</span><span class="o">-</span><span class="n">Version</span><span class="p">:</span> <span class="mf">1.0</span>
+<span class="n">X</span><span class="o">-</span><span class="n">Pd</span><span class="o">-</span><span class="n">Web</span><span class="o">-</span><span class="n">Id</span><span class="p">:</span> <span class="n">pd_web_02</span>
+<span class="n">X</span><span class="o">-</span><span class="n">Pd</span><span class="o">-</span><span class="n">Web</span><span class="o">-</span><span class="n">Time</span><span class="p">:</span> <span class="mi">2017</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">01</span><span class="n">T18</span><span class="p">:</span><span class="mi">11</span><span class="p">:</span><span class="mf">01.101</span><span class="o">+</span><span class="mi">09</span><span class="p">:</span><span class="mi">00</span>
+<span class="n">X</span><span class="o">-</span><span class="n">Pd</span><span class="o">-</span><span class="n">Web</span><span class="o">-</span><span class="n">Md5</span><span class="p">:</span> <span class="mi">26</span><span class="n">b32b7bc6b4587c2ded48128e809b08</span>
+<span class="n">X</span><span class="o">-</span><span class="n">Pd</span><span class="o">-</span><span class="n">Web</span><span class="o">-</span><span class="n">Signature</span><span class="p">:</span> <span class="n">c91279bc0d9896745e4e12e73917aafd56c017966a89375273ba4b9be8b02096</span>
+<span class="n">Content</span><span class="o">-</span><span class="n">Length</span><span class="p">:</span> <span class="mi">190</span>
+<span class="n">Content</span><span class="o">-</span><span class="n">Type</span><span class="p">:</span> <span class="n">application</span><span class="o">/</span><span class="n">json</span><span class="p">;</span><span class="n">charset</span><span class="o">=</span><span class="n">UTF</span><span class="o">-</span><span class="mi">8</span>
+</pre></div>
+</div>
+<p>PD Repeaterへの応答ヘッダーの例を示します。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">HTTP</span><span class="o">/</span><span class="mf">1.1</span> <span class="mi">200</span> <span class="n">OK</span>
+<span class="n">Date</span><span class="p">:</span> <span class="n">Fri</span><span class="p">,</span> <span class="mi">01</span> <span class="n">Sep</span> <span class="mi">2017</span> <span class="mi">08</span><span class="p">:</span><span class="mi">34</span><span class="p">:</span><span class="mi">35</span> <span class="n">GMT</span>
+<span class="n">Server</span> <span class="n">Apache</span><span class="o">/</span><span class="mf">2.4</span><span class="o">.</span><span class="mi">27</span> <span class="p">(</span><span class="n">Unix</span><span class="p">)</span>
+<span class="n">X</span><span class="o">-</span><span class="n">Powered</span><span class="o">-</span><span class="n">By</span><span class="p">:</span> <span class="n">PHP</span><span class="o">/</span><span class="mf">5.6</span><span class="o">.</span><span class="mi">31</span>
+<span class="n">X</span><span class="o">-</span><span class="n">Pd</span><span class="o">-</span><span class="n">Web</span><span class="o">-</span><span class="n">Version</span><span class="p">:</span> <span class="mf">1.0</span>
+<span class="n">X</span><span class="o">-</span><span class="n">Pd</span><span class="o">-</span><span class="n">Web</span><span class="o">-</span><span class="n">Id</span><span class="p">:</span> <span class="n">pd_web_03</span>
+<span class="n">X</span><span class="o">-</span><span class="n">Pd</span><span class="o">-</span><span class="n">Web</span><span class="o">-</span><span class="n">Time</span><span class="p">:</span> <span class="mi">2017</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">01</span><span class="n">T17</span><span class="p">:</span><span class="mi">34</span><span class="p">:</span><span class="mf">35.000</span><span class="o">+</span><span class="mi">09</span><span class="p">:</span><span class="mi">00</span>
+<span class="n">X</span><span class="o">-</span><span class="n">Pd</span><span class="o">-</span><span class="n">Web</span><span class="o">-</span><span class="n">Md5</span><span class="p">:</span> <span class="n">d41d8cd98f00b204e9800998ecf8427e</span>
+<span class="n">X</span><span class="o">-</span><span class="n">Pd</span><span class="o">-</span><span class="n">Web</span><span class="o">-</span><span class="n">Signature</span><span class="p">:</span> <span class="n">b4e23876e866e9225e2f83cbd1df8b6387fe5da9e160b222953464b1ae87a9d3</span>
+<span class="n">Content</span><span class="o">-</span><span class="n">Length</span><span class="p">:</span> <span class="mi">0</span>
+<span class="n">Content</span><span class="o">-</span><span class="n">Type</span><span class="p">:</span> <span class="n">application</span><span class="o">/</span><span class="n">json</span><span class="p">;</span><span class="n">charset</span><span class="o">=</span><span class="n">UTF</span><span class="o">-</span><span class="mi">8</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id1">
+<h2>PD Webのトークン<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>PD Repeaterで作成されるリクエストヘッダのトークン(X-Pd-Web-Sinature)は、
+Webサーバーにおいて次のPHPスクリプトにより再生できます。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$hash_hmac_data =
+    $_SERVER[&#39;HTTP_X_PD_WEB_VERSION&#39;] .
+    $_SERVER[&#39;HTTP_X_PD_WEB_ID&#39;] .
+    $_SERVER[&#39;HTTP_X_PD_WEB_TIME&#39;] .
+    $_SERVER[&#39;HTTP_X_PD_WEB_MD5&#39;];
+$signature = hash_hmac (&#39;sha256&#39;, $hash_hmac_data, $key, false);
+</pre></div>
+</div>
+<p>ここで$keyは、は $_SERVER['HTTP X PD WEB ID'] と対をなす予めWebサーバーに保存された鍵(Key)となります。
+再生した $signature と $_SERVER['HTTP X PD WEB SIGNATURE']  を比較することで認証します。</p>
+<p>応答ヘッダーのトークン(X-Pd-Web-Sinature)は、Webサーバーにおいて次のPHPスクリプトにより作成します。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$tm = localtime();
+$timestamp = sprintf(&quot;%04d-%02d-%02dT%02d:%02d:%02d.000+09:00&quot;,
+    $tm[5]+1900,$tm[4]+1,$tm[3],$tm[2],$tm[1],$tm[0]);
+$hash_hmac_data = &#39;1.0&#39; . $_SERVER[&#39;HTTP_X_PD_WEB_ID&#39;] . $timestamp .
+     md5($payload) . $_SERVER[&#39;HTTP_X_PD_WEB_SIGNATURE&#39;];
+$signature = hash_hmac (&#39;sha256&#39;, $hash_hmac_data, $key, false);
+</pre></div>
+</div>
+<p>ここで、$payload は、ペイロードの文字列、送信すべき文字列（下流方向の制御メッセージ）が無い場合は、$payload=&quot;&quot;; とします。
+リクエストヘッダのトークンとは異なり、被署名文字列に PD Repeater から送られて来たリクエストヘッダのトークン($_SERVER['HTTP X PD WEB SIGNATURE'])が、含まれる点に注意して下さい。</p>
+</div>
+<div class="section" id="web-php">
+<h2>Webサーバー(PHPスクリプト)の実装例<a class="headerlink" href="#web-php" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>Webサーバー(PHPスクリプト)の実装例を示します。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;?php
+
+/*
+ * 本 PHP スクリプトは PD Repeater の PD Web を利用するための、
+ * サーバ側 PHP スクリプトのサンプルです.
+ *
+ * 本スクリプトを動作させるためには、次の SQL構文で作成された SQLite3 データベース
+ * (スクリプト中の $db_file)が必要となります.
+ *
+ *     CREATE TABLE client (id TEXT, key TEXT, flags INTEGER, payload BLOB, md5 TEXT);
+ *     CREATE INDEX index_client ON client (id);
+ *
+ * ここで、id は、各センサーデバイス毎に設定する PD Web の ID, key はトークンを  
+ * 作成するための鍵、contens は PD Repeater を介して各センサーデバイスへ送信する
+ * JSON 文字列(ペイロード)、
+ * md5 は JSON文字列のMD5ハッシュ値、flags はペイロードの送信状態を示すコードで
+ * 0:送信済、1:処理中、2:未送信 を意味します.
+ *
+ * 以下に初期値の設定例を示します.
+ *
+ *     INSERT INTO client(id, key, flags, payload, md5)
+ *                VALUES(&#39;id00&#39;, &#39;key00&#39;, 0, &#39;{&quot;any_key&quot;:&quot;any_value&quot;}&#39;,
+ *                       &#39;d29e8a13452e5bc5218d9df7e6ea991f&#39;);&quot;
+ *     INSERT INTO client(id, key, flags, payload, md5)
+ *                VALUES(&#39;id01&#39;, &#39;key10&#39;, 0, &#39;{&quot;any_key&quot;:&quot;any_value&quot;}&#39;, 
+ *                       &#39;d29e8a13452e5bc5218d9df7e6ea991f&#39;);&quot;
+ *
+ * ここで、d29e8a13452e5bc5218d9df7e6ea991 は、&#39;{&quot;any_key&quot;:&quot;any_value&quot;}&#39; の MD5値です.
+ *  Linux OS では、次のコマンドで取得することができます.
+ *
+ *     echo -n &#39;{&quot;any_key&quot;:&quot;any_value&quot;}&#39; | md5sum
+ *
+ * ペイロードを送信するには SQLの UPDATEを用いて flags を 2:未送信 に変更します.
+ * 
+ *     UPDATE client SET flags = 2 WHERE id = &#39;id00&#39;;
+ * 
+ * 勿論ペイロードとMD5値を合わせてセットすることも可能です.
+ *
+ *     UPDATE client
+ *                SET flags = 2,
+ *                    payload = &#39;{&quot;any_key&quot;:&quot;new_value&quot;}&#39;,
+ *                    md5 = &#39;94f030ebd7bed4a5ee08fc6fa75ae64e&#39;
+ *                WHERE id = &#39;id00&#39;;
+ *
+ * 送信を終えるを PHP スクリプトは flag を 1 に更新し、&#39;reply_to&#39; キーを含む
+ * 応答ペイロードを待ちます.
+ *
+ * 応答ペイロードの例
+ *
+ *      {&quot;reply_to&quot;:&quot;94f030ebd7bed4a5ee08fc6fa75ae64e&quot;,&quot;result&quot;:&quot;done&quot;}
+ *
+ * 応答ペイロードは PD Repeater を介してペイロードを受け取る各センサーデバイス
+ * (のハンドラ)がPD Repeater 介して返すものです.
+ * PD Agent や PD Handler Modbus は &#39;reply_to&#39; キーで payload の MD5値をハンドリング
+ * しますが、独自のハンドラを用いる場合は、独自の応答ペイロードとすることも可能です.
+ *
+ * 応答ペイロード受け取ると PHP スクリプトは、データベース上の md5 と reply_to の値を比較し、
+ * flag を 0 に更新します.
+ * 受信ペイロードに応答ペイロードが含まれていない場合、PHP スクリプトは flag を 2 に戻し、
+ * 再送します.
+ *
+ */
+    $dump_file = &#39;/tmp/dump.txt&#39;;
+    $db_file = &#39;/tmp/pd_web.db&#39;;
+
+    /* HTTP ヘッダーの確認 */
+    if (!(isset($_SERVER[&#39;HTTP_X_PD_WEB_VERSION&#39;]) &amp;&amp;
+          isset($_SERVER[&#39;HTTP_X_PD_WEB_ID&#39;]) &amp;&amp;
+          isset($_SERVER[&#39;HTTP_X_PD_WEB_TIME&#39;]) &amp;&amp;
+          isset($_SERVER[&#39;HTTP_X_PD_WEB_MD5&#39;]) &amp;&amp;
+          isset($_SERVER[&#39;HTTP_X_PD_WEB_SIGNATURE&#39;]))) {
+        /* HTTPヘッダーが不正な場合 Bad Request 400 を返す. */
+        http_response_code (400);
+        exit;
+    }
+
+    /* SQLite3 データーベースの読み込み */
+
+    /* 本コードはサンプルであるため、SQL インジェクション対策を省略しています.
+       実運用に利用するためには $_SERVER[&#39;HTTP_X_PD_WEB_ID&#39;] のバリデーション
+       を十分行って下さい. */
+
+    $db = new SQLite3($db_file);
+    $query = sprintf(&quot;SELECT key, flags, payload, md5 FROM client WHERE id = &#39;%s&#39;;&quot;,
+        $_SERVER[&#39;HTTP_X_PD_WEB_ID&#39;]);
+    $results = $db-&gt;query($query);
+
+    if(! $results) {
+        /* HTTP_X_PD_WEB_ID が存在しない場合は Unauthorized 401 を返す. */
+        http_response_code (401);
+        $db-&gt;close();
+        exit;
+    }
+    else {
+        $row = $results-&gt;fetchArray();
+        $key = $row[&#39;key&#39;];
+        $flags = $row[&#39;flags&#39;];
+        $payload_tx = $row[&#39;payload&#39;];
+        $md5_tx = $row[&#39;md5&#39;];
+    }
+
+    /* HTTP リクエストヘッダ内の所定の文字列とデータベース上の key を用い
+       signature を作成する */
+
+    $hash_hmac_data = 
+        $_SERVER[&#39;HTTP_X_PD_WEB_VERSION&#39;] .
+        $_SERVER[&#39;HTTP_X_PD_WEB_ID&#39;] .
+        $_SERVER[&#39;HTTP_X_PD_WEB_TIME&#39;] .
+        $_SERVER[&#39;HTTP_X_PD_WEB_MD5&#39;];
+
+    $signature = hash_hmac (&#39;sha256&#39;, $hash_hmac_data, $key, false);
+
+    /* HTTP 応答ヘッダ共通部の設定 */
+    date_default_timezone_set(&#39;Asia/Tokyo&#39;);
+    $tm = localtime();
+    $timestamp = sprintf(&quot;%04d-%02d-%02dT%02d:%02d:%02d.000+09:00&quot;,
+        $tm[5]+1900,$tm[4]+1,$tm[3],$tm[2],$tm[1],$tm[0]);
+
+    header(&#39;Pd_Web_Version: 1.0&#39;); 
+    header(&#39;Pd_Web_Id: &#39; . $_SERVER[&#39;HTTP_X_PD_WEB_ID&#39;]); 
+    header(&#39;Pd_Web_Time: &#39; . $timestamp); 
+    header(&#39;Content-Type: application/json;charset=UTF-8&#39;); 
+
+    /* リクエストヘッダの被署名文字列が VERSION.ID.TIME.MD5 で構成されているのに対し、
+           応答ヘッダの被署名文字列は、VERSION.ID.TIME.MD5.SIGNATURE 
+       (SIGNATUREは、リクエストヘッダに含まれる文字列) で構成されている点に注意 */
+
+    if ($signature != $_SERVER[&#39;HTTP_X_PD_WEB_SIGNATURE&#39;]) {
+        /* HTTP_X_PD_WEB_SIGNATURE と signature が一致しない場合は、
+           401 Unauthorized を返す. */
+        header(&#39;Pd_Web_Md5: &#39; . md5(&#39;&#39;)); 
+        $hash_hmac_data = &#39;1.0&#39; . $_SERVER[&#39;HTTP_X_PD_WEB_ID&#39;] . $timestamp .
+            md5(&#39;&#39;) . $_SERVER[&#39;HTTP_X_PD_WEB_SIGNATURE&#39;];
+        $signature = hash_hmac (&#39;sha256&#39;, $hash_hmac_data, $key, false);
+        header(&#39;Pd_Web_Signature: &#39; . $signature); 
+        http_response_code (401);
+        $db-&gt;close();
+        exit;
+    }
+
+    $payload = file_get_contents(&quot;php://input&quot;);
+
+    if(md5($payload) != $_SERVER[&#39;HTTP_X_PD_WEB_MD5&#39;]) {
+        /* payload の MD5値 と HTTP_X_PD_WEB_MD5 が一致しない場合は、
+           406 Not Acceptable を返す. */
+        header(&#39;Pd_Web_Md5: &#39; . md5(&#39;&#39;)); 
+        $hash_hmac_data = &#39;1.0&#39; . $_SERVER[&#39;HTTP_X_PD_WEB_ID&#39;] . $timestamp .
+            md5(&#39;&#39;) . $_SERVER[&#39;HTTP_X_PD_WEB_SIGNATURE&#39;];
+        $signature = hash_hmac (&#39;sha256&#39;, $hash_hmac_data, $key, false);
+        header(&#39;Pd_Web_Signature: &#39; . $signature); 
+        http_response_code (406);
+        $db-&gt;close();
+        exit;
+    }
+
+    /* 受信ペイロードを HTTP リクエストヘッダと共に dump_file に格納する */
+    $fp = fopen($dump_file, &#39;a+&#39;);
+    fputs($fp, $_SERVER[&#39;HTTP_X_PD_WEB_VERSION&#39;]);
+    fputs($fp, &quot;\n&quot;);
+    fputs($fp, $_SERVER[&#39;HTTP_X_PD_WEB_ID&#39;]);
+    fputs($fp, &quot;\n&quot;);
+    fputs($fp, $_SERVER[&#39;HTTP_X_PD_WEB_TIME&#39;]);
+    fputs($fp, &quot;\n&quot;);
+    fputs($fp, $_SERVER[&#39;HTTP_X_PD_WEB_MD5&#39;]);
+    fputs($fp, &quot;\n&quot;);
+    fputs($fp, $_SERVER[&#39;HTTP_X_PD_WEB_SIGNATURE&#39;]);
+    fputs($fp, &quot;\n&quot;);
+    fputs($fp, $_SERVER[&#39;CONTENT_LENGTH&#39;]);
+    fputs($fp, &quot;\n&quot;);
+    fputs($fp, $payload);
+    fputs($fp, &quot;\n&quot;);
+    fputs($fp, &quot;\n&quot;);
+    fclose( $fp );
+
+    /* flags が 1 (処理中ペイロードあり) の場合、受信ペイロードから、
+       &#39;reply_to&#39; キーの値を取得 */
+    if($flags === 1) {
+        $json = mb_convert_encoding(
+            $payload, &#39;UTF8&#39;, &#39;ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN&#39;);
+        $array = json_decode($json,true);
+        if ($array !== NULL) {
+            /* 受信ペイロードは、JSONオブジェクトの配列です. */
+            $payload_count = count($array);
+            for($i=0;$i&lt;$payload_count;$i++) {
+                if (isset($array[$i][&#39;reply_to&#39;])) {
+                    /* &#39;reply_to&#39; キーの値と md5_tx を比較 */
+                    if($array[$i][&#39;reply_to&#39;] === $md5_tx) {
+                           /* 一致している場合は flags を 0 にする */
+                        $flags = 0;
+                    }
+                    else {
+                           /* 一致していない場合は flags を 2 にする */
+                        $flags = 2;
+                    }
+                }
+                break;
+            }
+            if($i == $payload_count) {
+                /* &#39;reply_to&#39; キーが存在しない場合は flags を 2 にする */
+                $flags = 2;
+            }
+        }
+        else {
+              /* JSON文字列で無い場合、flags を 2 にする */
+            $flags = 2;
+        }
+
+        /* データベースの flags を更新する. */
+        $query = sprintf(&quot;UPDATE client SET flags = %d WHERE id = &#39;%s&#39;;&quot; ,
+            $flags, $_SERVER[&#39;HTTP_X_PD_WEB_ID&#39;]);
+        $results = $db-&gt;query($query);
+    }
+
+    if($flags == 2) {
+        /* flags が 2 (送信ペイロードあり) の場合は、payload_tx を送り、200 OK を返す. */
+        header(&#39;Pd_Web_Md5: &#39; . md5($payload_tx));
+        $hash_hmac_data = &#39;1.0&#39; . $_SERVER[&#39;HTTP_X_PD_WEB_ID&#39;] . $timestamp .
+            md5($payload_tx) . $_SERVER[&#39;HTTP_X_PD_WEB_SIGNATURE&#39;];
+        $signature = hash_hmac (&#39;sha256&#39;, $hash_hmac_data, $key, false);
+        header(&#39;Pd_Web_Signature: &#39; . $signature); 
+        echo $payload_tx;
+        http_response_code (200);
+
+        /* flags を 1 (処理中ペイロードあり) に変更し、データベースの flags を更新する. */
+        $flags = 1;
+        $query = sprintf(&quot;UPDATE client SET flags = %d WHERE id = &#39;%s&#39;;&quot; ,
+            $flags, $_SERVER[&#39;HTTP_X_PD_WEB_ID&#39;]);
+        $results = $db-&gt;query($query);
+    }
+    else {
+        /* 200 OK を返す. */
+        header(&#39;Pd_Web_Md5: &#39; . md5(&#39;&#39;)); 
+        $hash_hmac_data = &#39;1.0&#39; . $_SERVER[&#39;HTTP_X_PD_WEB_ID&#39;] . $timestamp .
+            md5(&#39;&#39;) . $_SERVER[&#39;HTTP_X_PD_WEB_SIGNATURE&#39;];
+        $signature = hash_hmac (&#39;sha256&#39;, $hash_hmac_data, $key, false);
+        header(&#39;Pd_Web_Signature: &#39; . $signature); 
+        http_response_code (200);
+    }
+
+    $db-&gt;close();
+    exit;
+?&gt;
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">PH社独自仕様Webサーバー（PD Web）</a><ul>
+<li><a class="reference internal" href="#pd-web">PD Webの概要</a></li>
+<li><a class="reference internal" href="#pd-webhttp">PD WebのHTTPヘッダー</a></li>
+<li><a class="reference internal" href="#id1">PD Webのトークン</a></li>
+<li><a class="reference internal" href="#web-php">Webサーバー(PHPスクリプト)の実装例</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>前のトピックへ</h4>
+  <p class="topless"><a href="../part01_10.html"
+                        title="前の章へ">データ送信量及び回線速度について</a></p>
+  <h4>次のトピックへ</h4>
+  <p class="topless"><a href="../iothub/iothub.html"
+                        title="次の章へ">IoT Hub / IoT Edgeへのデータ送信について</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">クイック検索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="検索" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020 Plat&#39;Home Co., Ltd. All rights reserved..
+    </div>
+  </body>
+</html>

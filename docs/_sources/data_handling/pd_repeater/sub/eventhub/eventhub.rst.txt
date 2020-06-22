@@ -1,0 +1,55 @@
+.. _pd_repeater_eventhub:
+
+MS Azure Event hubs(eventhub)
+---------------------------------
+
+■ 送受信設定メニューにおける設定
+
+.. figure:: eventhub.png
+  :scale: 100%
+
+.. list-table:: 送受信設定メニューにおける設定項目
+    :widths: 30 70
+    :header-rows: 1
+    
+    * - 設定項目
+      - 説明
+    * - インターバル[sec]
+      - 送信完了後～送信開始までの時間間隔を秒単位で設定します。
+    * - 有効時間[sec]
+      - PD Reperterがデータ送信できない場合において、保持する時間を設定します。　
+        0 を指定した場合、データ送信が完了するまで保持し続けます。
+    * - サブプロセス再起動間隔[sec]
+      - サブプロセスを再起動する間隔を設定します。　
+        通常デォルト値（86400秒）から変更する必要はありません。　
+        0を指定した場合、再起動は行いません。
+    * - ドメイン名
+      - 接続先のEvent hubsのドメイン名を設定します。
+    * - 名前空間
+      - Event hubsの名前空間を設定します。
+    * - ポート番号
+      - 送信先のEvent hubsのポート番号を設定します。
+    * - デバイス一括設定
+      - 各デバイス設定メニューにおいて送信対象設定が「送信する」となっている各対象の送信先設定を一括で有効/無効を選択できます。
+
+■ 各デバイス設定メニューにおける設定
+
+.. figure:: eventhub_device.png
+  :scale: 100%
+
+.. list-table:: 各デバイス設定メニューにおける設定項目
+    :widths: 30 70
+    :header-rows: 1
+    
+    * - 設定項目
+      - 説明
+    * - Event hubs名(eventhub)
+      - Event hubsのhub名を設定します。
+    * - SASポリシー(eventhub)
+      - Event hubsのSASポリシーを設定します。
+    * - SASキー(eventhub)
+      - Event hubsのSASキーを設定します。
+
+.. raw:: latex
+
+   \clearpage

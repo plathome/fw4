@@ -1,0 +1,3548 @@
+.. _data_form_ble_nodejs:
+
+****************************
+PD Handler BLE (Node.js)
+****************************
+
+.. _data_form_ble_nodejs_beacon:
+
+================
+Beacon
+================
+
+ビーコン送受信設定
+==============================
+
+■ データサンプル　::
+
+    {
+        "time": "2017-12-08T15:00:04.549+09:00",
+        "deviceId": "e9c8dd35ee18",
+        "appendixInfo": "G8H00012",
+        "rssi": -88,
+        "type": "iBeacon",
+        "data": "0201040c0946434c20426561636f6e31",
+        "localname": "beacon",
+        "status": "in"
+    }
+
+.. list-table:: Beacon (ビーコン送受信設定)
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - time
+      - データ取得日時
+      - String
+      - 〇
+      - ISO8601拡張書式
+    * - 2
+      - deviceId
+      - デバイスID
+      - String
+      - 〇
+      - デバイスアドレスから ':' を除き、小文字化した値
+    * - 3
+      - appendixInfo
+      - 付随情報
+      - String
+      - 
+      - WEB UIから設定された値
+    * - 4
+      - rssi
+      - 受信信号強度
+      - Integer
+      - 〇
+      - 
+    * - 5
+      - type
+      - ビーコン種別
+      - String
+      - 
+      - WEB UIにて表示設定
+    * - 6
+      - data
+      - ペイロードデータ
+      - String
+      - 	
+      - 16進ダンプデータ
+    * - 7	
+      - localname
+      - ローカル名
+      - String
+      - 
+      - WEB UIにて表示設定
+    * - 8
+      - status
+      - ビーコンステータス
+      - String
+      - 
+      - ビーコン制御タイプにより表示。('in' または 'out')
+    * - ex
+      - ユーザー設定
+      - ユーザー設定内容
+      - String
+      - 
+      - WEB UIから設定された値
+
+BLEデバイス情報送信設定
+===========================
+
+■ データサンプル ::
+
+    {
+        "time": "2017-12-08T15:00:04.549+09:00",
+        "deviceId": "e9c8dd35ee18",
+        "memo": "BLE beacon"
+    }
+
+.. list-table:: Beacon (BLEデバイス情報送信設定)
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - time
+      - データ取得日時
+      - String
+      - 〇
+      - ISO8601拡張書式
+    * - 2
+      - deviceId
+      - デバイスID
+      - String
+      - 〇
+      - デバイスアドレスから ':' を除き、小文字化した値
+    * - 3
+      - memo
+      - メモ
+      - String
+      - 
+      - WEB UIから設定された値
+
+.. raw:: latex
+
+   \clearpage
+
+.. _data_form_ble_nodejs_sensor:
+
+========================
+Sensor
+========================
+
+TI Sensor
+=======================
+
+BLEデバイス情報送信設定
+--------------------------------
+
+■ データサンプル ::
+
+    {
+        "deviceId": "b0b448b93907",
+        "time": "2016-03-14T09:32:15.864+09:00",
+        "humidity": 68.12,
+        "temperature": 25.51,
+        "accelX": 0,
+        "accelY": 0,
+        "accelZ": -1.1001,
+        "gyroX": 0.3002,
+        "gyroY": 0.9001,
+        "gyroZ": 2.1003,
+        "magX": -25.5004,
+        "magY": 48.0001,
+        "magZ": -159.2002,
+        "pressure": 1008.22,
+        "objectTemp": 21,
+        "ambientTemp": 25.3,
+        "lux": 0.2
+    }
+
+.. list-table:: TI Sensor (BLEデバイス情報送信設定)
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - deviceId
+      - デバイスID
+      - String
+      - 〇
+      - デバイスアドレスから ':' を除き、小文字化した値
+    * - 2
+      - time
+      - データ取得日時
+      - String
+      - 〇
+      - ISO8601拡張書式
+    * - 3
+      - humidity
+      - 湿度
+      - Double
+      - △
+      - [%]
+    * - 4	
+      - temperature
+      - 温度
+      - Double
+      - △
+      - [℃]
+    * - 5
+      - accelX
+      - X方向加速度
+      - Double
+      - △
+      - [G]
+    * - 6
+      - accelY
+      - Y方向加速度	
+      - Double
+      - △
+      - [G]
+    * - 7
+      - accelZ
+      - Z方向加速度
+      - Double
+      - △
+      - [G]
+    * - 8
+      - gyroX
+      - X方向角速度
+      - Double
+      - △
+      - [°/s]
+    * - 9
+      - gyroY
+      - Y方向角速度
+      - Double
+      - △
+      - [°/s]
+    * - 10
+      - gyroZ
+      - Z方向角速度
+      - Double
+      - △
+      - [°/s]
+    * - 11
+      - magX
+      - X方向地磁気
+      - Double
+      - △
+      - [μT]
+    * - 12
+      - magY
+      - Y方向地磁気
+      - Double
+      - △
+      - [μT]
+    * - 13
+      - magZ
+      - Z方向地磁気
+      - Double
+      - △
+      - [μT]
+    * - 14
+      - pressure
+      - 気圧
+      - Double
+      - △
+      - [hPa]
+    * - 15
+      - objectTemp
+      - 物体温度
+      - Double
+      - △
+      - [℃]
+    * - 16
+      - ambientTemp
+      - 周辺温度
+      - Double
+      - △
+      - [℃]
+    * - 17
+      - lux
+      - 照度
+      - Double
+      - △
+      - [lux]
+    * - 18
+      - memo
+      - メモ
+      - String
+      - 
+      - WEB UIから設定された値
+
+.. note::
+   センサー依存のJSONキーデータは電池残量や使用モデルにより、含まれない場合があります。
+
+.. raw:: latex
+
+   \clearpage
+
+Fujitsu Sensor
+==================
+
+ビーコン送受信設定
+--------------------------------
+
+■ データサンプル ::
+
+    {
+        "deviceId": "b0b448b93908",
+        "time": "2016-03-14T09:12:15.225+09:00",
+        "rssi": -67,
+        "temperature": 25.61,
+        "accelX": 0,
+        "accelY": 0,
+        "accelZ": -1.0001
+    }
+
+.. list-table:: Fujitsu Sensor (ビーコン送受信設定)
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - deviceId
+      - デバイスID
+      - String
+      - 〇
+      - デバイスアドレスから ':' を除き、小文字化した値
+    * - 2
+      - time
+      - データ取得日時
+      - String
+      - 〇
+      - ISO8601拡張書式
+    * - 3
+      - appendixInfo
+      - 付随情報
+      - String
+      - 
+      - WEB UIから設定された値
+    * - 4
+      - rssi
+      - 受信信号強度
+      - Integer
+      - 〇
+      - 
+    * - 5
+      - type
+      - ビーコン種別
+      - String
+      - 
+      - WEB UIにて表示設定
+    * - 6
+      - data
+      - ペイロードデータ
+      - String
+      - 
+      - 16進ダンプデータ
+    * - 7
+      - localname
+      - ローカル名
+      - String
+      - 
+      - WEB UIにて表示設定
+    * - 8
+      - status
+      - ビーコンステータス
+      - String
+      - 
+      - ビーコン制御タイプにより表示。('in' または 'out')
+    * - 9
+      - temperature
+      - 温度
+      - Double
+      - 〇
+      - [℃]
+    * - 10
+      - accelX
+      - X方向加速度
+      - Double
+      - 〇
+      - [G]
+    * - 11
+      - accelY
+      - Y方向加速度
+      - Double
+      - 〇
+      - [G]
+    * - 12
+      - accelZ
+      - Z方向加速度
+      - Double
+      - 〇
+      - [G]
+    * - ex
+      - ユーザー設定
+      - ユーザー設定内容
+      - String
+      - 
+      - WEB UIから設定された値
+
+.. raw:: latex
+
+   \clearpage 
+
+BLEデバイス情報送信設定
+--------------------------------
+
+■ データサンプル(接続モード：ビーコンモード) ::
+
+    {
+        "deviceId": "b0b448b93908",
+        "time": "2016-03-14T09:12:15.225+09:00",
+        "temperature": 25.61,
+        "accelX": 0,
+        "accelY": 0,
+        "accelZ": -1.0001
+    }
+
+.. list-table:: Fujitsu Sensor (接続モード：ビーコンモード)
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - deviceId
+      - デバイスID
+      - String
+      - 〇
+      - デバイスアドレスから ':' を除き、小文字化した値
+    * - 2
+      - time
+      - データ取得日時
+      - String
+      - 〇
+      - ISO8601拡張書式
+    * - 3
+      - temperature
+      - 温度
+      - Double
+      - 〇
+      - [℃]
+    * - 4
+      - accelX
+      - X方向加速度
+      - Double
+      - 〇
+      - [G]
+    * - 5
+      - accelY
+      - Y方向加速度
+      - Double
+      - 〇
+      - [G]
+    * - 6
+      - accelZ
+      - Z方向加速度
+      - Double
+      - 〇
+      - [G]
+    * - 7
+      - memo
+      - メモ
+      - String		
+      - 
+      - WEB UIから設定された値
+
+.. raw:: latex
+
+   \clearpage 
+
+ALPS IoT Smart Module
+=========================
+
+ビーコン送受信設定
+--------------------------------
+
+■ データサンプル(ビーコンモード：環境系フォーマット) ::
+
+    {
+        "time": "2016-03-14T17:05:42.965+09:00",
+        "deviceId": "34c731ffe620",
+        "rssi": -87,
+        "accelX": 0,
+        "accelY": 0,
+        "accelZ": -1.0002,
+        "pressure": 1010.42,
+        "humidity": 58.83,
+        "temperature": 29.41,
+        "uv": 0.0515,
+        "ambientLight": 50.5368
+    }
+
+.. list-table::  ALPS IoT Smart Module (ビーコンモード：環境系フォーマット)
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - deviceId
+      - デバイスID
+      - String
+      - 〇
+      - デバイスアドレスから ':' を除き、小文字化した値
+    * - 2
+      - time
+      - データ取得日時
+      - String
+      - 〇
+      - ISO8601拡張書式
+    * - 3
+      - appendixInfo
+      - 付随情報
+      - String	
+      - 
+      - WEB UIから設定された値
+    * - 4
+      - rssi
+      - 受信信号強度
+      - Integer
+      - 〇
+      - 
+    * - 5
+      - type
+      - ビーコン種別
+      - String
+      - 
+      - WEB UIにて表示設定
+    * - 6
+      - data
+      - ペイロードデータ
+      - String
+      - 
+      - 16進ダンプデータ
+    * - 7
+      - localname
+      - ローカル名
+      - String
+      - 
+      - WEB UIにて表示設定
+    * - 8
+      - status
+      - ビーコンステータス
+      - String
+      - 
+      - ビーコン制御タイプにより表示。('in' または 'out')
+    * - 9
+      - accelX
+      - X方向加速度
+      - Double
+      - 
+      - [G]
+    * - 10
+      - accelY
+      - Y方向加速度
+      - Double
+      - 
+      - [G]
+    * - 11
+      - accelZ
+      - Z方向加速度
+      - Double
+      - 
+      - [G]
+    * - 12
+      - pressure
+      - 気圧
+      - Double
+      - 
+      - [hPa]
+    * - 13
+      - humidity
+      - 湿度
+      - Double
+      - 
+      - [%]
+    * - 14
+      - temperature
+      - 温度
+      - Double
+      - 
+      - [℃]
+    * - 15
+      - uv
+      - 紫外線
+      - Double
+      - 
+      - [mW/cm2]
+    * - 16
+      - ambientLight
+      - 照度
+      - Double
+      - 
+      - [lux]
+    * - ex
+      - ユーザー設定
+      - ユーザー設定内容
+      - String
+      - 
+      - WEB UIから設定された値
+
+.. raw:: latex
+
+   \clearpage 
+
+■ データサンプル(ビーコンモード：モーション系フォーマット) ::
+
+    {
+        "time": "2016-03-14T17:05:42.965+09:00",
+        "deviceId": "34c731ffe620",
+        "rssi": -87,
+        "accelX": 0,
+        "accelY": 0,
+        "accelZ": -1.0,
+        "geoMagneticX": 25.35,
+        "geoMagneticY": -35.70,
+        "geoMagneticZ": 7.05,
+        "pressure": 1010.42
+    }
+
+.. list-table::  ALPS IoT Smart Module (ビーコンモード：モーション系フォーマット)
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - deviceId
+      - デバイスID
+      - String
+      - 〇
+      - デバイスアドレスから ':' を除き、小文字化した値
+    * - 2
+      - time
+      - データ取得日時
+      - String
+      - 〇
+      - ISO8601拡張書式
+    * - 3
+      - appendixInfo
+      - 付随情報
+      - String	
+      - 
+      - WEB UIから設定された値
+    * - 4
+      - rssi
+      - 受信信号強度
+      - Integer
+      - 〇
+      - 
+    * - 5
+      - type
+      - ビーコン種別
+      - String
+      - 
+      - WEB UIにて表示設定
+    * - 6
+      - data
+      - ペイロードデータ
+      - String
+      - 
+      - 16進ダンプデータ
+    * - 7
+      - localname
+      - ローカル名
+      - String
+      - 
+      - WEB UIにて表示設定
+    * - 8
+      - status
+      - ビーコンステータス
+      - String
+      - 
+      - ビーコン制御タイプにより表示。('in' または 'out')
+    * - 9
+      - accelX
+      - X方向加速度
+      - Double
+      - 
+      - [G]
+    * - 10
+      - accelY
+      - Y方向加速度
+      - Double
+      - 
+      - [G]
+    * - 11
+      - accelZ
+      - Z方向加速度
+      - Double
+      - 
+      - [G]
+    * - 12
+      - geoMagneticX
+      - X方向地磁気
+      - Double
+      - 
+      - [uT]
+    * - 13
+      - geoMagneticY
+      - Y方向地磁気
+      - Double
+      - 
+      - [uT]
+    * - 14
+      - geoMagneticZ
+      - Z方向地磁気
+      - Double
+      - 
+      - [uT]
+    * - 15
+      - pressure
+      - 気圧
+      - Double
+      - 
+      - [hPa]
+    * - ex
+      - ユーザー設定
+      - ユーザー設定内容
+      - String
+      - 
+      - WEB UIから設定された値
+
+.. raw:: latex
+
+   \clearpage 
+
+BLEデバイス情報送信設定
+--------------------------------
+
+■ データサンプル(接続モード：データパケット 1) ::
+
+    {
+        "deviceId": "34c731ffe620",
+        "time": "2016-07-14T09:12:29.231+09:00",
+        "dataIndex": 123,
+        "geoMagneticX": 25.35,
+        "geoMagneticY": -35.70,
+        "geoMagneticZ": 7.05,
+        "accelX": 0,
+        "accelY": 0,
+        "accelZ": -1.0001,
+        "ms": 0,
+        "second": 28,
+        "minute": 12,
+        "hour": 9
+    }
+
+.. list-table:: ALPS IoT Smart Module (接続モード：データパケット 1)
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - deviceId
+      - デバイスID
+      - String
+      - 〇
+      - デバイスアドレスから ':' を除き、小文字化した値
+    * - 2
+      - time
+      - データ取得日時
+      - String
+      - 〇
+      - ISO8601拡張書式
+    * - 3
+      - dataIndex
+      - データインデックス
+      - Integer
+      - 〇
+      - 0～255(シーケンス番号)
+    * - 4
+      - geoMagneticX
+      - X方向地磁気
+      - Double
+      - 
+      - [uT]
+    * - 5
+      - geoMagneticY
+      - Y方向地磁気
+      - Double
+      - 
+      - [uT]
+    * - 6
+      - geoMagneticZ
+      - Z方向地磁気
+      - Double
+      - 
+      - [uT]
+    * - 7
+      - accelX
+      - X方向加速度
+      - Double
+      - 
+      - [G]
+    * - 8
+      - accelY
+      - Y方向加速度
+      - Double
+      - 
+      - [G]
+    * - 9
+      - accelZ
+      - Z方向加速度
+      - Double
+      - 
+      - [G]
+    * - 10
+      - ms
+      - ミリ秒
+      - Integer
+      - 〇
+      - 
+    * - 11
+      - second
+      - 秒
+      - Integer
+      - 〇
+      - 
+    * - 12
+      - minute
+      - 分
+      - Integer
+      - 〇
+      - 
+    * - 13
+      - hour
+      - 時
+      - Integer
+      - 〇
+      - 
+    * - 14
+      - memo
+      - メモ
+      - String
+      - 
+      - WEB UIから設定された値
+
+.. raw:: latex
+
+   \clearpage 
+
+■ データサンプル(接続モード：データパケット 2) ::
+
+    {
+        "deviceId": "34c731ffe620",
+        "time": "2016-07-14T09:12:29.456+09:00",
+        "dataIndex": 123,
+        "pressure": 1010.42,
+        "humidity": 58.83,
+        "temperature": 29.41,
+        "uv": 0.0515,
+        "ambientLight": 50.5368,
+        "day": 14,
+        "month": 7,
+        "year": 16
+    }
+
+.. list-table:: ALPS IoT Smart Module (接続モード：データパケット 2)
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - deviceId
+      - デバイスID
+      - String
+      - 〇
+      - デバイスアドレスから ':' を除き、小文字化した値
+    * - 2
+      - time
+      - データ取得日時
+      - String
+      - 〇
+      - ISO8601拡張書式
+    * - 3
+      - dataIndex
+      - データインデックス
+      - Integer
+      - 〇
+      - 0～255(シーケンス番号)
+    * - 4
+      - pressure
+      - 気圧
+      - Double
+      - 
+      - [hPa]
+    * - 13
+      - humidity
+      - 湿度
+      - Double
+      - 
+      - [%]
+    * - 5
+      - temperature
+      - 温度
+      - Double
+      - 
+      - [℃]
+    * - 6
+      - uv
+      - 紫外線
+      - Double
+      - 
+      - [mW/cm2]
+    * - 7
+      - ambientLight
+      - 照度
+      - Double
+      - 
+      - [lux]
+    * - 8
+      - ms
+      - ミリ秒
+      - Integer
+      - 〇
+      - 
+    * - 9
+      - second
+      - 秒
+      - Integer
+      - 〇
+      - 
+    * - 10
+      - minute
+      - 分
+      - Integer
+      - 〇
+      - 
+    * - 11
+      - hour
+      - 時
+      - Integer
+      - 〇
+      - 
+    * - 12
+      - memo
+      - メモ
+      - String
+      - 
+      - WEB UIから設定された値
+
+.. raw:: latex
+
+   \clearpage 
+
+■ データサンプル(ビーコンモード：環境系フォーマット) ::
+
+    {
+        "time": "2016-03-14T17:05:42.965+09:00",
+        "memo": "ALPS beacon env",
+        "deviceId": "34c731ffe620",
+        "accelX": 0,
+        "accelY": 0,
+        "accelZ": -1.0002,
+        "pressure": 1010.42,
+        "humidity": 58.83,
+        "temperature": 29.41,
+        "uv": 0.0515,
+        "ambientLight": 50.5368
+    }
+
+.. list-table:: ALPS IoT Smart Module (ビーコンモード：環境系フォーマット)
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - deviceId
+      - デバイスID
+      - String
+      - 〇
+      - デバイスアドレスから ':' を除き、小文字化した値
+    * - 2
+      - time
+      - データ取得日時
+      - String
+      - 〇
+      - ISO8601拡張書式
+    * - 3
+      - accelX
+      - X方向加速度
+      - Double
+      - 
+      - [G]
+    * - 4
+      - accelY
+      - Y方向加速度
+      - Double
+      - 
+      - [G]
+    * - 5
+      - accelZ
+      - Z方向加速度
+      - Double
+      - 
+      - [G]
+    * - 6
+      - pressure
+      - 気圧
+      - Double
+      - 
+      - [hPa]
+    * - 7
+      - humidity
+      - 湿度
+      - Double
+      - 
+      - [%]
+    * - 8
+      - temperature
+      - 温度
+      - Double
+      - 
+      - [℃]
+    * - 9
+      - uv
+      - 紫外線
+      - Double
+      - 
+      - [mW/cm2]
+    * - 10
+      - ambientLight
+      - 照度
+      - Double
+      - 
+      - [lux]
+    * - 11
+      - memo
+      - メモ
+      - String
+      - 
+      - WEB UIから設定された値
+
+.. raw:: latex
+
+   \clearpage 
+
+■ データサンプル(ビーコンモード：モーション系フォーマット) ::
+
+    {
+        "time": "2016-03-14T17:05:42.965+09:00",
+        "deviceId": "34c731ffe620",
+        "memo": "ALPS beacon motion",
+        "accelX": 0,
+        "accelY": 0,
+        "accelZ": -1.0,
+        "geoMagneticX": 25.35,
+        "geoMagneticY": -35.70,
+        "geoMagneticZ": 7.05,
+        "pressure": 1010.42
+    }
+
+.. list-table:: ALPS IoT Smart Module (ビーコンモード：モーション系フォーマット)
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - deviceId
+      - デバイスID
+      - String
+      - 〇
+      - デバイスアドレスから ':' を除き、小文字化した値
+    * - 2
+      - time
+      - データ取得日時
+      - String
+      - 〇
+      - ISO8601拡張書式
+    * - 3
+      - accelX
+      - X方向加速度
+      - Double
+      - 
+      - [G]
+    * - 4
+      - accelY
+      - Y方向加速度
+      - Double
+      - 
+      - [G]
+    * - 5
+      - accelZ
+      - Z方向加速度
+      - Double
+      - 
+      - [G]
+    * - 6
+      - geoMagneticX
+      - X方向地磁気
+      - Double
+      - 
+      - [uT]
+    * - 7
+      - geoMagneticY
+      - Y方向地磁気
+      - Double
+      - 
+      - [uT]
+    * - 8
+      - geoMagneticZ
+      - Z方向地磁気
+      - Double
+      - 
+      - [uT]
+    * - 9
+      - pressure
+      - 気圧
+      - Double
+      - 
+      - [hPa]
+    * - 10
+      - memo
+      - メモ
+      - String
+      - 
+      - WEB UIから設定された値
+
+.. raw:: latex
+
+   \clearpage 
+
+オムロン 環境センサ
+=========================
+
+ビーコン送受信設定
+--------------------------------
+
+■ データサンプル(ビーコンモード：IM) ::
+
+    {
+        "time": "2016-10-14T18:23:27.739+09:00",
+        "deviceId": "d11397e0d126",
+        "rssi": -61,
+        "sequence": 36349,
+        "temperature": 24.39,
+        "humidity": 39.23,
+        "light": 93,
+        "uvi": 0.18,
+        "pressure": 1013.5,
+        "noise": 39.26,
+        "accelX": -0.3,
+        "accelY": 0.1,
+        "accelZ": 1.2,
+        "battery": 2930
+    }
+
+.. list-table:: オムロン 環境センサ (ビーコンモード：IM)
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - deviceId
+      - デバイスID
+      - String
+      - 〇
+      - デバイスアドレスから ':' を除き、小文字化した値
+    * - 2
+      - time
+      - データ取得日時
+      - String
+      - 〇
+      - ISO8601拡張書式
+    * - 3
+      - appendixInfo
+      - 付随情報
+      - String	
+      - 
+      - WEB UIから設定された値
+    * - 4
+      - rssi
+      - 受信信号強度
+      - Integer
+      - 〇
+      - 
+    * - 5
+      - type
+      - ビーコン種別
+      - String
+      - 
+      - WEB UIにて表示設定
+    * - 6
+      - data
+      - ペイロードデータ
+      - String
+      - 
+      - 16進ダンプデータ
+    * - 7
+      - localname
+      - ローカル名
+      - String
+      - 
+      - WEB UIにて表示設定
+    * - 8
+      - status
+      - ビーコンステータス
+      - String
+      - 
+      - ビーコン制御タイプにより表示。('in' または 'out')
+    * - 9
+      - sequence
+      - シーケンス番号
+      - Integer
+      - 〇
+      - 
+    * - 10
+      - temperature
+      - 温度
+      - Double
+      - 〇
+      - [℃]
+    * - 11
+      - humidity
+      - 湿度
+      - Double
+      - 〇
+      - [%]
+    * - 12
+      - light
+      - 照度
+      - Integer
+      - 〇
+      - [lux]
+    * - 13
+      - uvi
+      - UVインデックス
+      - Double
+      - 〇
+      - 
+    * - 14
+      - pressure
+      - 気圧
+      - Double
+      - 〇
+      - [hPa]
+    * - 15
+      - noise
+      - 騒音
+      - Double
+      - 〇
+      - [dB]
+    * - 16
+      - accelX
+      - X方向加速度
+      - Double
+      - 
+      - [G]
+    * - 17
+      - accelY
+      - Y方向加速度
+      - Double
+      - 
+      - [G]
+    * - 18
+      - accelZ
+      - Z方向加速度
+      - Double
+      - 
+      - [G]
+    * - 19
+      - battery
+      - 電池電圧
+      - Integer
+      - 〇
+      - [mV]
+    * - ex
+      - ユーザー設定
+      - ユーザー設定内容
+      - String
+      - 
+      - WEB UIから設定された値
+
+
+.. raw:: latex
+
+   \clearpage 
+
+■ データサンプル(ビーコンモード：EP) ::
+
+    {
+        "time": "2016-10-14T18:05:22.375+09:00",
+        "deviceId": "d11397e0d126",
+        "rssi": -61,
+        "sequence": 36381,
+        "temperature": 24.46,
+        "humidity": 39.73,
+        "light": 97,
+        "uvi": 0.03,
+        "pressure": 1013.2,
+        "noise": 39.42,
+        "discomfortIndex": 70.33,
+        "heatstroke": 19.77,
+        "battery": 2910
+    }
+
+.. list-table::  オムロン 環境センサ (ビーコンモード：EP)
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - deviceId
+      - デバイスID
+      - String
+      - 〇
+      - デバイスアドレスから ':' を除き、小文字化した値
+    * - 2
+      - time
+      - データ取得日時
+      - String
+      - 〇
+      - ISO8601拡張書式
+    * - 3
+      - appendixInfo
+      - 付随情報
+      - String	
+      - 
+      - WEB UIから設定された値
+    * - 4
+      - rssi
+      - 受信信号強度
+      - Integer
+      - 〇
+      - 
+    * - 5
+      - type
+      - ビーコン種別
+      - String
+      - 
+      - WEB UIにて表示設定
+    * - 6
+      - data
+      - ペイロードデータ
+      - String
+      - 
+      - 16進ダンプデータ
+    * - 7
+      - localname
+      - ローカル名
+      - String
+      - 
+      - WEB UIにて表示設定
+    * - 8
+      - status
+      - ビーコンステータス
+      - String
+      - 
+      - ビーコン制御タイプにより表示。('in' または 'out')
+    * - 9
+      - sequence
+      - シーケンス番号
+      - Integer
+      - 〇
+      - 
+    * - 10
+      - temperature
+      - 温度
+      - Double
+      - 〇
+      - [℃]
+    * - 11
+      - humidity
+      - 湿度
+      - Double
+      - 〇
+      - [%]
+    * - 12
+      - light
+      - 照度
+      - Integer
+      - 〇
+      - [lux]
+    * - 13
+      - uvi
+      - UVインデックス
+      - Double
+      - 〇
+      - 
+    * - 14
+      - pressure
+      - 気圧
+      - Double
+      - 〇
+      - [hPa]
+    * - 15
+      - noise
+      - 騒音
+      - Double
+      - 〇
+      - [dB]
+    * - 16
+      - discomfortIndex
+      - 不快指数
+      - Double
+      - 〇
+      - 
+    * - 17
+      - heatstroke
+      - 熱中症危険度
+      - Double
+      - 〇
+      - [℃]
+    * - 18
+      - battery
+      - 電池電圧
+      - Integer
+      - 〇
+      - [mV]
+    * - ex
+      - ユーザー設定
+      - ユーザー設定内容
+      - String
+      - 
+      - WEB UIから設定された値
+
+.. raw:: latex
+
+   \clearpage 
+
+BLEデバイス情報送信設定
+--------------------------------
+
+■ データサンプル(接続モード) ::
+
+    {
+        "deviceId": "d11397e0d126",
+        "memo": "OMRON Env Sensor",
+        "time": "2016-10-14T09:27:52.278+09:00",
+        "temperature": 25.42,
+        "humidity": 38.7,
+        "light": 114,
+        "uvi": 0.02,
+        "pressure": 1018.1,
+        "noise": 38.17,
+        "discomfortIndex": 71.09,
+        "heatstroke": 20.05,
+        "battery": 2917
+    }
+
+.. list-table::  オムロン 環境センサ (接続モード)
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - deviceId
+      - デバイスID
+      - String
+      - 〇
+      - デバイスアドレスから ':' を除き、小文字化した値
+    * - 2
+      - time
+      - データ取得日時
+      - String
+      - 〇
+      - ISO8601拡張書式
+    * - 3
+      - temperature
+      - 温度
+      - Double
+      - 〇
+      - [℃]
+    * - 4
+      - humidity
+      - 湿度
+      - Double
+      - 〇
+      - [%]
+    * - 5
+      - light
+      - 照度
+      - Integer
+      - 〇
+      - [lux]
+    * - 6
+      - uvi
+      - UVインデックス
+      - Double
+      - 〇
+      - 
+    * - 7
+      - pressure
+      - 気圧
+      - Double
+      - 〇
+      - [hPa]
+    * - 8
+      - noise
+      - 騒音
+      - Double
+      - 〇
+      - [dB]
+    * - 9
+      - discomfortIndex
+      - 不快指数
+      - Double
+      - 〇
+      - 
+    * - 10
+      - heatstroke
+      - 熱中症危険度
+      - Double
+      - 〇
+      - [℃]
+    * - 11
+      - battery
+      - 電池電圧
+      - Integer
+      - 〇
+      - [mV]
+    * - 12
+      - memo
+      - メモ
+      - String
+      - 
+      - WEB UIから設定された値
+  
+.. raw:: latex
+
+   \clearpage 
+  
+■ データサンプル(ビーコンモード：IM) ::
+
+    {
+        "time": "2016-10-14T18:23:27.739+09:00",
+        "memo": "OMRON Env Sensor IM",
+        "deviceId": "d11397e0d126",
+        "sequence": 36349,
+        "temperature": 24.39,
+        "humidity": 39.23,
+        "light": 93,
+        "uvi": 0.18,
+        "pressure": 1013.5,
+        "noise": 39.26,
+        "accelX": -0.3,
+        "accelY": 0.1,
+        "accelZ": 1.2,
+        "battery": 2930
+    }
+
+.. list-table::  オムロン 環境センサ (ビーコンモード：IM)
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - deviceId
+      - デバイスID
+      - String
+      - 〇
+      - デバイスアドレスから ':' を除き、小文字化した値
+    * - 2
+      - time
+      - データ取得日時
+      - String
+      - 〇
+      - ISO8601拡張書式
+    * - 3
+      - sequence
+      - シーケンス番号
+      - Integer
+      - 〇
+      - 
+    * - 4
+      - temperature
+      - 温度
+      - Double
+      - 〇
+      - [℃]
+    * - 5
+      - humidity
+      - 湿度
+      - Double
+      - 〇
+      - [%]
+    * - 6
+      - light
+      - 照度
+      - Integer
+      - 〇
+      - [lux]
+    * - 7
+      - uvi
+      - UVインデックス
+      - Double
+      - 〇
+      - 
+    * - 8
+      - pressure
+      - 気圧
+      - Double
+      - 〇
+      - [hPa]
+    * - 9
+      - noise
+      - 騒音
+      - Double
+      - 〇
+      - [dB]
+    * - 10
+      - accelX
+      - X方向加速度
+      - Double
+      - 
+      - [G]
+    * - 11
+      - accelY
+      - Y方向加速度
+      - Double
+      - 
+      - [G]
+    * - 12
+      - accelZ
+      - Z方向加速度
+      - Double
+      - 
+      - [G]
+    * - 13
+      - battery
+      - 電池電圧
+      - Integer
+      - 〇
+      - [mV]
+    * - 14
+      - memo
+      - メモ
+      - String
+      - 
+      - WEB UIから設定された値
+  
+.. raw:: latex
+
+   \clearpage 
+  
+■ データサンプル(ビーコンモード：EP) ::
+
+    {
+        "time": "2016-10-14T18:05:22.375+09:00",
+        "memo": "OMRON Env Sensor EP",
+        "deviceId": "d11397e0d126",
+        "sequence": 36381,
+        "temperature": 24.46,
+        "humidity": 39.73,
+        "light": 97,
+        "uvi": 0.03,
+        "pressure": 1013.2,
+        "noise": 39.42,
+        "discomfortIndex": 70.33,
+        "heatstroke": 19.77,
+        "battery": 2910
+    }
+
+.. list-table::  オムロン 環境センサ (ビーコンモード：EP)
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - deviceId
+      - デバイスID
+      - String
+      - 〇
+      - デバイスアドレスから ':' を除き、小文字化した値
+    * - 2
+      - time
+      - データ取得日時
+      - String
+      - 〇
+      - ISO8601拡張書式
+    * - 3
+      - sequence
+      - シーケンス番号
+      - Integer
+      - 〇
+      - 
+    * - 4
+      - temperature
+      - 温度
+      - Double
+      - 〇
+      - [℃]
+    * - 5
+      - humidity
+      - 湿度
+      - Double
+      - 〇
+      - [%]
+    * - 6
+      - light
+      - 照度
+      - Integer
+      - 〇
+      - [lux]
+    * - 7
+      - uvi
+      - UVインデックス
+      - Double
+      - 〇
+      - 
+    * - 8
+      - pressure
+      - 気圧
+      - Double
+      - 〇
+      - [hPa]
+    * - 9
+      - noise
+      - 騒音
+      - Double
+      - 〇
+      - [dB]
+    * - 10
+      - discomfortIndex
+      - 不快指数
+      - Double
+      - 〇
+      - 
+    * - 11
+      - heatstroke
+      - 熱中症危険度
+      - Double
+      - 〇
+      - [℃]
+    * - 12
+      - battery
+      - 電池電圧
+      - Integer
+      - 〇
+      - [mV]
+    * - 13
+      - memo
+      - メモ
+      - String
+      - 
+      - WEB UIから設定された値
+
+.. raw:: latex
+
+   \clearpage
+
+オムロン USB 型環境センサ
+=============================
+
+ビーコン送受信設定
+--------------------------------
+
+■ データサンプル(ビーコンモード：Sensor data) ::
+
+    {
+        "time": "2018-11-12T15:29:15.276+09:00",
+        "deviceId": "f5961b7e0775",
+        "memo": " OMRON USB ",
+        "sequence": 24,
+        "temperature": 27.11,
+        "humidity": 40.75,
+        "light": 171,
+        "pressure": 1008.283,
+        "noise": 56.5,
+        "etvoc": 26,
+        "eco2": 573
+    }
+
+.. list-table::  オムロン USB 型環境センサ (ビーコンモード：Sensor data)
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - deviceId
+      - デバイスID
+      - String
+      - 〇
+      - デバイスアドレスから ':' を除き、小文字化した値
+    * - 2
+      - time
+      - データ取得日時
+      - String
+      - 〇
+      - ISO8601拡張書式
+    * - 3
+      - appendixInfo
+      - 付随情報
+      - String	
+      - 
+      - WEB UIから設定された値
+    * - 4
+      - rssi
+      - 受信信号強度
+      - Integer
+      - 〇
+      - 
+    * - 5
+      - type
+      - ビーコン種別
+      - String
+      - 
+      - WEB UIにて表示設定
+    * - 6
+      - data
+      - ペイロードデータ
+      - String
+      - 
+      - 16進ダンプデータ
+    * - 7
+      - localname
+      - ローカル名
+      - String
+      - 
+      - WEB UIにて表示設定
+    * - 8
+      - status
+      - ビーコンステータス
+      - String
+      - 
+      - ビーコン制御タイプにより表示。('in' または 'out')
+    * - 9
+      - sequence
+      - シーケンス番号
+      - Integer
+      - 〇
+      - 
+    * - 10
+      - temperature
+      - 温度
+      - Double
+      - 〇
+      - [℃]
+    * - 11
+      - humidity
+      - 湿度
+      - Double
+      - 〇
+      - [%]
+    * - 12
+      - light
+      - 照度
+      - Integer
+      - 〇
+      - [lux]
+    * - 13
+      - pressure
+      - 気圧
+      - Double
+      - 〇
+      - [hPa]
+    * - 14
+      - noise
+      - 騒音
+      - Double
+      - 〇
+      - [dB]
+    * - 15
+      - etvoc
+      - 等価総揮発性有機化合物
+      - Integer
+      - 
+      - [ppb]
+    * - 16
+      - eco2
+      - 等価CO2
+      - Integer
+      - 
+      - [ppm]
+    * - ex
+      - ユーザー設定
+      - ユーザー設定内容
+      - String
+      - 
+      - WEB UIから設定された値
+
+.. raw:: latex
+
+   \clearpage 
+
+BLEデバイス情報送信設定
+--------------------------------
+
+■ データサンプル(ビーコンモード：Sensor Data) ::
+
+    {
+        "time": "2018-11-12T15:35:53.893+09:00",
+        "memo": "OMRON USB",
+        "deviceId": "f5961b7e0775",
+        "sequence": 82,
+        "temperature": 27.53,
+        "humidity": 41.27,
+        "light": 173,
+        "pressure": 1003.256,
+        "noise": 49.26,
+        "etvoc": 268
+        "eco2": 583
+    }
+
+.. list-table::  オムロン USB 型環境センサ (ビーコンモード：Sensor Data)
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - deviceId
+      - デバイスID
+      - String
+      - 〇
+      - デバイスアドレスから ':' を除き、小文字化した値
+    * - 2
+      - time
+      - データ取得日時
+      - String
+      - 〇
+      - ISO8601拡張書式
+    * - 3
+      - sequence
+      - シーケンス番号
+      - Integer
+      - 〇
+      - 
+    * - 4
+      - temperature
+      - 温度
+      - Double
+      - 〇
+      - [℃]
+    * - 5
+      - humidity
+      - 湿度
+      - Double
+      - 〇
+      - [%]
+    * - 6
+      - light
+      - 照度
+      - Integer
+      - 〇
+      - [lux]
+    * - 7
+      - pressure
+      - 気圧
+      - Double
+      - 〇
+      - [hPa]
+    * - 8
+      - noise
+      - 騒音
+      - Double
+      - 〇
+      - [dB]
+    * - 9
+      - etvoc
+      - 等価総揮発性有機化合物
+      - Integer
+      - 
+      - [ppb]
+    * - 10
+      - eco2
+      - 等価CO2
+      - Integer
+      - 
+      - [ppm]
+    * - 11
+      - memo
+      - メモ
+      - String
+      - 
+      - WEB UIから設定された値
+  
+.. raw:: latex
+
+   \clearpage 
+
+ユニ電子 BLE 温湿度センサー(Logtta)
+============================================
+
+ビーコン送受信設定
+--------------------------------
+
+■ データサンプル(ビーコンモード) ::
+
+    {
+        "time": "2016-10-14T11:30:41.259+09:00",
+        "deviceId": "f0ab542bdca5",
+        "rssi": -90,
+        "temperature": 27.88,
+        "humidity": 36.48,
+        "battery": 100
+    }
+
+.. list-table:: ユニ電子 BLE 温湿度センサー(ビーコンモード)
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - deviceId
+      - デバイスID
+      - String
+      - 〇
+      - デバイスアドレスから ':' を除き、小文字化した値
+    * - 2
+      - time
+      - データ取得日時
+      - String
+      - 〇
+      - ISO8601拡張書式
+    * - 3
+      - appendixInfo
+      - 付随情報
+      - String	
+      - 
+      - WEB UIから設定された値
+    * - 4
+      - rssi
+      - 受信信号強度
+      - Integer
+      - 〇
+      - 
+    * - 5
+      - type
+      - ビーコン種別
+      - String
+      - 
+      - WEB UIにて表示設定
+    * - 6
+      - data
+      - ペイロードデータ
+      - String
+      - 
+      - 16進ダンプデータ
+    * - 7
+      - localname
+      - ローカル名
+      - String
+      - 
+      - WEB UIにて表示設定
+    * - 8
+      - status
+      - ビーコンステータス
+      - String
+      - 
+      - ビーコン制御タイプにより表示。('in' または 'out')
+    * - 9
+      - temperature
+      - 温度
+      - Double
+      - 〇
+      - [℃]
+    * - 10
+      - humidity
+      - 湿度
+      - Double
+      - 〇
+      - [%]
+    * - 11
+      - battery
+      - バッテリーレベル
+      - Integer
+      - 〇
+      - [%]
+    * - ex
+      - ユーザー設定
+      - ユーザー設定内容
+      - String
+      - 
+      - WEB UIから設定された値
+
+.. raw:: latex
+
+   \clearpage 
+   
+BLEデバイス情報送信設定
+--------------------------------
+
+■ データサンプル(ビーコンモード) ::
+
+    {
+        "time": "2016-10-14T11:30:41.259+09:00",
+        "deviceId": "f0ab542bdca5",
+        "memo": "Logtta TH Sensor",
+        "temperature": 27.88,
+        "humidity": 36.48,
+        "battery": 100
+    }
+
+.. list-table::  ユニ電子 BLE 温湿度センサー(ビーコンモード)
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - deviceId
+      - デバイスID
+      - String
+      - 〇
+      - デバイスアドレスから ':' を除き、小文字化した値
+    * - 2
+      - time
+      - データ取得日時
+      - String
+      - 〇
+      - ISO8601拡張書式
+    * - 3
+      - temperature
+      - 温度
+      - Double
+      - 〇
+      - [℃]
+    * - 4
+      - humidity
+      - 湿度
+      - Double
+      - 〇
+      - [%]
+    * - 5
+      - battery
+      - バッテリーレベル
+      - Integer
+      - 〇
+      - [%]
+    * - 6
+      - memo
+      - メモ
+      - String
+      - 
+      - WEB UIから設定された値
+
+.. raw:: latex
+
+   \clearpage 
+
+ユニ電子 BLE　CO2センサー(Logtta CO2)
+============================================
+
+ビーコン送受信設定
+--------------------------------
+
+■ データサンプル(ビーコンモード) ::
+
+    {
+        "time": "2017-03-03T12:34:56.789+09:00",
+        "deviceId": "f0ab54c2gcdf",
+        "rssi": -82,
+        "co2": 653,
+        "battery": 254
+    }
+
+.. list-table:: ユニ電子 BLE CO2センサー(ビーコンモード)
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - deviceId
+      - デバイスID
+      - String
+      - 〇
+      - デバイスアドレスから ':' を除き、小文字化した値
+    * - 2
+      - time
+      - データ取得日時
+      - String
+      - 〇
+      - ISO8601拡張書式
+    * - 3
+      - appendixInfo
+      - 付随情報
+      - String	
+      - 
+      - WEB UIから設定された値
+    * - 4
+      - rssi
+      - 受信信号強度
+      - Integer
+      - 〇
+      - 
+    * - 5
+      - type
+      - ビーコン種別
+      - String
+      - 
+      - WEB UIにて表示設定
+    * - 6
+      - data
+      - ペイロードデータ
+      - String
+      - 
+      - 16進ダンプデータ
+    * - 7
+      - localname
+      - ローカル名
+      - String
+      - 
+      - WEB UIにて表示設定
+    * - 8
+      - status
+      - ビーコンステータス
+      - String
+      - 
+      - ビーコン制御タイプにより表示。('in' または 'out')
+    * - 9
+      - co2
+      - CO2濃度
+      - Integer
+      - 〇
+      - [ppm]
+    * - 10
+      - battery
+      - バッテリーレベル
+      - Integer
+      - 〇
+      - [%]
+    * - ex
+      - ユーザー設定
+      - ユーザー設定内容
+      - String
+      - 
+      - WEB UIから設定された値
+
+.. raw:: latex
+
+   \clearpage 
+   
+BLEデバイス情報送信設定
+--------------------------------
+
+■ データサンプル(ビーコンモード) ::
+
+    {
+        "time": "2017-03-03T12:34:56.789+09:00",
+        "deviceId": "f0ab54c2gcdf",
+        "memo": "Logtta CO2 Sensor",
+        "co2": 653,
+        "battery": 254
+    }
+
+.. list-table::  ユニ電子 BLE CO2センサー(ビーコンモード)
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - deviceId
+      - デバイスID
+      - String
+      - 〇
+      - デバイスアドレスから ':' を除き、小文字化した値
+    * - 2
+      - time
+      - データ取得日時
+      - String
+      - 〇
+      - ISO8601拡張書式
+    * - 3
+      - co2
+      - CO2濃度
+      - Integer
+      - 〇
+      - [ppm] 
+    * - 4
+      - battery
+      - バッテリーレベル
+      - Integer
+      - 〇
+      - [%]
+    * - 5
+      - memo
+      - メモ
+      - String
+      - 
+      - WEB UIから設定された値
+
+.. raw:: latex
+
+   \clearpage 
+
+ユニ電子 BLE　水温センサー(Logtta Water)
+============================================
+
+ビーコン送受信設定
+--------------------------------
+
+■ データサンプル(ビーコンモード) ::
+
+    {
+        "time": "2017-12-08T12:34:56.789+09:00",
+        "deviceId": "f0ab5e2bdcad",
+        "rssi": -82,
+        "temperature": 12.34,
+        "battery": 100
+    }
+
+.. list-table:: ユニ電子 BLE 水温センサー(ビーコンモード)
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - deviceId
+      - デバイスID
+      - String
+      - 〇
+      - デバイスアドレスから ':' を除き、小文字化した値
+    * - 2
+      - time
+      - データ取得日時
+      - String
+      - 〇
+      - ISO8601拡張書式
+    * - 3
+      - appendixInfo
+      - 付随情報
+      - String	
+      - 
+      - WEB UIから設定された値
+    * - 4
+      - rssi
+      - 受信信号強度
+      - Integer
+      - 〇
+      - 
+    * - 5
+      - type
+      - ビーコン種別
+      - String
+      - 
+      - WEB UIにて表示設定
+    * - 6
+      - data
+      - ペイロードデータ
+      - String
+      - 
+      - 16進ダンプデータ
+    * - 7
+      - localname
+      - ローカル名
+      - String
+      - 
+      - WEB UIにて表示設定
+    * - 8
+      - status
+      - ビーコンステータス
+      - String
+      - 
+      - ビーコン制御タイプにより表示。('in' または 'out')
+    * - 9
+      - temperature
+      - 温度
+      - Double
+      - 〇
+      - [℃]
+    * - 10
+      - battery
+      - バッテリーレベル
+      - Integer
+      - 〇
+      - [%]
+    * - ex
+      - ユーザー設定
+      - ユーザー設定内容
+      - String
+      - 
+      - WEB UIから設定された値
+
+.. raw:: latex
+
+   \clearpage 
+   
+BLEデバイス情報送信設定
+--------------------------------
+
+■ データサンプル(ビーコンモード) ::
+
+    {
+        "time": "2017-12-08T12:34:56.789+09:00",
+        "deviceId": "f0ab5e2bdcad",
+        "memo": "Logtta Water Sensor",
+        "temperature": 12.34,
+        "battery": 100
+    }
+
+.. list-table::  ユニ電子 BLE 水温センサー(ビーコンモード)
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - deviceId
+      - デバイスID
+      - String
+      - 〇
+      - デバイスアドレスから ':' を除き、小文字化した値
+    * - 2
+      - time
+      - データ取得日時
+      - String
+      - 〇
+      - ISO8601拡張書式
+    * - 3
+      - temperature
+      - 温度
+      - Double
+      - 〇
+      - [℃]
+    * - 4
+      - battery
+      - バッテリーレベル
+      - Integer
+      - 〇
+      - [%]
+    * - 5
+      - memo
+      - メモ
+      - String
+      - 
+      - WEB UIから設定された値
+
+.. raw:: latex
+
+   \clearpage 
+
+ラトックシステム Bluetooth ホコリセンサー
+==============================================
+
+BLEデバイス情報送信設定
+--------------------------------
+
+■ データサンプル ::
+
+    {
+        "deviceId": "dfb3f8c57912",
+        "memo": "RATOC PM2.5",
+        "time": "2017-12-07T20:55:48.173+09:00",
+        "sensortime":"17-12-07T20:56:04",
+        "pm25": 15,
+        "pm10": 1,
+        "pressure": 999,
+        "temperature": 24,
+        "humidity": 18,
+        "light": 364,
+        "mode": 0 
+    }
+
+.. list-table::  ラトックシステム Bluetooth ホコリセンサー
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - deviceId
+      - デバイスID
+      - String
+      - 〇
+      - デバイスアドレスから ':' を除き、小文字化した値
+    * - 2
+      - time
+      - データ取得日時
+      - String
+      - 〇
+      - ISO8601拡張書式
+    * - 3
+      - sensortime
+      - 計測日時
+      - String
+      - 〇
+      - 
+    * - 4
+      - pm25
+      - PM2.5濃度
+      - Integer
+      - 〇
+      - [μg/m3]
+    * - 5
+      - pm10
+      - PM10濃度
+      - Integer
+      - 〇
+      - [μg/m3]
+    * - 6
+      - pressure
+      - 気圧
+      - Integer
+      - 〇
+      - [hPa]
+    * - 7
+      - temperature
+      - 温度
+      - Integer
+      - 〇
+      - [℃]
+    * - 8
+      - humidity
+      - 湿度
+      - Integer
+      - 〇
+      - [%]
+    * - 9
+      - light
+      - 照度
+      - Integer
+      - 〇
+      - [lx]
+    * - 10
+      - mode
+      - 計測データモード
+      - Integer
+      - 〇
+      - 0:連続計測、1:ワンショット計測
+    * - 11
+      - memo
+      - メモ
+      - String
+      - 
+      - WEB UIから設定された値
+
+.. raw:: latex
+
+   \clearpage 
+
+ラトックシステム Bluetoothエアクオリティモニター
+====================================================
+
+BLEデバイス情報送信設定
+--------------------------------
+
+■ データサンプル ::
+
+    {
+        "deviceId": "dfb308abcdef",
+        "memo": "RATOC PM2.5V",
+        "time": "2017-12-07T20:55:48.173+09:00",
+        "sensortime":"17-12-07T20:56:04",
+        "pm25": 15,
+        "pm10": 1,
+        "uvi":  0,
+        "temperature": 24,5,
+        "humidity": 18,1,
+        "phumidity": 18,2,
+        "pressure": 999.9,
+        "initstate": " wait",
+        "startstate": " stability",
+        "light": 364,
+        "tvoc": 123,
+        "eco2": 456,
+        "mode": 0
+    }
+
+.. list-table:: ラトックシステム Bluetoothエアクオリティモニター
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - deviceId
+      - デバイスID
+      - String
+      - 〇
+      - デバイスアドレスから ':' を除き、小文字化した値
+    * - 2
+      - time
+      - データ取得日時
+      - String
+      - 〇
+      - ISO8601拡張書式
+    * - 3
+      - sensortime
+      - 計測日時
+      - String
+      - 〇
+      - 
+    * - 4
+      - pm25
+      - PM2.5濃度
+      - Integer
+      - 〇
+      - [μg/m3]
+    * - 5
+      - pm10
+      - PM10濃度
+      - Integer
+      - 〇
+      - [μg/m3]
+    * - 6
+      - uvi
+      - UVインデックス
+      - Integer
+      - 〇
+      - 
+    * - 7
+      - temperature
+      - 温度
+      - Integer
+      - 〇
+      - [℃]
+    * - 8
+      - humidity
+      - 湿度
+      - Integer
+      - 〇
+      - [%]
+    * - 9
+      - phumidity
+      - 湿度
+      - Double
+      - 〇
+      - [%]
+    * - 10
+      - pressure
+      - 気圧
+      - Integer
+      - 〇
+      - [hPa]
+    * - 11
+      - initstate
+      - 初期安定状態
+      - String
+      - 〇
+      - 'wait' または 'stability'
+    * - 12
+      - startstate
+      - 起動安定状態
+      - String
+      - 〇
+      - 'wait' または 'stability'
+    * - 13
+      - light
+      - 照度
+      - Integer
+      - 〇
+      - [lx]
+    * - 14
+      - tvoc
+      - TVOC
+      - Integer
+      - 〇
+      - [ppb]
+    * - 15
+      - eco2
+      - eCO2
+      - Integer
+      - 〇
+      - [ppm]
+    * - 16
+      - mode
+      - 計測データモード
+      - Integer
+      - 〇
+      - 0:連続計測、1:ワンショット計測
+    * - 17
+      - memo
+      - メモ
+      - String
+      - 
+      - WEB UIから設定された値
+
+.. raw:: latex
+
+   \clearpage 
+
+ラトックシステム ワットチェッカー
+====================================================
+
+BLEデバイス情報送信設定
+--------------------------------
+
+■ データサンプル ::
+
+    {
+        "deviceId": "123456abcdef",
+        "memo": "RATOC WATT CHECKER",
+        "time": "2017-12-07T20:55:48.173+09:00",
+        "sensortime":"17-12-07T20:56:04",
+        "current": 17.7656,
+        "voltage": 104728,
+        "power_consumption": 400
+    }
+
+.. list-table:: ラトックシステム ワットチェッカー
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - deviceId
+      - デバイスID
+      - String
+      - 〇
+      - デバイスアドレスから ':' を除き、小文字化した値
+    * - 2
+      - time
+      - データ取得日時
+      - String
+      - 〇
+      - ISO8601拡張書式
+    * - 3
+      - sensortime
+      - 計測日時
+      - String
+      - 〇
+      - 
+    * - 4
+      - current
+      - 電流値
+      - Double
+      - 〇
+      - [mA]
+    * - 5
+      - voltage
+      - 電圧
+      - Integer
+      - 〇
+      - [V]
+    * - 6
+      - power_consumption
+      - 消費電力
+      - Integer
+      - 〇
+      - [W]
+    * - 7
+      - memo
+      - メモ
+      - String
+      - 
+      - WEB UIから設定された値
+
+.. raw:: latex
+
+   \clearpage 
+
+エレックス工業 μPRISM
+=================================
+
+BLEデバイス情報送信設定
+--------------------------------
+
+■ データサンプル ::
+
+    {
+        "deviceId": "00089c161b39",
+        "memo": "μPrism",
+        "time": "2018-09-09T09:55:18.65+09:00",
+        "dataIndex":"111",
+        "geoMagneticX": -10.9,
+        "geoMagneticY": -24.6,
+        "geoMagneticZ": -58.7,
+        "accelX": 0.011,
+        "accelY": 0.004,
+        "accelZ": 1.042,
+        "pressure": 1021.84,
+        "humidity": 50,38,
+        "temperature": 28,5,
+        "uvi": 0,1,
+        "ambientLight": 404,8,
+        "ms": 65,
+        "second": 18,
+        "minute": 55,
+        "hour": 9,
+        "day": 9,
+        "month": 9,
+        "year": 18
+    }
+
+.. list-table:: エレックス工業 μPRISM
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - deviceId
+      - デバイスID
+      - String
+      - 〇
+      - デバイスアドレスから ':' を除き、小文字化した値
+    * - 2
+      - time
+      - データ取得日時
+      - String
+      - 〇
+      - ISO8601拡張書式
+    * - 3
+      - dataIndex
+      - データインデックス
+      - Integer
+      - 〇
+      -
+    * - 4
+      - geoMagneticX
+      - X方向地磁気
+      - Double
+      - 
+      - [uT]
+    * - 5
+      - geoMagneticY
+      - Y方向地磁気
+      - Double
+      - 
+      - [uT]
+    * - 6
+      - geoMagneticZ
+      - Z方向地磁気
+      - Double
+      - 
+      - [uT]
+    * - 7
+      - accelX
+      - X方向加速度
+      - Double
+      - 
+      - [G]
+    * - 8
+      - accelY
+      - Y方向加速度
+      - Double
+      - 
+      - [G]
+    * - 9
+      - accelZ
+      - Z方向加速度
+      - Double
+      - 
+      - [G]
+    * - 10
+      - pressure
+      - 気圧
+      - Double
+      - 
+      - [hPa]
+    * - 11
+      - humidity
+      - 湿度
+      - Double
+      - 
+      - [%RH]
+    * - 12
+      - temperature
+      - 温度
+      - Double
+      - 
+      - [℃]
+    * - 13
+      - uv
+      - UVインデックス
+      - Double
+      - 〇
+      - 
+    * - 14
+      - ambientLight
+      - 照度
+      - Double
+      - 
+      - [lx]
+    * - 15
+      - ms
+      - ミリ秒
+      - Integer
+      - 〇
+      - 
+    * - 16
+      - second
+      - 秒
+      - Integer
+      - 〇
+      - 
+    * - 17
+      - minute
+      - 分
+      - Integer
+      - 〇
+      - 
+    * - 18
+      - hour
+      - 時
+      - Integer
+      - 〇
+      - 
+    * - 19
+      - day
+      - 日
+      - Integer
+      - 〇
+      - 
+    * - 20
+      - month
+      - 月
+      - Integer
+      - 〇
+      - 
+    * - 21
+      - year
+      - 年
+      - Integer
+      - 〇
+      - 
+    * - 22
+      - memo
+      - メモ
+      - String
+      - 
+      - WEB UIから設定された値
+
+.. raw:: latex
+
+   \clearpage 
+
+EnOcean マルチセンサ(EMSIB)
+=============================
+
+ビーコン送受信設定
+--------------------------------
+
+■ データサンプル(Default) ::
+
+    {
+        "time": "2020-05-19T16:10:36.425+09:00",
+        "deviceId": "e500ec09abcd",
+        "rssi": -82,
+        "sequence": 16649,
+        "temperature": 26.9,
+        "humidity": 52.5,
+        "ill_sensor": 216,
+        "accelS": 1,
+        "accelX": -0.06,
+        "accelY": 0.04,
+        "accelZ": 1.01,
+        "contact": "Open",
+        "energy_level": 90
+    }
+
+.. list-table::  EnOcean マルチセンサ (Default)
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - deviceId
+      - デバイスID
+      - String
+      - 〇
+      - デバイスアドレスから ':' を除き、小文字化した値
+    * - 2
+      - time
+      - データ取得日時
+      - String
+      - 〇
+      - ISO8601拡張書式
+    * - 3
+      - appendixInfo
+      - 付随情報
+      - String
+      - 
+      - WEB UIから設定された値
+    * - 4
+      - rssi
+      - 受信信号強度
+      - Integer
+      - 〇
+      - 
+    * - 5
+      - type
+      - ビーコン種別
+      - String
+      - 
+      - WEB UIにて表示設定
+    * - 6
+      - data
+      - ペイロードデータ
+      - String
+      - 
+      - 16進ダンプデータ
+    * - 7
+      - localname
+      - ローカル名
+      - String
+      - 
+      - WEB UIにて表示設定
+    * - 8
+      - status
+      - ビーコンステータス
+      - String
+      - 
+      - ビーコン制御タイプにより表示。('in' または 'out')
+    * - 9
+      - sequence
+      - シーケンス番号
+      - Integer
+      - 〇
+      - 
+    * - 10
+      - temperature
+      - 温度
+      - Double
+      - 
+      - [℃]
+    * - 11
+      - humidity
+      - 湿度
+      - Double
+      - 
+      - [%]
+    * - 12
+      - ill_sensor
+      - 照度(センサ)
+      - Integer
+      - 
+      - [lux]
+    * - 13
+      - accelS
+      - 加速度ステータス
+      - Integer
+      - 
+      - 
+    * - 14
+      - accelX
+      - X方向加速度
+      - Double
+      - 
+      - [G]
+    * - 15
+      - accelY
+      - Y方向加速度
+      - Double
+      - 
+      - [G]
+    * - 16
+      - accelZ
+      - Z方向加速度
+      - Double
+      - 
+      - [G]
+    * - 17
+      - contact
+      - マグネットコンタクト
+      - String
+      - 
+      - "Open", "Closed", "Unknown"
+    * - 18
+      - energy_level
+      - エネルギーレベル
+      - Double
+      - 
+      - [%]
+    * - 19
+      - voltage
+      - 電圧
+      - Double
+      - 
+      - [mV]
+    * - 20
+      - ill_solar
+      - 照度(太陽電池)
+      - Integer
+      - 
+      - [lux]
+    * - 21
+      - optional
+      - オプショナルデータ
+      - String
+      - 
+      - 
+    * - ex
+      - ユーザー設定
+      - ユーザー設定内容
+      - String
+      - 
+      - WEB UIから設定された値
+
+.. raw:: latex
+
+   \clearpage 
+
+BLEデバイス情報送信設定
+--------------------------------
+
+■ データサンプル(Default) ::
+
+    {
+        "time": "2020-05-19T16:12:25.562+09:00",
+        "memo": "EnOcean EMSIB",
+        "deviceId": "e500ec09abcd",
+        "sequence": 16532,
+        "temperature": 26.9,
+        "humidity": 52.5,
+        "ill_sensor": 216,
+        "accelS": 1,
+        "accelX": -0.06,
+        "accelY": 0.04,
+        "accelZ": 1.01,
+        "contact": "Open",
+        "energy_level": 90
+    }
+
+.. list-table::  EnOcean マルチセンサ (Default)
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - deviceId
+      - デバイスID
+      - String
+      - 〇
+      - デバイスアドレスから ':' を除き、小文字化した値
+    * - 2
+      - time
+      - データ取得日時
+      - String
+      - 〇
+      - ISO8601拡張書式
+    * - 3
+      - sequence
+      - シーケンス番号
+      - Integer
+      - 〇
+      - 
+    * - 4
+      - temperature
+      - 温度
+      - Double
+      - 〇
+      - [℃]
+    * - 5
+      - humidity
+      - 湿度
+      - Double
+      - 〇
+      - [%]
+    * - 6
+      - ill_sensor
+      - 照度(センサ)
+      - Integer
+      - 
+      - [lux]
+    * - 7
+      - accelS
+      - 加速度ステータス
+      - Integer
+      - 
+      - 
+    * - 8
+      - accelX
+      - X方向加速度
+      - Double
+      - 
+      - [G]
+    * - 9
+      - accelY
+      - Y方向加速度
+      - Double
+      - 
+      - [G]
+    * - 10
+      - accelZ
+      - Z方向加速度
+      - Double
+      - 
+      - [G]
+    * - 11
+      - contact
+      - マグネットコンタクト
+      - String
+      - 
+      - "Open", "Closed", "Unknown"
+    * - 12
+      - energy_level
+      - エネルギーレベル
+      - Double
+      - 
+      - [%]
+    * - 13
+      - voltage
+      - 電圧
+      - Double
+      - 
+      - [mV]
+    * - 14
+      - ill_solar
+      - 照度(太陽電池)
+      - Integer
+      - 
+      - [lux]
+    * - 15
+      - optional
+      - オプショナルデータ
+      - String
+      - 
+      - 
+    * - 16
+      - memo
+      - メモ
+      - String
+      - 
+      - WEB UIから設定された値
+  
+.. raw:: latex
+
+   \clearpage 
+
+EnOcean 照度センサ&人感センサ(EMDCB)
+====================================
+
+ビーコン送受信設定
+--------------------------------
+
+■ データサンプル(Default) ::
+
+    {
+        "time": "2020-05-19T17:12:59.237+09:00",
+        "deviceId": "e50000000252",
+        "rssi": -85,
+        "sequence": 55370,
+        "energy_level": 90,
+        "ill_solar": 216,
+        "ill_sensor": 216,
+        "occupancy": ""Occupied
+    }
+
+.. list-table::  EnOcean 照度センサ&人感センサ (Default)
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - deviceId
+      - デバイスID
+      - String
+      - 〇
+      - デバイスアドレスから ':' を除き、小文字化した値
+    * - 2
+      - time
+      - データ取得日時
+      - String
+      - 〇
+      - ISO8601拡張書式
+    * - 3
+      - appendixInfo
+      - 付随情報
+      - String	
+      - 
+      - WEB UIから設定された値
+    * - 4
+      - rssi
+      - 受信信号強度
+      - Integer
+      - 〇
+      - 
+    * - 5
+      - type
+      - ビーコン種別
+      - String
+      - 
+      - WEB UIにて表示設定
+    * - 6
+      - data
+      - ペイロードデータ
+      - String
+      - 
+      - 16進ダンプデータ
+    * - 7
+      - localname
+      - ローカル名
+      - String
+      - 
+      - WEB UIにて表示設定
+    * - 8
+      - status
+      - ビーコンステータス
+      - String
+      - 
+      - ビーコン制御タイプにより表示。('in' または 'out')
+    * - 9
+      - sequence
+      - シーケンス番号
+      - Integer
+      - 〇
+      - 
+    * - 10
+      - ill_sensor
+      - 照度(センサ)
+      - Integer
+      - 
+      - [lux]
+    * - 11
+      - occupancy
+      - 人感センサ
+      - String
+      - 
+      - "Not occupied", "Occupied", "Unknown"
+    * - 12
+      - energy_level
+      - エネルギーレベル
+      - Double
+      - 
+      - [%]
+    * - 13
+      - voltage
+      - 電圧
+      - Double
+      - 
+      - [mV]
+    * - 14
+      - ill_solar
+      - 照度(太陽電池)
+      - Integer
+      - 
+      - [lux]
+    * - 15
+      - optional
+      - オプショナルデータ
+      - String
+      - 
+      - 
+    * - ex
+      - ユーザー設定
+      - ユーザー設定内容
+      - String
+      - 
+      - WEB UIから設定された値
+
+.. raw:: latex
+
+   \clearpage 
+
+BLEデバイス情報送信設定
+--------------------------------
+
+■ データサンプル(Default) ::
+
+    {
+        "time": "2020-05-19T16:12:25.562+09:00",
+        "memo": "EnOcean EMDCB",
+        "deviceId": "e500ec09abcd",
+        "sequence": 55370,
+        "energy_level": 90,
+        "ill_solar": 216,
+        "ill_sensor": 216,
+        "occupancy": ""Occupied
+    }
+
+.. list-table::  EnOcean 照度センサ&人感センサ (Default)
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - deviceId
+      - デバイスID
+      - String
+      - 〇
+      - デバイスアドレスから ':' を除き、小文字化した値
+    * - 2
+      - time
+      - データ取得日時
+      - String
+      - 〇
+      - ISO8601拡張書式
+    * - 3
+      - sequence
+      - シーケンス番号
+      - Integer
+      - 〇
+      - 
+    * - 4
+      - ill_sensor
+      - 照度(センサ)
+      - Integer
+      - 
+      - [lux]
+    * - 5
+      - occupancy
+      - 人感センサ
+      - String
+      - 
+      - "Not occupied", "Occupied", "Unknown"
+    * - 6
+      - energy_level
+      - エネルギーレベル
+      - Double
+      - 
+      - [%]
+    * - 7
+      - voltage
+      - 電圧
+      - Double
+      - 
+      - [mV]
+    * - 8
+      - ill_solar
+      - 照度(太陽電池)
+      - Integer
+      - 
+      - [lux]
+    * - 9
+      - optional
+      - オプショナルデータ
+      - String
+      - 
+      - 
+    * - 10
+      - memo
+      - メモ
+      - String
+      - 
+      - WEB UIから設定された値
+  
+.. raw:: latex
+
+   \clearpage 

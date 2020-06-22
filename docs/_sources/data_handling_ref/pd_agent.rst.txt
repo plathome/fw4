@@ -1,0 +1,227 @@
+.. _data_handler_reference_pd_agent:
+
+**************
+PD Agent
+**************
+
+================
+デォルトパス
+================
+
+PD agent に関連するファイルのデォルトパスは次の通りです。
+
+.. list-table:: PD agentに関連するファイルのデォルトパス
+    :header-rows: 1
+
+    * - パス名
+      - 説明
+    * - /usr/sbin/pd_agent
+      - 常駐実行オブジェクト（デーモン）
+    * - /lib/systemd/system/pd_agent.service
+      - Systemd Serviceファイル
+    * - /etc/init.d/pd_agent
+      - RCファイル
+    * - /var/webui/config/pd_agent.conf
+      - 設定ファイル
+    * - /var/run/pd_agent.pid
+      - PIDファイル
+
+======================
+設定ファイルの書式
+======================
+
+構文
+========
+
+.. literalinclude:: pd_agent.conf
+
+agent オブジェクト
+======================
+
+.. list-table:: agent オブジェクト
+    :widths: 20 12 68
+    :header-rows: 1
+    
+    * - キー
+      - データ型
+      - 説明
+    * - enable
+      - 論理値
+      - デフォルト値はfalse
+    * - localname
+      - 文字列
+      - デバイスのローカル名(デバイス番号). (32byte)
+    * - bind
+      - 文字列
+      - 制御メッセージを受け取るソケット名. 文字列の先頭が'@' の場合はabstract　namespace と解釈します. 
+        デフォルト値は定義されていません。 @/<モジュール名＞/＜デバイス番号＞.sock の形式で指定します.
+    * - buffer_size
+      - 整数値
+      - データのバッファサイズ(byte)
+    * - topic_size
+      - 整数値
+      - フィルタリングに用いるトピックのバッファサイズ(byte) デフォルト値は 256byte.
+    * - channels
+      - JSON配列
+      - channels オブジェクト. 最大32 個まで設定可能. 
+
+channels オブジェクト
+=============================
+
+.. list-table:: channels オブジェクト
+    :widths: 20 12 68
+    :header-rows: 1
+    
+    * - キー
+      - データ型
+      - 説明
+    * - name
+      - 文字列
+      - チャンネルの名称. (32byte)
+    * - reply
+      - 論理値
+      - 'push to' キーに設定されるソケットに応答を返すか否かの設定. デフォルト値はtrue
+    * - index
+      - 文字列
+      - 'exec' キーに指定される実行オブェクトの起動条件として評価される、JSON文字列データのキー(32byte)
+    * - value
+      - 文字列
+      - 'exec' キーに指定される実行オブェクトの起動条件として評価される、JSON 文字列データの値(32byte)
+    * - exec
+      - 文字列
+      - 'index' キーに設定されるキーと'value' キーに設定されるその値が、JSON文字列データに含まれている場合に実行される実行オブェクトもしくは Dynamic Link モジュール又は Lua 言語スクリプトのパス名のパス名.
+        ファイル記述子が .so の場合は Dinamic Link モジュール、.lua の場合は Lua 言語スクリプト、それ以外の場合は実行オブジェクトと見なされる.(MAXPATHLEN)
+    * - args
+      - 文字列
+      - 'exec' キーに設定される実行オブェクトに与える引数. 'exec' に指定されるパス名が Dynamic Link モジュールまたは Lua言語スクリプトの場合は無視されます.(1024byte)
+    * - lua_func
+      - 文字列
+      - 実行される Lua 言語スクリプト内の関数名.
+
+.. raw:: latex
+
+   \clearpage 
+
+実行オブジェクトに継承される環境変数
+========================================
+
+| 受信データのJSON 文字列の内、起動条件の評価に用いたキーと値を含め、値が文字列か数値の場合は、これを環境変数に設定し実行オブジェクトに継承します。
+| また、pd repeater から渡されたCloud ID、受信データ(ペイロード) のMD5 ハッシュ値、受信データのヘッダ情報とpd agent に設定されているデバイスのローカル名も合わせて環境変数に継承します。
+
+.. list-table:: 実行オブジェクトに環境変数として継承されるペイロード以外のパラメータ
+    :widths: 20 12 68
+    :header-rows: 1
+    
+    * - 環境変数名
+      - データ型
+      - 説明
+    * - request_cloud_id
+      - 整数値
+      - PD Repeater が便宜上割り当てている番号
+    * - request_sub_id
+      - 整数値
+      - 同一クラウドの複数サーバを利用している場合の識別子
+    * - request_header
+      - 文字列
+      - PD Repeater から渡される受信データのヘッダ情報
+    * - request_payload
+      - 文字列
+      - PD Repeater から渡される受信データ(ペイロード)
+    * - request_md5
+      - 文字列
+      - PD Repeater から渡される受信データ(ペイロード) のMD5 ハッシュ値
+    * - agent_localname
+      - 文字列
+      - 'localname' キーに設定されているデバイスのローカル名(デバイス番号).
+    * - agent_bind
+      - 文字列
+      - 'bind' キーに設定されているデータを受け取ったソケット名.
+    * - agent_push_to
+      - 文字列
+      - 'push to' キーに設定されている応答先ソケット名.
+    * - agent_buffer_size
+      - 整数値
+      - 'buffer size' キーに設定されているデータのバッファサイズ.(byte)
+ 
+.. raw:: latex
+
+    \clearpage 
+
+Dynamic Link モジュール
+===========================
+
+| Dynamic Link モジュールのサンプルコードを示します。
+| Dynamic Link モジュールは、dlopen()によって PD Agent に取り込まれます。dl_exec()が、execv() によって実行されう外部の実行オブジェクトの代わりに呼び出される関数です。
+| dl_exec() の引数には、実行オブジェクトを実行する際に環境変数として継承される全てのパラメータを含みます。　SONEオブジェクトポインタ result が NULL の場合、応答メッセージの ‘result’キーの値は ‘done’となります。　dl_init() は PD Agent の起動時に、dl_fini() は停止時に一度だけ呼ばれる関数であり、必要が無ければサンプルコードのままとして下さい。
+
+.. literalinclude:: pd_agent_dl_module.c
+
+.. raw:: latex
+
+    \clearpage
+
+Lua 言語スクリプト
+======================
+
+| Lua 言語スクリプトのサンプルコードを示します。
+| Lua 言語スクリプトは、luaL_dofile()によって PD Agent に取り込まれ、同スクリプトに含まれる関数の内、'lua_func' キーに指定された関数が実行されます。
+| 指定された関数には、実行オブジェクトを実行する場合に環境変数として継承される全てのパラメータが継承(push)されます。 関数の戻り値 Stack1 は、正常終了であれば 0, 異常終了であれば -1 を返して下さい。 戻り値の Stack2 は、応答メッセージの ‘result’キーに与えられるSONE文字列を返して下さい。
+
+.. literalinclude:: pd_agent_example.lua
+
+.. raw:: latex
+
+    \clearpage
+  
+応答メッセージ
+====================
+
+'reply' キーがtrue の場合、pd agent は'push to' に設定されるソケットに実行ステータスをJSON文字列で返します。
+
+実行コマンドを起動した :: 
+
+    {
+       "time": "timestamp", "reply_to": "md5", "result": "queuing",
+       "reason": "matched", "matched": {"key": "value"}
+    }
+
+実行コマンドの実行に失敗した ::
+
+    {
+       "time": "timestamp", "reply_to": "md5", "result": "faild",
+       "reason": "matched", "matched": {"key": "value"}
+    }
+
+実行コマンドの実行を終了した ::
+
+    {
+       "time": "timestamp", "reply_to": "md5", "result": "done",
+       "reason": "matched", "matched": {"key": "value"}
+    }
+
+一致するキーと値が存在しない ::
+
+    {
+       "time": "timestamp", "reply_to": "md5", "result": "not queuing",
+       "reason": "key and value not matched"
+    }
+
+制御メッセージがJSON文字列でない ::
+
+    {
+       "time": "timestamp", "reply_to": "md5", "result": "not queuing",
+       "reason": "not JSON form"
+    }
+
+| ここで、md5は、:ref:`pd_repeater_down_stream_message` に記載される制御メッセージのハッシュ値、{"key": "value"} は、一致した「判断キー」と「処理判断値」です。
+| 実行ステータスは、実行オブジェクトもしくはシェルスクリプトを呼び出すexecv()の戻り値であり、実行オブジェクトもしくはシェルスクリプトの処理結果を示すものではありません。　処理の完全性を求めるのであれば応答メッセージは実行オブジェクトもしくはシェルスクリプトから agent_push_to 環境変数で継承されるUNIXドメインソケットに返すようにして下さい。
+
+Dynamic Link モジュール使用時で、dl\_exec() の文字列ポインタ引数 result が NULL で無い場合、
+実行終了時の 'result'キーの値は文字列ポインタ引数 result の値(JSON文字列)に置き換えられる.
+
+Lua言語スクリプト使用時で、戻り値 Stack2 が NULL で無い場合、
+実行終了時の 'result'キーの値は、戻り値 Stack2 の値(JSON文字列)に置き換えられる.
+
+.. raw:: latex
+
+   \clearpage 

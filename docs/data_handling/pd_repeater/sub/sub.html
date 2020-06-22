@@ -1,0 +1,137 @@
+
+<!DOCTYPE html>
+
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <title>送受信先毎の設定 &#8212; OpenBlocks FW4 1.0.0 ドキュメント</title>
+    <link rel="stylesheet" href="../../../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script src="../../../_static/translations.js"></script>
+    
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+    <link rel="index" title="索引" href="../../../genindex.html" />
+    <link rel="search" title="検索" href="../../../search.html" />
+    <link rel="next" title="本体内(lo)" href="lo/lo.html" />
+    <link rel="prev" title="送受信設定（PD Repeater）" href="../pd_repeater.html" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="content-language" content="ja" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <meta name="description" content="OpenBlocksに搭載しているFW4のドキュメントです。初期セットアップ方法や各種クラウドへのIoTデータの送受信(PD Repeater, PD Handler)、AirManageへの接続方法、自作開発に必用な情報等を記載しています。" />
+    <meta name="keywords" content="OpenBlocks,IoT,AirManage,WEB UI,PD,Repeater,Handler" />
+    <meta http-equiv="Content-Script-Type" content="text/JavaScript" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <meta name="subject" content="OpenBlocks FW4の各種ドキュメントです。" />
+    <meta name="abstract" content="OpenBlocksに搭載しているFW4のドキュメントです。初期セットアップ方法や各種クラウドへのIoTデータの送受信(PD Repeater, PD Handler)、AirManageへの接続方法、自作開発に必用な情報等を記載しています。" />
+    <meta name="owner" content="ぷらっとホーム株式会社" />
+    <meta name="copyright" content="2020 Plat'Home Co., Ltd. All rights reserved." />
+    <meta name="robots" content="INDEX,FOLLOW" />
+  </head><body>
+<div class="header">
+	<div class="header_container">
+		<a href="https://www.plathome.co.jp">
+			<!-- <img src="/_static/logo_plathome_technology.png" width="137.5" alt="Plat'Home"> -->
+			<img src="/_static/logo_plathome_white.png" width="137.5" alt="Plat'Home">
+		</a>
+		<div class="right">
+			<a class="headlink" href="https://www.plathome.co.jp">
+				会社TOP
+			</a>
+		</div>
+		<div class="right">
+			<a class="headlink" href="https://docs.plathome.co.jp">
+				HOME
+			</a>
+		</div>
+	</div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>ナビゲーション</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="総合索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="lo/lo.html" title="本体内(lo)"
+             accesskey="N">次へ</a> |</li>
+        <li class="right" >
+          <a href="../pd_repeater.html" title="送受信設定（PD Repeater）"
+             accesskey="P">前へ</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">OpenBlocks FW4 1.0.0 ドキュメント</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../data_handling.html" >データハンドリングガイド</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../pd_repeater.html" accesskey="U">送受信設定（PD Repeater）</a> &#187;</li> 
+      </ul>
+    </div>
+</div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="pd-repeater-device">
+<span id="id1"></span><h1>送受信先毎の設定<a class="headerlink" href="#pd-repeater-device" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>送受信先毎の「送受信設定」メニューにおける設定と各デバイス設定メニューにおける設定を説明します。</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="lo/lo.html">本体内(lo)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dexpf/dexpf.html">DEXPF(dexpf)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dexpf_ws/dexpf_ws.html">DEXPF[Websocket](dexpf_ws)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="iothub/iothub.html">MS Azure IoT Hub(iothub)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="iothub_ws/iothub_ws.html">MS Azure IoT Hub[Websocket](iothub_ws)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="awsiot/awsiot.html">AWS IoT(awsiot)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="awsiot_ws/awsiot_ws.html">AWS IoT[Websocket](awsiot_ws)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="iotcore/iotcore.html">Google IoT Core(iotcore)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="w4g/w4g.html">Watson IoT for Gateway(w4g)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="eventhub/eventhub.html">MS Azure Event hubs(eventhub)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kinesis/kinesis.html">Amazon Kinesis(kinesis)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="w4d/w4d.html">Watson IoT for Device(w4d)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="t4d/t4d.html">Toami for DOCOMO(t4d)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sbiot/sbiot.html">SoftBankスマ可視専用クラウド(sbiot)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kddi_std/kddi_std.html">KDDI IoTクラウドStandard(kddi_std)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pd_web/pd_web.html">PH社独自仕様WEBサーバー(pd_web)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web/web.html">WEBサーバー(web)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mqtt/mqtt.html">MQTTサーバー(mqtt)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ltcp/ltcp.html">TCP(ltcp)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pd_ex/pd_ex.html">PD Exchange(pd_ex)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lsocket/lsocket.html">ドメインソケット(lsocket)</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>前のトピックへ</h4>
+  <p class="topless"><a href="../pd_repeater.html"
+                        title="前の章へ">送受信設定（PD Repeater）</a></p>
+  <h4>次のトピックへ</h4>
+  <p class="topless"><a href="lo/lo.html"
+                        title="次の章へ">本体内(lo)</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">クイック検索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="検索" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020 Plat&#39;Home Co., Ltd. All rights reserved..
+    </div>
+  </body>
+</html>

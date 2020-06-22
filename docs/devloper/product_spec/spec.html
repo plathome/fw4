@@ -1,0 +1,2054 @@
+
+<!DOCTYPE html>
+
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <title>製品仕様 &#8212; OpenBlocks FW4 1.0.0 ドキュメント</title>
+    <link rel="stylesheet" href="../../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../_static/translations.js"></script>
+    
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="検索" href="../../search.html" />
+    <link rel="next" title="注意事項及び補足" href="../notes/notes.html" />
+    <link rel="prev" title="ご利用方法" href="../how_to_use/how_to_use.html" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="content-language" content="ja" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <meta name="description" content="OpenBlocksに搭載しているFW4のドキュメントです。初期セットアップ方法や各種クラウドへのIoTデータの送受信(PD Repeater, PD Handler)、AirManageへの接続方法、自作開発に必用な情報等を記載しています。" />
+    <meta name="keywords" content="OpenBlocks,IoT,AirManage,WEB UI,PD,Repeater,Handler" />
+    <meta http-equiv="Content-Script-Type" content="text/JavaScript" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <meta name="subject" content="OpenBlocks FW4の各種ドキュメントです。" />
+    <meta name="abstract" content="OpenBlocksに搭載しているFW4のドキュメントです。初期セットアップ方法や各種クラウドへのIoTデータの送受信(PD Repeater, PD Handler)、AirManageへの接続方法、自作開発に必用な情報等を記載しています。" />
+    <meta name="owner" content="ぷらっとホーム株式会社" />
+    <meta name="copyright" content="2020 Plat'Home Co., Ltd. All rights reserved." />
+    <meta name="robots" content="INDEX,FOLLOW" />
+  </head><body>
+<div class="header">
+	<div class="header_container">
+		<a href="https://www.plathome.co.jp">
+			<!-- <img src="/_static/logo_plathome_technology.png" width="137.5" alt="Plat'Home"> -->
+			<img src="/_static/logo_plathome_white.png" width="137.5" alt="Plat'Home">
+		</a>
+		<div class="right">
+			<a class="headlink" href="https://www.plathome.co.jp">
+				会社TOP
+			</a>
+		</div>
+		<div class="right">
+			<a class="headlink" href="https://docs.plathome.co.jp">
+				HOME
+			</a>
+		</div>
+	</div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>ナビゲーション</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="総合索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="../notes/notes.html" title="注意事項及び補足"
+             accesskey="N">次へ</a> |</li>
+        <li class="right" >
+          <a href="../how_to_use/how_to_use.html" title="ご利用方法"
+             accesskey="P">前へ</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenBlocks FW4 1.0.0 ドキュメント</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../devloper.html" accesskey="U">開発者向けガイド</a> &#187;</li> 
+      </ul>
+    </div>
+</div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1>製品仕様<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="openblocks-iot-vx1">
+<h2>OpenBlocks IoT VX1本体仕様<a class="headerlink" href="#openblocks-iot-vx1" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 19%" />
+<col style="width: 31%" />
+<col style="width: 31%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head" colspan="2"><p>項目</p></th>
+<th class="head" colspan="2"><p>内容</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td colspan="2"><p>モデル</p></td>
+<td colspan="2"><p>OBSVX1</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>型番</p></td>
+<td colspan="2"><p>OBSVX1</p></td>
+</tr>
+<tr class="row-even"><td rowspan="3"><p>CPU</p></td>
+<td><p>モデル</p></td>
+<td colspan="2"><p>Intel Atom E3805</p></td>
+</tr>
+<tr class="row-odd"><td><p>動作速度</p></td>
+<td colspan="2"><p>1.3GHz (デュアルコア)</p></td>
+</tr>
+<tr class="row-even"><td><p>内蔵2次キャッシュ</p></td>
+<td colspan="2"><p>1024kB/Core</p></td>
+</tr>
+<tr class="row-odd"><td><p>メインメモリ</p></td>
+<td><p>オンボード</p></td>
+<td colspan="2"><p>1GB(64bit bus DDR3L)</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>内蔵ストレージ</p></td>
+<td colspan="2"><p>8GB(eMMC)</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>追加ストレージ</p></td>
+<td colspan="2"><p>MMCスロット x 1</p></td>
+</tr>
+<tr class="row-even"><td colspan="2" rowspan="2"><p>無線インターフェース</p></td>
+<td colspan="2"><p>BT 4.0+2.1 EDR</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>WLAN(IEEE802.11a/b/g/n/ac) ※4</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>SIMインターフェース</p></td>
+<td colspan="2"><p>通信用miniSIMカードスロット</p></td>
+</tr>
+<tr class="row-odd"><td rowspan="5"><p>有線インターフェース</p></td>
+<td><p>USB(HOST)</p></td>
+<td colspan="2"><p>3.0 x 1 (type-A) ※2</p></td>
+</tr>
+<tr class="row-even"><td><p>USB(Console)</p></td>
+<td colspan="2"><p>Micro USB(type-B) x 1</p></td>
+</tr>
+<tr class="row-odd"><td><p>Ethernet</p></td>
+<td colspan="2"><p>10Base-T/100BASE-TX/1000BASE-T x 1</p></td>
+</tr>
+<tr class="row-even"><td><p>RS-232C</p></td>
+<td colspan="2"><p>RJ45 x 1</p></td>
+</tr>
+<tr class="row-odd"><td><p>RS-485</p></td>
+<td colspan="2"><p>半2重 x 1 (使用可能電線範囲:AWG28～AWG22)</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>寸法</p></td>
+<td colspan="2"><p>91.9mm(W) x 114.8mm (D) x 25mm(H) (突起部含まず)</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>重量</p></td>
+<td colspan="2"><p>160g</p></td>
+</tr>
+<tr class="row-even"><td colspan="2" rowspan="2"><p>電源</p></td>
+<td colspan="2"><p>DC-Jack：DC4.75～5.25V</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>Wide DC給電時 : DC10～48V※3</p></td>
+</tr>
+<tr class="row-even"><td rowspan="2"><p>消費電力</p></td>
+<td><p>アイドル時</p></td>
+<td colspan="2"><p>5.1W</p></td>
+</tr>
+<tr class="row-odd"><td><p>高負荷時</p></td>
+<td colspan="2"><p>8.2W</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>MTBF</p></td>
+<td colspan="2"><p>435,613h</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>EMC規格</p></td>
+<td colspan="2"><p>VCCI class A</p></td>
+</tr>
+<tr class="row-even"><td colspan="2" rowspan="2"><p>省エネ法に基づくエネルギー</p>
+<p>消費効率[単位：W/GTOPS]※1</p>
+</td>
+<td colspan="2"><p>区分：H</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>0.52</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>環境保護</p></td>
+<td colspan="2"><p>RoHS指令適合</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>認証</p></td>
+<td colspan="2"><p>JATE / TELEC</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>RTCバックアップ時間</p></td>
+<td colspan="2"><p>10年</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>出荷時OS</p></td>
+<td colspan="2"><p>Debian GNU/Linux</p></td>
+</tr>
+</tbody>
+</table>
+<p>※1 : エネルギー消費効率とは省エネ法で定める測定方法により測定した消費電力を省エネ法で定める複合理論性能で除したものです。</p>
+<p>※2 : サポートするケーブル長は3m未満です。</p>
+<p>※3 : 本機能をご使用いただく場合、外付けノイズフィルター(SNR-10-223-T (COSEL))または同等のノイズフィルターの接続が必要です。</p>
+<p>※4 : 802.11acのアクセスポイント機能はサポートいたしておりません。</p>
+</div>
+<div class="section" id="openblocks-iot-vx2">
+<h2>OpenBlocks IoT VX2本体仕様<a class="headerlink" href="#openblocks-iot-vx2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 19%" />
+<col style="width: 31%" />
+<col style="width: 31%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head" colspan="2"><p>項目</p></th>
+<th class="head" colspan="2"><p>内容</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td colspan="2"><p>モデル</p></td>
+<td colspan="2"><p>OBSVX2</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>型番</p></td>
+<td><p>OBSVX2</p></td>
+<td><p>OBSVX2/N</p></td>
+</tr>
+<tr class="row-even"><td rowspan="3"><p>CPU</p></td>
+<td><p>モデル</p></td>
+<td colspan="2"><p>Intel Atom E3805</p></td>
+</tr>
+<tr class="row-odd"><td><p>動作速度</p></td>
+<td colspan="2"><p>1.3GHz (デュアルコア)</p></td>
+</tr>
+<tr class="row-even"><td><p>内蔵2次キャッシュ</p></td>
+<td colspan="2"><p>1024kB/Core</p></td>
+</tr>
+<tr class="row-odd"><td><p>メインメモリ</p></td>
+<td><p>オンボード</p></td>
+<td colspan="2"><p>2GB(64bit bus DDR3L)</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>内蔵ストレージ</p></td>
+<td colspan="2"><p>32GB(eMMC)</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>追加ストレージ</p></td>
+<td colspan="2"><p>MMCスロット x 1</p></td>
+</tr>
+<tr class="row-even"><td colspan="2" rowspan="2"><p>無線インターフェース</p></td>
+<td colspan="2"><p>BT 4.0+2.1 EDR</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>WLAN(IEEE802.11a/b/g/n/ac) ※4</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>SIMインターフェース</p></td>
+<td><p>通信用miniSIMカードスロット</p></td>
+<td><p>通信用nanoSIMカードスロット</p></td>
+</tr>
+<tr class="row-odd"><td rowspan="4"><p>有線インターフェース</p></td>
+<td><p>USB(HOST)</p></td>
+<td colspan="2"><p>3.0 x 1 (type-A) ※2</p></td>
+</tr>
+<tr class="row-even"><td><p>USB(Console)</p></td>
+<td colspan="2"><p>Micro USB(type-B) x 1</p></td>
+</tr>
+<tr class="row-odd"><td><p>Ethernet</p></td>
+<td colspan="2"><p>10Base-T/100BASE-TX/1000BASE-T x 2</p></td>
+</tr>
+<tr class="row-even"><td><p>RS-485</p></td>
+<td colspan="2"><p>半2重 x 1 (使用可能電線範囲:AWG28～AWG22)</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>寸法</p></td>
+<td colspan="2"><p>91.9mm(W) x 114.8mm (D) x 25mm(H) (突起部含まず)</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>重量</p></td>
+<td colspan="2"><p>160g</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2" rowspan="2"><p>電源</p></td>
+<td colspan="2"><p>DC-Jack：DC4.75～5.25V</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>Wide DC給電時 : DC10～48V※3</p></td>
+</tr>
+<tr class="row-odd"><td rowspan="2"><p>消費電力</p></td>
+<td><p>アイドル時</p></td>
+<td colspan="2"><p>5.5W</p></td>
+</tr>
+<tr class="row-even"><td><p>高負荷時</p></td>
+<td colspan="2"><p>9.0W</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>MTBF</p></td>
+<td colspan="2"><p>435,613h</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>EMC規格</p></td>
+<td colspan="2"><p>VCCI class A</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2" rowspan="2"><p>省エネ法に基づくエネルギー消費効率[単位：W/GTOPS] ※1</p></td>
+<td colspan="2"><p>区分：H</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>0.52</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>環境保護</p></td>
+<td colspan="2"><p>RoHS指令適合</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>認証</p></td>
+<td colspan="2"><p>JATE / TELEC</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>RTCバックアップ時間</p></td>
+<td colspan="2"><p>10年</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>出荷時OS</p></td>
+<td colspan="2"><p>Debian GNU/Linux</p></td>
+</tr>
+</tbody>
+</table>
+<p>※1 : エネルギー消費効率とは省エネ法で定める測定方法により測定した消費電力を省エネ法で定める複合理論性能で除したものです。</p>
+<p>※2 : サポートするケーブル長は3m未満です。</p>
+<p>※3 : 本機能をご使用いただく場合、外付けノイズフィルター(SNR-10-223-T (COSEL))または同等のノイズフィルターの接続が必要です。</p>
+<p>※4 : 802.11acのアクセスポイント機能はサポートいたしておりません。</p>
+</div>
+<div class="section" id="openblocks-iot-vx">
+<h2>OpenBlocks IoT VXシリーズオプション<a class="headerlink" href="#openblocks-iot-vx" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="lte-3g">
+<h3>LTE/3Gモジュール(ソフトバンク)<a class="headerlink" href="#lte-3g" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 19%" />
+<col style="width: 31%" />
+<col style="width: 31%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head" colspan="2"><p>項目</p></th>
+<th class="head" colspan="2"><p>内容</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td rowspan="3"><p>対応周波数またはBand</p></td>
+<td><p>GSM</p></td>
+<td colspan="2"><p>850/900/1800/1900MHz</p></td>
+</tr>
+<tr class="row-odd"><td><p>W-CDMA</p></td>
+<td colspan="2"><p>850/900/1900/2100MHz</p></td>
+</tr>
+<tr class="row-even"><td><p>LTE</p></td>
+<td colspan="2"><p>(1)/(3)/(5)/(7)/(8)/(20)</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>データ通信速度</p></td>
+<td colspan="2"><p>下り：150Mbps , 上り：50Mbps (理論値)</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>制御方法</p></td>
+<td colspan="2"><p>ATコマンド・特殊コマンド</p></td>
+</tr>
+<tr class="row-odd"><td rowspan="2"><p>消費電力</p></td>
+<td><p>アイドル時</p></td>
+<td colspan="2"><p>0.05W (平均電力)</p></td>
+</tr>
+<tr class="row-even"><td><p>高負荷時</p></td>
+<td colspan="2"><p>2.5W (平均電力)</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>認証</p></td>
+<td colspan="2"><p>JATE/TELEC</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>MTBF</p></td>
+<td colspan="2"><p>97,808h&#64;25℃</p></td>
+</tr>
+</tbody>
+</table>
+<p>※1 : ()内はBand</p>
+</div>
+<div class="section" id="lte-kddi">
+<h3>LTEモジュール(KDDI)<a class="headerlink" href="#lte-kddi" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 19%" />
+<col style="width: 31%" />
+<col style="width: 31%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head" colspan="2"><p>項目</p></th>
+<th class="head" colspan="2"><p>内容</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td rowspan="2"><p>対応周波数</p></td>
+<td><p>受信</p></td>
+<td colspan="2"><p>860.0MHz～875.0MHz</p></td>
+</tr>
+<tr class="row-odd"><td><p>送信</p></td>
+<td colspan="2"><p>815.0MHz～830.0MHz</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>データ通信速度</p></td>
+<td colspan="2"><p>下り：75Mbps , 上り：25Mbps (理論値)</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>制御方法</p></td>
+<td colspan="2"><p>ATコマンド・特殊コマンド</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>認証</p></td>
+<td colspan="2"><p>JATE/TELEC</p></td>
+</tr>
+<tr class="row-odd"><td rowspan="2"><p>消費電力</p></td>
+<td><p>アイドル時</p></td>
+<td colspan="2"><p>0.16W (平均電力)</p></td>
+</tr>
+<tr class="row-even"><td><p>高負荷時</p></td>
+<td colspan="2"><p>2.4W (平均電力)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="lte-ntt-kddi">
+<h3>LTEモジュール(NTTドコモ/KDDI)<a class="headerlink" href="#lte-ntt-kddi" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 19%" />
+<col style="width: 31%" />
+<col style="width: 31%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head" colspan="2"><p>項目</p></th>
+<th class="head" colspan="2"><p>内容</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td rowspan="4"><p>対応周波数またはBand</p></td>
+<td><p>GSM</p></td>
+<td colspan="2"><p>900/1800MHz</p></td>
+</tr>
+<tr class="row-odd"><td><p>W-CDMA</p></td>
+<td colspan="2"><p>800(6)/900(8)/2100MHz</p></td>
+</tr>
+<tr class="row-even"><td><p>LTE</p></td>
+<td colspan="2"><p>800(18)/800(19)/900(8)/1800(3)/2100(1)/2600(41)MHz※1</p></td>
+</tr>
+<tr class="row-odd"><td><p>GNSS</p></td>
+<td colspan="2"><p>GPS/GLONASS</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>データ通信速度</p></td>
+<td colspan="2"><p>下り：100Mbps , 上り：50Mbps (理論値)</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>制御方法</p></td>
+<td colspan="2"><p>ATコマンド・特殊コマンド</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>認証</p></td>
+<td colspan="2"><p>JATE[150051003] / TELEC[003-150053]</p></td>
+</tr>
+<tr class="row-odd"><td rowspan="2"><p>消費電力</p></td>
+<td><p>アイドル時</p></td>
+<td colspan="2"><p>0.02W (平均電力)</p></td>
+</tr>
+<tr class="row-even"><td><p>高負荷時</p></td>
+<td colspan="2"><p>2.9W (平均電力)</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>MTBF</p></td>
+<td colspan="2"><p>500,000h &#64;25℃</p></td>
+</tr>
+</tbody>
+</table>
+<p>※1 : ()内はBand</p>
+</div>
+<div class="section" id="bwa">
+<h3>BWAモジュール<a class="headerlink" href="#bwa" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 19%" />
+<col style="width: 31%" />
+<col style="width: 31%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head" colspan="2"><p>項目</p></th>
+<th class="head" colspan="2"><p>内容</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td rowspan="4"><p>対応周波数またはBand</p></td>
+<td><p>GSM</p></td>
+<td colspan="2"><p>900/1800MHz</p></td>
+</tr>
+<tr class="row-odd"><td><p>W-CDMA</p></td>
+<td colspan="2"><p>800(6)/900(8)/2100MHz</p></td>
+</tr>
+<tr class="row-even"><td><p>LTE</p></td>
+<td colspan="2"><p>800(18)/800(19)/900(8)/1800(3)/2100(1)/2600(41)MHz※1</p></td>
+</tr>
+<tr class="row-odd"><td><p>GNSS</p></td>
+<td colspan="2"><p>GPS/GLONASS</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>データ通信速度</p></td>
+<td colspan="2"><p>下り：100Mbps , 上り：50Mbps (理論値)</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>制御方法</p></td>
+<td colspan="2"><p>ATコマンド・特殊コマンド</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>認証</p></td>
+<td colspan="2"><p>JATE[150051003] / TELEC[003-150053]</p></td>
+</tr>
+<tr class="row-odd"><td rowspan="2"><p>消費電力</p></td>
+<td><p>アイドル時</p></td>
+<td colspan="2"><p>0.02W (平均電力)</p></td>
+</tr>
+<tr class="row-even"><td><p>高負荷時</p></td>
+<td colspan="2"><p>2.9W (平均電力)</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>MTBF</p></td>
+<td colspan="2"><p>500,000h &#64;25℃</p></td>
+</tr>
+</tbody>
+</table>
+<p>※1 : ()内はBand</p>
+</div>
+<div class="section" id="enocean">
+<h3>EnOceanモジュール<a class="headerlink" href="#enocean" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 19%" />
+<col style="width: 31%" />
+<col style="width: 31%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head" colspan="2"><p>項目</p></th>
+<th class="head" colspan="2"><p>内容</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td colspan="2"><p>周波数</p></td>
+<td colspan="2"><p>928.35MHz</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>データ通信速度</p></td>
+<td colspan="2"><p>125kbps</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>HOST I/F</p></td>
+<td colspan="2"><p>UART</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>認証</p></td>
+<td colspan="2"><p>TELEC</p></td>
+</tr>
+<tr class="row-even"><td rowspan="2"><p>消費電力</p></td>
+<td><p>受信時</p></td>
+<td colspan="2"><p>0.13W</p></td>
+</tr>
+<tr class="row-odd"><td><p>送信時</p></td>
+<td colspan="2"><p>0.11W</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>MTBF</p></td>
+<td colspan="2"><p>862,664h &#64;25℃</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="wi-sun">
+<h3>Wi-SUNモジュール<a class="headerlink" href="#wi-sun" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 19%" />
+<col style="width: 31%" />
+<col style="width: 31%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head" colspan="2"><p>項目</p></th>
+<th class="head" colspan="2"><p>内容</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td colspan="2"><p>周波数</p></td>
+<td colspan="2"><p>922.5～927.9MHz(28ch)</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>データ通信速度</p></td>
+<td colspan="2"><p>100kbps</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>HOST I/F</p></td>
+<td colspan="2"><p>UART</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>認証</p></td>
+<td colspan="2"><p>TELEC</p></td>
+</tr>
+<tr class="row-even"><td rowspan="2"><p>消費電力</p></td>
+<td><p>受信時</p></td>
+<td colspan="2"><p>0.1W</p></td>
+</tr>
+<tr class="row-odd"><td><p>送信時</p></td>
+<td colspan="2"><p>0.15W</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>MTBF</p></td>
+<td colspan="2"><p>559,409h &#64;25℃</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="lorawan">
+<h3>LoRaWANモジュール<a class="headerlink" href="#lorawan" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 19%" />
+<col style="width: 31%" />
+<col style="width: 31%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head" colspan="2"><p>項目</p></th>
+<th class="head" colspan="2"><p>内容</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td colspan="2"><p>周波数</p></td>
+<td colspan="2"><p>920.6～928.0MHz</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>データ通信速度</p></td>
+<td colspan="2"><p>11kbps</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>HOST I/F</p></td>
+<td colspan="2"><p>UART</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>認証</p></td>
+<td colspan="2"><p>TELEC</p></td>
+</tr>
+<tr class="row-even"><td rowspan="2"><p>消費電力</p></td>
+<td><p>受信時</p></td>
+<td colspan="2"><p>0.05W</p></td>
+</tr>
+<tr class="row-odd"><td><p>送信時</p></td>
+<td colspan="2"><p>0.12W</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>MTBF</p></td>
+<td colspan="2"><p>4,076,190h &#64;25℃</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>OpenBlocks IoT VX2オプション<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id3">
+<h3>内蔵バッテリー<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 31%" />
+<col style="width: 48%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>項目</p></th>
+<th class="head"><p>仕様</p></th>
+<th class="head"><p>備考</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>HOST I/F</p></td>
+<td><p>I2C</p></td>
+<td><p>充電制御、バッテリーモジュール電圧検出</p></td>
+</tr>
+<tr class="row-odd"><td><p>公称電圧</p></td>
+<td><p>4.8V</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>定格容量</p></td>
+<td><p>500mAh</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>充電電流</p></td>
+<td><p>急速充電：150mA , トリクル充電：20mA</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>充電時間</p></td>
+<td><p>急速充電：2h , トリクル充電：13h</p></td>
+<td><p>バックアップ機能は急速充電終了後に使用可能</p></td>
+</tr>
+<tr class="row-odd"><td><p>放電時間</p></td>
+<td><p>装置負荷による</p></td>
+<td><p>(参考) 定格容量÷消費電流×0.5 [h]</p></td>
+</tr>
+<tr class="row-even"><td><p>放電終止電圧</p></td>
+<td><p>4.0 ～ 4.4V</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>使用温湿度範囲</p></td>
+<td><p>0 ～ +40℃  / 45 ～ 85%</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>保存温湿度範囲</p></td>
+<td><p>-20 ～ +35℃  / 45 ～ 85%</p></td>
+<td><p>1年以内の場合</p></td>
+</tr>
+<tr class="row-odd"><td><p>保護部品</p></td>
+<td><p>サーマルプロテクター</p></td>
+<td><p>電池パックに内蔵</p></td>
+</tr>
+<tr class="row-even"><td><p>寿命(充放電回数)</p></td>
+<td><p>使用条件による</p></td>
+<td><p>(参考) 500回または2～3年</p></td>
+</tr>
+</tbody>
+</table>
+<p>※非工場出荷オプションとなります。</p>
+<div class="admonition note">
+<p class="admonition-title">注釈</p>
+<p>必ずOpenBlocks IoT Family用 バッテリーモジュール使用上の注意をお読みの上ご使用ください。</p>
+</div>
+</div>
+<div class="section" id="id4">
+<h3>ミスター省エネモジュール<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 31%" />
+<col style="width: 48%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head" colspan="3"><p>電源仕様</p></th>
+</tr>
+<tr class="row-even"><th class="head"><p>項目</p></th>
+<th class="head"><p>仕様</p></th>
+<th class="head"><p>備考</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-odd"><td><p>電源電圧</p></td>
+<td><p>5.0V,3.3V</p></td>
+<td><p>OpenBlocks IoT EX1またはVX2側から供給</p></td>
+</tr>
+<tr class="row-even"><td><p>消費電流</p></td>
+<td><p>最大50mA</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<br><table class="docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head" colspan="2"><p>シリアル通信仕様</p></th>
+</tr>
+<tr class="row-even"><th class="head"><p>項目</p></th>
+<th class="head"><p>仕様</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-odd"><td><p>通信方式</p></td>
+<td><p>USB2.0準拠</p></td>
+</tr>
+<tr class="row-even"><td><p>転送レート</p></td>
+<td><p>1.2k, 2.4k, 4.8k, 9.6k, 19.2k, 38.4k, 57.6k, 115.2kbps</p></td>
+</tr>
+<tr class="row-odd"><td><p>クロックドリフト</p></td>
+<td><p>±100ppm/sec以内</p></td>
+</tr>
+<tr class="row-even"><td><p>シリアルフレーム</p></td>
+<td><p>スタートビット：1, データ長：7/8bit, パリティ：偶数/奇数/無し, ストップビット：1/2, フロー制御：無し</p></td>
+</tr>
+<tr class="row-odd"><td><p>転送モード</p></td>
+<td><p>アスキー(ASCII)モード</p></td>
+</tr>
+<tr class="row-even"><td><p>プロトコル</p></td>
+<td><p>センサネットプロトコル（SNP）</p></td>
+</tr>
+</tbody>
+</table>
+<br><table class="docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 31%" />
+<col style="width: 48%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head" colspan="3"><p>無線仕様</p></th>
+</tr>
+<tr class="row-even"><th class="head"><p>項目</p></th>
+<th class="head"><p>仕様</p></th>
+<th class="head"><p>備考</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-odd"><td><p>無線部方式</p></td>
+<td><p>特定小電力無線</p></td>
+<td><p>ARIB STD-T108 準拠</p></td>
+</tr>
+<tr class="row-even"><td><p>キャリア周波数</p></td>
+<td><p>920.5 ～ 929.70MHz</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>変調方式</p></td>
+<td><p>FSK</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>伝送速度</p></td>
+<td><p>100kbps</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>設定可能チャネル</p></td>
+<td><p>25-31,34-60,64-75（1mW）</p>
+<p>25-31,34-60（20mW）</p>
+</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>選択可能チャネル数</p></td>
+<td><p>46（1mW）</p>
+<p>34（20mW）</p>
+</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>送信出力</p></td>
+<td><p>1mW / 20mW</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>通信距離</p></td>
+<td><p>100m以上（見込み）</p></td>
+<td><p>屋外見通し（使用環境により異なります）</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="openblocks-ix9">
+<h2>OpenBlocks IX9本体仕様<a class="headerlink" href="#openblocks-ix9" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 19%" />
+<col style="width: 31%" />
+<col style="width: 31%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head" colspan="2"><p>項目</p></th>
+<th class="head" colspan="2"><p>内容</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td colspan="2"><p>モデル</p></td>
+<td colspan="2"><p>OBSIX9</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>型番</p></td>
+<td colspan="2"><p>OBSIX9</p></td>
+</tr>
+<tr class="row-even"><td rowspan="3"><p>CPU</p></td>
+<td><p>モデル</p></td>
+<td colspan="2"><p>Intel Atom E3845</p></td>
+</tr>
+<tr class="row-odd"><td><p>動作速度</p></td>
+<td colspan="2"><p>1.9GHz (クアッドコア)</p></td>
+</tr>
+<tr class="row-even"><td><p>内蔵2次キャッシュ</p></td>
+<td colspan="2"><p>1024kB/Core</p></td>
+</tr>
+<tr class="row-odd"><td><p>メインメモリ</p></td>
+<td><p>オンボード</p></td>
+<td colspan="2"><p>8GB(Unbuffered DDR3L SDRAM SODIMM module w/o ECC)</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>内蔵ストレージ(オンボード)</p></td>
+<td colspan="2"><p>8GB(eMMC 4.5)</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>グラフィックコントローラ</p></td>
+<td colspan="2"><p>Intel HD Graphics for Intel Atom Processor Z3700 Series</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>セキュアブート</p></td>
+<td colspan="2"><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td rowspan="5"><p>外部インターフェース</p></td>
+<td><p>Ethernet</p></td>
+<td colspan="2"><p>10BASE-T / 100BASE-TX / 1000BASE-T RJ45 × 4</p></td>
+</tr>
+<tr class="row-even"><td><p>USB</p></td>
+<td colspan="2"><p>3.0 x 2 (type-A) ※1</p></td>
+</tr>
+<tr class="row-odd"><td><p>RS-232C</p></td>
+<td colspan="2"><p>RJ-45 x 2 (Rx, Tx, CTS, RTS) ※2</p></td>
+</tr>
+<tr class="row-even"><td><p>Console</p></td>
+<td colspan="2"><p>MicroUSB type-B</p></td>
+</tr>
+<tr class="row-odd"><td><p>Display</p></td>
+<td colspan="2"><p>Mini DisplayPort(Single mode) ※3</p></td>
+</tr>
+<tr class="row-even"><td rowspan="2"><p>内部インターフェース</p></td>
+<td><p>M.2 Type 2280,key M</p></td>
+<td colspan="2"><p>SATA 3.0Gbps</p></td>
+</tr>
+<tr class="row-odd"><td><p>M.2 Type 2280, key B</p></td>
+<td colspan="2"><p>PCIe Gen2, USB3.0, SIM, I2C</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>寸法</p></td>
+<td colspan="2"><p>101mm(W) x 142.1mm(D) x 41mm(H) ※4</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>重量</p></td>
+<td colspan="2"><p>370g</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>電源</p></td>
+<td colspan="2"><p>DC12V</p></td>
+</tr>
+<tr class="row-odd"><td rowspan="2"><p>消費電力</p></td>
+<td><p>アイドル時</p></td>
+<td colspan="2"><p>12.9W</p></td>
+</tr>
+<tr class="row-even"><td><p>高負荷時</p></td>
+<td colspan="2"><p>18.3W</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>MTBF</p></td>
+<td colspan="2"><p>231,254h</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>EMC規格</p></td>
+<td colspan="2"><p>VCCI class A</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2" rowspan="2"><p>省エネ法に基づくエネルギー消費効率[単位：W/GTOPS]</p></td>
+<td colspan="2"><p>区分：H</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>0.62</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>環境保護</p></td>
+<td colspan="2"><p>RoHS指令適合</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>RTCバックアップ時間</p></td>
+<td colspan="2"><p>10年</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>出荷時OS</p></td>
+<td colspan="2"><p>Debian GNU/Linux</p></td>
+</tr>
+</tbody>
+</table>
+<p>※1 : バスパワーは2ポートの合計が1.5Aを超えないこと。USB3.0のケーブル長は3m以下。</p>
+<p>※2 : RS-232Cのケーブル長は15m以下。</p>
+<p>※3 : DVI出力やHDMI出力を行う場合にはアクティブタイプの変換アダプタが必用。</p>
+<p>※4 : ゴム足・突起部含まず。</p>
+</div>
+<div class="section" id="openblocks-iot-bx1">
+<h2>OpenBlocks IoT BX1本体仕様<a class="headerlink" href="#openblocks-iot-bx1" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 19%" />
+<col style="width: 31%" />
+<col style="width: 31%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head" colspan="2"><p>項目</p></th>
+<th class="head" colspan="2"><p>内容</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td colspan="2"><p>モデル</p></td>
+<td colspan="2"><p>OBSBX1</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>型番</p></td>
+<td colspan="2"><p>OBSBX1</p></td>
+</tr>
+<tr class="row-even"><td rowspan="2"><p>CPU</p></td>
+<td><p>モデル</p></td>
+<td colspan="2"><p>Intel Atom プロセッサー</p></td>
+</tr>
+<tr class="row-odd"><td><p>動作速度</p></td>
+<td colspan="2"><p>500MHz (デュアルコア)</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>メインメモリ</p></td>
+<td colspan="2"><p>1GB(LPDDR3)</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>内蔵ストレージ</p></td>
+<td colspan="2"><p>4GB(eMMC)</p></td>
+</tr>
+<tr class="row-even"><td colspan="2" rowspan="3"><p>無線インターフェース</p></td>
+<td colspan="2"><p>3G(W-CDMA)※1</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>BT4.0</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>WLAN(IEEE802.11a/b/g/n)</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>SIMインターフェース</p></td>
+<td colspan="2"><p>通信用miniSIMカードスロット</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>有線インターフェース</p></td>
+<td colspan="2"><p>BX1コネクタ標準添付：USB2.0(バスパワー・type-A)</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>寸法</p></td>
+<td colspan="2"><p>41.6mm(W) x 96mm (D) x 11.3mm(H) (突起部含まず)</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>重量</p></td>
+<td colspan="2"><p>45g</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>電源</p></td>
+<td colspan="2"><p>DC 4.75～48V(USBケーブルによる給電時 DC4.75～5.25V)</p></td>
+</tr>
+<tr class="row-even"><td rowspan="2"><p>消費電力</p></td>
+<td><p>アイドル時</p></td>
+<td colspan="2"><p>3G通信アクティブ時：0.8W / 3G通信非アクティブ時：0.1W※2</p></td>
+</tr>
+<tr class="row-odd"><td><p>高負荷時</p></td>
+<td colspan="2"><p>4.6W</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>MTBF</p></td>
+<td colspan="2"><p>224,858h</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>EMC規格</p></td>
+<td colspan="2"><p>VCCI class B適合</p></td>
+</tr>
+<tr class="row-even"><td colspan="2" rowspan="2"><p>省エネ法に基づくエネルギー消費効率[単位：W/GTOPS] ※3</p></td>
+<td colspan="2"><p>区分：H</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>0.17</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>環境保護</p></td>
+<td colspan="2"><p>RoHS指令 PFOS規制 省エネルギー法</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>認証</p></td>
+<td colspan="2"><p>JATE / TELEC</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>RTCバックアップ時間</p></td>
+<td colspan="2"><p>最大約10分</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>出荷時OS</p></td>
+<td colspan="2"><p>Debian GNU/Linux</p></td>
+</tr>
+</tbody>
+</table>
+<p>※1 : NTTドコモ FOMA網に対応</p>
+<p>※2 : Power Save = Auto設定時</p>
+<p>※3 : エネルギー消費効率とは省エネ法で定める測定方法により測定した消費電力を省エネ法で定める複合理論性能で除したものです</p>
+</div>
+<div class="section" id="openblocks-iot-bx3">
+<h2>OpenBlocks IoT BX3本体仕様<a class="headerlink" href="#openblocks-iot-bx3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 19%" />
+<col style="width: 31%" />
+<col style="width: 31%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head" colspan="2"><p>項目</p></th>
+<th class="head" colspan="2"><p>内容</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td colspan="2"><p>モデル</p></td>
+<td colspan="2"><p>OBSBX3</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>型番</p></td>
+<td colspan="2"><p>OBSBX3</p></td>
+</tr>
+<tr class="row-even"><td rowspan="2"><p>CPU</p></td>
+<td><p>モデル</p></td>
+<td colspan="2"><p>Intel Atom プロセッサー</p></td>
+</tr>
+<tr class="row-odd"><td><p>動作速度</p></td>
+<td colspan="2"><p>500MHz (デュアルコア)</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>メインメモリ</p></td>
+<td colspan="2"><p>1GB(LPDDR3)</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>内蔵ストレージ</p></td>
+<td colspan="2"><p>4GB(eMMC)</p></td>
+</tr>
+<tr class="row-even"><td colspan="2" rowspan="3"><p>無線インターフェース</p></td>
+<td colspan="2"><p>3G(W-CDMA)※1</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>BT4.0</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>WLAN(IEEE802.11a/b/g/n)</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>SIMインターフェース</p></td>
+<td colspan="2"><p>通信用miniSIMカードスロット</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>有線インターフェース</p></td>
+<td colspan="2"><p>BX1コネクタ標準添付：USB2.0(バスパワー・type-A)</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>寸法</p></td>
+<td colspan="2"><p>41.6mm(W) x 96mm (D) x 11.3mm(H) (突起部含まず)</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>重量</p></td>
+<td colspan="2"><p>45g</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>電源</p></td>
+<td colspan="2"><p>DC 4.75～48V(USBケーブルによる給電時 DC4.75～5.25V)</p></td>
+</tr>
+<tr class="row-even"><td rowspan="2"><p>消費電力</p></td>
+<td><p>アイドル時</p></td>
+<td colspan="2"><p>1.3W</p></td>
+</tr>
+<tr class="row-odd"><td><p>高負荷時</p></td>
+<td colspan="2"><p>4.6W</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>MTBF</p></td>
+<td colspan="2"><p>224,858h</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>EMC規格</p></td>
+<td colspan="2"><p>VCCI class B適合</p></td>
+</tr>
+<tr class="row-even"><td colspan="2" rowspan="2"><p>省エネ法に基づくエネルギー消費効率[単位：W/GTOPS] ※2</p></td>
+<td colspan="2"><p>区分：H</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>0.17</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>環境保護</p></td>
+<td colspan="2"><p>RoHS指令 PFOS規制 省エネルギー法</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>認証</p></td>
+<td colspan="2"><p>JATE / TELEC</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>RTCバックアップ時間</p></td>
+<td colspan="2"><p>最大約10分</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>出荷時OS</p></td>
+<td colspan="2"><p>Debian GNU/Linux</p></td>
+</tr>
+</tbody>
+</table>
+<p>※1 : SoftBank 3G網に対応</p>
+<p>※2 : エネルギー消費効率とは省エネ法で定める測定方法により測定した消費電力を省エネ法で定める複合理論性能で除したものです</p>
+</div>
+<div class="section" id="openblocks-iot-bx5">
+<h2>OpenBlocks IoT BX5本体仕様<a class="headerlink" href="#openblocks-iot-bx5" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 19%" />
+<col style="width: 31%" />
+<col style="width: 31%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head" colspan="2"><p>項目</p></th>
+<th class="head" colspan="2"><p>内容</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td colspan="2"><p>モデル</p></td>
+<td colspan="2"><p>OBSBX5</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>型番</p></td>
+<td colspan="2"><p>OBSBX5</p></td>
+</tr>
+<tr class="row-even"><td rowspan="2"><p>CPU</p></td>
+<td><p>モデル</p></td>
+<td colspan="2"><p>Intel Atom プロセッサー</p></td>
+</tr>
+<tr class="row-odd"><td><p>動作速度</p></td>
+<td colspan="2"><p>500MHz (デュアルコア)</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>メインメモリ</p></td>
+<td colspan="2"><p>1GB(LPDDR3)</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>内蔵ストレージ</p></td>
+<td colspan="2"><p>4GB(eMMC)</p></td>
+</tr>
+<tr class="row-even"><td colspan="2" rowspan="3"><p>無線インターフェース</p></td>
+<td colspan="2"><p>LTE(W-CDMA含む)※1</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>BT4.0</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>WLAN(IEEE802.11a/b/g/n)</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>SIMインターフェース</p></td>
+<td colspan="2"><p>通信用miniSIMカードスロット</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>有線インターフェース</p></td>
+<td colspan="2"><p>BX1コネクタ標準添付：USB2.0(バスパワー・type-A)</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>寸法</p></td>
+<td colspan="2"><p>41.6mm(W) x 96mm (D) x 11.3mm(H) (突起部含まず)</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>重量</p></td>
+<td colspan="2"><p>45g</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>電源</p></td>
+<td colspan="2"><p>DC 4.75～48V(USBケーブルによる給電時 DC4.75～5.25V)</p></td>
+</tr>
+<tr class="row-even"><td rowspan="2"><p>消費電力</p></td>
+<td><p>アイドル時</p></td>
+<td colspan="2"><p>1.4W</p></td>
+</tr>
+<tr class="row-odd"><td><p>高負荷時</p></td>
+<td colspan="2"><p>4.6W</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>MTBF</p></td>
+<td colspan="2"><p>273,475h</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>EMC規格</p></td>
+<td colspan="2"><p>VCCI class B適合</p></td>
+</tr>
+<tr class="row-even"><td colspan="2" rowspan="2"><p>省エネ法に基づくエネルギー消費効率[単位：W/GTOPS] ※2</p></td>
+<td colspan="2"><p>区分：H</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>0.18</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>環境保護</p></td>
+<td colspan="2"><p>RoHS指令 PFOS規制 省エネルギー法</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>認証</p></td>
+<td colspan="2"><p>JATE / TELEC</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>RTCバックアップ時間</p></td>
+<td colspan="2"><p>最大約10分</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>出荷時OS</p></td>
+<td colspan="2"><p>Debian GNU/Linux</p></td>
+</tr>
+</tbody>
+</table>
+<p>※1 : NTTドコモ/KDDI/地域BWA網に対応</p>
+<p>※2 : エネルギー消費効率とは省エネ法で定める測定方法により測定した消費電力を省エネ法で定める複合理論性能で除したものです</p>
+</div>
+<div class="section" id="openblocks-iot-bx0">
+<h2>OpenBlocks IoT BX0本体仕様<a class="headerlink" href="#openblocks-iot-bx0" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 19%" />
+<col style="width: 31%" />
+<col style="width: 31%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head" colspan="2"><p>項目</p></th>
+<th class="head" colspan="2"><p>内容</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td colspan="2"><p>モデル</p></td>
+<td colspan="2"><p>OBSBX5</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>型番</p></td>
+<td colspan="2"><p>OBSBX5</p></td>
+</tr>
+<tr class="row-even"><td rowspan="2"><p>CPU</p></td>
+<td><p>モデル</p></td>
+<td colspan="2"><p>Intel Atom プロセッサー</p></td>
+</tr>
+<tr class="row-odd"><td><p>動作速度</p></td>
+<td colspan="2"><p>500MHz (デュアルコア)</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>メインメモリ</p></td>
+<td colspan="2"><p>1GB(LPDDR3)</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>内蔵ストレージ</p></td>
+<td colspan="2"><p>4GB(eMMC)</p></td>
+</tr>
+<tr class="row-even"><td colspan="2" rowspan="2"><p>無線インターフェース</p></td>
+<td colspan="2"><p>BT4.0</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>WLAN(IEEE802.11a/b/g/n)</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>SIMインターフェース</p></td>
+<td colspan="2"><p>通信用miniSIMカードスロット</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>有線インターフェース</p></td>
+<td colspan="2"><p>BX1コネクタ標準添付：USB2.0(バスパワー・type-A , Ethernet二股)</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>寸法</p></td>
+<td colspan="2"><p>41.6mm(W) x 96mm (D) x 11.3mm(H) (突起部含まず)</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>重量</p></td>
+<td colspan="2"><p>45g</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>電源</p></td>
+<td colspan="2"><p>DC 4.75～48V(USBケーブルによる給電時 DC4.75～5.25V)</p>
+<p>PoE受電(DC48V) TypeA(1-2,3-6)</p>
+</td>
+</tr>
+<tr class="row-odd"><td rowspan="2"><p>消費電力</p></td>
+<td><p>アイドル時</p></td>
+<td colspan="2"><p>1.9W</p></td>
+</tr>
+<tr class="row-even"><td><p>高負荷時</p></td>
+<td colspan="2"><p>2.4W</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>MTBF</p></td>
+<td colspan="2"><p>479,898h</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>EMC規格</p></td>
+<td colspan="2"><p>VCCI class B適合</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2" rowspan="2"><p>省エネ法に基づくエネルギー消費効率[単位：W/GTOPS] ※1</p></td>
+<td colspan="2"><p>区分：H</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>0.24</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>環境保護</p></td>
+<td colspan="2"><p>RoHS指令 PFOS規制 省エネルギー法</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>認証</p></td>
+<td colspan="2"><p>TELEC</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>RTCバックアップ時間</p></td>
+<td colspan="2"><p>約16年</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>出荷時OS</p></td>
+<td colspan="2"><p>Debian GNU/Linux</p></td>
+</tr>
+</tbody>
+</table>
+<p>※1 : エネルギー消費効率とは省エネ法で定める測定方法により測定した消費電力を省エネ法で定める複合理論性能で除したものです</p>
+</div>
+<div class="section" id="openblocks-iot-ex1">
+<h2>OpenBlocks IoT EX1本体仕様<a class="headerlink" href="#openblocks-iot-ex1" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 18%" />
+<col style="width: 21%" />
+<col style="width: 21%" />
+<col style="width: 21%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head" colspan="2"><p>項目</p></th>
+<th class="head" colspan="3"><p>内容</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td colspan="2"><p>モデル</p></td>
+<td><p>OBSEX1</p></td>
+<td colspan="2"><p>OBSEX1G</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>型番</p></td>
+<td><p>OBSEX1</p></td>
+<td><p>OBSEX1G</p></td>
+<td><p>OBSEX1G/N</p></td>
+</tr>
+<tr class="row-even"><td rowspan="2"><p>CPU</p></td>
+<td><p>モデル</p></td>
+<td colspan="3"><p>Intel Atom E3805</p></td>
+</tr>
+<tr class="row-odd"><td><p>動作速度</p></td>
+<td colspan="3"><p>1.3GHz (デュアルコア)</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>メインメモリ</p></td>
+<td colspan="3"><p>1GB(LPDDR3)</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>内蔵ストレージ</p></td>
+<td colspan="3"><p>4GB(eMMC)</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>追加ストレージ</p></td>
+<td colspan="3"><p>MMCスロット x 1</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2" rowspan="2"><p>無線インターフェース</p></td>
+<td colspan="3"><p>BT4.0</p></td>
+</tr>
+<tr class="row-even"><td colspan="3"><p>WLAN(IEEE802.11a/b/g/n)</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>SIMインターフェース</p></td>
+<td colspan="2"><p>通信用miniSIMカードスロット</p></td>
+<td><p>通信用nanoSIMカードスロット</p></td>
+</tr>
+<tr class="row-even"><td rowspan="4"><p>有線インターフェース</p></td>
+<td><p>USB(HOST)</p></td>
+<td colspan="3"><p>2.0 x 1 (type-A)</p></td>
+</tr>
+<tr class="row-odd"><td><p>USB(Console)</p></td>
+<td colspan="3"><p>Micro USB(type-B) x 1 ※バスパワー給電可</p></td>
+</tr>
+<tr class="row-even"><td><p>Ethernet</p></td>
+<td colspan="3"><p>10Base-T/100BASE-TX x 1</p></td>
+</tr>
+<tr class="row-odd"><td><p>RS-232C/RS-485</p></td>
+<td><p>RS-232C x 1：RJ45コネクタ /
+RS-485 x 1：ターミナルブロック
+(排他)</p></td>
+<td colspan="2"><p>RS-232C x 1：RJ45コネクタ / RS-485 x 1：ターミナルブロック</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>寸法</p></td>
+<td colspan="3"><p>91.9mm(W) x 114.8mm (D) x 25mm(H) (突起部含まず)</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>重量</p></td>
+<td colspan="3"><p>135g</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>電源</p></td>
+<td><p>DC-Jack：DC4.75～5.25V</p>
+<p>USBケーブル給電時 : DC4.75～5.25V</p>
+</td>
+<td colspan="2"><p>DC-Jack：DC4.75～5.25V</p>
+<p>USBケーブル給電時 : DC4.75～5.25V</p>
+<p>XAコネクタ給電時 : DC7～48V</p>
+</td>
+</tr>
+<tr class="row-odd"><td rowspan="2"><p>消費電力</p></td>
+<td><p>アイドル時</p></td>
+<td colspan="3"><p>1.8W</p></td>
+</tr>
+<tr class="row-even"><td><p>高負荷時</p></td>
+<td colspan="3"><p>3.3W</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>MTBF</p></td>
+<td><p>485,265h</p></td>
+<td colspan="2"><p>468,231h</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>EMC規格</p></td>
+<td></td>
+<td colspan="2"><p>VCCI class B適合</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2" rowspan="2"><p>省エネ法に基づくエネルギー消費効率[単位：W/GTOPS] ※1</p></td>
+<td colspan="3"><p>区分：H</p></td>
+</tr>
+<tr class="row-even"><td colspan="3"><p>0.23</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>環境保護</p></td>
+<td colspan="3"><p>RoHS指令 PFOS規制 省エネルギー法</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>認証</p></td>
+<td colspan="3"><p>TELEC</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>RTCバックアップ時間</p></td>
+<td><p>最大250日</p></td>
+<td colspan="2"><p>約10年</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>出荷時OS</p></td>
+<td colspan="3"><p>Debian GNU/Linux</p></td>
+</tr>
+</tbody>
+</table>
+<p>※1 : エネルギー消費効率とは省エネ法で定める測定方法により測定した消費電力を省エネ法で定める複合理論性能で除したものです</p>
+</div>
+<div class="section" id="id5">
+<h2>OpenBlocks IoT EX1オプション<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="g-ntt">
+<h3>3Gモジュール(NTTドコモ)<a class="headerlink" href="#g-ntt" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 19%" />
+<col style="width: 31%" />
+<col style="width: 31%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head" colspan="2"><p>項目</p></th>
+<th class="head" colspan="2"><p>内容</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td rowspan="2"><p>対応周波数</p></td>
+<td><p>GSM/GPRS/EDGE</p></td>
+<td colspan="2"><p>850/900/1800/1900MHz</p></td>
+</tr>
+<tr class="row-odd"><td><p>W-CDMA(UMTS/HSPA+)</p></td>
+<td colspan="2"><p>Five band 800/850/900/1900/2100MHz</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>データ通信速度</p></td>
+<td colspan="2"><p>下り：7.2Mbps , 上り：5.7Mbps (理論値)</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>制御方法</p></td>
+<td colspan="2"><p>ATコマンド</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>認証</p></td>
+<td colspan="2"><p>JATE/TELEC</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>電源電圧</p></td>
+<td colspan="2"><p>DC 3.3～4.4V</p></td>
+</tr>
+<tr class="row-even"><td rowspan="2"><p>消費電力</p></td>
+<td><p>アイドル時</p></td>
+<td colspan="2"><p>0.01W (平均電力)</p></td>
+</tr>
+<tr class="row-odd"><td><p>高負荷時</p></td>
+<td colspan="2"><p>2.6W (平均電力)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="g">
+<h3>3Gモジュール(ソフトバンク)<a class="headerlink" href="#g" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 19%" />
+<col style="width: 31%" />
+<col style="width: 31%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head" colspan="2"><p>項目</p></th>
+<th class="head" colspan="2"><p>内容</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td rowspan="2"><p>対応周波数</p></td>
+<td><p>GSM/GPRS/EDGE</p></td>
+<td colspan="2"><p>850/900/1800/1900MHz</p></td>
+</tr>
+<tr class="row-odd"><td><p>W-CDMA(UMTS/HSPA+)</p></td>
+<td colspan="2"><p>Five band 800/850/900/1900/2100MHz</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>データ通信速度</p></td>
+<td colspan="2"><p>下り：7.2Mbps , 上り：5.7Mbps (理論値)</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>制御方法</p></td>
+<td colspan="2"><p>ATコマンド</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>認証</p></td>
+<td colspan="2"><p>JATE/TELEC</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>電源電圧</p></td>
+<td colspan="2"><p>DC 3.3～4.4V</p></td>
+</tr>
+<tr class="row-even"><td rowspan="2"><p>消費電力</p></td>
+<td><p>アイドル時</p></td>
+<td colspan="2"><p>0.01W (平均電力)</p></td>
+</tr>
+<tr class="row-odd"><td><p>高負荷時</p></td>
+<td colspan="2"><p>2.6W (平均電力)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id6">
+<h3>LTE/3Gモジュール(ソフトバンク)<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 19%" />
+<col style="width: 31%" />
+<col style="width: 31%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head" colspan="2"><p>項目</p></th>
+<th class="head" colspan="2"><p>内容</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td rowspan="3"><p>対応周波数またはBand</p></td>
+<td><p>GSM</p></td>
+<td colspan="2"><p>850/900/1800/1900MHz</p></td>
+</tr>
+<tr class="row-odd"><td><p>W-CDMA</p></td>
+<td colspan="2"><p>850/900/1900/2100MHz</p></td>
+</tr>
+<tr class="row-even"><td><p>LTE</p></td>
+<td colspan="2"><p>(1)/(3)/(5)/(7)/(8)/(20)</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>データ通信速度</p></td>
+<td colspan="2"><p>下り：150Mbps , 上り：50Mbps (理論値)</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>制御方法</p></td>
+<td colspan="2"><p>ATコマンド・特殊コマンド</p></td>
+</tr>
+<tr class="row-odd"><td rowspan="2"><p>消費電力</p></td>
+<td><p>アイドル時</p></td>
+<td colspan="2"><p>0.05W (平均電力)</p></td>
+</tr>
+<tr class="row-even"><td><p>高負荷時</p></td>
+<td colspan="2"><p>2.5W (平均電力)</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>認証</p></td>
+<td colspan="2"><p>JATE/TELEC</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>MTBF</p></td>
+<td colspan="2"><p>97,808h&#64;25℃</p></td>
+</tr>
+</tbody>
+</table>
+<p>※1 : ()内はBand</p>
+</div>
+<div class="section" id="id7">
+<h3>LTEモジュール(KDDI)<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 19%" />
+<col style="width: 31%" />
+<col style="width: 31%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head" colspan="2"><p>項目</p></th>
+<th class="head" colspan="2"><p>内容</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td rowspan="2"><p>対応周波数</p></td>
+<td><p>受信</p></td>
+<td colspan="2"><p>860.0MHz～875.0MHz</p></td>
+</tr>
+<tr class="row-odd"><td><p>送信</p></td>
+<td colspan="2"><p>815.0MHz～830.0MHz</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>データ通信速度</p></td>
+<td colspan="2"><p>下り：75Mbps , 上り：25Mbps (理論値)</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>制御方法</p></td>
+<td colspan="2"><p>ATコマンド・特殊コマンド</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>認証</p></td>
+<td colspan="2"><p>JATE/TELEC</p></td>
+</tr>
+<tr class="row-odd"><td rowspan="2"><p>消費電力</p></td>
+<td><p>アイドル時</p></td>
+<td colspan="2"><p>0.16W (平均電力)</p></td>
+</tr>
+<tr class="row-even"><td><p>高負荷時</p></td>
+<td colspan="2"><p>2.4W (平均電力)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id8">
+<h3>LTEモジュール(NTTドコモ/KDDI)<a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 19%" />
+<col style="width: 31%" />
+<col style="width: 31%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head" colspan="2"><p>項目</p></th>
+<th class="head" colspan="2"><p>内容</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td rowspan="4"><p>対応周波数またはBand</p></td>
+<td><p>GSM</p></td>
+<td colspan="2"><p>900/1800MHz</p></td>
+</tr>
+<tr class="row-odd"><td><p>W-CDMA</p></td>
+<td colspan="2"><p>800(6)/900(8)/2100MHz</p></td>
+</tr>
+<tr class="row-even"><td><p>LTE</p></td>
+<td colspan="2"><p>800(18)/800(19)/900(8)/1800(3)/2100(1)/2600(41)MHz※1</p></td>
+</tr>
+<tr class="row-odd"><td><p>GNSS</p></td>
+<td colspan="2"><p>GPS/GLONASS</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>データ通信速度</p></td>
+<td colspan="2"><p>下り：100Mbps , 上り：50Mbps (理論値)</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>制御方法</p></td>
+<td colspan="2"><p>ATコマンド・特殊コマンド</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>認証</p></td>
+<td colspan="2"><p>JATE[150051003] / TELEC[003-150053]</p></td>
+</tr>
+<tr class="row-odd"><td rowspan="2"><p>消費電力</p></td>
+<td><p>アイドル時</p></td>
+<td colspan="2"><p>0.02W (平均電力)</p></td>
+</tr>
+<tr class="row-even"><td><p>高負荷時</p></td>
+<td colspan="2"><p>2.9W (平均電力)</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>MTBF</p></td>
+<td colspan="2"><p>500,000h &#64;25℃</p></td>
+</tr>
+</tbody>
+</table>
+<p>※1 : ()内はBand</p>
+</div>
+<div class="section" id="id9">
+<h3>BWAモジュール<a class="headerlink" href="#id9" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 19%" />
+<col style="width: 31%" />
+<col style="width: 31%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head" colspan="2"><p>項目</p></th>
+<th class="head" colspan="2"><p>内容</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td rowspan="4"><p>対応周波数またはBand</p></td>
+<td><p>GSM</p></td>
+<td colspan="2"><p>900/1800MHz</p></td>
+</tr>
+<tr class="row-odd"><td><p>W-CDMA</p></td>
+<td colspan="2"><p>800(6)/900(8)/2100MHz</p></td>
+</tr>
+<tr class="row-even"><td><p>LTE</p></td>
+<td colspan="2"><p>800(18)/800(19)/900(8)/1800(3)/2100(1)/2600(41)MHz※1</p></td>
+</tr>
+<tr class="row-odd"><td><p>GNSS</p></td>
+<td colspan="2"><p>GPS/GLONASS</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>データ通信速度</p></td>
+<td colspan="2"><p>下り：100Mbps , 上り：50Mbps (理論値)</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>制御方法</p></td>
+<td colspan="2"><p>ATコマンド・特殊コマンド</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>認証</p></td>
+<td colspan="2"><p>JATE[150051003] / TELEC[003-150053]</p></td>
+</tr>
+<tr class="row-odd"><td rowspan="2"><p>消費電力</p></td>
+<td><p>アイドル時</p></td>
+<td colspan="2"><p>0.02W (平均電力)</p></td>
+</tr>
+<tr class="row-even"><td><p>高負荷時</p></td>
+<td colspan="2"><p>2.9W (平均電力)</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>MTBF</p></td>
+<td colspan="2"><p>500,000h &#64;25℃</p></td>
+</tr>
+</tbody>
+</table>
+<p>※1 : ()内はBand</p>
+</div>
+<div class="section" id="id10">
+<h3>EnOceanモジュール<a class="headerlink" href="#id10" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 19%" />
+<col style="width: 31%" />
+<col style="width: 31%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head" colspan="2"><p>項目</p></th>
+<th class="head" colspan="2"><p>内容</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td colspan="2"><p>周波数</p></td>
+<td colspan="2"><p>928.35MHz</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>データ通信速度</p></td>
+<td colspan="2"><p>125kbps</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>HOST I/F</p></td>
+<td colspan="2"><p>UART</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>認証</p></td>
+<td colspan="2"><p>TELEC</p></td>
+</tr>
+<tr class="row-even"><td rowspan="2"><p>消費電力</p></td>
+<td><p>受信時</p></td>
+<td colspan="2"><p>0.13W</p></td>
+</tr>
+<tr class="row-odd"><td><p>送信時</p></td>
+<td colspan="2"><p>0.11W</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>MTBF</p></td>
+<td colspan="2"><p>862,664h &#64;25℃</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id11">
+<h3>Wi-SUNモジュール<a class="headerlink" href="#id11" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 19%" />
+<col style="width: 31%" />
+<col style="width: 31%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head" colspan="2"><p>項目</p></th>
+<th class="head" colspan="2"><p>内容</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td colspan="2"><p>周波数</p></td>
+<td colspan="2"><p>922.5～927.9MHz(28ch)</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>データ通信速度</p></td>
+<td colspan="2"><p>100kbps</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>HOST I/F</p></td>
+<td colspan="2"><p>UART</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>認証</p></td>
+<td colspan="2"><p>TELEC</p></td>
+</tr>
+<tr class="row-even"><td rowspan="2"><p>消費電力</p></td>
+<td><p>受信時</p></td>
+<td colspan="2"><p>0.1W</p></td>
+</tr>
+<tr class="row-odd"><td><p>送信時</p></td>
+<td colspan="2"><p>0.15W</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>MTBF</p></td>
+<td colspan="2"><p>559,409h &#64;25℃</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id12">
+<h3>LoRaWANモジュール<a class="headerlink" href="#id12" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 19%" />
+<col style="width: 31%" />
+<col style="width: 31%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head" colspan="2"><p>項目</p></th>
+<th class="head" colspan="2"><p>内容</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td colspan="2"><p>周波数</p></td>
+<td colspan="2"><p>920.6～928.0MHz</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>データ通信速度</p></td>
+<td colspan="2"><p>11kbps</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>HOST I/F</p></td>
+<td colspan="2"><p>UART</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>認証</p></td>
+<td colspan="2"><p>TELEC</p></td>
+</tr>
+<tr class="row-even"><td rowspan="2"><p>消費電力</p></td>
+<td><p>受信時</p></td>
+<td colspan="2"><p>0.05W</p></td>
+</tr>
+<tr class="row-odd"><td><p>送信時</p></td>
+<td colspan="2"><p>0.12W</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>MTBF</p></td>
+<td colspan="2"><p>4,076,190h &#64;25℃</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id13">
+<h3>内蔵バッテリー<a class="headerlink" href="#id13" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 31%" />
+<col style="width: 48%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>項目</p></th>
+<th class="head"><p>仕様</p></th>
+<th class="head"><p>備考</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>HOST I/F</p></td>
+<td><p>I2C</p></td>
+<td><p>充電制御、バッテリーモジュール電圧検出</p></td>
+</tr>
+<tr class="row-odd"><td><p>公称電圧</p></td>
+<td><p>4.8V</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>定格容量</p></td>
+<td><p>500mAh</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>充電電流</p></td>
+<td><p>急速充電：150mA , トリクル充電：20mA</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>充電時間</p></td>
+<td><p>急速充電：2h , トリクル充電：13h</p></td>
+<td><p>バックアップ機能は急速充電終了後に使用可能</p></td>
+</tr>
+<tr class="row-odd"><td><p>放電時間</p></td>
+<td><p>装置負荷による</p></td>
+<td><p>(参考) 定格容量÷消費電流×0.5 [h]</p></td>
+</tr>
+<tr class="row-even"><td><p>放電終止電圧</p></td>
+<td><p>4.0 ～ 4.4V</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>使用温湿度範囲</p></td>
+<td><p>0 ～ +40℃  / 45 ～ 85%</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>保存温湿度範囲</p></td>
+<td><p>-20 ～ +35℃  / 45 ～ 85%</p></td>
+<td><p>1年以内の場合</p></td>
+</tr>
+<tr class="row-odd"><td><p>保護部品</p></td>
+<td><p>サーマルプロテクター</p></td>
+<td><p>電池パックに内蔵</p></td>
+</tr>
+<tr class="row-even"><td><p>寿命(充放電回数)</p></td>
+<td><p>使用条件による</p></td>
+<td><p>(参考) 500回または2～3年</p></td>
+</tr>
+</tbody>
+</table>
+<p>※非工場出荷オプションとなります。</p>
+<div class="admonition note">
+<p class="admonition-title">注釈</p>
+<p>必ずOpenBlocks IoT Family用 バッテリーモジュール使用上の注意をお読みの上ご使用ください。</p>
+</div>
+</div>
+<div class="section" id="id14">
+<h3>ミスター省エネモジュール<a class="headerlink" href="#id14" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 31%" />
+<col style="width: 48%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head" colspan="3"><p>電源仕様</p></th>
+</tr>
+<tr class="row-even"><th class="head"><p>項目</p></th>
+<th class="head"><p>仕様</p></th>
+<th class="head"><p>備考</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-odd"><td><p>電源電圧</p></td>
+<td><p>5.0V,3.3V</p></td>
+<td><p>OpenBlocks IoT EX1またはVX2側から供給</p></td>
+</tr>
+<tr class="row-even"><td><p>消費電流</p></td>
+<td><p>最大50mA</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<br><table class="docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head" colspan="2"><p>シリアル通信仕様</p></th>
+</tr>
+<tr class="row-even"><th class="head"><p>項目</p></th>
+<th class="head"><p>仕様</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-odd"><td><p>通信方式</p></td>
+<td><p>USB2.0準拠</p></td>
+</tr>
+<tr class="row-even"><td><p>転送レート</p></td>
+<td><p>1.2k, 2.4k, 4.8k, 9.6k, 19.2k, 38.4k, 57.6k, 115.2kbps</p></td>
+</tr>
+<tr class="row-odd"><td><p>クロックドリフト</p></td>
+<td><p>±100ppm/sec以内</p></td>
+</tr>
+<tr class="row-even"><td><p>シリアルフレーム</p></td>
+<td><p>スタートビット：1, データ長：7/8bit, パリティ：偶数/奇数/無し, ストップビット：1/2, フロー制御：無し</p></td>
+</tr>
+<tr class="row-odd"><td><p>転送モード</p></td>
+<td><p>アスキー(ASCII)モード</p></td>
+</tr>
+<tr class="row-even"><td><p>プロトコル</p></td>
+<td><p>センサネットプロトコル（SNP）</p></td>
+</tr>
+</tbody>
+</table>
+<br><table class="docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 31%" />
+<col style="width: 48%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head" colspan="3"><p>無線仕様</p></th>
+</tr>
+<tr class="row-even"><th class="head"><p>項目</p></th>
+<th class="head"><p>仕様</p></th>
+<th class="head"><p>備考</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-odd"><td><p>無線部方式</p></td>
+<td><p>特定小電力無線</p></td>
+<td><p>ARIB STD-T108 準拠</p></td>
+</tr>
+<tr class="row-even"><td><p>キャリア周波数</p></td>
+<td><p>920.5 ～ 929.70MHz</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>変調方式</p></td>
+<td><p>FSK</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>伝送速度</p></td>
+<td><p>100kbps</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>設定可能チャネル</p></td>
+<td><p>25-31,34-60,64-75（1mW）</p>
+<p>25-31,34-60（20mW）</p>
+</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>選択可能チャネル数</p></td>
+<td><p>46（1mW）</p>
+<p>34（20mW）</p>
+</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>送信出力</p></td>
+<td><p>1mW / 20mW</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>通信距離</p></td>
+<td><p>100m以上（見込み）</p></td>
+<td><p>屋外見通し（使用環境により異なります）</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">製品仕様</a><ul>
+<li><a class="reference internal" href="#openblocks-iot-vx1">OpenBlocks IoT VX1本体仕様</a></li>
+<li><a class="reference internal" href="#openblocks-iot-vx2">OpenBlocks IoT VX2本体仕様</a></li>
+<li><a class="reference internal" href="#openblocks-iot-vx">OpenBlocks IoT VXシリーズオプション</a><ul>
+<li><a class="reference internal" href="#lte-3g">LTE/3Gモジュール(ソフトバンク)</a></li>
+<li><a class="reference internal" href="#lte-kddi">LTEモジュール(KDDI)</a></li>
+<li><a class="reference internal" href="#lte-ntt-kddi">LTEモジュール(NTTドコモ/KDDI)</a></li>
+<li><a class="reference internal" href="#bwa">BWAモジュール</a></li>
+<li><a class="reference internal" href="#enocean">EnOceanモジュール</a></li>
+<li><a class="reference internal" href="#wi-sun">Wi-SUNモジュール</a></li>
+<li><a class="reference internal" href="#lorawan">LoRaWANモジュール</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id2">OpenBlocks IoT VX2オプション</a><ul>
+<li><a class="reference internal" href="#id3">内蔵バッテリー</a></li>
+<li><a class="reference internal" href="#id4">ミスター省エネモジュール</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#openblocks-ix9">OpenBlocks IX9本体仕様</a></li>
+<li><a class="reference internal" href="#openblocks-iot-bx1">OpenBlocks IoT BX1本体仕様</a></li>
+<li><a class="reference internal" href="#openblocks-iot-bx3">OpenBlocks IoT BX3本体仕様</a></li>
+<li><a class="reference internal" href="#openblocks-iot-bx5">OpenBlocks IoT BX5本体仕様</a></li>
+<li><a class="reference internal" href="#openblocks-iot-bx0">OpenBlocks IoT BX0本体仕様</a></li>
+<li><a class="reference internal" href="#openblocks-iot-ex1">OpenBlocks IoT EX1本体仕様</a></li>
+<li><a class="reference internal" href="#id5">OpenBlocks IoT EX1オプション</a><ul>
+<li><a class="reference internal" href="#g-ntt">3Gモジュール(NTTドコモ)</a></li>
+<li><a class="reference internal" href="#g">3Gモジュール(ソフトバンク)</a></li>
+<li><a class="reference internal" href="#id6">LTE/3Gモジュール(ソフトバンク)</a></li>
+<li><a class="reference internal" href="#id7">LTEモジュール(KDDI)</a></li>
+<li><a class="reference internal" href="#id8">LTEモジュール(NTTドコモ/KDDI)</a></li>
+<li><a class="reference internal" href="#id9">BWAモジュール</a></li>
+<li><a class="reference internal" href="#id10">EnOceanモジュール</a></li>
+<li><a class="reference internal" href="#id11">Wi-SUNモジュール</a></li>
+<li><a class="reference internal" href="#id12">LoRaWANモジュール</a></li>
+<li><a class="reference internal" href="#id13">内蔵バッテリー</a></li>
+<li><a class="reference internal" href="#id14">ミスター省エネモジュール</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>前のトピックへ</h4>
+  <p class="topless"><a href="../how_to_use/how_to_use.html"
+                        title="前の章へ">ご利用方法</a></p>
+  <h4>次のトピックへ</h4>
+  <p class="topless"><a href="../notes/notes.html"
+                        title="次の章へ">注意事項及び補足</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">クイック検索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="検索" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020 Plat&#39;Home Co., Ltd. All rights reserved..
+    </div>
+  </body>
+</html>

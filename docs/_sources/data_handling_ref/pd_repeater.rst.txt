@@ -1,0 +1,2403 @@
+.. _data_handler_reference_pd_repeater:
+
+**************
+PD Repeater
+**************
+
+================
+デォルトパス
+================
+
+PD Repeater に関連するファイルのデォルトパスは次の通りです。
+
+.. list-table:: PD Repeaterに関連するファイルのデォルトパス
+    :header-rows: 1
+
+    * - パス名
+      - 説明
+    * - /usr/sbin/pd_repeater
+      - 常駐実行オブジェクト（デーモン）
+    * - /usr/sbin/pd_repeater_p
+      - 実行オブジェクト（ユーティリティー）
+    * - /lib/systemd/system/pd_repeater.service
+      - Systemd Serviceファイル
+    * - /etc/init.d/pd_repeater
+      - RCファイル
+    * - /var/webui/config/pd_repeater.conf
+      - 設定ファイル
+    * - /var/run/pd_repeater.pid
+      - PIDファイル
+    * - /var/webui/pd-data/pd_repeater.db
+      - キャッシュファイル
+    * - @/pd_repeater/＜デバイス番号＞.sock
+      - 入力UNIXドメインソケット
+    * - @/pd_handler/＜デバイス番号＞.sock
+      - 出力UNIXドメインソケット
+
+.. raw:: latex
+
+   \clearpage
+
+======================
+設定ファイルの書式
+======================
+
+構文
+========
+
+.. literalinclude:: pd_repeater.conf
+
+ルートオブジェクト
+======================
+
+.. list-table:: ルートオブジェクト
+    :widths: 20 12 68
+    :header-rows: 1
+    
+    * - キー
+      - データ型
+      - 説明
+    * - db_file
+      - 文字列
+      - キャシュファイルのパス名.
+        デフォルト値は'/var/webui/pd-data/pd_repeater.db'. (MAXPATHLEN)
+    * - max_db_size
+      - 整数値
+      - キャシュファイルの最大サイズ(Mbyte). デフォルト値は16.
+    * - servers
+      - JSON obj
+      - servers オブジェクト
+    * - devices
+      - JSON 配列
+      - devices オブジェクト
+
+.. raw:: latex
+
+   \clearpage
+
+servers オブジェクト
+========================
+
+.. list-table:: servers オブジェクト
+    :widths: 20 12 68
+    :header-rows: 1
+
+    * - キー
+      - データ型
+      - 説明
+    * - pd_ex
+      - JSON obj
+      - PD Exchenge へデータを送るための設定オブジェクト
+    * - mqtt
+      - JSON obj
+      - 汎用のMQTT ブローカーへデータを送るための設定オブジェクト
+    * - w4d
+      - JSON obj
+      - IBM Watson IoT for device へデータを送るための設定オブジェクト
+    * - kinesis
+      - JSON obj
+      - Amazon Kinesis へデータを送るための設定オブジェクト
+    * - pgsql
+      - JSON obj
+      - PostgreSQL データベースへデータを送るための設定オブジェクト
+    * - mysql
+      - JSON obj
+      - MySQL データベースへデータを送るための設定オブジェクト
+    * - web
+      - JSON obj
+      - 汎用のWeb サーバへデータを送るための設定オブジェクト
+    * - awsiot
+      - JSON obj
+      - Amazon AWS IoT へデータを送るための設定オブジェクト
+    * - eventhub
+      - JSON obj
+      - Microsoft Azure Event Hubs へデータを送るための設定オブジェクト
+    * - w4g
+      - JSON obj
+      - IBM Watson IoT for gateway へデータを送るための設定オブジェクト
+    * - iothub
+      - JSON obj
+      - Microsoft Azure IoT Hub へデータを送るための設定オブジェクト
+    * - t4d
+      - JSON obj
+      - NTT docomo Toami for docomo へデータを送るための設定オブジェクト
+    * - lsocket
+      - JSON obj
+      - Unix ドメインソケットへデータを送るための設定オブジェクト
+    * - kddi_std
+      - JSON obj
+      - KDDI IoT クラウドStandard へデータを送るための設定オブジェクト
+    * - nf_dvhub
+      - JSON obj
+      - NIFTY IoT Device Hub へデータを送るための設定オブジェクト
+    * - pd_web
+      - JSON obj
+      - Plat'Home 独自仕様のWeb サーバへデータを送るための設定オブジェクト
+    * - iotcore
+      - JSON obj
+      - Google Cloud IoT Core へデータを送るための設定オブジェクト
+    * - ltcp
+      - JSON obj
+      - TCP ソケットへデータを送るための設定オブジェクト
+    * - awsiot_ws
+      - JSON obj
+      - Amazon AWS IoT へ　MQTT over WEbsocket でデータを送るための設定オブジェクト
+    * - iothub_ws
+      - JSON obj
+      - Microsoft Azure IoT Hub へ MQTTover Websocket でデータを送るための設定オブジェクト
+    * - dummy
+      - JSON obj
+      - ログ出力のみ行うダミー出力ための設定オブジェクト
+    * - sbiot
+      - JSON obj
+      - SoftBank IoTへデータを送るための設定オブジェクト
+    * - things
+      - JSON obj
+      - Thingsクラウドへデータを送るための設定オブジェクト
+    * - ftp
+      - JSON obj
+      - FTP サーバへデータを送るための設定オブジェクト
+
+クラウドインデックスキーとして同文字列に '_0' 又は '_1', '_2', '_3' を付加した文字列
+(例えば 'pd_ex' について、'pd_ex_0', 'pd_ex_1', 'pd_ex_2', 'pd_ex_3') を用いることで、
+同一のクラウドの異る 4 つのサーバーもしくはエンドポイントを設定することも可能です。
+
+.. raw:: latex
+
+   \clearpage
+
+PD Excheng(pd_ex)
+------------------------------
+
+.. list-table:: PD Exchange (pd ex) の設定オブジェクト
+    :widths: 20 12 68
+    :header-rows: 1
+
+    * - キー
+      - データ型
+      - 説明
+    * - enable
+      - 論理値
+      - デフォルト値はfalse
+    * - interval
+      - 整数値
+      - サーバへの送信間隔(sec). デフォルト値は 30.
+    * - expier
+      - 整数値
+      - キャッシュのデータ保持時間(sec). デフォルト値 0 の場合はデータが送信さるまで無制限.
+    * - restart
+      - 整数値
+      - 送信プロセスの再起動間隔(sec). デフォルト値は604800、0 の場合は再起動しない.
+    * - url
+      - 文字列
+      - 接続先URL. デフォルト値は'http://pd.plathome.com'. (MAXPATHLEN)
+    * - poll_interval
+      - 整数値
+      - PD Exchange からコマンド(下流方向へのメッセージ) を読み出す間隔(sec). デフォルト値は 30.
+    * - deid_prefix
+      - 文字列
+      - PD Exchange のデバイスID プリフィック. (10byte)
+    * - secretkey
+      - 文字列
+      - 接続に用いるsecretkey. (16byte)
+
+Proxy を使用する場合は、環境変数 http_proxy 又は https_proxy に設定します。
+
+.. raw:: latex
+
+   \clearpage
+
+汎用MQTTブローカー(mqtt)
+------------------------------
+
+.. list-table:: 汎用MQTTブローカー(mqtt)の設定オブジェクト (1/2)
+    :widths: 20 12 68
+    :header-rows: 1
+
+    * - キー
+      - データ型
+      - 説明
+    * - enable
+      - 論理値
+      - デフォルト値はfalse
+    * - interval
+      - 整数値
+      - サーバへの送信間隔(sec). デフォルト値は 30.
+    * - expier
+      - 整数値
+      - キャッシュのデータ保持時間(sec). デフォルト値 0 の場合はデータが送信さるまで無制限.
+    * - restart
+      - 整数値
+      - 送信プロセスの再起動間隔(sec). デフォルト値は604800、0 の場合は再起動しない.
+    * - res_memory
+      - 整数値
+      - 常駐メモリの増加分の上限値(Mbyte). 上限値を超えると送信プロセスを再起動する. デフォルト値は32.
+    * - host
+      - 文字列
+      - 接続先ホストをIP アドレス又はFQDN で指定. (MAXHOSTNAMELEN)
+    * - protocol
+      - 文字列
+      - 接続プロトコル'tcp' 又は'ssl' を指定. デフォルト値は'tcp'.
+    * - port
+      - 整数値
+      - 接続先ポート番号. デフォルト値は1883(TCP 接続時) 又は8883(SSL 接続時).
+    * - keepaliveinterval
+      - 整数値
+      - MQTT のKeepalive 間隔(sec). デフォルト値は10.
+    * - cleansession
+      - 論理値
+      - MQTT のClean session. デフォルト値はtrue.
+    * - reliable
+      - 論理値
+      - MQTT のReliable. デフォルト値はtrue.
+    * - qos
+      - 整数値
+      - MQTT の送信用QoS, 0～2 を指定. デフォルト値は0.
+    * - retained
+      - 論理値
+      - MQTT のRetained. デフォルト値はfalse.
+    * - rcv_qos
+      - 整数値
+      - MQTT の受信用QoS, 0～2 を指定. デフォルト値は1.
+    * - forward_match
+      - 論理値
+      - 受信トピックの前方一致のリファレンスを送られて来たトピックから設定された受信トピックに切り替える. デフォルト値はfalse.
+    * - lwt
+      - 論理値
+      - Last Will and Testament (LWT) を使用するか否か. デフォルト値は false.
+    * - lwt_qos
+      - 整数値
+      - LWTのQoS, 0～2 を指定. デフォルト値は0.
+    * - lwt_retained
+      - 論理値
+      - LWT のRetained. デフォルト値はfalse.
+    * - client_id
+      - 文字列
+      - MQTT 接続に用いるClient ID. (96byte)
+    * - topic_prefix
+      - 文字列
+      - MQTT の送信トピックの先頭に付加する文字列. 送信トピックは、本文字列とデバイス設定オブジェクト'unique id' に指定される文字列の組み合わせで、topic_prefix/unique_id となる. (MAXPATHLEN)
+    * - cv_topic_prefix
+      - 文字列
+      - MQTT の受信トピックの先頭に付加する文字列. 受信トピックは、
+        rcv_topic_prefix/# で待ち受け、デバイス設定オブジェクト'unique_id' に指定される文字列の組み合わせからなるrcv_topic_prefix/unique_id との完全一致するデバイスへ受信メッセージを内部へ転送する. 完全一致しない場合は、前方一致により一致する複数のデバイスへ受信メッセージを内部へ転送する. (MAXPATHLEN)
+    * - lwt_topic_prefix
+      - 文字列
+      - LWT の送信トピックの先頭に付加する文字列. 送信トピックは、本文字列とデバイス設定オブジェクト 'unique_id' に指定される文字列の組み合わせで、lwt_topic_prefix/unique_idとなる.(MAXPATHLEN)
+    * - lwt_message
+      - 文字列
+      - LWT の送信メッセージ. (128byte)
+
+.. raw:: latex
+
+   \clearpage
+
+.. list-table:: 汎用MQTTブローカー(mqtt)の設定オブジェクト (2/2)
+    :widths: 20 12 68
+    :header-rows: 1
+
+    * - キー
+      - データ型
+      - 説明
+    * - username
+      - 文字列
+      - 接続に用いるユーザー名. (96byte)
+    * - password
+      - 文字列
+      - パスワード認証に用いるパスワード. (128byte)
+    * - truststore
+      - 文字列
+      - SSL 接続に用いるRoot CA 証明書ファイルのパス名. (MAXPATHLEN)
+    * - keystore
+      - 文字列
+      - SSL 接続に用いる証明書ファイルのパス名. (MAXPATHLEN)
+    * - privatekey
+      - 文字列
+      - SSL 接続に用いる秘密鍵ファイルのパス名. (MAXPATHLEN)
+
+IBM Watson IoT for device (w4d) 
+-----------------------------------
+
+.. list-table:: IBM Watson IoT for device (w4d) の設定オブジェクト
+    :widths: 20 12 68
+    :header-rows: 1
+
+    * - キー
+      - データ型
+      - 説明
+    * - enable
+      - 論理値
+      - デフォルト値はfalse
+    * - interval
+      - 整数値
+      - サーバへの送信間隔(sec). デフォルト値は 30.
+    * - expier
+      - 整数値
+      - キャッシュのデータ保持時間(sec). デフォルト値 0 の場合はデータが送信さるまで無制限.
+    * - restart
+      - 整数値
+      - 送信プロセスの再起動間隔(sec). デフォルト値は604800、0 の場合は再起動しない.
+    * - res_memory
+      - 整数値
+      - 常駐メモリの増加分の上限値(Mbyte). 上限値を超えると送信プロセスを再起動する. デフォルト値は32.
+    * - domain
+      - 文字列
+      - 接続先ドメイン名. デフォルト値は
+        'messag-ing.internetofthings.ibmcloud.com'. (MAXHOSTNAMELEN)
+    * - protocol
+      - 文字列
+      - 接続プロトコル'tcp' 又は'ssl' を指定. デフォルト値は'tcp'.
+    * - port
+      - 整数値
+      - 接続先ポート番号. デフォルト値は1883(TCP 接続時) 又は8883(SSL 接続時).
+    * - keepaliveinterval
+      - 整数値
+      - MQTT のKeepalive 間隔(sec). デフォルト値は10.
+    * - cleansession
+      - 論理値
+      - MQTT のClean session. デフォルト値はtrue.
+    * - reliable
+      - 論理値
+      - MQTT のReliable. デフォルト値はtrue.
+    * - qos
+      - 整数値
+      - MQTT の送信用QoS, 0～2 を指定. デフォルト値は0.
+    * - retained
+      - 論理値
+      - MQTT のRetained. デフォルト値はfalse.
+    * - rcv_qos
+      - 整数値
+      - MQTT の受信用QoS, 0～2 を指定. デフォルト値は1.
+    * - lwt
+      - 論理値
+      - Last Will and Testament (LWT) を使用するか否か. デフォルト値は false.
+    * - lwt_qos
+      - 整数値
+      - LWTのQoS, 0～2 を指定. デフォルト値は0.
+    * - lwt_retained
+      - 論理値
+      - LWT のRetained. デフォルト値はfalse.
+    * - org_id
+      - 文字列
+      - 組織ID. デフォルト値は'quickstart'. (16byte)
+    * - event_id
+      - 文字列
+      - イベントID. デフォルト値は'sample'. (128byte)
+    * - lwt_event_id
+      - 文字列
+      - LWT のイベント ID. デフォルト値は 'lwt'.
+    * - format_string
+      - 文字列
+      - データーフォーマット. デフォルト値は'json'. (16byte)
+    * - lwt_message
+      - 文字列
+      - LWT の送信メッセージ. (128byte)
+    * - truststore
+      - 文字列
+      - SSL 接続に用いるRoot CA 証明書ファイルのパス名. (MAXPATHLEN)
+
+.. raw:: latex
+
+   \clearpage
+
+Amazon Kinesis (kinesis) 
+-----------------------------------
+
+.. list-table:: Amazon Kinesis (kinesis) の設定オブジェクト
+    :widths: 20 12 68
+    :header-rows: 1
+
+    * - キー
+      - データ型
+      - 説明
+    * - enable
+      - 論理値
+      - デフォルト値はfalse
+    * - interval
+      - 整数値
+      - サーバへの送信間隔(sec). デフォルト値は 30.
+    * - expier
+      - 整数値
+      - キャッシュのデータ保持時間(sec). デフォルト値 0 の場合はデータが送信さるまで無制限.
+    * - restart
+      - 整数値
+      - 送信プロセスの再起動間隔(sec). デフォルト値は604800、0 の場合は再起動しない.
+    * - domain
+      - 文字列
+      - 接続先ドメイン名. デフォルト値は'amazonaws.com'. (MAXHOSTNAMELEN)
+    * - region
+      - 文字列
+      - 接続先リージョン名. デフォルト値は'ap-northeast-1'. (64byte)
+    * - accessid
+      - 文字列
+      - アクセスID. (128byte)
+    * - accesskey
+      - 文字列
+      - アクセスキー. (128byte)
+    * - streamname
+      - 文字列
+      - ストリーム名. (128byte)
+
+Proxy を使用する場合は、環境変数 http_proxy 又は https_proxy に設定します。
+
+PostgreSQL (pgsql)
+-----------------------------------
+
+.. list-table:: PostgreSQL (pgsql) の設定オブジェクト
+    :widths: 20 12 68
+    :header-rows: 1
+
+    * - キー
+      - データ型
+      - 説明
+    * - enable
+      - 論理値
+      - デフォルト値はfalse
+    * - interval
+      - 整数値
+      - サーバへの送信間隔(sec). デフォルト値は 30.
+    * - expier
+      - 整数値
+      - キャッシュのデータ保持時間(sec). デフォルト値 0 の場合はデータが送信さるまで無制限.
+    * - restart
+      - 整数値
+      - 送信プロセスの再起動間隔(sec). デフォルト値は604800、0 の場合は再起動しない.
+    * - hostaddr
+      - 文字列
+      - 接続先IP アドレス. (MAXHOSTNAMELEN)
+    * - protocol
+      - 文字列
+      - 接続プロトコル'tcp' 又は'ssl' を指定. デフォルト値は'tcp'.
+    * - port
+      - 整数値
+      - 接続先ポート番号. デフォルト値は5432.
+    * - sslmode
+      - 文字列
+      - PostgreSQL のSSL モード. デフォルト値は'verify-full'. (12byte)
+    * - pg_type
+      - 整数値
+      - postgresql/server/catalog/pg_type.h に定義されるOID. デフォルト値は114 (JSONOID).
+    * - dbname
+      - 文字列
+      - データベース名. デフォルト値は'pd_repeater'. (32byte)
+    * - username
+      - 文字列
+      - 接続に用いるユーザー名. (32byte)
+    * - password
+      - 文字列
+      - 接続に持ちるパスワード. (32byte)
+    * - truststore
+      - 文字列
+      - SSL 接続に用いるRoot CA 証明書ファイルのパス名. (MAXPATHLEN)
+    * - keystore
+      - 文字列
+      - SSL 接続に用いる証明書ファイルのパス名. (MAXPATHLEN)
+    * - privatekey
+      - 文字列
+      - SSL 接続に用いる秘密鍵ファイルのパス名. (MAXPATHLEN)
+
+.. raw:: latex
+
+   \clearpage
+
+MySQL (mysql) 
+-----------------------------------
+
+.. list-table:: MySQL (mysql) の設定オブジェクト
+    :widths: 20 12 68
+    :header-rows: 1
+
+    * - キー
+      - データ型
+      - 説明
+    * - enable
+      - 論理値
+      - デフォルト値はfalse
+    * - interval
+      - 整数値
+      - サーバへの送信間隔(sec). デフォルト値は 30.
+    * - expier
+      - 整数値
+      - キャッシュのデータ保持時間(sec). デフォルト値 0 の場合はデータが送信さるまで無制限.
+    * - restart
+      - 整数値
+      - 送信プロセスの再起動間隔(sec). デフォルト値は604800、0 の場合は再起動しない.
+    * - hostaddr
+      - 文字列
+      - 接続先IP アドレス. (MAXHOSTNAMELEN)
+    * - protocol
+      - 文字列
+      - 接続プロトコル'tcp' 又は'ssl' を指定. デフォルト値は'tcp'.
+    * - port
+      - 整数値
+      - 接続先ポート番号. デフォルト値は3306.
+    * - dbname
+      - 文字列
+      - データベース名. デフォルト値は'pd repeater'. (32byte)
+    * - username
+      - 文字列
+      - 接続に用いるユーザー名. (32byte)
+    * - password
+      - 文字列
+      - 接続に持ちるパスワード. (32byte)
+    * - truststore
+      - 文字列
+      - SSL 接続に用いるRoot CA 証明書ファイルのパス名. (MAXPATHLEN)
+    * - keystore
+      - 文字列
+      - SSL 接続に用いる証明書ファイルのパス名. (MAXPATHLEN)
+    * - privatekey
+      - 文字列
+      - SSL 接続に用いる秘密鍵ファイルのパス名. (MAXPATHLEN)
+
+汎用のWeb サーバ(web)
+-----------------------------------
+
+.. list-table:: 汎用のWeb サーバ(web) の設定オブジェクト
+    :widths: 20 12 68
+    :header-rows: 1
+
+    * - キー
+      - データ型
+      - 説明
+    * - enable
+      - 論理値
+      - デフォルト値はfalse
+    * - interval
+      - 整数値
+      - サーバへの送信間隔(sec). デフォルト値は 30.
+    * - expier
+      - 整数値
+      - キャッシュのデータ保持時間(sec). デフォルト値 0 の場合はデータが送信さるまで無制限.
+    * - restart
+      - 整数値
+      - 送信プロセスの再起動間隔(sec). デフォルト値は604800、0 の場合は再起動しない.
+    * - url
+      - 文字列
+      - 接続先URL. (MAXPATHLEN)
+    * - username
+      - 文字列
+      - BASIC 認証用ユーザー名. 空の場合、認証は行わない. (32byte)
+    * - password
+      - 文字列
+      - BASIC 認証用パスワード. 空の場合、認証は行わない. (32byte)
+    * - max_post_msize
+      - 整数値
+      - 最大ポストサイズ(Mbyte). デフォルト値は1.
+    * - content_type
+      - 文字列
+      - 'Content-Type' を指定する. 'text/plain' もしくは'application/json' が指定された場合はペイロードのURL セーフエンコードを行わない.
+        デフォルト値は無指定. (64byte)
+
+Proxy を使用する場合は、環境変数 http_proxy 又は https_proxy に設定します。
+
+.. raw:: latex
+
+   \clearpage
+
+Amazon AWS IoT (awsiot) 
+-----------------------------------
+
+.. list-table:: Amazon AWS IoT (awsiot) の設定オブジェクト
+    :widths: 20 12 68
+    :header-rows: 1
+
+    * - キー
+      - データ型
+      - 説明
+    * - enable
+      - 論理値
+      - デフォルト値はfalse
+    * - interval
+      - 整数値
+      - サーバへの送信間隔(sec). デフォルト値は 30.
+    * - expier
+      - 整数値
+      - キャッシュのデータ保持時間(sec). デフォルト値 0 の場合はデータが送信さるまで無制限.
+    * - restart
+      - 整数値
+      - 送信プロセスの再起動間隔(sec). デフォルト値は604800、0 の場合は再起動しない.
+    * - res_memory
+      - 整数値
+      - 常駐メモリの増加分の上限値(Mbyte). 上限値を超えると送信プロセスを再起動する. デフォルト値は32.
+    * - host
+      - 文字列
+      - 接続先ホスト名. (MAXHOSTNAMELEN)
+    * - protocol
+      - 文字列
+      - 接続プロトコル'tcp' 又は'ssl' を指定. デフォルト値は'tcp'.
+    * - port
+      - 整数値
+      - 接続先ポート番号. デフォルト値は8883.
+    * - keepaliveinterval
+      - 整数値
+      - MQTT のKeepalive 間隔(sec). デフォルト値は10.
+    * - reliable
+      - 論理値
+      - MQTT のReliable. デフォルト値はtrue.
+    * - qos
+      - 整数値
+      - MQTT の送信用QoS, 0～2 を指定. デフォルト値は0.
+    * - retained
+      - 論理値
+      - MQTT のRetained. デフォルト値はfalse.
+    * - rcv_qos
+      - 整数値
+      - MQTT の受信用QoS, 0～2 を指定. デフォルト値は1.
+    * - lwt
+      - 論理値
+      - Last Will and Testament (LWT) を使用するか否か. デフォルト値は false.
+    * - lwt_qos
+      - 整数値
+      - LWTのQoS, 0～2 を指定. デフォルト値は0.
+    * - lwt_retained
+      - 論理値
+      - LWT のRetained. デフォルト値はfalse.
+    * - rootCA
+      - 文字列
+      - SSL 接続に用いるRoot CA 証明書ファイルのパス名. (MAXPATHLEN)
+
+Microsoft Azure Event Hubs (eventhub) 
+-----------------------------------------
+
+.. list-table:: Microsoft Azure Event Hubs (eventhub) の設定オブジェクト
+    :widths: 20 12 68
+    :header-rows: 1
+
+    * - キー
+      - データ型
+      - 説明
+    * - enable
+      - 論理値
+      - デフォルト値はfalse
+    * - interval
+      - 整数値
+      - サーバへの送信間隔(sec). デフォルト値は 30.
+    * - expier
+      - 整数値
+      - キャッシュのデータ保持時間(sec). デフォルト値 0 の場合はデータが送信さるまで無制限.
+    * - restart
+      - 整数値
+      - 送信プロセスの再起動間隔(sec). デフォルト値は604800、0 の場合は再起動しない.
+    * - domain
+      - 文字列
+      - 接続先ドメイン名. デフォルト値は'servicebus.windows.net'. (MAX-HOSTNAMELEN)
+    * - namespace
+      - 文字列
+      - 接続先名前空間. (64byte)
+    * - port
+      - 整数値
+      - 接続先ポート番号. デフォルト値は5671.
+
+.. raw:: latex
+
+   \clearpage
+
+IBM Watson IoT for gateway (w4g) 
+------------------------------------
+
+.. list-table:: IBM Watson IoT for gateway (w4g) の設定オブジェクト
+    :widths: 20 12 68
+    :header-rows: 1
+
+    * - キー
+      - データ型
+      - 説明
+    * - enable
+      - 論理値
+      - デフォルト値はfalse
+    * - interval
+      - 整数値
+      - サーバへの送信間隔(sec). デフォルト値は 30.
+    * - expier
+      - 整数値
+      - キャッシュのデータ保持時間(sec). デフォルト値 0 の場合はデータが送信さるまで無制限.
+    * - restart
+      - 整数値
+      - 送信プロセスの再起動間隔(sec). デフォルト値は604800、0 の場合は再起動しない.
+    * - res_memory
+      - 整数値
+      - 常駐メモリの増加分の上限値(Mbyte). 上限値を超えると送信プロセスを再起動する. デフォルト値は32.
+    * - domain
+      - 文字列
+      - 接続先ドメイン名. デフォルト値は
+        'messag-ing.internetofthings.ibmcloud.com'. (MAXHOSTNAMELEN)
+    * - protocol
+      - 文字列
+      - 接続プロトコル'tcp' 又は'ssl' を指定. デフォルト値は'tcp'.
+    * - port
+      - 整数値
+      - 接続先ポート番号. デフォルト値は1883(TCP 接続時) 又は8883(SSL 接続時).
+    * - keepaliveinterval
+      - 整数値
+      - MQTT のKeepalive 間隔(sec). デフォルト値は10.
+    * - cleansession
+      - 論理値
+      - MQTT のClean session. デフォルト値はtrue.
+    * - reliable
+      - 論理値
+      - MQTT のReliable. デフォルト値はtrue.
+    * - qos
+      - 整数値
+      - MQTT の送信用QoS, 0～2 を指定. デフォルト値は0.
+    * - retained
+      - 論理値
+      - MQTT のRetained. デフォルト値はfalse.
+    * - rcv_qos
+      - 整数値
+      - MQTT の受信用QoS, 0～2 を指定. デフォルト値は1.
+    * - lwt
+      - 論理値
+      - Last Will and Testament (LWT) を使用するか否か. デフォルト値は false.
+    * - lwt_qos
+      - 整数値
+      - LWTのQoS, 0～2 を指定. デフォルト値は0.
+    * - lwt_retained
+      - 論理値
+      - LWT のRetained. デフォルト値はfalse.
+    * - org_id
+      - 文字列
+      - 組織ID. デフォルト値は'quickstart'. (16byte)
+    * - gateway type
+      - 文字列
+      - ゲートウェイタイプデフォルト値は'sample'. (20byte)
+    * - gateway id
+      - 文字列
+      - ゲートウェイID. (20byte)
+    * - event_id
+      - 文字列
+      - イベントID. デフォルト値は'sample'. (128byte)
+    * - lwt_event_id
+      - 文字列
+      - LWT のイベント ID. デフォルト値は 'lwt'.
+    * - format_string
+      - 文字列
+      - データーフォーマット. デフォルト値は'json'. (16byte)
+    * - lwt_message
+      - 文字列
+      - LWT の送信メッセージ. (128byte)
+    * - truststore
+      - 文字列
+      - SSL 接続に用いるRoot CA 証明書ファイルのパス名. (MAXPATHLEN)
+    * - keystore
+      - 文字列
+      - SSL 接続に用いる証明書ファイルのパス名. (MAXPATHLEN)
+    * - privatekey
+      - 文字列
+      - SSL 接続に用いる秘密鍵ファイルのパス名. (MAXPATHLEN)
+
+.. raw:: latex
+
+   \clearpage
+
+Microsoft Azure IoT Hub(iothub) 
+------------------------------------
+
+.. list-table:: Microsoft Azure IoT Hub(iothub) の設定オブジェクト
+    :widths: 20 12 68
+    :header-rows: 1
+
+    * - キー
+      - データ型
+      - 説明
+    * - enable
+      - 論理値
+      - デフォルト値はfalse
+    * - interval
+      - 整数値
+      - サーバへの送信間隔(sec). デフォルト値は 30.
+    * - expier
+      - 整数値
+      - キャッシュのデータ保持時間(sec). デフォルト値 0 の場合はデータが送信さるまで無制限.
+    * - restart
+      - 整数値
+      - 送信プロセスの再起動間隔(sec). デフォルト値は604800、0 の場合は再起動しない.
+    * - res_memory
+      - 整数値
+      - 常駐メモリの増加分の上限値(Mbyte). 上限値を超えると送信プロセスを再起動する. デフォルト値は32.
+    * - domain
+      - 文字列
+      - 接続先ドメイン名. デフォルト値は'azure-devices.net'. (MAXHOSTNAMELEN)
+    * - hub_name
+      - 文字列
+      - 接続先ハブ名. (64byte)
+    * - gw_host
+      - 文字列
+      - ゲートウェイホスト名.( MAXHOSTNAMELEN)
+    * - tail_slash
+      - 論理値
+      - MQTTトピックの末尾に’/’を付けるか否か. デフォルト値はtrue
+    * - keepaliveinterval
+      - 整数値
+      - MQTT のKeepalive 間隔(sec). デフォルト値は10.
+    * - cleansession
+      - 論理値
+      - MQTT のClean session. デフォルト値はtrue.
+    * - reliable
+      - 論理値
+      - MQTT のReliable. デフォルト値はtrue.
+    * - qos
+      - 整数値
+      - MQTT の送信用QoS, 0～2 を指定. デフォルト値は0.
+    * - retained
+      - 論理値
+      - MQTT のRetained. デフォルト値はfalse.
+    * - rcv_qos
+      - 整数値
+      - MQTT の受信用QoS, 0～2 を指定. デフォルト値は1.
+    * - lwt
+      - 論理値
+      - Last Will and Testament (LWT) を使用するか否か. デフォルト値は false.
+    * - lwt_qos
+      - 整数値
+      - LWTのQoS, 0～2 を指定. デフォルト値は0.
+    * - lwt_retained
+      - 論理値
+      - LWT のRetained. デフォルト値はfalse.
+    * - lwt_property_bag
+      - 文字列
+      - LWT Property Bag. (256byte)
+    * - lwt_message
+      - 文字列
+      - LWT の送信メッセージ. (128byte)
+    * - rootCA
+      - 文字列
+      - X.509認証に用いるRoot CA証明書ファイルのパス名. ( MAXHOSTNAMELEN)
+
+.. raw:: latex
+
+   \clearpage
+  
+NTT docomo Toami for docomo (t4d) 
+-------------------------------------
+
+.. list-table:: NTT docomo Toami for docomo (t4d) の設定オブジェクト
+    :widths: 20 12 68
+    :header-rows: 1
+
+    * - キー
+      - データ型
+      - 説明
+    * - enable
+      - 論理値
+      - デフォルト値はfalse
+    * - interval
+      - 整数値
+      - サーバへの送信間隔(sec). デフォルト値は 30.
+    * - expier
+      - 整数値
+      - キャッシュのデータ保持時間(sec). デフォルト値 0 の場合はデータが送信さるまで無制限.
+    * - restart
+      - 整数値
+      - 送信プロセスの再起動間隔(sec). デフォルト値は604800、0 の場合は再起動しない.
+    * - url
+      - 文字列
+      - 接続先URL. デフォルト値は'https://xxxx.to4do.com:443'. (MAX-PATHLEN)
+
+Proxy を使用する場合は、環境変数 http_proxy 又は https_proxy に設定します。
+
+UNIXドメインソケット (lsocket)  
+-------------------------------------
+
+.. list-table:: UNIXドメインソケット (lsocket) の設定オブジェクト
+    :widths: 20 12 68
+    :header-rows: 1
+
+    * - キー
+      - データ型
+      - 説明
+    * - enable
+      - 論理値
+      - デフォルト値はfalse
+    * - interval
+      - 整数値
+      - サーバへの送信間隔(sec). デフォルト値は 30.
+    * - expier
+      - 整数値
+      - キャッシュのデータ保持時間(sec). デフォルト値 0 の場合はデータが送信さるまで無制限.
+    * - restart
+      - 整数値
+      - 送信プロセスの再起動間隔(sec). デフォルト値は604800、0 の場合は再起動しない. 
+    * - root_path
+      - 文字列
+      - 送り先Unix ドメインソケットのルートパス名. 文字列の先頭が '@' の場合はabstract namespace と解釈する. デフォルト値は'/tmp'. (MAX-PATHLEN)
+
+.. raw:: latex
+
+   \clearpage
+
+KDDI IoTクラウドStandard(kddi_std) 
+--------------------------------------
+
+.. list-table:: KDDI IoTクラウドStandard(kddi_std) の設定オブジェクト
+    :widths: 20 12 68
+    :header-rows: 1
+
+    * - キー
+      - データ型
+      - 説明
+    * - enable
+      - 論理値
+      - デフォルト値はfalse
+    * - interval
+      - 整数値
+      - サーバへの送信間隔(sec). デフォルト値は 30.
+    * - expier
+      - 整数値
+      - キャッシュのデータ保持時間(sec). デフォルト値 0 の場合はデータが送信さるまで無制限.
+    * - restart
+      - 整数値
+      - 送信プロセスの再起動間隔(sec). デフォルト値は604800、0 の場合は再起動しない. 
+    * - domain
+      - 文字列
+      - 接続先ドメイン名. デフォルト値は'datalink.m2m-cloud-std.kddi.ne.jp'. (MAXHOSTNAMELEN)
+    * - port
+      - 整数値
+      - 接続先ポート番号. デフォルト値は443.
+    * - termid
+      - 文字列
+      - 端末ID. (16byte)
+    * - username
+      - 文字列
+      - BASIC 認証用ユーザー名. 空の場合、認証は行わない. (32byte)
+    * - password
+      - 文字列
+      - BASIC 認証用パスワード. 空の場合、認証は行わない. (32byte)
+
+Proxy を使用する場合は、環境変数 http_proxy 又は https_proxy に設定します。
+
+NIFTY IoT Device Hub (nf_dvhub)
+--------------------------------------
+
+.. list-table:: NIFTY IoT Device Hub (nf_dvhub) の設定オブジェクト
+    :widths: 20 12 68
+    :header-rows: 1
+
+    * - キー
+      - データ型
+      - 説明
+    * - enable
+      - 論理値
+      - デフォルト値はfalse
+    * - interval
+      - 整数値
+      - サーバへの送信間隔(sec). デフォルト値は 30.
+    * - expier
+      - 整数値
+      - キャッシュのデータ保持時間(sec). デフォルト値 0 の場合はデータが送信さるまで無制限.
+    * - restart
+      - 整数値
+      - 送信プロセスの再起動間隔(sec). デフォルト値は604800、0 の場合は再起動しない. 
+    * - res_memory
+      - 整数値
+      - 常駐メモリの増加分の上限値(Mbyte). 上限値を超えると送信プロセスを再起動する. デフォルト値は32.
+    * - host
+      - 文字列
+      - 接続先ホスト名. 
+        デフォルト値は'iot-device.jp-east-1.mqtt.cloud.nifty.com' (MAXHOSTNAMELEN)
+    * - protocol
+      - 文字列
+      - 接続プロトコル'tcp' 又は'ssl' を指定. デフォルト値は'tcp'.
+    * - keepaliveinterval
+      - 整数値
+      - MQTT のKeepalive 間隔(sec). デフォルト値は10.
+    * - reliable
+      - 論理値
+      - MQTT のReliable. デフォルト値はtrue.
+    * - qos
+      - 整数値
+      - MQTT の送信用QoS, 0～2 を指定. デフォルト値は0.
+    * - rootCA
+      - 文字列
+      - SSL 接続に用いるRoot CA 証明書ファイルのパス名. (MAXPATHLEN)
+
+| NIFTY IoT Device Hub は、2018年11月30日をもってサービスを終了しています。
+| また、NIFTY IoT Device Hub と DEVICEHUB (https://www.devicehub.net)は、異なるサービスであり、本設定オブジェクを用いてDEVICEHUBにデータを送ることはできません。
+
+.. raw:: latex
+
+   \clearpage
+
+Plat'Home 独自仕様Web サーバ(pd web)
+----------------------------------------
+
+.. list-table:: Plat'Home 独自仕様Web サーバ(pd web) の設定オブジェクト
+    :widths: 20 12 68
+    :header-rows: 1
+
+    * - キー
+      - データ型
+      - 説明
+    * - enable
+      - 論理値
+      - デフォルト値はfalse
+    * - interval
+      - 整数値
+      - サーバへの送信間隔(sec). デフォルト値は 30.
+    * - expier
+      - 整数値
+      - キャッシュのデータ保持時間(sec). デフォルト値 0 の場合はデータが送信さるまで無制限.
+    * - restart
+      - 整数値
+      - 送信プロセスの再起動間隔(sec). デフォルト値は604800、0 の場合は再起動しない. 
+    * - url
+      - 文字列
+      - 接続先URL. (MAXPATHLEN)
+    * - poll_interval
+      - 整数値
+      - PD Web ではメッセージの送信と同時に下流方向へのメッセージを取得するが、poll interval には送信すべきメッセージが存在しない場合を想定し、空の接続を起こす間隔(sec) を指定する. デフォルト値は30.
+    * - username
+      - 文字列
+      - BASIC 認証用ユーザー名. 空の場合、認証は行わない. (32byte)
+    * - password
+      - 文字列
+      - BASIC 認証用パスワード. 空の場合、認証は行わない. (32byte)
+    * - max_post_msize
+      - 整数値
+      - 最大ポストサイズ(Mbyte). デフォルト値は1.
+
+Proxy を使用する場合は、環境変数 http_proxy 又は https_proxy に設定します。
+
+.. raw:: latex
+
+   \clearpage
+
+Google Cloud IoT Core (iotcore)
+--------------------------------------
+
+.. list-table:: Google Cloud IoT Core (iotcore) の設定オブジェクト
+    :widths: 20 12 68
+    :header-rows: 1
+
+    * - キー
+      - データ型
+      - 説明
+    * - enable
+      - 論理値
+      - デフォルト値はfalse
+    * - interval
+      - 整数値
+      - サーバへの送信間隔(sec). デフォルト値は 30.
+    * - expier
+      - 整数値
+      - キャッシュのデータ保持時間(sec). デフォルト値 0 の場合はデータが送信さるまで無制限.
+    * - restart
+      - 整数値
+      - 送信プロセスの再起動間隔(sec). デフォルト値は604800、0 の場合は再起動しない. 
+    * - res_memory
+      - 整数値
+      - 常駐メモリの増加分の上限値(Mbyte). 上限値を超えると送信プロセスを再起動する. デフォルト値は32.
+    * - host
+      - 文字列
+      - 接続先ホスト名(MAXHOSTNAMELEN)
+    * - port
+      - 整数値
+      - 接続先ポート番号. デフォルト値は8883.
+    * - project_id
+      - 文字列
+      - プロジェクトID. (32bytes)
+    * - cloud_region
+      - 文字列
+      - Cloud リージョン. (16bytes)
+    * - keepaliveinterval
+      - 整数値
+      - MQTT のKeepalive 間隔(sec). デフォルト値は10.
+    * - cleansession
+      - 論理値
+      - MQTT のClean session. デフォルト値はtrue.
+    * - reliable
+      - 論理値
+      - MQTT のReliable. デフォルト値はtrue.
+    * - qos
+      - 整数値
+      - MQTT の送信用QoS, 0～2 を指定. デフォルト値は0.
+    * - retained
+      - 論理値
+      - MQTT のRetained. デフォルト値はfalse.
+    * - rcv_qos
+      - 整数値
+      - MQTT の受信用QoS, 0～2 を指定. デフォルト値は1.
+    * - lwt
+      - 論理値
+      - Last Will and Testament (LWT) を使用するか否か. デフォルト値は false.
+    * - lwt_qos
+      - 整数値
+      - LWTのQoS, 0～2 を指定. デフォルト値は0.
+    * - lwt_retained
+      - 論理値
+      - LWT のRetained. デフォルト値はfalse.
+    * - lwt_message
+      - 文字列
+      - LWT の送信メッセージ. (128byte)
+    * - rootCA
+      - 文字列
+      - SSL 接続に用いるRoot CA 証明書ファイルのパス名. (MAXPATHLEN)
+
+TCPソケット (ltcp) 
+--------------------------------------
+
+.. list-table::  TCPソケット (ltcp) の設定オブジェクト
+    :widths: 20 12 68
+    :header-rows: 1
+
+    * - キー
+      - データ型
+      - 説明
+    * - enable
+      - 論理値
+      - デフォルト値はfalse
+    * - interval
+      - 整数値
+      - サーバへの送信間隔(sec). デフォルト値は 30.
+    * - expier
+      - 整数値
+      - キャッシュのデータ保持時間(sec). デフォルト値 0 の場合はデータが送信さるまで無制限.
+    * - restart
+      - 整数値
+      - 送信プロセスの再起動間隔(sec). デフォルト値は604800、0 の場合は再起動しない. 
+    * - ip_addr
+      - 文字列
+      - 接続先IP アドレス. デフォルト値は'127.0.0.1'. (16byte)
+    * - delimiter
+      - 文字列
+      - メッセージのセパレータコード. デフォルト値は'0x00'. 例えば CRLF コードをセパレータとする場合は '0x0d0a'. (7byte)
+
+.. raw:: latex
+
+   \clearpage
+
+Amazon AWS IoT [Websocket](awsiot_ws) 
+-----------------------------------------
+
+.. list-table:: Amazon AWS IoT [Websocket](awsiot_ws) の設定オブジェクト
+    :widths: 20 12 68
+    :header-rows: 1
+
+    * - キー
+      - データ型
+      - 説明
+    * - enable
+      - 論理値
+      - デフォルト値はfalse
+    * - interval
+      - 整数値
+      - サーバへの送信間隔(sec). デフォルト値は 30.
+    * - expier
+      - 整数値
+      - キャッシュのデータ保持時間(sec). デフォルト値 0 の場合はデータが送信さるまで無制限.
+    * - restart
+      - 整数値
+      - 送信プロセスの再起動間隔(sec). デフォルト値は604800、0 の場合は再起動しない. 
+    * - res_memory
+      - 整数値
+      - 常駐メモリの増加分の上限値(Mbyte). 上限値を超えると送信プロセスを再起動する. デフォルト値は32.
+    * - host
+      - 文字列
+      - 接続先ホスト名. (MAXHOSTNAMELEN)
+    * - port
+      - 整数値
+      - 接続先ポート番号. デフォルト値は8883.
+    * - keepaliveinterval
+      - 整数値
+      - MQTT のKeepalive 間隔(sec). デフォルト値は10.
+    * - reliable
+      - 論理値
+      - MQTT のReliable. デフォルト値はtrue.
+    * - qos
+      - 整数値
+      - MQTT の送信用QoS, 0～2 を指定. デフォルト値は0.
+    * - retained
+      - 論理値
+      - MQTT のRetained. デフォルト値はfalse.
+    * - rcv_qos
+      - 整数値
+      - MQTT の受信用QoS, 0～2 を指定. デフォルト値は1.
+    * - lwt
+      - 論理値
+      - Last Will and Testament (LWT) を使用するか否か. デフォルト値は false.
+    * - lwt_qos
+      - 整数値
+      - LWTのQoS, 0～2 を指定. デフォルト値は0.
+    * - lwt_retained
+      - 論理値
+      - LWT のRetained. デフォルト値はfalse.
+    * - accessid
+      - 文字列
+      - アクセスID. (128byte)
+    * - accesskey
+      - 文字列
+      - アクセスキー. (128byte)
+
+Proxy を使用する場合は、環境変数 http_proxy 又は https_proxy に設定します。
+
+.. raw:: latex
+
+   \clearpage
+
+Microsoft Azure IoT Hub[Websocket] (iothub_ws) 
+--------------------------------------------------
+
+.. list-table:: Microsoft Azure IoT Hub[Websocket] (iothub_ws) の設定オブジェクト
+    :widths: 20 12 68
+    :header-rows: 1
+
+    * - キー
+      - データ型
+      - 説明
+    * - enable
+      - 論理値
+      - デフォルト値はfalse
+    * - interval
+      - 整数値
+      - サーバへの送信間隔(sec). デフォルト値は 30.
+    * - expier
+      - 整数値
+      - キャッシュのデータ保持時間(sec). デフォルト値 0 の場合はデータが送信さるまで無制限.
+    * - restart
+      - 整数値
+      - 送信プロセスの再起動間隔(sec). デフォルト値は604800、0 の場合は再起動しない. 
+    * - res_memory
+      - 整数値
+      - 常駐メモリの増加分の上限値(Mbyte). 上限値を超えると送信プロセスを再起動する. デフォルト値は32.
+    * - domain
+      - 文字列
+      - 接続先ドメイン名. デフォルト値は'azure-devices.net'. (MAXHOSTNAMELEN)
+    * - hub_name
+      - 文字列
+      - 接続先ハブ名. (64byte)
+    * - keepaliveinterval
+      - 整数値
+      - MQTT のKeepalive 間隔(sec). デフォルト値は10.
+    * - cleansession
+      - 論理値
+      - MQTT のClean session. デフォルト値はtrue.
+    * - reliable
+      - 論理値
+      - MQTT のReliable. デフォルト値はtrue.
+    * - qos
+      - 整数値
+      - MQTT の送信用QoS, 0～2 を指定. デフォルト値は0.
+    * - retained
+      - 論理値
+      - MQTT のRetained. デフォルト値はfalse.
+    * - rcv_qos
+      - 整数値
+      - MQTT の受信用QoS, 0～2 を指定. デフォルト値は1.
+    * - lwt
+      - 論理値
+      - Last Will and Testament (LWT) を使用するか否か. デフォルト値は false.
+    * - lwt_qos
+      - 整数値
+      - LWTのQoS, 0～2 を指定. デフォルト値は0.
+    * - lwt_retained
+      - 論理値
+      - LWT のRetained. デフォルト値はfalse.
+    * - lwt_property_bag
+      - 文字列
+      - LWT Property Bag. (256byte)
+    * - lwt_message
+      - 文字列
+      - LWT の送信メッセージ. (128byte)
+
+Proxy を使用する場合は、環境変数 http_proxy 又は https_proxy に設定します。
+
+ダミー出力 (dummy)
+--------------------------------------------------
+
+.. list-table:: ダミー出力 (dummy) の設定オブジェクト
+    :widths: 20 12 68
+    :header-rows: 1
+
+    * - キー
+      - データ型
+      - 説明
+    * - enable
+      - 論理値
+      - デフォルト値はfalse
+    * - interval
+      - 整数値
+      - サーバへの送信間隔(sec). デフォルト値は 30.
+    * - expier
+      - 整数値
+      - キャッシュのデータ保持時間(sec). デフォルト値 0 の場合はデータが送信さるまで無制限.
+    * - restart
+      - 整数値
+      - 送信プロセスの再起動間隔(sec). デフォルト値は604800、0 の場合は再起動しない. 
+    * - log
+      - 論理値
+      - ペイロードとそのサイズのログ出力を行う. デフォルト値は false.
+
+.. raw:: latex
+
+   \clearpage
+
+SoftBank IoT (sbiot)
+------------------------
+
+.. list-table:: SoftBank IoT (sbiot) の設定オブジェクト
+    :widths: 20 12 68
+    :header-rows: 1
+
+    * - キー
+      - データ型
+      - 説明
+    * - enable
+      - 論理値
+      - デフォルト値はfalse
+    * - interval
+      - 整数値
+      - サーバへの送信間隔(sec). デフォルト値は 30.
+    * - expier
+      - 整数値
+      - キャッシュのデータ保持時間(sec). デフォルト値 0 の場合はデータが送信さるまで無制限.
+    * - restart
+      - 整数値
+      - 送信プロセスの再起動間隔(sec). デフォルト値は604800、0 の場合は再起動しない. 
+    * - res_memory
+      - 整数値
+      - 常駐メモリの増加分の上限値(Mbyte). 上限値を超えると送信プロセスを再起動する. デフォルト値は32.
+    * - host
+      - 文字列
+      - 接続先ホストをIP アドレス又はFQDN で指定. (MAXHOSTNAMELEN)
+    * - protocol
+      - 文字列
+      - 接続プロトコル'tcp' 又は'ssl' を指定. デフォルト値は'ssl'.
+    * - port
+      - 整数値
+      - 接続先ポート番号. デフォルト値は8883.
+    * - keepaliveinterval
+      - 整数値
+      - MQTT のKeepalive 間隔(sec). デフォルト値は10.
+    * - cleansession
+      - 論理値
+      - MQTT のClean session. デフォルト値はtrue.
+    * - reliable
+      - 論理値
+      - MQTT のReliable. デフォルト値はtrue.
+    * - qos
+      - 整数値
+      - MQTT の送信用QoS, 0～2 を指定. デフォルト値は0.
+    * - retained
+      - 論理値
+      - MQTT のRetained. デフォルト値はfalse.
+    * - rcv_qos
+      - 整数値
+      - MQTT の受信用QoS, 0～2 を指定. デフォルト値は1.
+    * - resp
+      - 論理値
+      - 応答出力を受け取るか否か. デフォルト値はfalse.
+    * - cloud_id
+      - 文字列
+      - MQTTの送信トピックに与えられる送信先クラウド名. デフォルト値は’CSE1000’.(64byte)
+    * - client_id
+      - 文字列
+      - MQTT 接続に用いるClient ID. (96byte)
+    * - ae_id
+      - 文字列
+      - 接続に用いるSoftBank IoTのAE-ID.(64byte)
+    * - password
+      - 文字列
+      - パスワード認証に用いるパスワード. (128byte)
+    * - asset
+      - 文字列
+      - 接続に用いるSoftBank IoTのアセット名.(64byte)
+    * - truststore
+      - 文字列
+      - SSL 接続に用いるRoot CA 証明書ファイルのパス名. (MAXPATHLEN)
+    * - keystore
+      - 文字列
+      - SSL 接続に用いる証明書ファイルのパス名. (MAXPATHLEN)
+    * - privatekey
+      - 文字列
+      - SSL 接続に用いる秘密鍵ファイルのパス名. (MAXPATHLEN)
+
+SoftBank IoT に関わる実装は、SoftBank IoTプラットフォームネットワーク接続仕様(Rev.1.1.1)に準拠し「SoftBankスマ可視化専用クラウド」の仕様に合わせて実装されています。
+
+.. raw:: latex
+
+   \clearpage
+
+Things クラウド(things)
+---------------------------
+
+.. list-table:: Things クラウド(things) の設定オブジェクト
+    :widths: 20 12 68
+    :header-rows: 1
+
+    * - キー
+      - データ型
+      - 説明
+    * - enable
+      - 論理値
+      - デフォルト値はfalse
+    * - interval
+      - 整数値
+      - サーバへの送信間隔(sec). デフォルト値は 30.
+    * - expier
+      - 整数値
+      - キャッシュのデータ保持時間(sec). デフォルト値 0 の場合はデータが送信さるまで無制限.
+    * - restart
+      - 整数値
+      - 送信プロセスの再起動間隔(sec). デフォルト値は604800、0 の場合は再起動しない. 
+    * - res_memory
+      - 整数値
+      - 常駐メモリの増加分の上限値(Mbyte). 上限値を超えると送信プロセスを再起動する. デフォルト値は32.
+    * - host
+      - 文字列
+      - 接続先ホストをIP アドレス又はFQDN で指定. (MAXHOSTNAMELEN)
+    * - protocol
+      - 文字列
+      - 接続プロトコル'tcp' 又は'ssl' を指定. デフォルト値は'ssl'.
+    * - port
+      - 整数値
+      - 接続先ポート番号. デフォルト値は1883(TCP 接続時) 又は8883(SSL 接続時).
+    * - keepaliveinterval
+      - 整数値
+      - MQTT のKeepalive 間隔(sec). デフォルト値は10.
+    * - cleansession
+      - 論理値
+      - MQTT のClean session. デフォルト値はtrue.
+    * - reliable
+      - 論理値
+      - MQTT のReliable. デフォルト値はtrue.
+    * - qos
+      - 整数値
+      - MQTT の送信用QoS, 0～2 を指定. デフォルト値は0.
+    * - topic
+      - 文字列
+      - MQTTの送信トピック. デフォルト値は’measurement/mesurements/create’. (MAXPATHLEN)
+    * - rcv_qos
+      - 整数値
+      - MQTT の受信用QoS, 0～2 を指定. デフォルト値は1.
+    * - rcv_topic_prefix
+      - 文字列
+      - MQTT の受信トピックの先頭に付加する文字列. 受信トピックは、デバイス設定オブジェクト'client_id' に指定される文字列と組み合わせrcv_topic_prefix/client_id となる. (MAXPATHLEN)
+    * - lwt
+      - 論理値
+      - Last Will and Testament (LWT) を使用するか否か. デフォルト値は false.
+    * - lwt_qos
+      - 整数値
+      - LWTのQoS, 0～2 を指定. デフォルト値は0.
+    * - lwt_topic
+      - 文字列
+      - LWT の送信トピック. (MAXPATHLEN)
+    * - lwt_message
+      - 文字列
+      - LWT の送信メッセージ. (128byte)
+    * - rootCA
+      - 文字列
+      - SSL 接続に用いるRoot CA 証明書ファイルのパス名. デフォルト値は’/etc/ssl/certs/ca-certificates.crt’.(MAXPATHLEN)
+    * - tenant_id
+      - 文字列
+      - パスワード認証に用いるユーザー名の先頭に付与する文字列. デフォルト値は’iotconnect’.(64byte)
+    * - username
+      - 文字列
+      - パスワード認証に用いるユーザー名のサフックス. ユーザー名は’tenant_id’に指定される文字列と組み合わせtenant_id/username となる.(64byte)
+    * - password
+      - 文字列
+      - パスワード認証に用いるパスワード. (128byte)
+
+Thingsクラウドに関わる実装は、2020年6月現在試験的なもので、設定オブェクトについては予告なく変更される場合があります。
+
+.. raw:: latex
+
+   \clearpage
+
+FTP サーバ(ftp)
+---------------------------
+
+.. list-table:: FTP　サーバ (ftp)の設定オブジェクト
+    :widths: 20 12 68
+    :header-rows: 1
+
+    * - キー
+      - データ型
+      - 説明
+    * - enable
+      - 論理値
+      - デフォルト値はfalse
+    * - interval
+      - 整数値
+      - サーバへの送信間隔(sec). デフォルト値は 30.
+    * - expier
+      - 整数値
+      - キャッシュのデータ保持時間(sec). デフォルト値 0 の場合はデータが送信さるまで無制限.
+    * - restart
+      - 整数値
+      - 送信プロセスの再起動間隔(sec). デフォルト値は604800、0 の場合は再起動しない. 
+    * - url
+      - 文字列
+      - 'ftp://' から始まる接続先 URL. (MAXPATHLEN)
+    * - username
+      - 文字列
+      - 接続に用いるユーザー名. (32byte)
+    * - password
+      - 文字列
+      - パスワード認証に用いるパスワード. (32byte)
+    * - per_device
+      - 論理値
+      - デバイス毎にファイル名を変えて送信する. デフォルト値は false.
+    * - fn_prefix
+      - 文字列
+      - ファイル名のプリフィック.  per_device キーが false の時のみ有効. (64byte).
+    * - fn_suffix
+      - 文字列
+      - ファイル名のサフィック. per_device キーが false の時のみ有効. (64byte).
+    * - fn_time
+      - 文字列
+      - ファイル名のプリフィックとサフィックの間に挿入される PD Repeater がデータを受け取った時刻文字列のの仕様.
+        'none'(挿入無し), 'oldest'(最古), 'latest'(最新), 'both'(両方) のいずれか.
+        'oldest' 又は 'latest' 場合は 'CCyymmddHHMMSS'、
+        'both' の場合は、 'CCyymmddHHMMSS-CCyymmddHHMMSS'. 
+
+.. raw:: latex
+
+   \clearpage
+
+deviceオブジェクト
+=======================
+
+.. list-table:: device オブジェクト
+    :widths: 20 12 68
+    :header-rows: 1
+
+    * - キー
+      - データ型
+      - 説明
+    * - localname
+      - 文字列
+      - デバイスのローカル名(デバイス番号). (32byte)
+    * - bind
+      - 文字列
+      - データを受け取るソケット名. 文字列の先頭が'@' の場合はabstract　namespace と解釈します. 
+        空の場合は、デフォルト値 '\@/pd_repeater/<localname>.sock' が設定されます.
+    * - push_to
+      - 文字列
+      - 制御メッセージの送り先ソケット名. 文字列の先頭が'@' の場合はabstract　namespace と解釈します. 
+        空の場合は、デフォルト値 '\@/pd_handler/<localname>'.sock が設定されます.
+    * - buffer_size
+      - 整数値
+      - データのバッファサイズ(byte). デフォルト値は4096
+    * - truncate
+      - 実数値
+      - データを間引くための入力データを受け付けない時間(msec). デフォルト値0 の場合は間引かない.
+    * - receive
+      - 論理値
+      - クラウドからメッセージを受け取る下流方向制御) か否か. デフォルト値はfalse
+    * - pd_ex
+      - JSON obj
+      - PD Exchenge 固有の設定オブジェクト
+    * - mqtt
+      - JSON obj
+      - 汎用のMQTT ブローカー固有の設定オブジェクト
+    * - w4d
+      - JSON obj
+      - IBM Watson IoT for device 固有の設定オブジェクト
+    * - kinesis
+      - JSON obj
+      - Amazon Kinesis 固有の設定オブジェクト
+    * - pgsql
+      - JSON obj
+      - PostgreSQL データベース固有の設定オブジェクト
+    * - mysql
+      - JSON obj
+      - MySQL データベース固有の設定オブジェクト
+    * - web
+      - JSON obj
+      - 汎用のWeb サーバ固有の設定オブジェクト
+    * - awsiot
+      - JSON obj
+      - Amazon AWS IoT 固有の設定オブジェクト
+    * - eventhub
+      - JSON obj
+      - Microsoft Azure Event Hubs 固有の設定オブジェクト
+    * - w4g
+      - JSON obj
+      - IBM Watson IoT for gateway 固有の設定オブジェクト
+    * - iothub
+      - JSON obj
+      - Microsoft Azure IoT Hub 固有の設定オブジェクト
+    * - t4d
+      - JSON obj
+      - NTT docomo Toami for docomo 固有の設定オブジェクト
+    * - lsocket
+      - JSON obj
+      - Unix ドメインソケットへデータを送るための固有の設定オブジェクト
+    * - kddi_std
+      - JSON obj
+      - KDDI IoT クラウドStandard 固有の設定オブジェクト
+    * - nf_dvhub
+      - JSON obj
+      - NIFTY IoT Device Hub 固有の設定オブジェクト
+    * - pd_web
+      - JSON obj
+      - Plat'Home 独自仕様のWeb サーバ固有の設定オブジェクト
+    * - iotcore
+      - JSON obj
+      - Google Cloud IoT Core 固有の設定オブジェクト
+    * - ltcp
+      - JSON obj
+      - TCP ソケット固有の設定オブジェクト
+    * - awsiot_ws
+      - JSON obj
+      - Amazon AWS IoT へ MQTT over Websocket でデータを送るための固有の設定オブジェクト
+    * - iothub_ws
+      - JSON obj
+      - Microsoft Azure IoT Hub へ MQTT over Websocket でデータを送るための固有の設定オブジェクト
+    * - dummy
+      - JSON obj
+      - ダミー出力 固有の設定オブジェクト
+    * - sbiot
+      - JSON obj
+      - SoftBank IoTへデータを送るための固有の設定オブジェクト
+    * - things
+      - JSON obj
+      - Thingsクラウドへデータを送るための固有の設定オブジェクト
+    * - ftp
+      - JSON obj
+      - FTPサーバへデータを送るための固有の設定オブジェクト
+
+クラウドインデックスキーについては servers オブジェクトと同様に同文字列に '_0' 又は'_1', '_2', '_3' を
+付加した文字列(例えば 'pd_ex' について、'pd_ex_0', 'pd_ex_1', 'pd_ex_2', 'pd_ex_3) を用いることが可能です。
+
+.. raw:: latex
+
+   \clearpage 
+
+PD Exchenge(pd_ex)
+--------------------------
+
+.. list-table:: PD Exchenge(pd_ex) 固有の設定オブジェクト
+    :widths: 20 12 68
+    :header-rows: 1
+
+    * - キー
+      - データ型
+      - 説明
+    * - enable
+      - 論理値
+      - デフォルト値はfalse
+    * - deid_suffix
+      - 文字列
+      - PD Exchange のデバイスID サフックス. (9byte)
+
+汎用のMQTT ブローカー(mqtt)
+-------------------------------
+
+.. list-table:: 汎用のMQTT ブローカー(mqtt) 固有の設定オブジェクト
+    :widths: 20 12 68
+    :header-rows: 1
+
+    * - キー
+      - データ型
+      - 説明
+    * - enable
+      - 論理値
+      - デフォルト値はfalse
+    * - unique_id
+      - 文字列
+      - ユニークID. (20byte)
+
+IBM Watson IoT for device (w4d)
+-----------------------------------
+
+.. list-table:: IBM Watson IoT for device (w4d) 固有の設定オブジェクト
+    :widths: 20 12 68
+    :header-rows: 1
+
+    * - キー
+      - データ型
+      - 説明
+    * - enable
+      - 論理値
+      - デフォルト値はfalse
+    * - device_id
+      - 文字列
+      - デバイスID. (20byte)
+    * - device_type
+      - 文字列
+      - デバイスタイプ. (20byte)
+    * - password
+      - 文字列
+      - パスワード. (128byte)
+    * - keystore
+      - 文字列
+      - SSL 接続に用いる証明書ファイルのパス名. (MAXPATHLEN)
+    * - privatekey
+      - 文字列
+      - SSL 接続に用いる秘密鍵ファイルのパス名. (MAXPATHLEN)
+
+Amazon Kinesis (kinesis)
+-----------------------------------
+
+.. list-table:: Amazon Kinesis (kinesis) 固有の設定オブジェクト
+    :widths: 20 12 68
+    :header-rows: 1
+
+    * - キー
+      - データ型
+      - 説明
+    * - enable
+      - 論理値
+      - デフォルト値はfalse
+
+PostgreSQL (pgsql)
+-----------------------------------
+
+.. list-table:: PostgreSQL (pgsql) 固有の設定オブジェクト
+    :widths: 20 12 68
+    :header-rows: 1
+
+    * - キー
+      - データ型
+      - 説明
+    * - enable
+      - 論理値
+      - デフォルト値はfalse
+    * - table
+      - 文字列
+      - データを書き込むテーブル名. デフォルト値は 'buf'.
+    * - colum
+      - 文字列
+      - データを書き込むカラム名. デフォルト値は 'jsonObj'.
+
+MySQL (mysql)
+-----------------------------------
+
+.. list-table:: MySQL (mysql) 固有の設定オブジェクト
+    :widths: 20 12 68
+    :header-rows: 1
+
+    * - キー
+      - データ型
+      - 説明
+    * - enable
+      - 論理値
+      - デフォルト値はfalse
+    * - table
+      - 文字列
+      - データを書き込むテーブル名. デフォルト値は 'buf'.
+    * - colum
+      - 文字列
+      - データを書き込むカラム名. デフォルト値は 'jsonObj'.
+
+汎用のWeb サーバ(web)
+-----------------------------------
+
+.. list-table:: 汎用のWeb サーバ(web) 固有の設定オブジェクト
+    :widths: 20 12 68
+    :header-rows: 1
+
+    * - キー
+      - データ型
+      - 説明
+    * - enable
+      - 論理値
+      - デフォルト値はfalse
+
+Amazon AWS IoT (awsiot)
+-----------------------------------
+
+.. list-table:: Amazon AWS IoT (awsiot) 固有の設定オブジェクト
+    :widths: 20 12 68
+    :header-rows: 1
+
+    * - キー
+      - データ型
+      - 説明
+    * - enable
+      - 論理値
+      - デフォルト値はfalse
+    * - client_id
+      - 文字列
+      - クライアントID. (20byte)
+    * - thing_name
+      - 文字列
+      - Device Shadowsに用いるthingName. (128byte)
+    * - topic
+      - 文字列
+      - MQTT の送信トピック. (MAXPATHLEN)
+    * - rcv_topic
+      - 文字列
+      - MQTT の受信トピック. (MAXPATHLEN)
+    * - lwt_topic
+      - 文字列
+      - LWT の送信トピック. (MAXPATHLEN)
+    * - lwt_message
+      - 文字列
+      - LWT の送信メッセージ. (128byte)
+    * - cert
+      - 文字列
+      - SSL 接続に用いる証明書ファイルのパス名. (MAXPATHLEN)
+    * - privatekey
+      - 文字列
+      - SSL 接続に用いる秘密鍵ファイルのパス名. (MAXPATHLEN)
+
+Microsoft Azure Event Hubs (eventhub)
+-----------------------------------------
+
+.. list-table:: Microsoft Azure Event Hubs (eventhub) 固有の設定オブジェクト
+    :widths: 20 12 68
+    :header-rows: 1
+
+    * - キー
+      - データ型
+      - 説明
+    * - enable
+      - 論理値
+      - デフォルト値はfalse
+    * - hub_name
+      - 文字列
+      - Event Hubs 名. (64byte)
+    * - sas_policy
+      - 文字列
+      - SAS ポリシー. (64byte)
+    * - sas_key
+      - 文字列
+      - SAS キー. (64byte)
+
+IBM Watson IoT for gateway (w4g)
+------------------------------------
+
+.. list-table:: IBM Watson IoT for gateway (w4g) 固有の設定オブジェクト
+    :widths: 20 12 68
+    :header-rows: 1
+
+    * - キー
+      - データ型
+      - 説明
+    * - enable
+      - 論理値
+      - デフォルト値はfalse
+    * - device_id
+      - 文字列
+      - デバイスID. (20byte)
+    * - device_type
+      - 文字列
+      - デバイスタイプ. (20byte)
+
+Microsoft Azure IoT Hub(iothub)
+------------------------------------
+
+.. list-table:: Microsoft Azure IoT Hub(iothub) 固有の設定オブジェクト
+    :widths: 20 12 68
+    :header-rows: 1
+
+    * - キー
+      - データ型
+      - 説明
+    * - enable
+      - 論理値
+      - デフォルト値はfalse
+    * - device_id
+      - 文字列
+      - デバイスID. (128byte)
+    * - device_key
+      - 文字列
+      - デバイスキー. (65byte)
+    * - transparent
+      - 論理値
+      - IoT Edge を透過モードで動作させるか否か. デフォルト値はfalse
+    * - module_id
+      - 文字列
+      - モジュールID. (64byte). 透過モード時は無視.
+    * - cert
+      - 文字列
+      - X.509認証に用いる証明書ファイルのパス名. (MAXPATHLEN)
+    * - privatekey
+      - 文字列
+      - X.509認証に用いる秘密鍵ファイルのパス名. (MAXPATHLEN)
+
+NTT docomo Toami for docomo (t4d)
+-------------------------------------
+
+.. list-table:: NTT docomo Toami for docomo (t4d) 固有の設定オブジェクト
+    :widths: 20 12 68
+    :header-rows: 1
+
+    * - キー
+      - データ型
+      - 説明
+    * - enable
+      - 論理値
+      - デフォルト値はfalse
+    * - gwname
+      - 文字列
+      - GatewayName. (32byte) 
+    * - appkey
+      - 文字列
+      - AppKey. (64byte)
+
+UNIXドメインソケット (lsocket)
+-------------------------------------
+
+.. list-table:: UNIXドメインソケット (lsocket) 固有の設定オブジェクト
+    :widths: 20 12 68
+    :header-rows: 1
+
+    * - キー
+      - データ型
+      - 説明
+    * - enable
+      - 論理値
+      - デフォルト値はfalse
+
+KDDI IoT クラウドStandard (kddi std)
+----------------------------------------
+
+.. list-table:: KDDI IoT クラウドStandard (kddi std) 固有の設定オブジェクト
+    :widths: 20 12 68
+    :header-rows: 1
+
+    * - キー
+      - データ型
+      - 説明
+    * - enable
+      - 論理値
+      - デフォルト値はfalse
+
+NIFTY IoT Device Hub (nf_dvhub)
+---------------------------------------
+
+.. list-table:: NIFTY IoT Device Hub (nf_dvhub) 固有の設定オブジェクト
+    :widths: 20 12 68
+    :header-rows: 1
+
+    * - キー
+      - データ型
+      - 説明
+    * - enable
+      - 論理値
+      - デフォルト値はfalse
+    * - event_type
+      - 文字列
+      - イベントタイプ. (20byte)
+    * - device_id
+      - 文字列
+      - デバイスID. (20byte)
+    * - device_api_key
+      - 文字列
+      - デバイスAPI キー(169byte)
+
+| NIFTY IoT Device Hub は、2018年11月30日をもってサービスを終了しています。
+| また、NIFTY IoT Device Hub と DEVICEHUB (https://www.devicehub.net)は、異なるサービスであり、本設定オブジェクを用いてDEVICEHUBにデータを送ることはできません。
+
+Plat'Home 独自仕様Web サーバ(pd web)
+-----------------------------------------
+
+.. list-table:: Plat'Home 独自仕様Web サーバ(pd web) 固有の設定オブジェクト
+    :widths: 20 12 68
+    :header-rows: 1
+
+    * - キー
+      - データ型
+      - 説明
+    * - enable
+      - 論理値
+      - デフォルト値はfalse
+    * - id
+      - 文字列
+      - クライアントID. (128byte)
+    * - key
+      - 文字列
+      - トークン認証に用いる文字列(アクセスキー).  (128byte)
+
+Google Cloud IoT Core (iotcore)
+-----------------------------------------
+
+.. list-table:: Google Cloud IoT Core (iotcore) 固有の設定オブジェクト
+    :widths: 20 12 68
+    :header-rows: 1
+
+    * - キー
+      - データ型
+      - 説明
+    * - enable
+      - 論理値
+      - デフォルト値はfalse
+    * - registry_id
+      - 文字列
+      - レジストリID. (32byte)
+    * - device_id
+      - 文字列
+      - デバイスID. (32byte)
+    * - jwt_algorithm
+      - 文字列
+      - JWT アルゴリズム. 'RS256', 'ES256' のいずれか.(6byte)
+    * - cert
+      - 文字列
+      - SSL 接続に用いる証明書ファイルのパス名. (MAXPATHLEN)
+    * - privatekey
+      - 文字列
+      - SSL 接続に用いる秘密鍵ファイルのパス名. (MAXPATHLEN)
+
+TCPソケット (ltcp)
+-----------------------------------------
+
+.. list-table:: TCPソケット (ltcp) 固有の設定オブジェクト
+    :widths: 20 12 68
+    :header-rows: 1
+
+    * - キー
+      - データ型
+      - 説明
+    * - enable
+      - 論理値
+      - デフォルト値はfalse
+    * - port
+      - 文字列
+      - 接続先ポート番号. デフォルト値は 49152(TCP 接続時).
+
+Amazon AWS IoT[Websocket](awsiot_ws)
+-----------------------------------------
+
+.. list-table:: Amazon AWS IoT[Websocket](awsiot_ws) 固有の設定オブジェクト
+    :widths: 20 12 68
+    :header-rows: 1
+
+    * - キー
+      - データ型
+      - 説明
+    * - enable
+      - 論理値
+      - デフォルト値はfalse
+    * - client_id
+      - 文字列
+      - クライアントID. (96byte)
+    * - thing_name
+      - 文字列
+      - Device Shadowsに用いるthingName. (128byte)
+    * - topic
+      - 文字列
+      - MQTT の送信トピック. (MAXPATHLEN)
+    * - rcv_topic
+      - 文字列
+      - MQTT の受信トピック. (MAXPATHLEN)
+    * - lwt_topic
+      - 文字列
+      - LWT の送信トピック. (MAXPATHLEN)
+    * - lwt_message
+      - 文字列
+      - LWT の送信メッセージ. (128byte)
+
+Microsoft Azure IoT Hub[Websocket](iothub_ws)
+-------------------------------------------------
+
+.. list-table:: Microsoft Azure IoT Hub[Websocket](iothub_ws) 固有の設定オブジェクト
+    :widths: 20 12 68
+    :header-rows: 1
+
+    * - キー
+      - データ型
+      - 説明
+    * - enable
+      - 論理値
+      - デフォルト値はfalse
+    * - device_id
+      - 文字列
+      - デバイスID. (128byte)
+    * - device_key
+      - 文字列
+      - デバイスキー. (65byte)
+
+ダミー出力(dummy)
+---------------------
+
+.. list-table:: ダミー出力(dummy) 固有の設定オブジェクト
+    :widths: 20 12 68
+    :header-rows: 1
+
+    * - キー
+      - データ型
+      - 説明
+    * - enable
+      - 論理値
+      - デフォルト値はfalse
+
+SoftBank IoT(sbiot)
+-----------------------
+
+.. list-table:: SoftBank IoT(sbiot) 固有の設定オブジェクト
+    :widths: 20 12 68
+    :header-rows: 1
+
+    * - キー
+      - データ型
+      - 説明
+    * - enable
+      - 論理値
+      - デフォルト値はfalse
+    * - container
+      - 文字列
+      - SoftBank IoTへの接続に用いるコンテナ名. (64byte)
+
+SoftBank IoT に関わる実装は、SoftBank IoTプラットフォームネットワーク接続仕様(Rev.1.1.1)に準拠し「SoftBankスマ可視専用クラウド」の仕様に合わせて実装されています。
+
+Thingsクラウド(things)
+--------------------------
+
+.. list-table:: Thingsクラウド(things) 固有の設定オブジェクト
+    :widths: 20 12 68
+    :header-rows: 1
+
+    * - キー
+      - データ型
+      - 説明
+    * - enable
+      - 論理値
+      - デフォルト値はfalse
+    * - client_id
+      - 文字列
+      - クライアントID. (96byte)
+
+Thingsクラウドに関わる実装は、2020年6月現在試験的なもので、設定オブェクトについては予告なく変更される場合があります。
+
+FTP サーバ(ftp)
+--------------------------
+
+.. list-table:: FTPサーバ (ftp) 固有の設定オブジェクト
+    :widths: 20 12 68
+    :header-rows: 1
+
+    * - キー
+      - データ型
+      - 説明
+    * - enable
+      - 論理値
+      - デフォルト値はfalse
+    * - fn_prefix
+      - 文字列
+      - ファイル名のプリフィック.  per_device キーが true の時のみ有効. (64byte).
+    * - fn_suffix
+      - 文字列
+      - ファイル名のサフィック. per_device キーが true の時のみ有効. (64byte).
+    * - fn_time
+      - 文字列
+      - ファイル名のプリフィックとサフィックの間に挿入される PD Repeater がデータを受け取った時刻文字列のの仕様.
+        'none'(挿入無し), 'oldest'(最古), 'latest'(最新), 'both'(両方) のいずれか.
+        'oldest' 又は 'latest' 場合は 'CCyymmddHHMMSS'、
+        'both' の場合は、 'CCyymmddHHMMSS-CCyymmddHHMMSS'. 
+
+FTPサーバに関わる実装は、2020年6月現在試験的なもので、設定オブェクトについては予告なく変更される場合があります。
+
+.. raw:: latex
+
+   \clearpage 
+
+======================
+下流方向メッセージ
+======================
+
+PD Repeaterが下流のモジュールに転送するメッセージのフォーマットを示します。
+
+.. list-table:: メッセージフォーマット
+    :widths: 12 12 15 15 18 28
+    :header-rows: 0
+
+    * - Cloud ID (1Byte)
+      - Sub ID (1Byte)
+      - Header Size  (2Byte)
+      - MD5 (16Byte)
+      - Header
+      - Payload
+
+.. list-table:: 下流方向メッセージのフォーマット
+    :widths: 15 15 70
+    :header-rows: 1
+
+    * - フィールド
+      - バイト数
+      - 説明
+    * - Cloud ID
+      - 1
+      - 便宜上割り当てている送受信先プロトコル（クラウド）の番号
+    * - Sub ID
+      - 1
+      - 便宜上割り当てている送受信先のサブ番号(0x00～0x03)
+    * - Header Size
+      - 2	
+      - PD Reperaterで付加された Header のサイズ
+    * - MD5
+      - 16
+      - クラウドから送られて来た制御メッセージのハッシュ値(MD5)
+    * - Header
+      - 可変
+      - PD Reperaterで付加された MQTT のトピックや HTTP の応答ヘッダ
+    * - Payload
+      - 可変
+      - クラウドから送られて来た制御メッセージ
+
+.. raw:: latex
+
+   \clearpage 
+
+Cloud IDとヘッダーの内容を示します。
+
+.. list-table:: Cloud IDとヘッダーの内容
+    :header-rows: 1
+
+    * - クラウド
+      - Cloud ID	
+      - 下流方向制御
+      - ヘッダーの内容
+    * -  PD Exchange
+      - 0x00
+      - 対応
+      - Command ID, ApplicationID
+    * - MQTTサーバー
+      - 0x01
+      - 対応
+      - MQTT受信トピック
+    * - Watson IoT for Device	
+      - 0x02
+      - 対応
+      - MQTT受信トピック \*1
+    * - Amazon Kinesis
+      - 0x03
+      - 
+      - 	
+    * - PostgreSQLサーバ
+      - 0x04
+      - 
+      - 
+    * - MySQLサーバ
+      - 0x05	
+      - 
+      - 
+    * - WEBサーバー
+      - 0x06
+      - 
+      - 
+    * - AWS IoT
+      - 0x07
+      - 対応
+      - MQTT受信トピック
+    * - MS Azure Event hubs
+      - 0x08
+      - 
+      - 
+    * - Watson IoT for Gateway
+      - 0x09
+      - 対応
+      - MQTT受信トピック \*1
+    * - MS Azure IoT Hub
+      - 0x0a
+      - 対応
+      - MQTT受信トピック \*2
+    * - Toami for DOCOMO
+      - 0x0b
+      - 
+      - 
+    * - ドメインソケット
+      - 0x0c
+      - 
+      - 
+    * - KDDI IoT クラウドStandard
+      - 0x0d
+      - 
+      - 
+    * - IoT デバイスハブ
+      - 0x0e
+      - 対応
+      - MQTT受信トピック
+    * - Plat’Home独自仕様WEBサーバ
+      - 0x0f
+      - 対応
+      - HTTP応答ヘッダー
+    * - Google IoT Core
+      - 0x10
+      - 対応
+      - MQTT受信トピック
+    * - TCP
+      - 0x11
+      - 対応
+      - 接続先IPアドレスとポート番号 \*3
+    * - AWS IoT [Websocket]
+      - 0x12
+      - 対応
+      - MQTT受信トピック
+    * - MS Azure IoT Hub[Websocket]
+      - 0x13
+      - 対応
+      - MQTT受信トピック \*2
+    * - ダミー出力
+      - 0x14
+      - 
+      - 
+    * - SoftBank IoT
+      - 0x15
+      - 対応
+      - MQTT受信トピックと oneM2M のJSON制御用オブジェクト \*4
+    * - FTPサーバ
+      - 0x17
+      -
+      -
+
+1. Watson IoT については、ペイロードを 'd' キーのJSONオブジェクトとしているため、ハッシュ値（MD5）を得た後、デコードし 'd' キーのJSONオブジェクトのみを制御メッセージとして出力しています。
+2. IoTデバイスハブについては、ペイロードを 'parameters' キーのJSONオブジェクトとしているため、ハッシュ値（MD5）を得た後、デコードし 'parameters' キーのJSONオブジェクトのみを制御メッセージとして出力しています。
+3. TCPの接続先IPアドレスとポート番号は、次のJSON文字列で付加されます。
+
+     { "ip_addr": "<IP address>", "port": <port> }
+
+4. SoftBank IoTについては、oneM2M 仕様のペイロードから 'con' キーのJSONオブジェクトのみを出力し、これを除くJSONオブジェクトをMQTT受信トピック文字列に連結しヘッダーとしています。
+
+.. raw:: latex
+
+   \clearpage 
+
+===============================
+Plat’Home独自仕様WEBサーバ
+===============================
+
+HTTPヘッダー
+================
+
+.. list-table::  
+    :header-rows: 1
+
+    * - HTTPヘッダー
+      - 内容
+    * - X-Pd-Web-Version
+      - PD Web の仕様のバージョン番号
+    * - X-Pd-Web-Id
+      - クライアントのID
+    * - X-Pd-Web-Time
+      - RFC3339準拠のタイムスタンプ
+    * - X-Pd-Web-Md5
+      - ハッシュ値
+    * - X-Pd-Web-Signature
+      - ヘッダ情報と鍵(Key)から作成されたハッシュ値
+    * - Content-Type
+      - application/json;charset=UTF-8
+
+トークン
+=================
+
+PD Repeaterで作成されるリクエストヘッダのトークン(X-Pd-Web-Sinature)は、
+Webサーバーにおいて次のPHPスクリプトにより再生できます。  ::
+
+     $hash_hmac_data =
+         $_SERVER['HTTP_X_PD_WEB_VERSION'] .
+         $_SERVER['HTTP_X_PD_WEB_ID'] .
+         $_SERVER['HTTP_X_PD_WEB_TIME'] .
+         $_SERVER['HTTP_X_PD_WEB_MD5'];
+     $signature = hash_hmac ('sha256', $hash_hmac_data, $key, false);
+
+ここで$keyは、は $_SERVER['HTTP X PD WEB ID'] と対をなす予めWebサーバーに保存された鍵(Key)となります。
+再生した $signature と $_SERVER['HTTP X PD WEB SIGNATURE']  を比較することで認証します。
+
+応答ヘッダーのトークン(X-Pd-Web-Sinature)は、Webサーバーにおいて次のPHPスクリプトにより作成します。 ::
+
+     $tm = localtime();
+     $timestamp = sprintf("%04d-%02d-%02dT%02d:%02d:%02d.000+09:00",
+         $tm[5]+1900,$tm[4]+1,$tm[3],$tm[2],$tm[1],$tm[0]);
+     $hash_hmac_data = '1.0' . $_SERVER['HTTP_X_PD_WEB_ID'] . $timestamp .
+          md5($payload) . $_SERVER['HTTP_X_PD_WEB_SIGNATURE'];
+     $signature = hash_hmac ('sha256', $hash_hmac_data, $key, false);
+
+ここで、$payload は、ペイロードの文字列、送信すべき文字列（下流方向の制御メッセージ）が無い場合は、$payload=""; とします。
+リクエストヘッダのトークンとは異なり、被署名文字列に PD Repeater から送られて来たリクエストヘッダのトークン($_SERVER['HTTP X PD WEB SIGNATURE'])が、含まれる点に注意して下さい。
+
+.. raw:: latex
+
+   \clearpage 

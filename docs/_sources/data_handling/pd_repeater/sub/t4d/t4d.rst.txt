@@ -1,0 +1,169 @@
+.. _pd_repeater_t4d:
+
+Toami for DOCOMO(t4d)
+---------------------------------
+
+■ 送受信設定メニューにおける設定
+
+.. figure:: t4d.png
+  :scale: 100%
+
+.. list-table:: 送受信設定メニューにおける設定項目
+    :widths: 30 70
+    :header-rows: 1
+    
+    * - 設定項目
+      - 説明
+    * - インターバル[sec]
+      - 送信完了後～送信開始までの時間間隔を秒単位で設定します。
+    * - 有効時間[sec]
+      - PD Reperterがデータ送信できない場合において、保持する時間を設定します。　
+        0 を指定した場合、データ送信が完了するまで保持し続けます。
+    * - サブプロセス再起動間隔[sec]
+      - サブプロセスを再起動する間隔を設定します。　
+        通常デォルト値（86400秒）から変更する必要はありません。　
+        0を指定した場合、再起動は行いません。
+    * - 接続先URL
+      - 接続先のToami for DOCOMOのURLを設定します。
+    * - デバイス一括設定
+      - 各デバイス設定メニューにおいて送信対象設定が「送信する」となっている各対象の送信先設定を一括で有効/無効を選択できます。
+
+■ 各デバイス設定メニューにおける設定
+
+.. figure:: t4d_device.png
+  :scale: 100%
+
+.. list-table:: 各デバイス設定メニューにおける設定項目
+    :widths: 30 70
+    :header-rows: 1
+    
+    * - 設定項目
+      - 説明
+    * - Gateway Name(t4d)
+      - Toami for DOCOMOのGateway Nameを設定します。
+    * - App Key(t4d)
+      - Toami for DOCOMOのGateway Nameを設定します。
+
+.. raw:: latex
+
+   \clearpage
+
+Toami for DOCOMOでは扱えるデータ（JSON文字列）のキー情報が固定されているため、
+下図の様にPD Handlerの出力をPD ReperterでNode-REDに渡し、Node-REDでキー情報の変換を行い、
+PD Reperterを介してToami for DOCOMOへ送る構成とする必要があります。
+
+.. figure:: t4d_nodered_0.png
+  :scale: 65%
+
+Beacon デバイス　（PD Handler BLE）を例に設定方法を示します。
+
+1. PD Handler BLE （デバイス番号 device_beacon）の送り先をドメインソケット(lsocket)に設定します。
+   ドメインソケット(lsocket)の設定については、第2-4-2-21章を参照して下さい。
+   ここで「ソケットパスプレフィックス」は、デフォルト値"@/node-red/"のまま設定されるものとします。
+2. Node-REDをユーザー定義のデバイスとして登録します。
+   ユーザー定義デバイスの登録については、第2-4-13章を参照して下さい。
+   ここでユーザー定義のデバイスとして"userdev_0000001"が割り振られたものとします。
+3. Node-REDにおいて、ipc-inノード・ipc-outノード・t4d-keymapperノードを配置し結線します。
+   Node-REDの利用方法については、 :ref:`node-red_starter_guid` を参照して下さい。
+
+.. figure:: t4d_nodered_1.png
+  :scale: 65%
+
+.. raw:: latex
+
+   \clearpage
+
+4. ipc-inノードのプロパティを設定します。
+   プロパティの「Path」を"/node-red/device_beacon.sock"に設定し、「Abstract Flag」をチェックします。
+
+.. figure:: t4d_nodered_2.png
+  :scale: 65%
+
+5. ipc-outノードのプロパティを設定します。
+   プロパティの「Path」を"/pd_repeater/userdev_0000001.sock"に設定し、「Abstract Flag」をチェックします。
+
+.. figure:: t4d_nodered_3.png
+  :scale: 65%
+
+.. raw:: latex
+
+   \clearpage
+
+6. t4d-mapperノードのプロパティにおいて PD Handler BLEのビーコン出力のJSONキーと変換後のキーの設定を行います。
+
+.. list-table:: PD Handler BLEのビーコン出力のJSONキーと変換後のキー
+    :header-rows: 1
+    
+    * - JSONキー
+      - データ形式
+      - 内容
+      - 変換後のキー
+    * - deviceId
+      - 文字列
+      - デバイスID
+      - s01
+    * - appendixInfo
+      - 文字列
+      - 付随情報
+      - s02
+    * - time
+      - 文字列
+      - データ取得時刻
+      - s03
+    * - rssi
+      - 整数値
+      - 受信信号強度
+      - n01
+    * - type
+      - 文字列
+      - ビーコン種別
+      - s04
+    * - data
+      - 文字列
+      - ペイロードデータ（HEX表記）
+      - s05
+    * - status
+      - 文字列
+      - ビーコンステータス
+      - s06
+    * - memo
+      - 文字列
+      - WEB UIから設定された文字列
+      - s07
+
+　　t4d-mapperノードのプロパティ「n01」を設定します。
+
+| 　　　6-1. 「n01」を「rssi」に設定します。
+
+.. figure:: t4d_nodered_4.png
+  :scale: 65%
+
+.. raw:: latex
+
+   \clearpage
+  
+　　t4d-mapperノードのプロパティ「s01」～s07」を設定します。
+
+| 　　　6-2. 「s01」を「deviceId」に設定します。
+| 　　　6-3. 「s02」を「appendixInfo」に設定します。
+| 　　　6-4. 「s03」を「time」に設定します。 \*1
+| 　　　6-5. 「s04」を「type」に設定します。
+| 　　　6-6. 「s05」を「data」に設定します。
+| 　　　6-7. 「s06」を「status」に設定します。
+| 　　　6-8. 「s07」を「memo」に設定します。
+
+.. figure:: t4d_nodered_5.png
+  :scale: 65%
+
+.. note::
+  1. 「s03」に設定される「データ取得時刻」は、Toami for DOCOMO上では単なる文字列として扱われます。　
+     Toami for DOCOMOの時刻情報（「timestamp」キーの値）はt4d-keymapperノード内で自動的に生成され付加されます。
+
+  * t4d-keymapperノードは、PD Handler Modbus Client/Server 等、
+    値を配列やJSONオブジェクトで出力するデバイスには対応できません。
+    値を配列やJSONオブジェクトで出力するデバイスについては、
+    その変換条件に応じた独自の機能（ファンクション）ノードを作成して下さい。
+
+.. raw:: latex
+
+   \clearpage

@@ -1,0 +1,2134 @@
+.. _data_form_modbus:
+
+*******************************
+PD Handler Modbus
+*******************************
+
+.. note::
+    * 出力されるJSONデータは順不同です。
+    * 接続プロトコル（TCP と RTC）とデータ形式（レジスタとデジタル）の組み合わせにより、データ、リクエストメッセージ、応答メッセージの各サンプルは本来４通りとなりますが、TCP プロトコルによるレジスタ入出力と RTU プロトコルによるビット入出力のみ掲載しています。
+
+.. raw:: latex
+
+   \clearpage 
+
+=======================================
+Modbusクライアント (Modbusマスター)
+=======================================
+
+PLC 機器へのポーリング動作時
+================================
+
+TCP プロトコルによるレジスタ出力又はレジスタ入力の読み込み
+--------------------------------------------------------------
+
+■ データサンプル ::
+
+    {
+        "time": "2017-02-03T14:44:37.020+09:00",
+        "protocol": "tcp",
+        "node": "172.16.7.250",
+        "port": 1502,
+        "unit": 255,
+        "memo": "PLC01",
+        "address": 31,
+        "function": 3,
+        "data_type": "uint16_t",
+        "values": [ 2, 0, 1234, 5678, 9876]
+    }
+
+.. list-table::
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - time
+      - データ取得日時
+      - String
+      - 〇
+      - ISO8601拡張書式
+    * - 2
+      - protocol
+      - プロトコル
+      - String
+      - 〇
+      - WEB UIから設定された値.'tcp'.
+    * - 3
+      - node
+      - 取得先IPアドレス
+      - String
+      - 〇
+      - WEB UIから設定された値.
+    * - 4
+      - port
+      - ポート番号
+      - Integer
+      - 〇
+      - WEB UIから設定された値.
+    * - 5
+      - unit
+      - Modbus Unit ID
+      - Integer
+      - 〇
+      - WEB UIから設定された値
+    * - 6
+      - memo
+      - メモ
+      - String
+      - 〇
+      - WEB UIから設定された値
+    * - 7
+      - address
+      - 読み込みアドレス
+      - Integer
+      - 〇
+      - WEB UIから設定された値
+    * - 8
+      - function
+      - Modbus function code
+      - integer
+      - 〇
+      - WEB UIから設定された値
+
+        3:
+            レジスタ出力
+        4:
+            レジスタ入力
+    * - 9
+      - data_type
+      - データの型
+      - String
+      - 〇
+      - WEB UIから設定された値
+
+        uint16_t :
+            符号なし16bits
+        int16_t :
+            符号付16bits
+        uint32lsb_t :
+            符号なし32bits LSB
+        uint32msb_t :
+            符号なし32bits MSB
+        int32lsb_t :
+            符号付32bits LSB
+        int32msb_t :
+            符号付32bits MSB
+    * - 10
+      - values
+      - 読み込み値
+      - Integer 配列
+      - 〇
+      - 配列数は読み込みレジスタ数の設定に応じて可変.
+
+.. raw:: latex
+
+   \clearpage 
+
+RTUプロトコルによるデジタル出力又はデジタル入力の読み込み
+-------------------------------------------------------------
+
+■ データサンプル ::
+
+    {
+        "time": "2017-02-03T14:44:37.020+09:00",
+        "protocol": "rtu",
+        "device": "/dev/ttyRS485",
+        "unit": 21,
+        "memo": "PLC04",
+        "address": 37,
+        "function": 2,
+        "values": [ 1, 0 ,0, 0, 0, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 0, 1, 1, 1]
+    }
+
+.. list-table::
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - time
+      - データ取得日時
+      - String
+      - 〇
+      - ISO8601拡張書式
+    * - 2
+      - protocol
+      - プロトコル
+      - String
+      - 〇
+      - WEB UIから設定された値. 'rtu'.
+    * - 3
+      - device
+      - デバイスファイル名
+      - String
+      - 
+      - WEB UIから設定された値.
+    * - 4
+      - unit
+      - Modbus Unit ID
+      - Integer
+      - 〇
+      - WEB UIから設定された値
+    * - 5
+      - memo
+      - メモ
+      - String
+      - 〇
+      - WEB UIから設定された値
+    * - 6
+      - address
+      - 読み込みアドレス
+      - Integer
+      - 〇
+      - WEB UIから設定された値
+    * - 7
+      - function
+      - Modbus function code
+      - integer
+      - 〇
+      - WEB UIから設定された値
+
+        1:
+            デジタル出力
+        2:
+            デジタル入力
+    * - 8
+      - values
+      - 読み込み値
+      - Integer 配列
+      - 〇
+      - 0 又は 1. 配列数は読み込みレジスタ数の設定に応じて可変.
+
+.. raw:: latex
+
+   \clearpage 
+
+クラウドからのオンデマンド動作時
+====================================
+
+TCPプロトコルによるレジスタ出力又はレジスタ入力の読み込み
+-------------------------------------------------------------
+
+■ リクエストメッセージサンプル ::
+
+    {
+        "protocol": "tcp",
+        "node": "172.16.7.250",
+        "port": 1502,
+        "unit": 255,
+        "address": 31,
+        "function": 3,
+        "number": 5,
+        "data_type": "uint16_t"
+    }
+
+.. list-table::
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 必須
+      - 補足
+    * - 1
+      - protocol
+      - プロトコル
+      - String
+      - 〇
+      - 'tcp'.
+    * - 2
+      - node
+      - 取得先IPアドレス
+      - String
+      - 〇
+      - PLC機器のIPアドレス
+    * - 3
+      - port
+      - ポート番号
+      - Integer
+      - 〇
+      - 
+    * - 4
+      - unit
+      - Modbus Unit ID
+      - Integer
+      - 
+      - 省略時は 255
+    * - 5
+      - address
+      - 読み込みアドレス
+      - Integer \*1
+      - 
+      - 省略時は 0
+    * - 6
+      - function
+      - Modbus function code
+      - integer \*1
+      - 〇
+      - 3:
+            read holding registers
+        4:
+            read input registers
+    * - 7
+      - number
+      - 読み込むレジスタ数
+      - Integer \*1
+      - 
+      - 省略時は 1   
+    * - 8
+      - data_type
+      - データの型
+      - String
+      - 
+      - uint16_t :
+            符号なし16bits
+        int16_t :
+            符号付16bits
+        uint32lsb_t :
+            符号なし32bits LSB
+        uint32msb_t :
+            符号なし32bits MSB
+        int32lsb_t :
+            符号付32bits LSB
+        int32msb_t :
+            符号付32bits MSB
+
+        省略時は、uint16_t
+
+.. note::
+    1. String型 '0x' から始まる 16 進数表記も可能です。
+
+.. raw:: latex
+
+   \clearpage 
+
+■ 応答メッセージサンプル ::
+
+    {
+        "time": "2017-02-03T14:44:37.020+09:00",
+        "reply_to": "84bfb66e5a0841732e28463bb91c297c",
+        "result": "done",
+        "protocol": "tcp",
+        "node": "172.16.7.250",
+        "port": 1502,
+        "unit": 255,
+        "memo": "PLC01",
+        "address": 31,
+        "function": 3,
+        "data_type": "uint16_t",
+        "values": [ 2, 0, 1234, 5678, 9876]
+    }
+
+.. list-table::
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - time
+      - データ取得日時
+      - String
+      - 〇
+      - ISO8601拡張書式
+    * - 2
+      - reply_to
+      - リクエストメッセージのMD5値
+      - String
+      - 〇
+      - 
+    * - 3
+      - result
+      - 取得ステータス
+      - String
+      - 〇
+      - 成功時は 'done'
+    * - 4
+      - protocol
+      - プロトコル
+      - String
+      - 〇
+      - リクエストされた値. 'tcp'
+    * - 5
+      - node
+      - 取得先IPアドレス
+      - String
+      - 〇
+      - リクエストされた値
+    * - 6
+      - port
+      - ポート番号
+      - Integer
+      - 〇
+      - リクエストされた値
+    * - 7
+      - unit
+      - Modbus Unit ID
+      - Integer
+      - 〇
+      - リクエストされた値
+    * - 8
+      - memo
+      - メモ
+      - String
+      - 
+      - WEB UIから設定さた値
+    * - 9
+      - address
+      - 読み込みアドレス
+      - Integer
+      - 〇
+      - リクエストされた値
+    * - 10
+      - function
+      - Modbus function code
+      - integer
+      - 〇
+      - リクエストされた値
+    * - 11
+      - data_type
+      - データの型
+      - String
+      - 〇
+      - リクエストされた値
+    * - 12
+      - values
+      - 読み込み値
+      - Integer 配列
+      - 〇
+      - 配列数は number キーでリクエストされたレジスタ数に応じて可変.
+  
+.. raw:: latex
+
+   \clearpage
+
+RTUプロトコルによるデジタル出力又はデジタル入力の読み込み
+-------------------------------------------------------------
+
+■ リクエストメッセージサンプル ::
+
+    {
+        "protocol": "rtu",
+        "device": "/dev/ttyRS485
+        "unit": 21,
+        "address": 37,
+        "function": 2,
+        "number": 20
+    }
+
+.. list-table::
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 必須
+      - 補足
+    * - 1
+      - protocol
+      - プロトコル
+      - String
+      - 〇
+      - 'rtu'.
+    * - 2
+      - device
+      - デバイスファイル名
+      - String
+      - 〇
+      - PLC機器を接続するシリアルポート
+    * - 3
+      - unit
+      - Modbus Unit ID
+      - Integer
+      - 〇
+      - 
+    * - 4
+      - address
+      - 読み込みアドレス
+      - Integer \*1
+      - 
+      - 省略時は 0
+    * - 5
+      - function
+      - Modbus function code
+      - integer \*1
+      - 〇
+      - 1:
+            read coils
+        2:
+            read discrete inputs
+    * - 6
+      - number
+      - 読み込むビット数
+      - Integer \*1
+      - 
+      - 省略時は 1   
+   
+.. note::
+    1. String型 '0x' から始まる 16 進数表記も可能です。
+
+.. raw:: latex
+
+   \clearpage 
+
+■ 応答メッセージサンプル ::
+
+    {
+        "time": "2017-02-03T14:44:37.020+09:00",
+        "reply_to": "5762a76a3235c71c5759029f078a8ca2",
+        "result": "done"
+        "protocol": "rtu",
+        "device": "/dev/ttyRS485",
+        "unit": 21,
+        "memo": "PLC04",
+        "address": 37,
+        "function": 2,
+        "values": [ 1, 0 ,0 ,0, 0, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 0, 1, 1]
+    }
+
+.. list-table::
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - time
+      - データ取得日時
+      - String
+      - 〇
+      - ISO8601拡張書式
+    * - 2
+      - reply_to
+      - リクエストメッセージのMD5値
+      - String
+      - 〇
+      - 
+    * - 3
+      - result
+      - 取得ステータス
+      - String
+      - 〇
+      - 成功時は 'done'
+    * - 4
+      - protocol
+      - プロトコル
+      - String
+      - 〇
+      - リクエストされた値. 'rtu'
+    * - 5
+      - device
+      - デバイスファイル名
+      - String
+      - 〇
+      - リクエストされた値
+    * - 6
+      - unit
+      - Modbus Unit ID
+      - Integer
+      - 〇
+      - リクエストされた値
+    * - 7
+      - memo
+      - メモ
+      - String
+      - 
+      - WEB UIから設定さた値
+    * - 8
+      - address
+      - 読み込みアドレス
+      - Integer
+      - 〇
+      - リクエストされた値
+    * - 9
+      - function
+      - Modbus function code
+      - integer
+      - 〇
+      - リクエストされた値
+    * - 10
+      - values
+      - 読み込み値
+      - Integer 配列
+      - 〇
+      - 0 又は 1. 配列数は number キーでリクエストされたレジスタ数に応じて可変.
+
+.. raw:: latex
+
+   \clearpage
+
+TCPプロトコルによるレジスタ入力への書き込み
+-----------------------------------------------------------
+
+■ リクエストメッセージサンプル ::
+
+    {
+        "protocol": "tcp",
+        "node": "172.16.7.250",
+        "port": 1502,
+        "unit": 255,
+        "address": "0x0ab",
+        "function": 16,
+        "data_type": "uint32lsb_t",
+        "values": [ 42949672951, 21474836471]
+    }
+
+.. list-table:: TCPプロトコルによるレジスタ入力への書き込み
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 必須
+      - 補足
+    * - 1
+      - protocol
+      - プロトコル
+      - String
+      - 〇
+      - 'tcp'.
+    * - 2
+      - node
+      - 取得先IPアドレス
+      - String
+      - 〇
+      - PLC機器のIPアドレス
+    * - 3
+      - port
+      - ポート番号
+      - Integer
+      - 〇
+      - 
+    * - 4
+      - unit
+      - Modbus Unit ID
+      - Integer
+      - 
+      - 省略時は 255
+    * - 5
+      - address
+      - 書き込みアドレス
+      - Integer \*1
+      - 
+      - 省略時は 0
+    * - 6
+      - function
+      - Modbus function code
+      - integer \*1
+      - 〇
+      - 6:
+            write single register
+        16:
+            write multiple registers
+        23:
+            write and read registers
+    * - 7
+      - data_type
+      - データの型
+      - String
+      - 
+      - uint16_t :
+            符号なし16bits
+        int16_t :
+            符号付16bits
+        uint32lsb_t :
+            符号なし32bits LSB
+        uint32msb_t :
+            符号なし32bits MSB
+        int32lsb_t :
+            符号付32bits LSB
+        int32msb_t :
+            符号付32bits MSB
+
+        省略時は、uint16_t
+    * - 8
+      - values
+      - 書き込む値
+      - Integer 配列
+      - 〇
+      - functionキーが 6 の場合、は先頭の１レジスタを書き込む.
+
+.. note::
+    1. String型 '0x' から始まる 16 進数表記も可能です。
+
+.. raw:: latex
+
+   \clearpage 
+
+■ 応答メッセージサンプル ::
+
+    {
+        "time":　"2017-02-03T14:44:37.020+09:00",
+        "reply_to":　"73771103b4765ed0ce859ac912321c04",
+        "result":　"done"
+        "protocol":　"tcp",
+        "node":　"172.16.7.250",
+        "port": 1502,
+        "unit": 255,
+        "address": 171,
+        "function": 16,
+        "data_type":　"uint32lsb_t",
+        "values": [ 42949672951,　21474836471]
+    }
+
+.. list-table::
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - time
+      - データ書き込み日時
+      - String
+      - 〇
+      - ISO8601拡張書式
+    * - 2
+      - reply_to
+      - リクエストメッセージのMD5値
+      - String
+      - 〇
+      - 
+    * - 3
+      - result
+      - 取得ステータス
+      - String
+      - 〇
+      - 成功時は 'done'
+    * - 4
+      - protocol
+      - プロトコル
+      - String
+      - 〇
+      - リクエストされた値. 'tcp'
+    * - 5
+      - node
+      - 取得先IPアドレス
+      - String
+      - 〇
+      - リクエストされた値
+    * - 6
+      - port
+      - ポート番号
+      - Integer
+      - 〇
+      - リクエストされた値
+    * - 7
+      - unit
+      - Modbus Unit ID
+      - Integer
+      - 〇
+      - リクエストされた値
+    * - 9
+      - memo
+      - メモ
+      - String
+      - 
+      - WEB UIから設定さた値
+    * - 10
+      - address
+      - 書き込みアドレス
+      - Integer
+      - 〇
+      - リクエストされた値
+    * - 11
+      - function
+      - Modbus function code
+      - integer
+      - 〇
+      - リクエストされた値
+    * - 12
+      - data_type
+      - データの型
+      - String
+      - 〇
+      - リクエストされた値
+    * - 13
+      - values
+      - 書き込んだ値
+      - Integer 配列
+      - 〇
+      - リクエストされた値
+  
+.. raw:: latex
+
+   \clearpage 
+
+RTUプロトコルによるデジタル入力への書き込み
+------------------------------------------------
+
+■ リクエストメッセージサンプル ::
+
+    {
+        "protocol": "rtu",
+        "device": "/dev/ttyRS485",
+        "unit": 21,
+        "address": "0x0ce",
+        "function": 15,
+        "values": [ 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1]
+    }
+
+.. list-table::
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 必須
+      - 補足
+    * - 1
+      - protocol
+      - プロトコル
+      - String
+      - 〇
+      - 'rtu'.
+    * - 2
+      - device
+      - デバイスファイル名
+      - String
+      - 〇
+      - PLC機器を接続するシリアルポート
+    * - 3
+      - unit
+      - Modbus Unit ID
+      - Integer
+      - 〇
+      - 
+    * - 4
+      - address
+      - 書き込みアドレス
+      - Integer \*1
+      - 
+      - 省略時は 0
+    * - 5
+      - function
+      - Modbus function code
+      - integer \*1
+      - 〇
+      - 5:
+            write single coil
+        15:
+            write multiple coils
+    * - 7
+      - values
+      - 書き込む値
+      - Integer 配列
+      - 〇
+      - 0 又 は 1. functionキーが 5 の場合、は先頭の１ビットを書き込む.
+  
+.. note::
+    1. String型 '0x' から始まる 16 進数表記も可能です。
+
+.. raw:: latex
+
+   \clearpage 
+
+■ 応答メッセージサンプル ::
+
+    {
+        "time": "2017-02-03T14:44:37.020+09:00",
+        "reply_to": "0408f69db38b4d89f25d026d6d9449b7",
+        "result": "done"
+        "protocol": "rtu",
+        "device": "/dev/ttyRS485",
+        "unit": 21,
+        "address": 206,
+        "function": 15,
+        "values": [ 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1]
+    }
+
+.. list-table::
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - time
+      - データ書き込み日時
+      - String
+      - 〇
+      - ISO8601拡張書式
+    * - 2
+      - reply_to
+      - リクエストメッセージのMD5値
+      - String
+      - 〇
+      - 
+    * - 3
+      - result
+      - 取得ステータス
+      - String
+      - 〇
+      - 成功時は 'done'
+    * - 4
+      - protocol
+      - プロトコル
+      - String
+      - 〇
+      - リクエストされた値. 'rtu'
+    * - 5
+      - device
+      - デバイスファイル名
+      - String
+      - 〇
+      - リクエストされた値
+    * - 6
+      - unit
+      - Modbus Unit ID
+      - Integer
+      - 〇
+      - リクエストされた値
+    * - 7
+      - memo
+      - メモ
+      - String
+      - 
+      - WEB UIから設定さた値
+    * - 8
+      - address
+      - 書き込みアドレス
+      - Integer
+      - 〇
+      - リクエストされた値
+    * - 9
+      - function
+      - Modbus function code
+      - integer
+      - 〇
+      - リクエストされた値
+    * - 10
+      - values
+      - 書き込んだ値
+      - Integer 配列
+      - 〇
+      - リクエストされた値
+
+.. raw:: latex
+
+   \clearpage 
+
+スレーブIDの読み出し
+------------------------
+
+■ リクエストメッセージサンプル ::
+
+    {
+        "protocol": ": rtu": ,
+        "device": ": /dev/ttyRS485": ,
+        "unit": 21,
+        "function": 17
+    }	
+
+.. list-table::
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 必須
+      - 補足
+    * - 1
+      - protocol
+      - プロトコル
+      - String
+      - 〇
+      - 'rtu'.
+    * - 2
+      - device
+      - デバイスファイル名
+      - String
+      - 〇
+      - PLC機器を接続するシリアルポート
+    * - 3
+      - unit
+      - Modbus Unit ID
+      - Integer
+      - 〇
+      - 
+    * - 4
+      - function
+      - Modbus function code
+      - integer \*1
+      - 〇
+      - 17:
+            report slave id
+
+.. note::
+    1. String型 '0x' から始まる 16 進数表記も可能です。
+
+.. raw:: latex
+
+   \clearpage
+
+■応答メッセージサンプル :: 
+
+    {
+        "time": "2017-02-03T14:44:37.020+09:00",
+        "reply_to": "72cf056269d6bcd150df8125fbe04710",
+        "result": "done"
+        "protocol": "rtu",
+        "device": "/dev/ttyRS485",
+        "unit": 21,
+        "function": 17,
+        "values": [ 7, 12]
+    }	
+
+.. list-table::
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 必須
+      - 補足
+    * - 1
+      - time
+      - データ取得日時
+      - String
+      - 〇
+      - ISO8601拡張書式
+    * - 2
+      - reply_to
+      - リクエストメッセージのMD5値
+      - String
+      - 〇
+      - 
+    * - 3
+      - result
+      - 取得ステータス
+      - String
+      - 〇
+      - 成功時は 'done'
+    * - 4
+      - protocol
+      - プロトコル
+      - String
+      - 〇
+      - リクエストされた値. 'rtu'
+    * - 5
+      - device
+      - デバイスファイル名
+      - String
+      - 〇
+      - リクエストされた値
+    * - 6
+      - unit
+      - Modbus Unit ID
+      - Integer
+      - 〇
+      - WEB UIから設定さた値
+    * - 7
+      - memo
+      - メモ
+      - String
+      - 
+      - WEB UIから設定さた値
+    * - 8
+      - function
+      - Modbus function code
+      - integer
+      - 〇
+      - リクエストされた値 17
+    * - 9
+      - values
+      - 接続されているModbus Unit IDの一覧
+      - Integer 配列
+      - 〇
+      - 
+
+.. raw:: latex
+
+   \clearpage 
+
+エラー時
+------------
+
+■ 応答メッセージサンプル ::
+
+    {
+        "time": "2017-02-03T14:44:37.020+09:00",
+        "reply_to": "7408f69d838b4d89f257036d6d9449b7",
+        "result": "not queuing",
+        "reason": "not specified 'function' at least"
+    }
+  
+.. list-table::
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 必須
+      - 補足
+    * - 1
+      - time
+      - 処理日時
+      - String
+      - 〇
+      - ISO8601拡張書式
+    * - 2
+      - reply_to
+      - リクエストメッセージのMD5値
+      - String
+      - 〇
+      - 
+    * - 3
+      - result
+      - 取得ステータス
+      - String
+      - 〇
+      - 'not queuing':
+            リクエストメッセージの不備
+        'failed':
+            PLC機器に接続できなかった場合等
+    * - 4
+      - reason
+      - エラーの理由
+      - String
+      - 〇
+      -
+  
+.. raw:: latex
+
+   \clearpage 
+
+=======================================
+Modbusサーバー(Modbusスレーブ)
+=======================================
+
+PLC 機器からの書き込み動作時
+================================
+
+TCPプロトコルによるレジスタ入力への書き込み
+-----------------------------------------------
+
+■ データサンプル ::
+
+    {
+        "time": "2017-02-03T14:44:37.020+09:00",
+        "protocol": "tcp",
+        "node": "172.16.7.240",
+        "port": 502,
+        "unit": 255,
+        "memo": "PLC Server 01",
+        "address": 31,
+        "function": 6,
+        "values": [ 5678]
+    }
+
+.. list-table::
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - time
+      - データ書き込み日時
+      - String
+      - 〇
+      - ISO8601拡張書式
+    * - 2
+      - protocol
+      - プロトコル
+      - String
+      - 〇
+      - WEB UIから設定された値.'tcp'.
+    * - 3
+      - node
+      - 書き込み元IPアドレス
+      - String
+      - 〇
+      - WEB UIから設定された値.
+    * - 4
+      - port
+      - ポート番号
+      - Integer
+      - 〇
+      - 502 (固定）
+    * - 5
+      - unit
+      - Modbus Unit ID
+      - Integer
+      - 〇
+      - 255 (固定）
+    * - 6
+      - memo
+      - メモ
+      - String
+      - 〇
+      - WEB UIから設定された値
+    * - 7
+      - address
+      - 書き込みアドレス
+      - Integer
+      - 〇
+      - 0 ～ 2048 (registers) の範囲
+    * - 8
+      - function
+      - Modbus function code
+      - integer
+      - 〇
+      - 6:
+            write single register
+        16:
+            write multiple registes
+    * - 9
+      - values
+      - 書き込まれた値
+      - Integer 配列
+      - 〇
+      - 16ビット符号無し整数値. 配列数は書き込まれたレジスタ数に応じて可変.
+
+.. raw:: latex
+
+   \clearpage 
+
+RTUプロトコルによるデジタル入力への書き込み
+-----------------------------------------------
+
+■ データサンプル ::
+
+    {
+        "time": "2017-02-03T14:44:37.020+09:00",
+        "protocol": "rtu",
+        "device": "/dev/ttyRS485",
+        "unit": 21,
+        "memo": "PLC Server 01",
+        "address": 37,
+        "function": 5,
+        "values": [1] 
+    }
+
+.. list-table::
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - time
+      - データ書き込み日時
+      - String
+      - 〇
+      - ISO8601拡張書式
+    * - 2
+      - protocol
+      - プロトコル
+      - String
+      - 〇
+      - WEB UIから設定された値.'rtu'.
+    * - 3
+      - device
+      - デバイスファイル名
+      - String
+      - 〇
+      - WEB UIから設定された値.
+    * - 4
+      - unit
+      - Modbus Unit ID
+      - Integer
+      - 〇
+      - WEB UIから設定された値.
+    * - 5
+      - memo
+      - メモ
+      - String
+      - 〇
+      - WEB UIから設定された値
+    * - 6
+      - address
+      - 書き込みアドレス
+      - Integer
+      - 〇
+      - 0 ～ 2048 (registers) の範囲
+    * - 7
+      - function
+      - Modbus function code
+      - integer
+      - 〇
+      - 5:
+            write single coil
+        15:
+            write multiple coils
+    * - 9
+      - values
+      - 書き込まれた値
+      - Integer 配列
+      - 〇
+      - 0 または 1. 配列数は書き込まれたビット数に応じて可変.
+
+.. raw:: latex
+
+   \clearpage 
+
+クラウドからのオンデマンド動作時
+=========================================
+
+レジスタ出力又はレジスタ入力の読み込み
+------------------------------------------
+
+■ リクエストメッセージサンプル ::
+
+    {
+        "function": 3,
+        "address": 31,
+        "number": 5,
+        "data_type": "uint16_t"
+    }
+
+.. list-table::
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 必須
+      - 補足
+    * - 1
+      - function
+      - Modbus function code
+      - integer \*1
+      - 〇
+      - 3:
+            read holding registers
+        4:
+            read input registers
+    * - 2
+      - address
+      - 読み込みアドレス
+      - Integer \*1
+      - 
+      - 省略時は 0
+    * - 3
+      - number
+      - 読み込むレジスタ数
+      - Integer \*1
+      - 
+      - 省略時は 1   
+    * - 4
+      - data_type
+      - データの型
+      - String
+      - 
+      - uint16_t :
+            符号なし16bits
+        int16_t :
+            符号付16bits
+        uint32lsb_t :
+            符号なし32bits LSB
+        uint32msb_t :
+            符号なし32bits MSB
+        int32lsb_t :
+            符号付32bits LSB
+        int32msb_t :
+            符号付32bits MSB
+
+        省略時は、uint16_t
+
+.. note::
+    1. String型 '0x' から始まる 16 進数表記も可能です。
+
+.. raw:: latex
+
+   \clearpage 
+
+■ 応答メッセージサンプル(サーバがTCP接続設定時） ::
+
+    {
+        "time": "2017-02-03T14:44:37.020+09:00",
+        "reply_to": "e4f87480e871555105cc81aac50e5e54",
+        "result": "done",
+        "protocol": "tcp",
+        "node": "172.16.7.249",
+        "port": 502,
+        "unit": 255,
+        "memo": "PLC Server 01",
+        "address": 31,
+        "function": 3,
+        "data_type": "uint16_t",
+        "values": [ 2, 0, 1234, 5678, 9876]
+    }
+
+.. list-table::
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - time
+      - データ取得日時
+      - String
+      - 〇
+      - ISO8601拡張書式
+    * - 2
+      - reply_to
+      - リクエストメッセージのMD5値
+      - String
+      - 〇
+      - 
+    * - 3
+      - result
+      - 取得ステータス
+      - String
+      - 〇
+      - 成功時は 'done'
+    * - 4
+      - protocol
+      - プロトコル
+      - String
+      - 〇
+      - WEB UIから設定さた値. 'tcp'
+    * - 5
+      - node
+      - サーバ自身のIPアドレス
+      - String
+      - 〇
+      - 
+    * - 6
+      - port
+      - ポート番号
+      - Integer
+      - 〇
+      - 502（固定）
+    * - 7
+      - unit
+      - Modbus Unit ID
+      - Integer
+      - 〇
+      - 255（固定）
+    * - 8
+      - memo
+      - メモ
+      - String
+      - 
+      - WEB UIから設定さた値
+    * - 9
+      - address
+      - 読み込みアドレス
+      - Integer
+      - 〇
+      - リクエストされた値
+    * - 10
+      - function
+      - Modbus function code
+      - integer
+      - 〇
+      - リクエストされた値
+    * - 11
+      - data_type
+      - データの型
+      - String
+      - 〇
+      - リクエストされた値
+    * - 12
+      - values
+      - 読み込み値
+      - Integer 配列
+      - 〇
+      - 配列数は number キーでリクエストされたレジスタ数に応じて可変.
+
+.. note::
+    protocol, node, port, unit, memo の値は、リクエストメッセージを受けた UNIX ドメインソケットのデバイス番号を持つデバイスに設定されている値です。
+
+.. raw:: latex
+
+   \clearpage 
+
+デジタル出力又はデジタル入力の読み込み
+------------------------------------------
+
+■ リクエストメッセージサンプル ::
+
+    {
+        "function": 2,
+        "address": 37,
+        "number": 20,
+    }
+
+.. list-table::
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 必須
+      - 補足
+    * - 1
+      - function
+      - Modbus function code
+      - integer \*1
+      - 〇
+      - 1:
+            read coils
+        2:
+            read discrete inputs
+    * - 2
+      - address
+      - 読み込みアドレス
+      - Integer \*1
+      - 
+      - 省略時は 0
+    * - 3
+      - number
+      - 読み込むレジスタ数
+      - Integer \*1
+      - 
+      - 省略時は 1
+
+.. note::
+    1. String型 '0x' から始まる 16 進数表記も可能です。
+
+.. raw:: latex
+
+   \clearpage 
+
+■ 応答メッセージサンプル(サーバがRTU接続設定時） ::
+
+    {
+        "time": "2017-02-03T14:44:37.020+09:00",
+        "reply_to": "e5910e15403f5e2158a5776cd7136eeb",
+        "result": "done"
+        "protocol": "rtu",
+        "device": "/dev/ttyRS485",
+        "unit": 21,
+        "memo": "PLC04",
+        "address": 37,
+        "function": 2,
+        "values": [ 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 0, 1, 1]
+
+    }
+
+.. list-table::
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - time
+      - データ取得日時
+      - String
+      - 〇
+      - ISO8601拡張書式
+    * - 2
+      - reply_to
+      - リクエストメッセージのMD5値
+      - String
+      - 〇
+      - 
+    * - 3
+      - result
+      - 取得ステータス
+      - String
+      - 〇
+      - 成功時は 'done'
+    * - 4
+      - protocol
+      - プロトコル
+      - String
+      - 〇
+      - WEB UIから設定さた値. 'rtu'
+    * - 5
+      - device
+      - デバイスファイル名
+      - String
+      - 〇
+      - WEB UIから設定さた値
+    * - 6
+      - unit
+      - Modbus Unit ID
+      - Integer
+      - 〇
+      - WEB UIから設定さた値
+    * - 7
+      - memo
+      - メモ
+      - String
+      - 
+      - WEB UIから設定さた値
+    * - 8
+      - address
+      - 読み込みアドレス
+      - Integer
+      - 〇
+      - リクエストされた値
+    * - 9
+      - function
+      - Modbus function code
+      - integer
+      - 〇
+      - リクエストされた値
+    * - 10
+      - values
+      - 読み込み値
+      - Integer 配列
+      - 〇
+      - 0 又は 1. 配列数は number キーでリクエストされたビット数に応じて可変.
+
+.. note::
+    protocol, device, unit, memo の値は、リクエストメッセージを受けた UNIX ドメインソケットのデバイス番号を持つデバイスに設定されている値です。
+
+.. raw:: latex
+
+   \clearpage 
+
+レジスタ出力又はレジスタ入力への書き込み
+----------------------------------------------
+
+■ リクエストメッセージサンプル ::
+
+    {
+        "function": 16,
+        "address": "0x0ab",
+        "data_type": "uint32lsb_t",
+        "valuse": [ 42949672951, 21474836471]
+    }
+
+.. list-table::
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 必須
+      - 補足
+    * - 1
+      - function
+      - Modbus function code
+      - integer \*1
+      - 〇
+      - 6:
+            write single register
+        10:
+            write single input register
+        16:
+            write multiple registers
+        20:
+            write multiple input registers
+        23:
+            write and read registers
+    * - 2
+      - address
+      - 書き込みアドレス
+      - Integer \*1
+      - 
+      - 省略時は 0
+    * - 3
+      - data_type
+      - データの型
+      - String
+      - 
+      - uint16_t:
+            符号なし16bits
+        int16_t:
+            符号付16bits
+        uint32lsb_t:
+            符号なし32bits LSB
+        uint32msb_t:
+            符号なし32bits MSB
+        int32lsb_t:
+            符号付32bits LSB
+        int32msb_t:
+            符号付32bits MSB
+        
+        省略時は、uint16_t
+    * - 4
+      - values
+      - 書き込む値
+      - Integer 配列
+      - 〇
+      - functionキーが 6 又は 10 の場合、は先頭の１レジスタを書き込む.
+
+.. note::
+    1．String型 '0x' から始まる 16 進数表記も可能です。
+
+    * function の 内、10.write single input register と 20.write multiple input registes は、本来の Modubusプロトコルには存在しない機能です。
+
+.. raw:: latex
+
+   \clearpage 
+
+■ 応答メッセージサンプル(サーバがTCP接続設定時） ::
+
+    {
+        "time": "2017-02-03T14:44:37.020+09:00",
+        "reply_to": " 35cf8fa6243d87e0ebb0c2aaaf8eeecf",
+        "result": "done"
+        "protocol": "tcp",
+        "node": "172.16.7.249",
+        "port": 502,
+        "unit": 255,
+        "address": 171,
+        "function": 16,
+        "data_type": "uint32lsb_t",
+        "values": [ 42949672951, 21474836471]
+    }
+
+.. list-table::
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - time
+      - データ書き込み日時
+      - String
+      - 〇
+      - ISO8601拡張書式
+    * - 2
+      - reply_to
+      - リクエストメッセージのMD5値
+      - String
+      - 〇
+      - 
+    * - 3
+      - result
+      - 取得ステータス
+      - String
+      - 〇
+      - 成功時は 'done'
+    * - 4
+      - protocol
+      - プロトコル
+      - String
+      - 〇
+      - WEB UIから設定さた値. 'tcp'
+    * - 5
+      - node
+      - サーバ自身の IPアドレス
+      - String
+      - 〇
+      - 
+    * - 6
+      - port
+      - ポート番号
+      - Integer
+      - 〇
+      - 502（固定）
+    * - 7
+      - unit
+      - Modbus Unit ID
+      - Integer
+      - 〇
+      - 255（固定）
+    * - 9
+      - memo
+      - メモ
+      - String
+      - 
+      - WEB UIから設定さた値
+    * - 10
+      - address
+      - 書き込みアドレス
+      - Integer
+      - 〇
+      - リクエストされた値
+    * - 11
+      - function
+      - Modbus function code
+      - integer
+      - 〇
+      - リクエストされた値
+    * - 12
+      - data_type
+      - データの型
+      - String
+      - 〇
+      - リクエストされた値
+    * - 13
+      - values
+      - 書き込んだ値
+      - Integer 配列
+      - 〇
+      - リクエストされた値
+
+.. note::
+    protocol, node, port, unit, memo の値は、リクエストメッセージを受けた UNIX ドメインソケットのデバイス番号を持つデバイスに設定されている値です。
+
+.. raw:: latex
+
+   \clearpage 
+  
+デジタル出力又はデジタル入力への書き込み
+--------------------------------------------
+
+■ リクエストメッセージサンプル ::
+
+    {
+        "function": 15,
+        "address": "0x0ce",
+        "values": [ 0, 0, 0, 1, 1, 1, 0, 1, 1 ,0, 1, 1, 0, 1, 1]
+    }
+
+.. list-table::
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 必須
+      - 補足
+    * - 1
+      - function
+      - Modbus function code
+      - integer \*1
+      - 〇
+      - 5:
+            write single coil
+        9:
+            write single discrete_input
+        15:
+            write multiple coils
+        19:
+            write multiple discrete input
+    * - 2
+      - address
+      - 書き込みアドレス
+      - Integer \*1
+      - 
+      - 省略時は 0
+    * - 3
+      - values
+      - 書き込む値
+      - Integer 配列
+      - 〇
+      - 0 又 は 1. functionキーが 5 又は 9 の場合、は先頭の１ビットを書き込む.
+  
+.. note::
+    1. String型 '0x' から始まる 16 進数表記も可能です。
+    
+    * functionの内、9.write single discrete input と 19.write multiple discrete input は、本来のModubusプロトコルには存在しない機能です。
+
+.. raw:: latex
+
+   \clearpage 
+
+■ 応答メッセージサンプル(サーバがRTU接続設定時） ::
+
+    {
+        "time": "2017-02-03T14:44:37.020+09:00",
+        "reply_to": "c4348e30643dac56cb61bac9743729e7",
+        "result": "done"
+        "protocol": "rtu",
+        "device": "/dev/ttyRS485",
+        "unit": 21,
+        "address": 206,
+        "function": 15,
+        "values": [ 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1]
+    }
+
+.. list-table::
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - time
+      - データ書き込み日時
+      - String
+      - 〇
+      - ISO8601拡張書式
+    * - 2
+      - reply_to
+      - リクエストメッセージのMD5値
+      - String
+      - 〇
+      - 
+    * - 3
+      - result
+      - 取得ステータス
+      - String
+      - 〇
+      - 成功時は 'done'
+    * - 4
+      - protocol
+      - プロトコル
+      - String
+      - 〇
+      - WEB UIから設定さた値. 'rtu'
+    * - 5
+      - device
+      - デバイスファイル名
+      - String
+      - 〇
+      - WEB UIから設定さた値
+    * - 6
+      - unit
+      - Modbus Unit ID
+      - Integer
+      - 〇
+      - WEB UIから設定さた値
+    * - 7
+      - memo
+      - メモ
+      - String
+      - 
+      - WEB UIから設定さた値
+    * - 8
+      - address
+      - 書き込みアドレス
+      - Integer
+      - 〇
+      - リクエストされた値
+    * - 9
+      - function
+      - Modbus function code
+      - integer
+      - 〇
+      - リクエストされた値
+    * - 10
+      - values
+      - 書き込んだ値
+      - Integer 配列
+      - 〇
+      - リクエストされた値
+
+.. note::
+    protocol, device, unit, memo の値は、リクエストメッセージを受けた UNIX ドメインソケットのデバイス番号を持つデバイスに設定されている値です。
+
+.. raw:: latex
+
+   \clearpage 
+
+スレーブIDの読み出し
+------------------------
+
+■ リクエストメッセージサンプル ::
+
+    {
+        "function": 17
+    }	
+
+.. list-table::
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 必須
+      - 補足
+    * - 1
+      - function
+      - Modbus function code
+      - integer \*1
+      - 〇
+      - 17. report slave id
+
+■応答メッセージサンプル :: 
+
+    {
+        "time": "2017-02-03T14:44:37.020+09:00",
+        "reply_to": "e553cae505e64e305373c73d7dd6cd31",
+        "result": "done"
+        "protocol": "rtu",
+        "device": "/dev/ttyRS485",
+        "unit": 21,
+        "function": 17,
+        "values": [ 21, 255]
+    }	
+
+.. list-table::
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 必須
+      - 補足
+    * - 1
+      - time
+      - データ取得日時
+      - String
+      - 〇
+      - ISO8601拡張書式
+    * - 2
+      - reply_to
+      - リクエストメッセージのMD5値
+      - String
+      - 〇
+      - 
+    * - 3
+      - result
+      - 取得ステータス
+      - String
+      - 〇
+      - 成功時は 'done'
+    * - 4
+      - protocol
+      - プロトコル
+      - String
+      - 〇
+      - WEB UIから設定さた値 'rtu'
+    * - 5
+      - device
+      - デバイスファイル名
+      - String
+      - 〇
+      - リクエストされた値
+    * - 6
+      - unit
+      - Modbus Unit ID
+      - Integer
+      - 〇
+      - WEB UIから設定さた値
+    * - 7
+      - memo
+      - メモ
+      - String
+      - 
+      - WEB UIから設定さた値
+    * - 8
+      - function
+      - Modbus function code
+      - integer
+      - 〇
+      - リクエストされた値 17
+    * - 9
+      - values
+      - 接続されているModbus Unit IDの一覧
+      - Integer 配列
+      - 〇
+      - 
+
+.. note::
+    protocol, device, unit, memo の値は、リクエストメッセージを受けた UNIX ドメインソケットのデバイス番号を持つデバイスに設定されている値です。
+
+.. raw:: latex
+
+   \clearpage 
+
+エラー時
+------------
+
+■ 応答メッセージサンプル ::
+
+    {
+        "time": "2017-02-03T14:44:37.020+09:00",
+        "reply_to": "7408f69d838b4d89f257036d6d9449b7",
+        "result": "not queuing",
+        "reason": "not specified 'function' at least"
+    }
+  
+.. list-table::
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 必須
+      - 補足
+    * - 1
+      - time
+      - 処理日時
+      - String
+      - 〇
+      - ISO8601拡張書式
+    * - 2
+      - reply_to
+      - リクエストメッセージのMD5値
+      - String
+      - 〇
+      - 
+    * - 3
+      - result
+      - 取得ステータス
+      - String
+      - 〇
+      - 'not queuing':
+            リクエストメッセージの不備
+        'failed':
+            PLC機器に接続できなかった場合等
+    * - 4
+      - reason
+      - エラーの理由
+      - String
+      - 〇
+      -
+  
+.. raw:: latex
+
+   \clearpage 
