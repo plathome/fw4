@@ -1,0 +1,55 @@
+.. _data_handler_custom_rc:
+
+********************************************
+独自開発アプリケーションの起動／停止制御
+********************************************
+
+幾つかのファイルを用意することで、
+WEB UIによるPD Repeaterの起動／停止制御に独自開発アプリケーションを連動さることができます。
+
+.. _data_handler_custom_rc_app:
+
+アプリケーションの登録
+==========================
+
+連動させるアプリケーションの名称を次のファイルに登録(記載)します。 :
+
+    /etc/default/obsiot-webui-ext-handler
+
+このファイルには、1行に1個のアプリケーション名を記載します。空行及びアプリケーション名の重複は許容されません。
+
+記載例） ::
+
+    testhandler
+    myhandler
+
+.. _data_handler_custom_rc_script:
+
+アプリケーションが用いるスクリプトの指定
+============================================
+
+連動させるアプリケーションが用いるスクリプトを次のファイルに設定します。 :
+
+    /etc/default/<アプリケーションの名称>
+
+ファイルにおいては次のように起動・停止・状態確認の各スクリプトを指定します。 ::
+
+    bootcmd_<アプリケーション名>="<起動スクリプト>"
+    haltcmd_<アプリケーション名>="<停止スクリプト>"
+    statuscmd_<アプリケーション名>="<状態確認スクリプト>" 
+
+状態確認スクリプトの結果、"is running" または "RUNNING" または "RUNNIG" が出力される場合、
+またはStatusが "inactive", "failed", "dead" ではない場合、
+WEB UIのダッシュボードでは稼働中として認識します。
+
+設定例）/etc/default/ testhandler ::
+
+    bootcmd_ testhandler="/etc/init.d/testhandler start"
+    haltcmd_ testhandler="/etc/init.d/testhandler stop"
+    statuscmd_ testhandler="/etc/init.d/testhandler status"
+   
+尚、起動スクリプト自体に”&”をつけて定義するのはフォーマットエラーとなります。
+
+.. raw:: latex
+
+   \clearpage

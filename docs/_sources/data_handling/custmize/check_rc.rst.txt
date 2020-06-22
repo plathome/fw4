@@ -1,0 +1,17 @@
+.. _data_handler_custom_check_rc:
+
+********************************************
+アプリケーション設定の確認
+********************************************
+
+:ref:`data_handler_custom_rc_app` 及び:ref:`data_handler_custom_rc_script` 項にて作成した各ファイルの整合性を以下のコマンドにて確認することができます。
+
+● 確認コマンド ::
+
+    # /var/webui/scripts/control-handler.sh check
+
+"??ERROR" から始まる行が表示される場合には設定間違い等となる為、メッセージをご確認の上、修正を行ってください。
+
+.. raw:: latex
+
+   \clearpage

@@ -1,0 +1,215 @@
+
+<!DOCTYPE html>
+
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <title>その他 &#8212; OpenBlocks FW4 1.0.0 ドキュメント</title>
+    <link rel="stylesheet" href="../../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../_static/translations.js"></script>
+    
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="検索" href="../../search.html" />
+    <link rel="next" title="Docker設定ガイド" href="../../docker/docker.html" />
+    <link rel="prev" title="カメラ機能" href="../setting/setting.html" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="content-language" content="ja" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <meta name="description" content="OpenBlocksに搭載しているFW4のドキュメントです。初期セットアップ方法や各種クラウドへのIoTデータの送受信(PD Repeater, PD Handler)、AirManageへの接続方法、自作開発に必用な情報等を記載しています。" />
+    <meta name="keywords" content="OpenBlocks,IoT,AirManage,WEB UI,PD,Repeater,Handler" />
+    <meta http-equiv="Content-Script-Type" content="text/JavaScript" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <meta name="subject" content="OpenBlocks FW4の各種ドキュメントです。" />
+    <meta name="abstract" content="OpenBlocksに搭載しているFW4のドキュメントです。初期セットアップ方法や各種クラウドへのIoTデータの送受信(PD Repeater, PD Handler)、AirManageへの接続方法、自作開発に必用な情報等を記載しています。" />
+    <meta name="owner" content="ぷらっとホーム株式会社" />
+    <meta name="copyright" content="2020 Plat'Home Co., Ltd. All rights reserved." />
+    <meta name="robots" content="INDEX,FOLLOW" />
+  </head><body>
+<div class="header">
+	<div class="header_container">
+		<a href="https://www.plathome.co.jp">
+			<!-- <img src="/_static/logo_plathome_technology.png" width="137.5" alt="Plat'Home"> -->
+			<img src="/_static/logo_plathome_white.png" width="137.5" alt="Plat'Home">
+		</a>
+		<div class="right">
+			<a class="headlink" href="https://www.plathome.co.jp">
+				会社TOP
+			</a>
+		</div>
+		<div class="right">
+			<a class="headlink" href="https://docs.plathome.co.jp">
+				HOME
+			</a>
+		</div>
+	</div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>ナビゲーション</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="総合索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="../../docker/docker.html" title="Docker設定ガイド"
+             accesskey="N">次へ</a> |</li>
+        <li class="right" >
+          <a href="../setting/setting.html" title="カメラ機能"
+             accesskey="P">前へ</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenBlocks FW4 1.0.0 ドキュメント</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../camera.html" accesskey="U">カメラ設定ガイド</a> &#187;</li> 
+      </ul>
+    </div>
+</div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1>その他<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="id2">
+<h2>カメラ及びストリーミングデータ確認用ユーザー<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>本機能をインストールした場合、カメラまたは動体検知のストリーミングデータ及び保存した画像・動画データの閲覧のみを許容するユーザーを作成します。このユーザーはカメラ機能のみを閲覧するユーザーであり、OpenBlocksのシステム全体にはアクセスできません。</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 34%" />
+<col style="width: 66%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>項目</p></th>
+<th class="head"><p>補足</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ユーザー名</p></td>
+<td><p>&quot;cam_user&quot;となります。</p></td>
+</tr>
+<tr class="row-odd"><td><p>パスワード</p></td>
+<td><p>デフォルトは&quot;0BSI0T&quot;です。(0は数字の0です。)</p></td>
+</tr>
+</tbody>
+</table>
+<p>※「システム」→「WEBユーザー」タブにてパスワードの変更が可能です。但し、ユーザー権限の編集を行っても反映されません。</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 72%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head" colspan="2"><p>ストリーミング</p></th>
+</tr>
+<tr class="row-even"><th class="head"><p>項目</p></th>
+<th class="head"><p>備考</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-odd"><td><p>表示サイズ</p></td>
+<td><p>WEB上に表示するストリーミングデータの画像サイズを選択します。デフォルトでは0x0です。</p>
+<p>※0x0の場合、表示されません。</p>
+</td>
+</tr>
+<tr class="row-even"><td><p>画像</p></td>
+<td><p>メディア機能で設定したパスの画像データ一覧を表示します。</p></td>
+</tr>
+<tr class="row-odd"><td><p>動画</p></td>
+<td><p>メディア機能で設定したパスの動画データ一覧を表示します。尚、本機能でのダウンロード機能は
+ありません。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="openblocks-iot-vx2">
+<h2>OpenBlocks IoT VX2のカメラ接続について<a class="headerlink" href="#openblocks-iot-vx2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>OpenBlocks IoT VX2にUSBカメラを接続する場合、USB type-Aポートに対して直接接続は行わないでください。直接接続を行った場合、USBカメラの動作が不安定となります。そのため、USBハブ等を経由しての接続を推奨いたします。</p>
+</div>
+<div class="section" id="video">
+<h2>VIDEOデバイスファイルについて<a class="headerlink" href="#video" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>OpenBlocks IoT VXシリーズ及びOpenBlocks IX9では1つのUSBカメラを接続した場合、2つのVIDEOデバイスファイル(ex. /dev/video0及び/dev/video1)が生成されます。通常では、本機能にて指定するVIDEOデバイスファイルは若番の物(正しくは、キャプチャ機能対応のデバイスファイル)を設定してください。</p>
+<p>尚、OpenBlocks IoT BX及びEXシリーズでは1つのUSBカメラを接続した場合、1つのVIDEOデバイスファイルとなりますので、生成されたVIDEOデバイスファイルをご使用ください。</p>
+</div>
+<div class="section" id="openblocks-iot-bx-ex">
+<h2>OpenBlocks IoT BX/EXシリーズへのカメラ設定について<a class="headerlink" href="#openblocks-iot-bx-ex" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>OpenBlocks IoT BX/EXシリーズではUSBカメラを用いてストリーミング機能及び動体検知機能を実施しようとし場合、USBドライバの問題により以下のようなメッセージを出力し使用できないケースがあります。</p>
+<p>この場合、使用時のFPSや解像度を下げることにより使用できますので、FPS及び解像度を下げての運用をご検討ください。</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>[10554.131243] usb 1-1.4: new high-speed USB device number 5 using dwc3-host</p>
+<p>[10554.258997] usb 1-1.4: New USB device found, idVendor=0bad, idProduct=5823</p>
+<p>[10554.259029] usb 1-1.4: New USB device strings: Mfr=3, Product=1, SerialNumber=2</p>
+<p>[10554.259049] usb 1-1.4: Product: USB Camera</p>
+<p>[10554.259067] usb 1-1.4: Manufacturer: Generic</p>
+<p>[10554.259085] usb 1-1.4: SerialNumber: 200901010001</p>
+<p>[10554.923089] uvcvideo: Found UVC 1.00 device USB Camera (0bad:5823)</p>
+<p>[10554.931799] input: USB Camera as /devices/pci0000:00/0000:00:11.0/dwc3-host.2/usb1/1-1/1-1.4/1-1.4:1.0/input/input2</p>
+<p>[10554.932389] usbcore: registered new interface driver uvcvideo</p>
+<p>[10554.932408] USB Video Class driver (1.1.1)</p>
+<p>[10757.724309] dwc3-host dwc3-host.2: Signal while waiting for configure endpoint command</p>
+<p>[10757.741963] usb 1-1.4: Not enough bandwidth for altsetting 0</p>
+<p>[10773.412255] dwc3-host dwc3-host.2: xHCI xhci_drop_endpoint called with disabled ep d34ef840</p>
+<p>[10773.412288] dwc3-host dwc3-host.2: Trying to add endpoint 0x81 without dropping it.</p>
+<p>[10773.412317] usb 1-1.4: Not enough bandwidth for altsetting 7</p>
+<p>[10773.412342] dwc3-host dwc3-host.2: xHCI xhci_drop_endpoint called with disabled ep d34ef840</p>
+<p>[10804.148391] dwc3-host dwc3-host.2: Trying to add endpoint 0x81 without dropping it.</p>
+<p>[10804.148429] usb 1-1.4: Not enough bandwidth for altsetting 7</p>
+<p>[11002.887329] dwc3-host dwc3-host.2: Trying to add endpoint 0x81 without dropping it.</p>
+<p>[11002.887367] usb 1-1.4: Not enough bandwidth for altsetting 7</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">その他</a><ul>
+<li><a class="reference internal" href="#id2">カメラ及びストリーミングデータ確認用ユーザー</a></li>
+<li><a class="reference internal" href="#openblocks-iot-vx2">OpenBlocks IoT VX2のカメラ接続について</a></li>
+<li><a class="reference internal" href="#video">VIDEOデバイスファイルについて</a></li>
+<li><a class="reference internal" href="#openblocks-iot-bx-ex">OpenBlocks IoT BX/EXシリーズへのカメラ設定について</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>前のトピックへ</h4>
+  <p class="topless"><a href="../setting/setting.html"
+                        title="前の章へ">カメラ機能</a></p>
+  <h4>次のトピックへ</h4>
+  <p class="topless"><a href="../../docker/docker.html"
+                        title="次の章へ">Docker設定ガイド</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">クイック検索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="検索" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020 Plat&#39;Home Co., Ltd. All rights reserved..
+    </div>
+  </body>
+</html>

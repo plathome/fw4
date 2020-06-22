@@ -1,0 +1,230 @@
+
+<!DOCTYPE html>
+
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <title>WEB UIセットアップガイド &#8212; OpenBlocks FW4 1.0.0 ドキュメント</title>
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/translations.js"></script>
+    
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="はじめに" href="first/first.html" />
+    <link rel="prev" title="商標について" href="../pre/pre.html" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="content-language" content="ja" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <meta name="description" content="OpenBlocksに搭載しているFW4のドキュメントです。初期セットアップ方法や各種クラウドへのIoTデータの送受信(PD Repeater, PD Handler)、AirManageへの接続方法、自作開発に必用な情報等を記載しています。" />
+    <meta name="keywords" content="OpenBlocks,IoT,AirManage,WEB UI,PD,Repeater,Handler" />
+    <meta http-equiv="Content-Script-Type" content="text/JavaScript" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <meta name="subject" content="OpenBlocks FW4の各種ドキュメントです。" />
+    <meta name="abstract" content="OpenBlocksに搭載しているFW4のドキュメントです。初期セットアップ方法や各種クラウドへのIoTデータの送受信(PD Repeater, PD Handler)、AirManageへの接続方法、自作開発に必用な情報等を記載しています。" />
+    <meta name="owner" content="ぷらっとホーム株式会社" />
+    <meta name="copyright" content="2020 Plat'Home Co., Ltd. All rights reserved." />
+    <meta name="robots" content="INDEX,FOLLOW" />
+  </head><body>
+<div class="header">
+	<div class="header_container">
+		<a href="https://www.plathome.co.jp">
+			<!-- <img src="/_static/logo_plathome_technology.png" width="137.5" alt="Plat'Home"> -->
+			<img src="/_static/logo_plathome_white.png" width="137.5" alt="Plat'Home">
+		</a>
+		<div class="right">
+			<a class="headlink" href="https://www.plathome.co.jp">
+				会社TOP
+			</a>
+		</div>
+		<div class="right">
+			<a class="headlink" href="https://docs.plathome.co.jp">
+				HOME
+			</a>
+		</div>
+	</div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>ナビゲーション</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="総合索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="first/first.html" title="はじめに"
+             accesskey="N">次へ</a> |</li>
+        <li class="right" >
+          <a href="../pre/pre.html" title="商標について"
+             accesskey="P">前へ</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">OpenBlocks FW4 1.0.0 ドキュメント</a> &#187;</li> 
+      </ul>
+    </div>
+</div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="web-ui">
+<span id="webui"></span><h1>WEB UIセットアップガイド<a class="headerlink" href="#web-ui" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="first/first.html">はじめに</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="first/first.html#vx1">VX1 向けパッケージ内容</a></li>
+<li class="toctree-l2"><a class="reference internal" href="first/first.html#id4">各部の名称(VX1 本体)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="first/first.html#vx2">VX2 向けパッケージ内容</a></li>
+<li class="toctree-l2"><a class="reference internal" href="first/first.html#id9">各部の名称(VX2 本体)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="first/first.html#ix9">IX9 向けパッケージ内容</a></li>
+<li class="toctree-l2"><a class="reference internal" href="first/first.html#id14">各部の名称(IX9 本体)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="first/first.html#bx1">BX1向けパッケージ内容</a></li>
+<li class="toctree-l2"><a class="reference internal" href="first/first.html#id17">各部の名称(BX1 本体)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="first/first.html#bx3">BX3向けパッケージ内容</a></li>
+<li class="toctree-l2"><a class="reference internal" href="first/first.html#id20">各部の名称(BX3 本体)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="first/first.html#ex1">EX1向けパッケージ内容</a></li>
+<li class="toctree-l2"><a class="reference internal" href="first/first.html#id23">各部の名称(EX1 本体)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="first/first.html#bx0">BX0向けパッケージ内容</a></li>
+<li class="toctree-l2"><a class="reference internal" href="first/first.html#id26">各部の名称(BX0 本体)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="first/first.html#bx5">BX5向けパッケージ内容</a></li>
+<li class="toctree-l2"><a class="reference internal" href="first/first.html#id29">各部の名称(BX5 本体)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="first/first.html#id30">ステータスインジケーター</a></li>
+<li class="toctree-l2"><a class="reference internal" href="first/first.html#id31">放熱・設置ブラケット取付方法について</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="before_use/before_use.html">ご利用の前に</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="before_use/before_use.html#sim">SIMについて</a></li>
+<li class="toctree-l2"><a class="reference internal" href="before_use/before_use.html#openblocks">OpenBlocksシリーズの設置</a></li>
+<li class="toctree-l2"><a class="reference internal" href="before_use/before_use.html#web">WEBクライアントの準備</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="webui_initial/initial.html">WEB UIの初期基本設定</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="webui_initial/initial.html#initlabel">使用許諾画面</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webui_initial/initial.html#inituserlabel">管理者アカウント(WEB UIの管理者アカウント)設定</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webui_initial/initial.html#initnetlabel">ネットワーク設定画面</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webui_initial/initial.html#rtclabel">内部時計設定</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webui_initial/initial.html#id7">システム再起動による設定項目の反映</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webui_initial/initial.html#id8">管理者ログイン画面</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webui_initial/initial.html#id9">ダッシュボード画面</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="smscontrol/smscontrol.html">SMSコントロール</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="smscontrol/smscontrol.html#id1">SMSコントロールの起動設定</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smscontrol/smscontrol.html#id2">SMSコントロールのコマンド</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smscontrol/smscontrol.html#id3">SMSでの複数コマンド送信</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smscontrol/smscontrol.html#smsuserscr">SMSユーザ定義スクリプトの登録</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smscontrol/smscontrol.html#id5">SMSコントロールコマンドのダイレクト実行</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="service/service.html">サービス機能</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="service/service.html#bt-i-f">BT I/F制御</a></li>
+<li class="toctree-l2"><a class="reference internal" href="service/service.html#id2">状態</a></li>
+<li class="toctree-l2"><a class="reference internal" href="service/service.html#bt">BT登録</a></li>
+<li class="toctree-l2"><a class="reference internal" href="service/service.html#ble">BLE登録</a></li>
+<li class="toctree-l2"><a class="reference internal" href="service/service.html#enocean">EnOcean登録</a></li>
+<li class="toctree-l2"><a class="reference internal" href="service/service.html#modbus2-c">Modbus2(C)登録</a></li>
+<li class="toctree-l2"><a class="reference internal" href="service/service.html#modbus2-s">Modbus2(S)登録</a></li>
+<li class="toctree-l2"><a class="reference internal" href="service/service.html#modbus-c">Modbus(C)登録</a></li>
+<li class="toctree-l2"><a class="reference internal" href="service/service.html#modbus-s">Modbus(S)登録</a></li>
+<li class="toctree-l2"><a class="reference internal" href="service/service.html#user">Userデバイス登録</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="airmanage/airmanage.html">AirManage機能</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="airmanage/airmanage.html#amfirst">AirManage初回アクセス設定</a></li>
+<li class="toctree-l2"><a class="reference internal" href="airmanage/airmanage.html#id3">AirManage登録</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="extend/extend.html">拡張機能</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="extend/extend.html#id2">機能拡張用パッケージのインストール</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="reference/reference.html">設定項目別リファレンス</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="reference/reference.html#airmanage">サービス制御・拡張・AirManage機能の表示/非表示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/reference.html#id2">プロセス状況表示機能</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/reference.html#id3">ストレージアラート機能</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/reference.html#root">rootパスワードの設定</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/reference.html#filterref">フィルター許可</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/reference.html#ssh">SSHの鍵交換</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/reference.html#web">WEB管理者パスワード変更</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/reference.html#id5">WEBユーザー</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/reference.html#id6">ファイル管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/reference.html#id7">ソフトウェアライセンスの表示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/reference.html#id8">本体シリアルの確認</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/reference.html#dns">ダイナミックDNS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/reference.html#id9">静的ルーティングの追加</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/reference.html#id10">通信確認</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/reference.html#id11">ネットワーク状態確認</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/reference.html#id12">コンフィグレーションのバックアップとリストア</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/reference.html#id13">システムソフトウェアのアップデート</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/reference.html#sms">SMS送信</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/reference.html#id14">SSHトンネル</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/reference.html#id15">サポート情報</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/reference.html#openblocks">OpenBlocksのサービス及び技術情報一覧</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/reference.html#func">FUNCスイッチの機能割当</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/reference.html#id16">監視機能</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/reference.html#uri">URIプロキシ機能</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/reference.html#id17">WEBコンソール機能</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/reference.html#syslog">SYSLOG転送機能</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/reference.html#id18">ストレージクリーンナップ機能</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/reference.html#id19">電源監視機能</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/reference.html#id20">本体自動再起動機能</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/reference.html#pub">Pubキー追加機能</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/reference.html#http">HTTPプロキシ(クライアント)機能</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/reference.html#id21">停止・再起動</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/reference.html#id22">フォーマット機能</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/reference.html#id23">簡易マウント機能</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/reference.html#fstab">FSTAB編集機能</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/reference.html#id24">ホスト追加機能</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/reference.html#id25">稼働情報機能</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="supplement/supplement.html">注意事項及び補足</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="supplement/supplement.html#openblocks-iot-vx">OpenBlocks IoT VXシリーズの電源について</a></li>
+<li class="toctree-l2"><a class="reference internal" href="supplement/supplement.html#id2">自動再起動機能</a></li>
+<li class="toctree-l2"><a class="reference internal" href="supplement/supplement.html#lte-3g">LTE/3Gモジュール(ソフトバンク)運用時のアクセス</a></li>
+<li class="toctree-l2"><a class="reference internal" href="supplement/supplement.html#grub">GRUBメニュー表示方法について</a></li>
+<li class="toctree-l2"><a class="reference internal" href="supplement/supplement.html#factory-reset">Factory Reset(工場出荷状態への切り替え)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="supplement/supplement.html#useport">使用ポート一覧</a></li>
+<li class="toctree-l2"><a class="reference internal" href="supplement/supplement.html#id4">自動外部ストレージマウント機能</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>前のトピックへ</h4>
+  <p class="topless"><a href="../pre/pre.html"
+                        title="前の章へ">商標について</a></p>
+  <h4>次のトピックへ</h4>
+  <p class="topless"><a href="first/first.html"
+                        title="次の章へ">はじめに</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">クイック検索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="検索" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020 Plat&#39;Home Co., Ltd. All rights reserved..
+    </div>
+  </body>
+</html>

@@ -1,0 +1,178 @@
+.. _pd_repeater_down_stream_message:
+
+***********************************
+PD Repeaterの下流方向メッセージ
+***********************************
+
+OpenBlocksシリーズに搭載されるIoTデータ制御機能をそのまま利用する上で本項目は特に意識する必要はありません。
+
+■ PD Repeaterが流のソフトウェアモジュールに転送するメッセージのフォーマットを示します。
+
+.. list-table:: メッセージフォーマット
+    :widths: 12 12 15 15 18 28
+    :header-rows: 0
+
+    * - Cloud ID (1Byte)
+      - Sub ID (1Byte)
+      - Header Size  (2Byte)
+      - MD5 (16Byte)
+      - Header
+      - Payload
+
+.. list-table:: メッセージフォーマットの説明
+    :widths: 25 75
+    :header-rows: 1
+
+    * - フィールド名
+      - 説明
+    * - Cloud ID (1Byte)
+      - PD Repeater上の便宜上割り当てている送受信先プロトコルの番号
+    * - Sub ID (1Byte)
+      - PD Repeater上の便宜上割り当てている送受信先のサブ番号(0x00又は0x01)
+    * - Header Size (2Byte)
+      - PD Reperaterで付加されたHeaderのサイズ
+    * - MD5 (16Byte)
+      - 制御メッセージのハッシュ値
+    * - Header
+      - PD Reperaterで付加されたMQTTのトピックやHTTPの応答ヘッダ
+    * - Payload
+      - クラウドから送られて来た制御メッセージ
+
+.. raw:: latex
+
+   \clearpage
+
+■ Cloud IDとヘッダーの内容を示します。
+
+.. list-table:: Cloud ID とヘッダーの内容
+    :widths: 35 10 20 35
+    :header-rows: 1
+
+    * - クラウド
+      - Cloud ID
+      - 下流方向制御
+      - ヘッダーの内容
+    * - PD Exchange
+      - 0x00
+      - 対応
+      - Command ID, ApplicationID
+    * - MQTTサーバー
+      - 0x01
+      - 対応
+      - MQTT受信トピック
+    * - Watson IoT for Device
+      - 0x02
+      - 対応
+      - MQTT受信トピック
+    * - Amazon Kinesis
+      - 0x03	
+      - 
+      - 
+    * - Watson IoT for Device
+      - 0x02
+      - 対応
+      - MQTT受信トピック \*1
+    * - Amazon Kinesis
+      - 0x03	
+      - 
+      - 
+    * - <予約>
+      - 0x04
+      - 
+      - 
+    * - <予約>
+      - 0x05
+      - 
+      - 
+    * - WEBサーバー
+      - 0x06
+      - 
+      - 
+    * - AWS IoT
+      - 0x07
+      - 対応
+      - MQTT受信トピック
+    * - MS Azure Event hubs
+      - 0x08
+      - 
+      - 
+    * - Watson IoT for Gateway
+      - 0x09
+      - 対応
+      - MQTT受信トピック \*1
+    * - MS Azure IoT Hub
+      - 0x0a
+      - 対応	
+      - MQTT受信トピック \*2
+    * - Toami for DOCOMO
+      - 0x0b
+      - 
+      - 
+    * - ドメインソケット
+      - 0x0c
+      - 
+      - 
+    * - KDDI IoT クラウドStandard
+      - 0x0d
+      - 
+      - 
+    * - <予約>
+      - 0x0e
+      - 
+      - 
+    * - PH社独自仕様WEBサーバー
+      - 0x0f
+      - 対応
+      - HTTP応答ヘッダー
+    * - Google IoT Core
+      - 0x10
+      - 対応
+      - MQTT受信トピック
+    * - TCP
+      - 0x11
+      - 対応
+      - 接続先IPアドレスとポート番号 \*3
+    * - AWS IoT[Websocket]
+      - 0x12
+      - 対応
+      - MQTT受信トピック
+    * - MS Azure IoT Hub[Websocket]
+      - 0x13
+      - 対応
+      - MQTT受信トピック \*2
+    * - <予約>
+      - 0x14
+      - 
+      - 
+    * - SoftBankスマ可視専用クラウド
+      - 0x15
+      - 対応
+      - MQTT受信トピックと oneM2M のJSON制御用オブジェクト \*4
+    * - <予約>
+      - 0x16
+      - 
+      -
+    * - <予約>
+      - 0x17
+      - 
+      -
+
+.. raw:: latex
+
+   \clearpage
+
+.. note::
+  1. Watson IoT については、ペイロードを"d"キーのJSONオブジェクトとしているため、
+     ハッシュ値（MD5）を得た後、デコードし"d"キーのJSONオブジェクトのみを制御メッセージとして出力しています。
+  2. IoTデバイスハブについては、ペイロードを"parameters"キーのJSONオブジェクトとしているため、
+     ハッシュ値（MD5）を得た後、デコードし"parameters"キーのJSONオブジェクトのみを制御メッセージとして出力しています。
+  3. TCPの接続先 IPアドレスとポート番号は、次のJSON文字列で付加されます。 ::
+
+     {“ip_addr": "<IP address>", "port": <port> }
+
+  4. SoftBankスマ可視専用クラウドについては、oneM2M 仕様のペイロードから"con"キーのJSONオブジェクトのみを出力し、
+     これを除くJSONオブジェクトをMQTT受信トピック文字列に連結しヘッダーとしています。
+
+.. raw:: latex
+
+   \clearpage

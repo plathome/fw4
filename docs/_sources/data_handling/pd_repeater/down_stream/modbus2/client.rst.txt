@@ -1,0 +1,67 @@
+.. _pd_repeater_down_stream_modbus2_client:
+
+*************************
+Modbus 2 クライアント
+*************************
+
+| PD Handler Modbus2 Clientの下流方向制御について説明します。
+| PD Handler Modbus2 は、PD Handler Modbusとは異なりModbusモデリングファイルに基づきデータの読み書きを行うため、
+  個々にModbusファンクションやレジスタのアドレスを指定する必要はありません。
+
+例えば unitId 3 のPLC機器のデータを取得するのであれば、その制御メッセージは次のように unitId を指定するだけで済みます。 ::
+
+     {
+       "unitId": 3
+     }
+
+対する応答メッセージは、次のようになります。 ::
+
+     {
+       "timestamp": "2019-11-07T11:19:08.949+09:00"
+       "request_from":"0x13(0)",
+       "reply_to":"6bee94d5a2f29eb63b5faecd7e8af8d9", "result": true,
+       "unitId": 3,
+       "doValue_ch1": 0, "doValue_ch2": 0, "doValue_ch3": 0, "doValue_ch4": 0,
+       "diValue": [0, 0, 0, 0],
+       "pulseCoutLimit": [99999999, 99999999, 99999999, 99999999],
+       "pulseCountReset_ch1": 0, "pulseCountReset_ch2": 0, 
+       "pulseCountReset_ch3": 0, "pulseCountReset_ch4": 0,
+       "pulseCount": [10000, 0, 0, 0]
+     }
+
+| ここで”reply_to”は、制御メッセージのハッシュ値（MD5）です。
+| ポーリン動作で取得されるデータに対し、下流方向制御で取得されるデータには Modbusモデリングファイルで disable 定義
+  されているレジスタセットのデータが含まれます。
+| なお、特定のレジスタセットのデータのみを取得することはできません。
+
+PLC機器の出力レジスタ(outputBits または outputRegisters)に値を書き込む場合は、
+クラウドより次のような制御メッセージを送ります。 ::
+
+     {
+       "unitId": 3, "write":{"doValue_ch1": 1, "doValue_ch3": 1,"pulseCountReset_ch1": 1}
+     }
+
+ここで、write キーに与えられるオブジェクトは、Modbusモデリングファイルの outputBits または inputRegisters に定義される、
+,"key,", "type,", "ratio,", "array," に応じた値でなくてはなりませんが、
+レジスタセットの全て（doValue_ch1～ch4）を指定する必要はなく、
+上記のようにその一部(doValue_ch1とdoValue_ch3)を指定することができます。
+
+書込み制御に対する応答メッセージは、読み出し制御とは異なり指定されたレジスタセットの値のみを返します。
+ただし、次のよに書き換えの指定がレジスタセットの一部(doValue_ch1とdoValue_ch3)であっても、
+レジスタセットの全て（doValue_ch1～ch4）のデータを返します。 ::
+
+     {
+       "timestamp": "2019-11-07T20:30:05.758+09:00",
+       "request_from": "0x13(0)",
+       "reply_to": "38bfe79195fc09b37b6a85b6fdc97d73", "result": true,
+       "doValue_ch1": 1, "doValue_ch2": 0, "doValue_ch3": 1, "doValue_ch4": 0,
+       "pulseCountReset_ch1": 1, "pulseCountReset_ch2": 0,
+       "pulseCountReset_ch3": 0, "pulseCountReset_ch4": 0
+     }
+
+ここで”reply_to”は、制御メッセージのハッシュ値（MD5）です。
+
+.. raw:: latex
+
+   \clearpage
+   

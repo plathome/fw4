@@ -1,0 +1,166 @@
+.. _pd_repeater_down_stream_modbus:
+
+**********************************************
+Modbusクライアント／サーバーの下流方向制御
+**********************************************
+
+| PD Handler Modbus の下流方向制御について説明します。 
+| PD Handler Modbusの下流方向制御を利用するためには、Modbusに用いられるファンクションコードを理解しておく必要があります。
+| PD Handler Modbusに用いられているファンクションコードを示します。
+
+.. list-table:: PD Handler Modbusに用いられているファンクションコード
+    :widths: 10 30 60
+    :header-rows: 1
+
+    * - コード
+      - 名称
+      - 機能説明
+    * - 0x01
+      - Read Coils
+      - デジタル出力に設定されているビット値を読み込みます。
+    * - 0x02
+      - Read Discrete Input
+      - デジタル入力のビット値を読み込みます。
+    * - 0x03
+      - Read Holding Registers
+      - レジスタ出力に設定されている値を読み込みます。
+    * - 0x04
+      - Read Input Registers
+      - レジスタ入力の値を読み込みます。
+    * - 0x05
+      - Write Single Coil
+      - デジタル出力1ビットのビット値を設定します。
+    * - 0x06
+      - Write Single Register
+      - レジスタ出力１レジスタの値を設定します。
+    * - 0x07
+      - Read Exception Status
+      - クライアント／サーバー間でエラーステータスを通知します。
+    * - 0x09
+      - Write Single Discrete Input
+      - デジタル入力1ビットのビット値を設定します。
+    * - 0x0a
+      - Write Single Input Register
+      - レジスタ入力１レジスタの値を設定します。
+    * - 0x0f
+      - Write Multiple Coils
+      - 連続する複数のデジタル出力のビット値を設定します。
+    * - 0x10
+      - Write Multiple Registers
+      - 連続する複数のレジスタ出力の値を設定します。
+    * - 0x11
+      - Report Slave ID
+      - 接続可能なスレーブ（サーバー）機器のIDを通知します。
+    * - 0x13
+      - Write Multiple Discrete Input
+      - 連続する複数のデジタル入力のビット値を設定します。
+    * - 0x14
+      - Write Multiple Input Registers
+      - 連続する複数のレジスタ入力の値を設定します。
+    * - 0x16
+      - Mark Write Registers
+      - レジスタ出力をマスクします。
+    * - 0x17
+      - Write and Read Registers
+      - 連続する複数のレジスタ出力の値を設定し、その値を読み込みます。
+
+ここで、0x09, 0x0a, 0x13, 0x14 物理的な入力を持たないPD Handler Modbus Serverの
+デジタル入力もしくはレジスタ入力をクラウド側から設定できるよう用意された、
+本来のModbusプロトコルには存在しない独自拡張のファンクションです。
+
+| Modbusファンクションコードは、PD Handler Modbusのコンフィグファイル
+  (pd_handler_modbus_client.conf, pd_handler_modbus_server.conf) もしくは下流方向制御においてJSON文字列の"function"キーに
+  設定されます。
+| また、CVSファイル（pd_handler_modbus_client.csv）においては「読込方式」として第３カラムに設定されます。
+| "0x"から始まる16進表記のファンクションコードを文字列と"function"キーに設定することも可能ですが、
+  16進表記とは別に整数表記と文字列表記を用いることも可能です。
+
+.. raw:: latex
+
+   \clearpage
+
+"function" キーに用いるファンクションコードの別称を示します。
+
+.. list-table:: "function"キーに用いるファンクションコードの別称
+    :widths: 10 30 10 30
+    :header-rows: 1
+
+    * - コード
+      - 名称
+      - 整数表記 
+      - 文字列表記
+    * - 0x01
+      - Read Coils
+      - 1
+      - read_coils
+    * - 0x02
+      - Read Discrete Input
+      - 2
+      - read_discrete_input
+    * - 0x03
+      - Read Holding Registers
+      - 3
+      - read_holding_registers
+    * - 0x04
+      - Read Input Registers
+      - 4
+      - read_input_registers
+    * - 0x05
+      - Write Single Coil
+      - 5
+      - write_single_coil
+    * - 0x06
+      - Write Single Register
+      - 6
+      - write_single_register
+    * - 0x07
+      - Read Exception Status
+      - 7
+      - read_exception_status
+    * - 0x09
+      - Write Single Discrete Input
+      - 9
+      - write_single_input_register
+    * - 0x0a
+      - Write Single Input Register
+      - 10
+      - write_single_input_register
+    * - 0x0f
+      - Write Multiple Coils
+      - 15
+      - write_multiple_coils
+    * - 0x10
+      - Write Multiple Registers
+      - 16
+      - write_multiple_register
+    * - 0x11
+      - Report Slave ID
+      - 17
+      - report_slave_id
+    * - 0x13
+      - Write Multiple Discrete Input
+      - 19
+      - write_muliple_discrete_input
+    * - 0x14
+      - Write Multiple Input Registers
+      - 20
+      - write_multiple_input_registers
+    * - 0x16
+      - Mark Write Registers
+      - 22
+      - mark_write_registers
+    * - 0x17
+      - Write and Read Registers
+      - 23
+      - write_and_read_registers
+
+.. raw:: latex
+
+   \clearpage
+
+.. toctree::
+   :maxdepth: 1
+
+   client
+   server
+   

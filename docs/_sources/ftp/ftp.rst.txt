@@ -1,0 +1,12 @@
+.. _ftp_guid:
+
+******************************
+FTP設定ガイド
+******************************
+
+.. toctree::
+   :maxdepth: 2
+
+   first/first
+   setting/setting
+   other/other

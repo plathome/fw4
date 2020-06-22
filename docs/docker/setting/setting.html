@@ -1,0 +1,357 @@
+
+<!DOCTYPE html>
+
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <title>Docker設定 &#8212; OpenBlocks FW4 1.0.0 ドキュメント</title>
+    <link rel="stylesheet" href="../../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../_static/translations.js"></script>
+    
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="検索" href="../../search.html" />
+    <link rel="next" title="その他" href="../other/other.html" />
+    <link rel="prev" title="はじめに" href="../first/first.html" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="content-language" content="ja" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <meta name="description" content="OpenBlocksに搭載しているFW4のドキュメントです。初期セットアップ方法や各種クラウドへのIoTデータの送受信(PD Repeater, PD Handler)、AirManageへの接続方法、自作開発に必用な情報等を記載しています。" />
+    <meta name="keywords" content="OpenBlocks,IoT,AirManage,WEB UI,PD,Repeater,Handler" />
+    <meta http-equiv="Content-Script-Type" content="text/JavaScript" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <meta name="subject" content="OpenBlocks FW4の各種ドキュメントです。" />
+    <meta name="abstract" content="OpenBlocksに搭載しているFW4のドキュメントです。初期セットアップ方法や各種クラウドへのIoTデータの送受信(PD Repeater, PD Handler)、AirManageへの接続方法、自作開発に必用な情報等を記載しています。" />
+    <meta name="owner" content="ぷらっとホーム株式会社" />
+    <meta name="copyright" content="2020 Plat'Home Co., Ltd. All rights reserved." />
+    <meta name="robots" content="INDEX,FOLLOW" />
+  </head><body>
+<div class="header">
+	<div class="header_container">
+		<a href="https://www.plathome.co.jp">
+			<!-- <img src="/_static/logo_plathome_technology.png" width="137.5" alt="Plat'Home"> -->
+			<img src="/_static/logo_plathome_white.png" width="137.5" alt="Plat'Home">
+		</a>
+		<div class="right">
+			<a class="headlink" href="https://www.plathome.co.jp">
+				会社TOP
+			</a>
+		</div>
+		<div class="right">
+			<a class="headlink" href="https://docs.plathome.co.jp">
+				HOME
+			</a>
+		</div>
+	</div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>ナビゲーション</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="総合索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="../other/other.html" title="その他"
+             accesskey="N">次へ</a> |</li>
+        <li class="right" >
+          <a href="../first/first.html" title="はじめに"
+             accesskey="P">前へ</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">OpenBlocks FW4 1.0.0 ドキュメント</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../docker.html" accesskey="U">Docker設定ガイド</a> &#187;</li> 
+      </ul>
+    </div>
+</div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="docker">
+<h1>Docker設定<a class="headerlink" href="#docker" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="web-uidocker">
+<h2>WEB UI込みDockerのインストール<a class="headerlink" href="#web-uidocker" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>本製品出荷時では、Docker及びDocker用WEB UIはインストールされておりません。そのため、WEB UIの「メンテナンス」→「機能拡張」タブからDocker及びDocker用WEB UIのインストールを行います。</p>
+<p><img alt="set01" src="../../_images/set011.png" /></p>
+<p>WEB UIの「メンテナンス」タブを選び、さらに「機能拡張」タブをクリックすると機能拡張用のパッケージを選択することができます。</p>
+<p><img alt="set02" src="../../_images/set021.png" /></p>
+<p>インストール機能のリストから「Docker(WEB UI込み)」を選択します。</p>
+<p>その後、インストールの「実行」ボタンを押し、インストールを行ってください。</p>
+<p>尚、インストール完了後には反映を行うため、本体再起動が必要となります。そのため、「メンテナンス」→「停止・再起動」から本製品の再起動を行ってください。</p>
+<p>Dockerをインストール際に、一部のドライバのコンパイルを行っております。これにより、インストールに時間がかかりますので、「状況確認」ボタン等にて進行状況をご確認ください。</p>
+</div>
+<div class="section" id="id1">
+<h2>WEB UIからのDocker使用について<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>Docker(WEB UI込み)パッケージがインストールされていると、WEB UIの「サービス」→「基本」タブに「Docker」が表示されます。</p>
+<p><img alt="set03" src="../../_images/set031.png" /></p>
+<p>「サービス」→「基本」タブより「Docker」リンクをクリックすると、ルートタブがサービス用の「ダッシュボード」／「基本」／「Docker」に切り替わります。</p>
+<p>※「サービス」→「基本」タブに表示されるリンク及びサービス用のルートタブは、「メンテナンス」→「機能拡張」タブよりインストールされたパッケージにより異なります。</p>
+</div>
+<div class="section" id="id2">
+<h2>Dockerコンテナ一覧<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>一度でも起動したことのあるコンテナの状況の確認、起動・停止等の制御を「Docker」→「コンテナ一覧」タブにて行えます。</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>■コンテナ稼働中の場合</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><img alt="set04" src="../../_images/set041.png" /></p></td>
+</tr>
+</tbody>
+</table>
+<p>コンテナが稼働中の場合、停止することができます。</p>
+<p>停止したいコンテナの「停止」ボタンを押すことにより、停止することが可能です。</p>
+<p>尚、稼働中のコンテナは公開ポート及びIPアドレスが表示されます。</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>■コンテナ停止中の場合</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><img alt="set05" src="../../_images/set051.png" /></p></td>
+</tr>
+</tbody>
+</table>
+<p>コンテナ停止中の場合、起動及び削除が行えます。</p>
+<p>起動させる場合には、起動したいコンテナの「起動」ボタンを押すことで起動します。</p>
+<p>対象コンテナを削除する場合には、「削除」ボタンを押してください。</p>
+</div>
+<div class="section" id="id3">
+<h2>Dockerコンテナリソース表示<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>一度でも起動したことのあるコンテナのリソース状況確認を「Docker」→「リソース」タブにて行えます。停止中のコンテナは一覧に表示されますが、停止しているため各リソースは未使用状態となります。</p>
+<p>また、本項にてリソースを確認し、各コンテナのリソースチューニングを行って下さい。</p>
+<p><img alt="set06" src="../../_images/set061.png" /></p>
+</div>
+<div class="section" id="id4">
+<h2>Dockerコンテナリソース設定更新<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>コンテナのリソース設定を「Docker」→「コンテナ設定更新」タブにて行えます。</p>
+<p>本項では、ホストや他コンテナに影響がでるようなコンテナを使用する場合に、リソースを制限させることを前提としております。</p>
+<p><img alt="set07" src="../../_images/set071.png" /></p>
+<p>リソース設定を更新するコンテナをプルダウンメニューから選択します。</p>
+<p>対象コンテナ選択後、オプションフォーム及び「更新」ボタンを選択できるようになります。</p>
+<p>リソース変更用のオプションを入力し、「更新」ボタンを押すことにより適用されます。</p>
+<p>本機能では、内部的にdocker updateコマンドを使用しております。</p>
+<p>そのため、オプションフォームにはdocker updateコマンドのリソース制御系のオプション部のみを記載してください。</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 64%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head" colspan="2"><p>■最大メモリを50Mbyteに制限する場合のサンプル</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td rowspan="2"><p>doceker updateコマンド時の例</p></td>
+<td rowspan="2"><p>#docker update --memory 50M --memory-swap 100M nginx_container</p></td>
+</tr>
+<tr class="row-odd"></tr>
+<tr class="row-even"><td rowspan="2"><p>オプションフォームに入力する場合の例</p></td>
+<td rowspan="2"><p>--memory 50M --memory-swap 100M</p></td>
+</tr>
+<tr class="row-odd"></tr>
+</tbody>
+</table>
+<p>また、docker updateコマンドの詳細については以下のページをご確認ください。</p>
+<blockquote>
+<div><p><a class="reference external" href="http://docs.docker.jp/engine/reference/commandline/update.html">http://docs.docker.jp/engine/reference/commandline/update.html</a></p>
+</div></blockquote>
+</div>
+<div class="section" id="id5">
+<h2>Dockerコンテナ初回起動<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>コンテナの作成・起動を「Docker」→「コンテナ初回起動」タブにて行えます。</p>
+<p>ローカル環境に対象イメージが存在しない場合、自動的にDocker Hubから取得を行います。</p>
+<p>※プライベートレジストリサーバのイメージを使用する場合には、「ダウンロード」タブにて事前にイメージを取得してください。</p>
+<p><img alt="set08" src="../../_images/set081.png" /></p>
+<p>■イメージ</p>
+<p>作成及び起動するコンテナのイメージ名を指定します。</p>
+<p>■RUNオプション</p>
+<p>docker runコマンドのオプションを指定します。尚、強制的にデタッチオプション(-d)が内部的に付与されます。</p>
+<p>Docker自体はインストール/再起動後、常時起動しております。WEB UIではDocker本体の再起動等を一部の保存イベントアクションにて行うことがあります。</p>
+<p>そのため、使用するコンテナはデタッチ(&quot;docker run -d&quot;)及び常時再起動ポリシー(&quot;docker run --restart=always&quot;)オプションを適用し運用してください。</p>
+<p>コンテナの管理上、コンテナ名のオプション指定(--name &lt;コンテナ名&gt;)についても使用を推奨いたします。</p>
+<p>また、docker runコマンドの詳細については以下のページをご確認ください。</p>
+<blockquote>
+<div><p><a class="reference external" href="http://docs.docker.jp/engine/reference/commandline/run.html">http://docs.docker.jp/engine/reference/commandline/run.html</a></p>
+</div></blockquote>
+</div>
+<div class="section" id="id6">
+<h2>Dockerローカルイメージ確認<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>ローカルに存在するDockerコンテナイメージの一覧の確認を「Docker」→「イメージ一覧」タブにて行えます。</p>
+<p><img alt="set09" src="../../_images/set091.png" /></p>
+<p>コンテナのもととなるイメージの一覧が表示されます。</p>
+<p>使用中/未使用ともに「削除」ボタンが表示されますが、使用中のイメージは削除が行えません。そのため、削除を行う場合には、「コンテナ一覧」にて事前に対象イメージを使用しているコンテナを削除してください。</p>
+</div>
+<div class="section" id="id7">
+<h2>Dockerイメージの検索<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>Docker Hubに公開されているコンテナイメージを「Docker」→「イメージ検索」タブにて行えます。</p>
+<p><img alt="set10" src="../../_images/set101.png" /></p>
+<p>検索キーワードフォームに検索対象文字列を入力後、検索ボタンをおすことにより検索されます。</p>
+<p>尚、最大検索件数は100件までとなっております。</p>
+<p><img alt="set11" src="../../_images/set111.png" /></p>
+<p>上図は&quot;nginx&quot;のイメージを検索した例となります。</p>
+<p>ダウンロードボタンを押すことにより、対象のイメージをダウンロードすることが行えます。</p>
+<p>尚、対象イメージをダウンロード中には進捗状況を確認できるよう「検索」ボタンの隣に「状況表示」ボタンが表示されます。こちらのボタンを押して進捗状況の確認を行ってください。</p>
+</div>
+<div class="section" id="id8">
+<h2>Dockerイメージのダウンロード<a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>Docker Hubに公開されているコンテナイメージやプライベートレジストリサーバに存在するコンテナイメージのダウンロードを「Docker」→「ダウンロード」タブにて行えます。</p>
+<p>ダウンロードするコンテナイメージがプライベートレジストリサーバの場合、事前に対象サーバーへのログイン情報が必要となります。こちらについては「レジストリ追加」タブにてログイン情報を設定してください。</p>
+<p><img alt="set12" src="../../_images/set121.png" /></p>
+<p>ダウンロードしたいイメージ名を指定します。</p>
+<p>特定のタグのイメージを取得する場合には、イメージ名[:タグ名]を指定してください。</p>
+<p>イメージ名入力後、ダウンロードボタンを押すことにより対象のイメージがダウンロードされます。</p>
+<p>ダウンロードボタンを押した場合、「状況確認」ボタンが表示されます。このボタンで進行状況が確認できますので、ダウンロードするイメージサイズが大きい場合等にご利用ください。</p>
+</div>
+<div class="section" id="id9">
+<h2>Dockerコンテナのログ確認<a class="headerlink" href="#id9" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>使用しているコンテナが出力しているログの確認を「Docker」→「ログ」タブにて行えます。</p>
+<p>尚、コンテナを削除した場合には対象コンテナのログについても削除される為、本項での確認も行えなくなります。</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><img alt="set13" src="../../_images/set131.png" /></p></td>
+<td><p><img alt="set14" src="../../_images/set14.png" /></p></td>
+</tr>
+</tbody>
+</table>
+<p>ログを確認したいコンテナをプルダウンメニューから選択します。</p>
+<p>コンテナを選択した場合、ログ表示領域が表示されます。</p>
+<p>また、対象コンテナの最終ログから一定量表示されます。</p>
+</div>
+<div class="section" id="id10">
+<h2>Dockerコンテナのネットワーク設定<a class="headerlink" href="#id10" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>作成したコンテナをデフォルトのネットワーク以外を用いたい場合、ネットワーク自体の作成及びコンテナとの接続・切断の設定を「Docker」→「ネットワーク」タブにて行えます。</p>
+<p><img alt="set15" src="../../_images/set15.png" /></p>
+<p>タブを選択すると上図のように表示されます。</p>
+<p><img alt="set16" src="../../_images/set16.png" /></p>
+<p>■コンテナネットワーク作成 (docker network createコマンド)</p>
+<p>作成したいネットワーク名及び作成オプションを指定し、「生成」ボタンを押すことでネットワークが生成されます。</p>
+<p><img alt="set17" src="../../_images/set17.png" /></p>
+<p>■コンテナネットワーク接続 (docker network connectコマンド)</p>
+<p>接続したいネットワーク名及び対象コンテナ、接続オプションを指定し、「接続」ボタンを押すことでネットワークが接続されます。</p>
+<p><img alt="set18" src="../../_images/set18.png" /></p>
+<p>■コンテナネットワーク切断 (docker network disconnectコマンド)</p>
+<p>切断したいネットワーク名及び対象コンテナを指定し、「切断」ボタンを押すことでネットワークが切断されます。</p>
+<p><img alt="set19" src="../../_images/set19.png" /></p>
+<p>■ネットワーク一覧</p>
+<p>Dockerのネットワークとして存在しているネットワークの一覧を表示します。作成したネットワークを削除したい場合には、「削除」ボタンを押すことにより削除可能です。</p>
+<p>尚、一部のネットワークはDockerの制約上削除することができません。</p>
+<p>また、docker netowork関連のコマンドの詳細は以下のページをご確認ください。</p>
+<p>■docker network createコマンド</p>
+<p><a class="reference external" href="http://docs.docker.jp/engine/reference/commandline/network_create.html">http://docs.docker.jp/engine/reference/commandline/network_create.html</a></p>
+<p>■docker network connectコマンド</p>
+<p><a class="reference external" href="http://docs.docker.jp/engine/reference/commandline/network_connect.html">http://docs.docker.jp/engine/reference/commandline/network_connect.html</a></p>
+<p>■docker network disconnectコマンド</p>
+<p><a class="reference external" href="http://docs.docker.jp/engine/reference/commandline/network_disconnect.html">http://docs.docker.jp/engine/reference/commandline/network_disconnect.html</a></p>
+</div>
+<div class="section" id="id11">
+<h2>プライベートレジストリサーバーの認証設定<a class="headerlink" href="#id11" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>第3者へ公開したくないコンテナ等を使用する場合、プライベートレジストリサーバーを用いる場合があります。このプライベートレジストリサーバーを用いる場合、認証情報必要となります。認証情報の設定を「Docker」→「レジストリ追加」タブにて行えます。</p>
+<p><img alt="set20" src="../../_images/set20.png" /></p>
+<p>ログインしたいプライベートレジストリサーバーに関する情報を設定します。</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 31%" />
+<col style="width: 69%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>項目</p></th>
+<th class="head"><p>説明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ログインサーバー</p></td>
+<td><p>ログインするプライベートレジストリサーバーのFQDNまたはIPアドレスを指定します。</p></td>
+</tr>
+<tr class="row-odd"><td><p>ユーザー名</p></td>
+<td><p>ログインする際のユーザー名を指定します。</p></td>
+</tr>
+<tr class="row-even"><td><p>パスワード</p></td>
+<td><p>ログイン時のパスワードを指定します。</p></td>
+</tr>
+</tbody>
+</table>
+<p><img alt="set21" src="../../_images/set21.png" /></p>
+<p>ログインに成功した場合、上図のようにレジストリ一覧に追加されます。</p>
+<p>尚、対象レジストリサーバーからログアウトを行う場合には、「ログアウト」ボタンを押して下さい。</p>
+<p>ログインボタンを押した段階で実際にログイン処理が適用されます。そのため、プライベートレジストリサーバーへネットワーク接続が行える環境にて実施してください。</p>
+</div>
+<div class="section" id="id12">
+<h2>ボリューム一覧表示及び削除<a class="headerlink" href="#id12" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>一部のコンテナは、コンテナ及びイメージの削除を行った場合でもストレージ上に存在し続けることがあります。その場合、意図的にボリュームを削除する必要があります。</p>
+<p>Docker管理がディスクボリュームの一覧を「Docker」→「ボリューム一覧」タブにて確認及び削除することができます。</p>
+<p><img alt="set22" src="../../_images/set22.png" /></p>
+<p>存在している一覧のボリュームを表示します。</p>
+<p>「未使用データ削除」ボタンを押すことにより、既に不要となっているボリュームを削除することができます。</p>
+<p>※未使用データ削除はDocker DAEMONが不要と判断しているデータを削除します。停止中のコンテナ等についても削除される恐れがありますので、必要なコンテナが稼働中の状態にて実施してください。</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Docker設定</a><ul>
+<li><a class="reference internal" href="#web-uidocker">WEB UI込みDockerのインストール</a></li>
+<li><a class="reference internal" href="#id1">WEB UIからのDocker使用について</a></li>
+<li><a class="reference internal" href="#id2">Dockerコンテナ一覧</a></li>
+<li><a class="reference internal" href="#id3">Dockerコンテナリソース表示</a></li>
+<li><a class="reference internal" href="#id4">Dockerコンテナリソース設定更新</a></li>
+<li><a class="reference internal" href="#id5">Dockerコンテナ初回起動</a></li>
+<li><a class="reference internal" href="#id6">Dockerローカルイメージ確認</a></li>
+<li><a class="reference internal" href="#id7">Dockerイメージの検索</a></li>
+<li><a class="reference internal" href="#id8">Dockerイメージのダウンロード</a></li>
+<li><a class="reference internal" href="#id9">Dockerコンテナのログ確認</a></li>
+<li><a class="reference internal" href="#id10">Dockerコンテナのネットワーク設定</a></li>
+<li><a class="reference internal" href="#id11">プライベートレジストリサーバーの認証設定</a></li>
+<li><a class="reference internal" href="#id12">ボリューム一覧表示及び削除</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>前のトピックへ</h4>
+  <p class="topless"><a href="../first/first.html"
+                        title="前の章へ">はじめに</a></p>
+  <h4>次のトピックへ</h4>
+  <p class="topless"><a href="../other/other.html"
+                        title="次の章へ">その他</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">クイック検索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="検索" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020 Plat&#39;Home Co., Ltd. All rights reserved..
+    </div>
+  </body>
+</html>

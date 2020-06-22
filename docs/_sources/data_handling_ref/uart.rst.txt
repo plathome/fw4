@@ -1,0 +1,174 @@
+.. _data_handler_reference_uart:
+
+****************************
+PD Handler UART
+****************************
+
+================
+デォルトパス
+================
+
+PD Handler UART に関連するファイルのデォルトパスは次の通りです。
+
+.. list-table:: PD Handler UART に関連するファイルのデォルトパス
+    :header-rows: 1
+
+    * - パス名
+      - 説明
+    * - /usr/sbin/pd-handler-uart
+      - 常駐実行オブジェクト（デーモン）
+    * - /etc/init.d/pd-handler-uart
+      - RCファイル
+    * - /var/webui/config/pd-handler-uart.conf
+      - 設定ファイル
+    * - /var/run/pd-handler-uart.pid
+      - PIDファイル
+    * - /var/webui/pd-logs/pd-handler-uart.log
+      - ログファイル
+    * - /opt/pd/lua/uart/enocean/devices/\*.lua
+      - Lua拡張用ファイル
+
+======================
+設定ファイルの書式
+======================
+
+EnOcean
+============
+
+構文
+---------
+
+.. literalinclude:: pd-handler-enocean.conf
+
+ルートオブジェクト
+----------------------
+
+.. list-table:: ルートオブジェクト
+    :widths: 20 12 68
+    :header-rows: 1
+    
+    * - キー
+      - データ型
+      - 説明
+    * - キー
+      - データ型
+      - 説明
+    * - prototype
+      - 文字列
+      - 'enocean'
+    * - enocean
+      - JSON obj
+      - enocean オブジェクト
+    * - enocean_device
+      - JSON配列
+      - enocean_deviceオブジェクト
+
+enocean オブジェクト
+------------------------
+
+.. list-table:: enocean オブジェクト
+    :widths: 20 12 68
+    :header-rows: 1
+    
+    * - キー
+      - データ型
+      - 説明
+    * - serial_port
+      - 文字列
+      - デフォルトは "/dev/ttyEX2"
+    * - raw_data_mode
+      - 論理値
+      - trueなら受信データをそのまま送信
+
+enocean_deviceオ ブジェクト
+------------------------------
+
+.. list-table:: enocean_deviceオブジェクト
+    :widths: 20 12 68
+    :header-rows: 1
+    
+    * - キー
+      - データ型
+      - 説明
+    * - enable
+      - 論理値
+      - データを送信するか否か
+    * - localname
+      - 文字列
+      - デバイスのローカル名(デバイス番号). (32byte)
+    * - push_to
+      - 文字列
+      - 制御メッセージの送り先ソケット名. 文字列の先頭が'@' の場合はabstract　namespace と解釈します. 
+        空の場合は、デフォルト値 '\@/pd_repeater/<localbame>.sock' が設定されます.
+    * - deviceid
+      - 文字列
+      - ID
+    * - memo
+      - 文字列
+      - 出力に付加されるユーザー定義文字列. (256byte)
+    * - eep
+      - 文字列
+      - EnOcean Equipment Profiles
+
+
+Wi-SUN Bルート
+==================
+
+構文
+---------
+
+.. literalinclude:: pd-handler-wisun_b.conf
+
+ルートオブジェクト
+----------------------
+
+.. list-table:: ルートオブジェクト
+    :widths: 20 12 68
+    :header-rows: 1
+    
+    * - キー
+      - データ型
+      - 説明
+    * - キー
+      - データ型
+      - 説明
+    * - prototype
+      - 文字列
+      - 'wisun'
+    * - wisun
+      - JSON obj
+      - wisun オブジェクト
+
+wisun オブジェクト
+------------------------
+
+.. list-table:: wisun オブジェクト
+    :widths: 20 12 68
+    :header-rows: 1
+    
+    * - キー
+      - データ型
+      - 説明
+    * - enable
+      - 論理値
+      - データを送信するか否か
+    * - localname
+      - 文字列
+      - デバイスのローカル名(デバイス番号). (32byte)
+    * - push_to
+      - 文字列
+      - 制御メッセージの送り先ソケット名. 文字列の先頭が'@' の場合はabstract　namespace と解釈します. 
+        空の場合は、デフォルト値 '\@/pd_repeater/<localbame>.sock' が設定されます.
+    * - serial_port
+      - 文字列
+      - デフォルトは "/dev/ttyEX2"
+    * - routeb_id
+      - 文字列
+      - Bルート認証ID、32桁の16進数（0～9, A～F).
+    * - password
+      - 文字列
+      - Bルート認証のパスワード、英数字12文字（大文字・小文字区別なし）
+
+.. raw:: latex
+
+   \clearpage 

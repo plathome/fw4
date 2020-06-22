@@ -1,0 +1,96 @@
+.. _pd_repeater:
+
+******************************
+送受信設定（PD Repeater）
+******************************
+
+| WEB UIの「IoTデータ」→「送受信設定」タブより、データの送信先もしくは制御メッセージの受信先の設定を行います。　
+| 送受信設定には、送受信先毎に「送受信設定」メニューより設定される個々のデバイスに依存しない設定と
+  各デバイス設定メニューより設定されるデバイス毎の設定があります。
+
+送受信設定
+==============================
+
+| 「IoTデータ」→「送受信設定」タブの「送受信設定」メニューより、
+  送受信先の選択と送受信設定の内個々のデバイスに依存しない設定を行います。　
+| 本体内(lo)を除き最大４つの送受信先を選択することができます。
+
+.. figure:: set_control_txrx.png
+  :scale: 100%
+
+.. list-table:: 送受信設定の設定項目
+    :widths: 38 62
+    :header-rows: 1
+    
+    * - 設定項目
+      - 説明
+    * - :ref:`pd_repeater_lo`
+      - BLEデバイスのJSONテーブルと温度／湿度グラフを「IoTデータ」→「データ表示」タブに出力します。
+    * - :ref:`pd_repeater_dexpf`
+      - 送受信先としてDEXPFを選択します。
+    * - :ref:`pd_repeater_dexpf_ws`
+      - 送受信先としてDEXPFを選択します。接続プロトコルとしてWebsocket over MQTTを用います。
+    * - :ref:`pd_repeater_iothub`
+      - 送受信先としてMicrosoft Azure IoT Hubを選択します。
+        尚、Azure IoT Edgeに対して送信する場合には、本項目を選択します。
+    * - :ref:`pd_repeater_iothub_ws`
+      - 送受信先としてMicrosoft Azure IoT Hubを選択します。
+        接続プロトコルとしてWebsocket over MQTTを用います。
+    * - :ref:`pd_repeater_awsiot`
+      - 送受信先としてAmazon AWS IoTを選択します。
+    * - :ref:`pd_repeater_awsiot_ws`
+      - 送受信先としてAmazon AWS IoTを選択します。
+        接続プロトコルとしてWebsocket over MQTTを用います。
+    * - :ref:`pd_repeater_iotcore`
+      - 送受信先としてGoogle IoT Coreを選択します。
+    * - :ref:`pd_repeater_w4g`
+      - 送受信先としてIBM Watson IoT for Gatewayを選択します。
+    * - :ref:`pd_repeater_eventhub`
+      - 送信先としてMicrosoft Azure Event hubsを選択します。
+    * - :ref:`pd_repeater_kinesis`
+      - 送信先としてAmazon Kinesisを選択します。
+    * - :ref:`pd_repeater_w4d`
+      - 送受信先としてIBM Watson IoT for Deviceを選択します。
+    * - :ref:`pd_repeater_t4d`
+      - 送信先としてNTT docomo Toami for DOCOMOを選択します。
+    * - :ref:`pd_repeater_sbiot`
+      - 送信先としてSoftBankスマ可視専用クラウドを選択します。
+    * - :ref:`pd_repeater_kddi_std`
+      - 送信先としてKDDI IoT クラウド Standardを選択します。
+    * - :ref:`pd_repeater_pd_web`
+      - 送受先として弊社独自仕様のWEBサーバーを選択します。
+    * - :ref:`pd_repeater_web`
+      - 送信先として汎用のWEBサーバーを選択します。
+    * - :ref:`pd_repeater_mqtt`
+      - 送受信先として汎用のMQTTサーバーを選択します。
+    * - :ref:`pd_repeater_ltcp`
+      - 送受信先として汎用のTCPサーバーを選択します。
+    * - :ref:`pd_repeater_pd_ex`
+      - 送受信先としてPD Exchangeを選択します。
+    * - :ref:`pd_repeater_lsocket`
+      - 送信先としてUNIXドメインソケットを選択します。
+        Node-REDパッケージがインストールされている場合のみ表示されます。
+
+.. raw:: latex
+
+   \clearpage
+
+.. toctree::
+   :maxdepth: 3
+
+   sub/sub
+   beacon/beacon
+   ble/ble
+   enocean/enocean
+   wi-sun_b/wi-sun_b
+   modbus_client/modbus_client
+   modbus_server/modbus_server
+   modbus2_client/modbus2_client
+   modbus2_server/modbus2_server
+   sw4x/sw4x
+   hvsmc/hvsmc
+   user_dev/user_dev
+   down_stream/down_stream
+   log/log
+   sensor_data/sensor_data
+   

@@ -1,0 +1,1699 @@
+.. _data_form_uart:
+
+*******************************
+PD Handler UART
+*******************************
+
+.. note::
+    ログに出力されるJSONデータは順不同です。
+
+.. _data_form_enocean:
+
+====================
+EnOcean with Lua
+====================
+
+.. note::
+    ファームウェア 1.x、2.x は、Lua に対応しておりません。
+
+人感センサー (EEP : A50701)
+======================================
+
+■ データサンプル ::
+
+    {
+        "deviceId": "0400197A",
+        "time": "2016-03-14T16:17:02.269+09:00",
+        "svc": 4.7647,
+        "pirs": "on",
+        "EEP": "A50701",
+        "memo": "Occupancy Sensor",
+        "rssi": -71
+    }
+
+.. list-table:: 人感センサー (EEP : A50701)
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - deviceId
+      - ID
+      - String
+      - 〇	
+      -
+    * - 2
+      - time
+      - データ取得日時
+      - String
+      - 〇
+      - ISO8601 拡張書式
+    * - 3
+      - EEP
+      - EnOcean プロファイル
+      - String
+      - 〇
+      - WEB UI にて設定した値
+    * - 4
+      - rssi
+      - 受信信号強度
+      - Integer
+      - 〇
+      - 
+    * - 5
+      - memo
+      - メモ
+      - String
+      - 
+      - WEB UIにて設定した値
+    * - 6
+      - svc
+      - 供給電圧
+      - Double
+      - 
+      - [V]
+    * - 7
+      - pirs
+      - 検知結果
+      - String
+      - 〇
+      - 'on' または 'off'
+
+.. raw:: latex
+
+   \clearpage 
+
+あけしめセンサー (EEP : D50001)
+======================================
+
+■ データサンプル ::
+
+    {
+        "deviceId": "04000A1B",
+        "time": "2016-03-14T16:16:52.525+09:00",
+        "contact": 0,
+        "EEP": "D50001",
+        "memo": "Contacts and Switches",
+        "rssi": -65
+    }
+
+.. list-table:: あけしめセンサー (EEP : D50001)
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - deviceId
+      - ID
+      - String
+      - 〇	
+      -
+    * - 2
+      - time
+      - データ取得日時
+      - String
+      - 〇
+      - ISO8601 拡張書式
+    * - 3
+      - EEP
+      - EnOcean プロファイル
+      - String
+      - 〇
+      - WEB UI にて設定した値
+    * - 4
+      - rssi
+      - 受信信号強度
+      - Integer
+      - 〇
+      - 
+    * - 5
+      - memo
+      - メモ
+      - String
+      - 
+      - WEB UIにて設定した値
+    * - 6
+      - contact
+      - 開閉ステータス
+      - Integer
+      - 〇
+      - 0: Open, 1: Closed
+
+温度センサー (EEP : A50205)
+======================================
+
+■ データサンプル ::
+
+    {
+        "deviceId": "04000C66",
+        "time": "2016-03-14T16:16:59.958+09:00",
+        "temperature": 25.25,
+        "EEP": "A50205",
+        "memo": "Temperature Sensors",
+        "rssi": -82
+    }
+
+.. list-table:: 温度センサー (EEP : A50205)
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - deviceId
+      - ID
+      - String
+      - 〇	
+      -
+    * - 2
+      - time
+      - データ取得日時
+      - String
+      - 〇
+      - ISO8601 拡張書式
+    * - 3
+      - EEP
+      - EnOcean プロファイル
+      - String
+      - 〇
+      - WEB UI にて設定した値
+    * - 4
+      - rssi
+      - 受信信号強度
+      - Integer
+      - 〇
+      - 
+    * - 5
+      - memo
+      - メモ
+      - String
+      - 
+      - WEB UIにて設定した値
+    * - 6
+      - temperature
+      - 温度
+      - Double
+      - 〇
+      - [℃]
+
+.. raw:: latex
+
+   \clearpage 
+
+温湿度センサー (EEP : A50402)
+======================================
+
+■ データサンプル ::
+
+    {
+        "deviceId": "0400267B",
+        "time": "2017-08-31T14:26:39.283+09:00",
+        "temperature": 28.16,
+        "humidity": 62.20,
+        "EEP": "A50402",
+        "memo": "Temperature and Humidity Sensor",
+        "rssi": -66
+    }
+
+.. list-table:: 温湿度センサー (EEP : A50402)
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - deviceId
+      - ID
+      - String
+      - 〇	
+      -
+    * - 2
+      - time
+      - データ取得日時
+      - String
+      - 〇
+      - ISO8601 拡張書式
+    * - 3
+      - EEP
+      - EnOcean プロファイル
+      - String
+      - 〇
+      - WEB UI にて設定した値
+    * - 4
+      - rssi
+      - 受信信号強度
+      - Integer
+      - 〇
+      - 
+    * - 5
+      - memo
+      - メモ
+      - String
+      - 
+      - WEB UIにて設定した値
+    * - 6
+      - temperature
+      - 温度
+      - Double
+      - 〇
+      - [℃]
+    * - 7
+      - humidity
+      - 湿度
+      - Double
+      - 〇
+      - [%]
+
+温湿度センサー (EEP : A50403)
+======================================
+
+■ データサンプル ::
+
+    {
+        "deviceId": "040005C6",
+        "time": "2016-03-14T16:15:58.904+09:00",
+        "temperature": 25.12,
+        "humidity": 35.68,
+        "EEP": "A50403",
+        "memo": "Temperature and Humidity Sensor",
+        "rssi": -59
+    }
+
+.. list-table:: 温湿度センサー (EEP : A50403)
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - deviceId
+      - ID
+      - String
+      - 〇	
+      -
+    * - 2
+      - time
+      - データ取得日時
+      - String
+      - 〇
+      - ISO8601 拡張書式
+    * - 3
+      - EEP
+      - EnOcean プロファイル
+      - String
+      - 〇
+      - WEB UI にて設定した値
+    * - 4
+      - rssi
+      - 受信信号強度
+      - Integer
+      - 〇
+      - 
+    * - 5
+      - memo
+      - メモ
+      - String
+      - 
+      - WEB UIにて設定した値
+    * - 6
+      - temperature
+      - 温度
+      - Double
+      - 〇
+      - [℃]
+    * - 7
+      - humidity
+      - 湿度
+      - Double
+      - 〇
+      - [%]
+
+.. raw:: latex
+
+   \clearpage 
+
+2 相式 CT センサー (EEP : A51201)
+======================================
+
+■ データサンプル ::
+
+    {
+        "deviceId": "0400AE56",
+        "time": "2016-03-14T16:15:58.904+09:00",
+        "electricity": 15.0,
+        "dataType":"W",
+        "EEP": "A51201",
+        "memo": "Automated Meter Reading (AMR)",
+        "rssi": -87
+    }
+
+.. list-table:: 2 相式 CT センサー (EEP : A51201)
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - deviceId
+      - ID
+      - String
+      - 〇	
+      -
+    * - 2
+      - time
+      - データ取得日時
+      - String
+      - 〇
+      - ISO8601 拡張書式
+    * - 3
+      - EEP
+      - EnOcean プロファイル
+      - String
+      - 〇
+      - WEB UI にて設定した値
+    * - 4
+      - rssi
+      - 受信信号強度
+      - Integer
+      - 〇
+      - 
+    * - 5
+      - memo
+      - メモ
+      - String
+      - 
+      - WEB UIにて設定した値
+    * - 6
+      - electricity
+      - 電流/電圧/電力値
+      - Double
+      - 〇
+      - 現在値または累積値
+    * - 7
+      - dataType
+      - データタイプ
+      - String
+      - 〇
+      - 'kWh' または 'W'
+
+3 相式 CT センサー (EEP : D23202)
+======================================
+
+■ データサンプル ::
+
+    {
+        "deviceId": "04015100",	
+        "time": "2016-03-14T16:15:58.904+09:00",
+        "channel1": 30.0,
+        "channel2": 15.0,
+        "channel3": 10.0,
+        "EEP": "D23202",
+        "memo": "A.C. Current Clamp",
+        "rssi": -63
+    }
+
+.. list-table:: 3 相式 CT センサー (EEP : D23202)
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - deviceId
+      - ID
+      - String
+      - 〇	
+      -
+    * - 2
+      - time
+      - データ取得日時
+      - String
+      - 〇
+      - ISO8601 拡張書式
+    * - 3
+      - EEP
+      - EnOcean プロファイル
+      - String
+      - 〇
+      - WEB UI にて設定した値
+    * - 4
+      - rssi
+      - 受信信号強度
+      - Integer
+      - 〇
+      - 
+    * - 5
+      - memo
+      - メモ
+      - String
+      - 
+      - WEB UIにて設定した値 
+    * - 6
+      - channel1
+      - チャネル1電流値
+      - Double
+      - 〇
+      - [A] (現在値)
+    * - 7
+      - channel2
+      - チャネル2電流値
+      - Double
+      - 〇
+      - [A] (現在値)
+    * - 8
+      - channel3
+      - チャネル3電流値
+      - Double
+      - 〇
+      - [A] (現在値)
+
+.. raw:: latex
+
+   \clearpage
+
+大気圧センサー (EEP : A50501)
+======================================
+
+■ データサンプル ::
+
+    {
+        "deviceId": "0401520B",
+        "time": "2016-06-07T15:58:22.927+09:00",
+        "barometer": 1010.85,
+        "telegram_type": "Hearbeat",
+        "EEP": "A50501",
+        "memo": "barometer",
+        "rssi": -71
+    }
+
+.. list-table:: 大気圧センサー (EEP : A50501)
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - deviceId
+      - ID
+      - String
+      - 〇	
+      -
+    * - 2
+      - time
+      - データ取得日時
+      - String
+      - 〇
+      - ISO8601 拡張書式
+    * - 3
+      - EEP
+      - EnOcean プロファイル
+      - String
+      - 〇
+      - WEB UI にて設定した値
+    * - 4
+      - rssi
+      - 受信信号強度
+      - Integer
+      - 〇
+      - 
+    * - 5
+      - memo
+      - メモ
+      - String
+      - 
+      - WEB UIにて設定した値 
+    * - 6
+      - barometer
+      - 気圧
+      - Double
+      - 〇
+      - [hPa]
+    * - 7
+      - telegram_type
+      - 電文タイプ
+      - String
+      - 〇
+      - 'Hearbeat' または 'Event triggered'
+
+.. raw:: latex
+
+   \clearpage
+
+照度センサー (EEP : A50601)
+======================================
+
+■ データサンプル ::
+
+    {
+        "deviceId": "04007AF5",	
+        "time": "2016-06-07T15:58:28.150+09:00",
+        "svc": 2.7800,
+        "ill1": 600.0000,
+        "ill2": 300.0000,
+        "EEP": "A50601",
+        "memo": "ill",
+        "rssi": -65,
+        "rs":0
+    }
+
+.. list-table:: 照度センサー (EEP : A50601)
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - deviceId
+      - ID
+      - String
+      - 〇	
+      -
+    * - 2
+      - time
+      - データ取得日時
+      - String
+      - 〇
+      - ISO8601 拡張書式
+    * - 3
+      - EEP
+      - EnOcean プロファイル
+      - String
+      - 〇
+      - WEB UI にて設定した値
+    * - 4
+      - rssi
+      - 受信信号強度
+      - Integer
+      - 〇
+      - 
+    * - 5
+      - memo
+      - メモ
+      - String
+      - 
+      - WEB UIにて設定した値 
+    * - 6
+      - svc
+      - 供給電圧
+      - Double
+      - 〇
+      - [V]
+    * - 7
+      - ill1
+      - 照度1
+      - Double
+      - 〇
+      - [lux]
+    * - 8
+      - ill2
+      - 照度2
+      - Double
+      - 〇
+      - [lux]
+    * - 9
+      - rs
+      - 測定範囲
+      - Integer
+      - 〇
+      - 
+
+.. raw:: latex
+
+   \clearpage
+
+照度センサー (EEP : A50602)
+======================================
+
+■ データサンプル ::
+
+    {
+        "deviceId": "04004715",	
+        "time": "2016-06-07T15:58:28.150+09:00",
+        "svc": 2.7800,
+        "ill1": 260.0000,
+        "ill2": 260.0000,
+        "EEP": "A50602",
+        "memo": "ill",
+        "rssi": -65,
+        "rs":0
+    }
+
+.. list-table:: 照度センサー (EEP : A50602)
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - deviceId
+      - ID
+      - String
+      - 〇	
+      -
+    * - 2
+      - time
+      - データ取得日時
+      - String
+      - 〇
+      - ISO8601 拡張書式
+    * - 3
+      - EEP
+      - EnOcean プロファイル
+      - String
+      - 〇
+      - WEB UI にて設定した値
+    * - 4
+      - rssi
+      - 受信信号強度
+      - Integer
+      - 〇
+      - 
+    * - 5
+      - memo
+      - メモ
+      - String
+      - 
+      - WEB UIにて設定した値 
+    * - 6
+      - svc
+      - 供給電圧
+      - Double
+      - 〇
+      - [V]
+    * - 7
+      - ill1
+      - 照度1
+      - Double
+      - 〇
+      - [lux]
+    * - 8
+      - ill2
+      - 照度2
+      - Double
+      - 〇
+      - [lux]
+    * - 9
+      - rs
+      - 測定範囲
+      - Integer
+      - 〇
+      - 
+
+.. raw:: latex
+
+   \clearpage
+
+照度センサー (EEP : A50605)
+======================================
+
+■ データサンプル ::
+
+    {
+        "deviceId": "04004F5F",	
+        "time": "2016-06-07T15:58:28.150+09:00",
+        "svc": 2.7800,
+        "ill1": 360.0000,
+        "ill2": 380.0000,
+        "EEP": "A50605",
+        "memo": "ill",
+        "rssi": -65,
+        "rs":0
+    }
+
+.. list-table:: 照度センサー (EEP : A50605)
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - deviceId
+      - ID
+      - String
+      - 〇	
+      -
+    * - 2
+      - time
+      - データ取得日時
+      - String
+      - 〇
+      - ISO8601 拡張書式
+    * - 3
+      - EEP
+      - EnOcean プロファイル
+      - String
+      - 〇
+      - WEB UI にて設定した値
+    * - 4
+      - rssi
+      - 受信信号強度
+      - Integer
+      - 〇
+      - 
+    * - 5
+      - memo
+      - メモ
+      - String
+      - 
+      - WEB UIにて設定した値 
+    * - 6
+      - svc
+      - 供給電圧
+      - Double
+      - 〇
+      - [V]
+    * - 7
+      - ill1
+      - 照度1
+      - Double
+      - 〇
+      - [lux]
+    * - 8
+      - ill2
+      - 照度2
+      - Double
+      - 〇
+      - [lux]
+    * - 9
+      - rs
+      - 測定範囲
+      - Integer
+      - 〇
+      - 
+
+.. raw:: latex
+
+   \clearpage
+
+CO2 センサー (EEP : A50904)
+======================================
+
+■ データサンプル ::
+
+    {
+        "deviceId": "040004FF",
+        "time": "2016-06-07T15:34:15.126+09:00",
+        "humidity": 52.000000,	
+        "temperature": 28.000000,
+        "concentration": 690,
+        "EEP": "A50904",
+        "memo": "CO2",
+        "rssi": -84	
+    }
+
+.. list-table:: CO2 センサー (EEP : A50904)
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - deviceId
+      - ID
+      - String
+      - 〇	
+      -
+    * - 2
+      - time
+      - データ取得日時
+      - String
+      - 〇
+      - ISO8601 拡張書式
+    * - 3
+      - EEP
+      - EnOcean プロファイル
+      - String
+      - 〇
+      - WEB UI にて設定した値
+    * - 4
+      - rssi
+      - 受信信号強度
+      - Integer
+      - 〇
+      - 
+    * - 5
+      - memo
+      - メモ
+      - String
+      - 
+      - WEB UIにて設定した値
+    * - 6
+      - temperature
+      - 温度
+      - Double
+      - 〇
+      - [℃]
+    * - 7
+      - humidity
+      - 湿度
+      - Double
+      - 〇
+      - [%]
+    * - 8	
+      - concentration
+      - CO2濃度
+      - Integer
+      - 〇
+      - [ppm]
+
+.. raw:: latex
+
+   \clearpage
+
+デジタル入力センサー (EEP : A53005)
+=======================================
+
+■ データサンプル ::
+
+    {
+        "deviceId": "04002D68",
+        "time": "2016-06-07T15:44:09.621+09:00",
+        "vdd": 3.1576,
+        "signal_type": "Heart beat signal",
+        "count": 127,
+        "EEP": "A53005",
+        "memo": "button",
+        "rssi": -58
+    }
+
+.. list-table:: デジタル入力センサー (EEP : A53005)
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - deviceId
+      - ID
+      - String
+      - 〇	
+      -
+    * - 2
+      - time
+      - データ取得日時
+      - String
+      - 〇
+      - ISO8601 拡張書式
+    * - 3
+      - EEP
+      - EnOcean プロファイル
+      - String
+      - 〇
+      - WEB UI にて設定した値
+    * - 4
+      - rssi
+      - 受信信号強度
+      - Integer
+      - 〇
+      - 
+    * - 5
+      - memo
+      - メモ
+      - String
+      - 
+      - WEB UIにて設定した値
+    * - 6
+      - vdd
+      - 供給電圧
+      - Double
+      - 〇
+      - [V]
+    * - 7
+      - signal_type
+      - 信号種別
+      - String
+      - 〇
+      - 'Normal signal' または 'Heart beat signal'
+    * - 8
+      - count
+      - 序数
+      - Integer
+      - 〇
+      - 0～127
+ 
+.. raw:: latex
+
+   \clearpage
+
+2 ロッカースイッチ (EEP : F60204)
+=======================================
+
+■ データサンプル ::
+
+    {
+        "deviceId": "002BC9C8",
+        "time": "2016-07-26T10:45:09.625+09:00",
+        "ebo": "pressed",
+        "rbi": "released",
+        "rbo": "released",
+        "rai": "pressed",
+        "rao": "released",
+        "EEP": "F60204",
+        "memo": "2 rocker switch",
+        "rssi": -70
+    }
+
+.. list-table:: 2 ロッカースイッチ (EEP : F60204)
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - deviceId
+      - ID
+      - String
+      - 〇	
+      -
+    * - 2
+      - time
+      - データ取得日時
+      - String
+      - 〇
+      - ISO8601 拡張書式
+    * - 3
+      - EEP
+      - EnOcean プロファイル
+      - String
+      - 〇
+      - WEB UI にて設定した値
+    * - 4
+      - rssi
+      - 受信信号強度
+      - Integer
+      - 〇
+      - 
+    * - 5
+      - memo
+      - メモ
+      - String
+      - 
+      - WEB UIにて設定した値
+    * - 6
+      - ebo
+      - エネルギー状態
+      - String
+      - 〇
+      - 'pressed' または 'released'
+    * - 7
+      - rbi
+      - ロッカースイッチBの状態I
+      - String
+      - 〇
+      - 'pressed' または 'released'
+    * - 8
+      - rbo
+      - ロッカースイッチBの状態O
+      - String
+      - 〇
+      - 'pressed' または 'released'
+    * - 9
+      - rai
+      - ロッカースイッチAの状態I
+      - String
+      - 〇
+      - 'pressed' または 'released'
+    * - 10
+      - rao
+      - ロッカースイッチAの状態O
+      - String
+      - 〇
+      - 'pressed' または 'released'
+
+.. raw:: latex
+
+   \clearpage 
+
+マルチセンサ (EEP : D21441)
+=======================================
+
+■ データサンプル ::
+
+    {
+        "deviceId": "04117EAE",
+        "time": "2020-06-10T10:45:09.625+09:00",
+        "temperature": 24.25,
+        "humidity": 50.51,
+        "ill": 153,
+        "accelS": 0,
+        "accelX": 0.01,
+        "accelY": -0.02,
+        "accelZ": 1.01,
+        "contact": 0,
+        "EEP": "D21441",
+        "memo": "multi function sensors",
+        "rssi": -81
+    }
+
+.. list-table:: マルチセンサ (EEP : D21441)
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - deviceId
+      - ID
+      - String
+      - 〇
+      -
+    * - 2
+      - time
+      - データ取得日時
+      - String
+      - 〇
+      - ISO8601 拡張書式
+    * - 3
+      - EEP
+      - EnOcean プロファイル
+      - String
+      - 〇
+      - WEB UI にて設定した値
+    * - 4
+      - rssi
+      - 受信信号強度
+      - Integer
+      - 〇
+      - 
+    * - 5
+      - memo
+      - メモ
+      - String
+      - 
+      - WEB UIにて設定した値
+    * - 6
+      - temperature
+      - 温度
+      - Double
+      - 〇
+      - [℃]
+    * - 7
+      - humidity
+      - 湿度
+      - Double
+      - 〇
+      - [%]
+    * - 8
+      - accelS
+      - 加速度ステータス
+      - Integer
+      - 〇
+      - 
+    * - 9
+      - accelX
+      - X方向加速度
+      - Double
+      - 〇
+      - [G]
+    * - 10
+      - accelY
+      - Y方向加速度
+      - Double
+      - 〇
+      - [G]
+    * - 11
+      - accelZ
+      - Z方向加速度
+      - Double
+      - 〇
+      - [G]
+    * - 12
+      - contact
+      - マグネットコンタクト
+      - Integer
+      - 〇
+      - 0: Open, 1: Closed
+
+.. raw:: latex
+
+   \clearpage 
+
+マルチセンサ (EEP : D21440)
+=======================================
+
+■ データサンプル ::
+
+    {
+        "deviceId": "04117EAE",
+        "time": "2020-06-10T10:45:09.625+09:00",
+        "temperature": 24.25,
+        "humidity": 50.51,
+        "ill": 153,
+        "accelS": 0,
+        "accelX": 0.01,
+        "accelY": -0.02,
+        "accelZ": 1.01,
+        "EEP": "D21440",
+        "memo": "multi function sensors",
+        "rssi": -81
+    }
+
+.. list-table:: マルチセンサ (EEP : D21440)
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - deviceId
+      - ID
+      - String
+      - 〇
+      -
+    * - 2
+      - time
+      - データ取得日時
+      - String
+      - 〇
+      - ISO8601 拡張書式
+    * - 3
+      - EEP
+      - EnOcean プロファイル
+      - String
+      - 〇
+      - WEB UI にて設定した値
+    * - 4
+      - rssi
+      - 受信信号強度
+      - Integer
+      - 〇
+      - 
+    * - 5
+      - memo
+      - メモ
+      - String
+      - 
+      - WEB UIにて設定した値
+    * - 6
+      - temperature
+      - 温度
+      - Double
+      - 〇
+      - [℃]
+    * - 7
+      - humidity
+      - 湿度
+      - Double
+      - 〇
+      - [%]
+    * - 8
+      - accelS
+      - 加速度ステータス
+      - Integer
+      - 〇
+      - 
+    * - 9
+      - accelX
+      - X方向加速度
+      - Double
+      - 〇
+      - [G]
+    * - 10
+      - accelY
+      - Y方向加速度
+      - Double
+      - 〇
+      - [G]
+    * - 11
+      - accelZ
+      - Z方向加速度
+      - Double
+      - 〇
+      - [G]
+
+.. raw:: latex
+
+   \clearpage 
+
+温湿度センサー (EEP : A50401)
+======================================
+
+■ データサンプル ::
+
+    {
+        "deviceId": "04117EAE",
+        "time": "2020-06-10T10:45:09.625+09:00",
+        "temperature": 24.25,
+        "humidity": 50.51,
+        "EEP": "A50401",
+        "memo": "Temperature and Humidity Sensor",
+        "rssi": -66
+    }
+
+.. list-table:: 温湿度センサー (EEP : A50401)
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - deviceId
+      - ID
+      - String
+      - 〇
+      -
+    * - 2
+      - time
+      - データ取得日時
+      - String
+      - 〇
+      - ISO8601 拡張書式
+    * - 3
+      - EEP
+      - EnOcean プロファイル
+      - String
+      - 〇
+      - WEB UI にて設定した値
+    * - 4
+      - rssi
+      - 受信信号強度
+      - Integer
+      - 〇
+      - 
+    * - 5
+      - memo
+      - メモ
+      - String
+      - 
+      - WEB UIにて設定した値
+    * - 6
+      - temperature
+      - 温度
+      - Double
+      - 
+      - [℃]
+    * - 7
+      - humidity
+      - 湿度
+      - Double
+      - 〇
+      - [%]
+
+.. raw:: latex
+
+   \clearpage 
+
+照度センサー (EEP : A50603)
+======================================
+
+■ データサンプル ::
+
+    {
+        "deviceId": "04117EAE",
+        "time": "2020-06-10T10:45:09.625+09:00",
+        "svc": 2.7800,
+        "ill": 260,
+        "EEP": "A50603",
+        "memo": "ill",
+        "rssi": -65
+    }
+
+.. list-table:: 照度センサー (EEP : A50603)
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - deviceId
+      - ID
+      - String
+      - 〇
+      -
+    * - 2
+      - time
+      - データ取得日時
+      - String
+      - 〇
+      - ISO8601 拡張書式
+    * - 3
+      - EEP
+      - EnOcean プロファイル
+      - String
+      - 〇
+      - WEB UI にて設定した値
+    * - 4
+      - rssi
+      - 受信信号強度
+      - Integer
+      - 〇
+      - 
+    * - 5
+      - memo
+      - メモ
+      - String
+      - 
+      - WEB UIにて設定した値 
+    * - 6
+      - svc
+      - 供給電圧
+      - Double
+      - 〇
+      - [V]
+    * - 7
+      - ill
+      - 照度
+      - Integer
+      - 〇
+      - [lux]
+
+.. raw:: latex
+
+   \clearpage
+
+マルチセンサ (EEP : A51405)
+======================================
+
+■ データサンプル ::
+
+    {
+        "deviceId": "04117EAE",
+        "time": "2020-06-10T10:45:09.625+09:00",
+        "svc": 2.7800,
+        "vib": 0,
+        "EEP": "A51405",
+        "memo": "multi-func sensor",
+        "rssi": -65
+    }
+
+.. list-table:: マルチセンサ (EEP : A51405)
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - deviceId
+      - ID
+      - String
+      - 〇
+      -
+    * - 2
+      - time
+      - データ取得日時
+      - String
+      - 〇
+      - ISO8601 拡張書式
+    * - 3
+      - EEP
+      - EnOcean プロファイル
+      - String
+      - 〇
+      - WEB UI にて設定した値
+    * - 4
+      - rssi
+      - 受信信号強度
+      - Integer
+      - 〇
+      - 
+    * - 5
+      - memo
+      - メモ
+      - String
+      - 
+      - WEB UIにて設定した値 
+    * - 6
+      - svc
+      - 供給電圧
+      - Double
+      - 〇
+      - [V]
+    * - 7
+      - vib
+      - 振動
+      - Integer
+      - 〇
+      - 0: No vibration detected, 1: Vibration detected
+
+.. raw:: latex
+
+   \clearpage
+
+RAW データ時
+=======================================
+
+■ データサンプル ::
+
+    {
+        "deviceId": "0400197A",
+        "time": "2016-03-14T16:45:32.643+09:00",
+        "data": "55000c020ae66200000400197a1c080b8720013da6",
+        "EEP": "A50701",
+        "memo": "raw data",
+        "rssi": -63
+    }
+
+.. list-table:: RAW データ時
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - deviceId
+      - ID
+      - String
+      - 〇	
+      -
+    * - 2
+      - time
+      - データ取得日時
+      - String
+      - 〇
+      - ISO8601 拡張書式
+    * - 3
+      - EEP
+      - EnOcean プロファイル
+      - String
+      - 〇
+      - WEB UI にて設定した値
+    * - 4
+      - rssi
+      - 受信信号強度
+      - Integer
+      - 〇
+      - 
+    * - 5
+      - memo
+      - メモ
+      - String
+      - 
+      - WEB UIにて設定した値
+    * - 6
+      - data
+      - ペイロード
+      - String
+      - 〇
+      - 
+
+.. raw:: latex
+
+   \clearpage 
+
+====================
+3.2.	Wi-SUN
+====================
+
+瞬時電力 (Bルート)
+======================
+
+■ データサンプル ::
+
+    {
+        "address": "0011223344556677",
+        "date": "2016-1-25",
+        "time": "12:34",
+        "inst": 2147483645
+    }
+
+.. list-table:: 瞬時電力 (Bルート)
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - address
+      - アドレス
+      - String
+      - 〇
+      - スマートメーター側のアドレス
+    * - 2
+      - date
+      - 対象データ年月日
+      - String
+      - 〇
+      - 
+    * - 3
+      - time
+      - 対象データ時間
+      - String
+      - 〇
+      - 
+    * - 4
+      - inst
+      - 瞬時電力
+      - Integer
+      - 〇
+      - [W]
+
+積算電力 (Bルート)
+==============================
+
+■ データサンプル ::
+
+    {
+        "address": "0011223344556677",
+        "time": "2016-1-25T12:34:56",
+        "ratio": 10,
+        "unit": 0.01,
+        "cumu": 2147483645,
+        "cumu_re": -1
+    }
+
+.. list-table:: 積算電力 (Bルート)
+    :widths:  4 20 25 11 7 33
+    :header-rows: 1
+
+    * - #
+      - JSONキー
+      - 内容
+      - データ型
+      - 常駐
+      - 補足
+    * - 1
+      - address
+      - アドレス
+      - String
+      - 〇
+      - スマートメーター側のアドレス
+    * - 2
+      - date
+      - 対象データ年月日
+      - String
+      - 〇
+      - 
+    * - 3
+      - time
+      - 対象データ日時
+      - String
+      - 〇
+      - 
+    * - 4
+      - unit
+      - 単位
+      - Double
+      - 〇
+      - 次の値。0.0001, 0.001, 0.01, 0.1, 1, 10, 100, 1000, 10000
+    * - 5
+      - cumu
+      - 正方向累積値
+      - Integer
+      - 〇
+      - 0 ～ 99,999,999。但し、-1 はデータ無しを意図する。
+    * - 6
+      - cumu_re
+      - 逆方向累積値
+      - Integer
+      - 〇
+      - 0 ～ 99,999,999。但し、-1 はデータ無しを意図する。
+
+計算方式
+
+* 正方向 積算電力
+
+    <Total> = <cumu> × <ratio> × <unit>
+
+* 逆方向 積算電力
+
+    <Total> = <cumu_re> × <ratio> × <unit>
+
+.. raw:: latex
+
+   \clearpage 

@@ -1,0 +1,171 @@
+.. _pd_repeater_down_stream_modbus_server:
+
+**********************
+Modbusサーバ
+**********************
+
+| PD Handler Modbus Server の下流方向制御について説明します。 
+| PD Handler Modbus Server の下流方向制御に用いるJSON文字列のオブジェクトを示します。
+
+.. list-table:: PD Handler Modbus Server の下流方向制御に用いるJSON文字列のオブジェクト
+    :widths: 15 15 5 65
+    :header-rows: 1
+
+    * - キー
+      - データ型
+      - 必須
+      - 説明
+    * - function
+      - 文字列又は整数
+      - 〇
+      - :ref:`pd_repeater_down_stream_modbus` に説明するファンクションコードの内、次表 「PD Handler Modbus Server で利用可能なファンクションコード」に記載されるコード
+    * - data_type
+      - 文字列又は整数
+      - 
+      - 次の何れか
+
+        符号なし16ビット整数:
+            'uint16_t’ 又は '0’
+        符号付き16ビット整数:
+            'int16_t’ 又は '1’
+        符号なし32ビット整数/リトルエンディアン:
+            'uint32lsb_t’ 又は ‘2’
+        符号付き32ビット整数/リトルエンディアン:
+            'int32lsb_t’ 又は ‘3’
+        符号なし32ビット整数/ビッグエンディアン:
+            'uint32msb_t’ 又は ‘4’
+        符号付き32ビット整数/ビッグエンディアン:
+            'int32msb_t’ 又は ‘5’
+
+        指定されない場合は、符号なし16ビット整数
+    * - address
+      - 文字列又は整数
+      - 
+      -	データが格納されている、あるいは格納するPLC機器上の開始アドレスを設定します。 先頭が’0x’の場合は16進数と解釈されます。指定されない場合は、0x00
+    * - number
+      - 文字列又は整数
+      - 
+      - 読み書きするレジスタ数を記載します。指定されない場合は、1
+    * - values
+      - 整数配列
+      - △
+      - 書き込むデータ（整数値）の並び
+
+PD Handler Modbus Clientとは異なりPD Handler Modbus Server自身のレジスタマップに対する操作を行うものであるため、
+"node"や"device"キーの設定は必要としません。
+
+.. raw:: latex
+
+   \clearpage
+
+PD Handler Modbus Serverで利用可能なファンクションコードを示します。
+
+.. list-table:: PD Handler Modbus Server で利用可能なファンクションコード
+    :name: func_code4modbus_Server
+    :widths: 10 30 15
+    :header-rows: 1
+
+    * - コード
+      - 名称
+      - 利用可能
+    * - 0x01
+      - Read Coils
+      - 〇
+    * - 0x02
+      - Read Discrete Input
+      - 〇
+    * - 0x03
+      - Read Holding Registers
+      - 〇
+    * - 0x04
+      - Read Input Registers
+      - 〇
+    * - 0x05
+      - Write Single Coil
+      - 〇
+    * - 0x06
+      - Write Single Register
+      - 〇
+    * - 0x07
+      - Read Exception Status	
+      - 
+    * - 0x09
+      - Write Single Discrete Input	
+      - 〇
+    * - 0x0a
+      - Write Single Input Register	
+      - 〇
+    * - 0x0f
+      - Write Multiple Coils
+      - 〇
+    * - 0x10
+      - Write Multiple Registers
+      - 〇
+    * - 0x11	
+      - Report Slave ID
+      - 
+    * - 0x13
+      - Write Multiple Discrete Input
+      - 〇
+    * - 0x14
+      - Write Multiple Input Registers
+      - 〇
+    * - 0x16
+      - Mark Write Registers
+      -
+    * - 0x17
+      - Write and Read Registers
+      - 〇
+
+例えば、入力レジスタを読み込むのであれば、クラウドより次のような制御メッセージを送ります。 ::
+
+     {
+       "function": "0x04", "data_type": "uint16_t", "address": "0x160", "number": 5
+     
+     }
+
+対する応答メッセージは、次のようになります。 ::
+
+     {
+       "time": "2017-09-05T15:30:05.758+09:00",
+       "reply_to": "452556d8daf1f7eb483d00ee03718e8e", "result": "done",
+       "memo": "Modbus Server 00",
+       "protocol": "tcp", "node": "192.168.1.8", "port": 502,
+       "unit":255, "address":352, "function": 4, "data_type": "uint16_t",
+       "values":[65535, 0, 1, 2, 3]
+     }
+
+ここで"reply_to"は、制御メッセージのハッシュ値（MD5）です。
+
+レジスタマップに"node", "port"もしくは"device"の区別はありませんが、
+PD Repeaterからは異なるデバイス番号を持つ個別のModbusサーバーデバイスと位置付けられるため、
+応答メッセージには、PD Repeaterから制御メッセージを受けたUNIXドメインソケットと対をなす
+"node", "port"もしくは"device"が付加されます。
+
+入力レジスタに値を書き込むのであれば、クラウドより次のような制御メッセージを送ります。
+入力レジスタは本来物理的にADコンバータ等を介してセットされるレジスタですが、
+PD Handler Modbus Serverでは下流方向制御によりレジスタマップを書き換えることができます。 ::
+
+     {
+       "function": "0x14", "data_type": "uint32_t", "address": "0x140",
+       "values": [4567,8910,561,435]
+     }
+
+ここで"data_type"が32bitsの場合、"values"は上位／下位の16bitsに分割されて処理されるため、
+"number"が1であっても、"function"はWrite Multiple Input Registersを使用しなくてはなりません。
+
+対する応答メッセージは、次のようになります。 ::
+
+     {
+       "time": "2017-09-05T16:35:13.653+09:00",
+       "reply_to": "d5bcc347ad36fa6e7090d0f763108882", "result": "done",
+       "memo": "Modbus Server 01",
+       "protocol": "rtu", "device": "/dev/ttyEX1",
+       "unit":17, "address":320, "function":20, "data_type": "uint32_t",
+       "values": [4567, 8910, 561, 435]
+     }
+
+.. raw:: latex
+
+   \clearpage
+   

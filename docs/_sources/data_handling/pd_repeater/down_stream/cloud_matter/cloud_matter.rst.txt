@@ -1,0 +1,97 @@
+.. _pd_repeater_down_stream_cloud_matter:
+
+************************************************
+デバイス制御方式に依存した送信メッセージ構文
+************************************************
+
+| IoT HubのDevice TwinsやAWS IoTのDevice Shadow の制御においては、MQTTプロトコルのトピックを用います。
+| このためPD Repeaterでは、IoT HubとAWS IoTについて送信メッセージ(PD Reperterへの入力)の
+  構文にルールを設けMQTTプロトコルのトピックを制御します。
+| 尚、各送信メッセージをPD Repeaterが待ち受けしているUnix Domainソケットに対して書き込むことで対応の処理が行われます。
+
+MS Azure IoT Hubの送信メッセージ構文
+=========================================
+
+IoT HubのDevice TwinsとDirect Methodをサポートするため、次の構文が用意されています。
+
+Device Twinsのプロパティを取得する ::
+
+    @GET <Request ID>
+
+Device Twinsのプロパティの更新を通知する ::
+
+    @PATCH <Request ID>;{<Reported>}
+
+Direct Methodに対する応答 ::
+
+    @RES <Request ID>,<Status Code>;{<Any Payload>}
+
+ここで、
+
+    <Request ID> :
+        Device Twinsもしくは、Direct Method のリクエストID
+    <Reported> :
+        Device Twins のreportedプロパティ（JSONオブジェクト）
+    <Status Code> :
+        Direct Methodの実行ステータスコード、正常時は 200.
+    <Any Payload> :
+        Direct Methodに対する応答ペイロード（JSONオブジェクト）
+
+です。
+
+これらの機能を利用するためには、
+IoT Hub からの下流方向メッセージ(Device Twins, Direct Method)を処理するアプリケーションの開発が必要となります。
+
+.. raw:: latex
+
+   \clearpage
+   
+AWS IoTの送信メッセージ構文
+===============================
+
+AWS IoTのDevice Shadowをサポートするため、次の構文が用意されています。
+
+Device Shadowの取得 ::
+
+    @GET {}
+
+Device Shadowの更新 ::
+
+    @UPDATE {"state":{"reported": <Reported>} }
+
+Device Shadowの削除 ::
+
+    @DELETE {}
+
+ここで、
+
+    <Reported>:
+        Device Shadow のreportedプロパティ(JSONオブジェクト)
+
+です。
+
+| なお、モノの名前thingNameは、:ref:`pd_repeater_awsiot` 又は :ref:`pd_repeater_awsiot` で設定された値が用いられます。
+| また、AWS IoTサービスからdesiredプロパティを受け取るためには、
+  AWS IoT からの下流方向メッセージを処理するアプリケーションの開発が必要となります。
+
+MQTTサーバーの送信メッセージ構文
+====================================
+
+MQTTサーバーにおいては、メッセージ毎にトピックを柔軟に変更することができます。
+
+MQTTトピックの変更 ::
+
+    @TOPIC <topic>;{<Any Payload>}
+
+MQTTトピック ユニークIDの変更 ::
+
+    @UNIQUE_ID <unique id>;{<Any Payload>}
+
+MQTTトピック プレフィックスの変更 ::
+
+    @TOPIC_PREFIX <topic prefix>;{<Any Payload>}
+
+.. raw:: latex
+
+   \clearpage
+   
