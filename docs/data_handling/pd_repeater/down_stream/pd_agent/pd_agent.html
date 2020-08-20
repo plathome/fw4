@@ -4,7 +4,7 @@
 <html lang="ja">
   <head>
     <meta charset="utf-8" />
-    <title>PD Agent &#8212; OpenBlocks FW4 1.0.0 ドキュメント</title>
+    <title>PD Agent &#8212; OpenBlocks FW4 1.0.1 ドキュメント</title>
     <link rel="stylesheet" href="../../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
     
@@ -62,7 +62,7 @@
         <li class="right" >
           <a href="../sw4x/sw4x.html" title="SW4xの下流方向制御"
              accesskey="P">前へ</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">OpenBlocks FW4 1.0.0 ドキュメント</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">OpenBlocks FW4 1.0.1 ドキュメント</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../data_handling.html" >データハンドリングガイド</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="../../pd_repeater.html" >送受信設定（PD Repeater）</a> &#187;</li>
           <li class="nav-item nav-item-3"><a href="../down_stream.html" accesskey="U">下流方向制御</a> &#187;</li> 
@@ -79,7 +79,8 @@
 <span id="pd-repeater-down-stream-pd-agent"></span><h1>PD Agent<a class="headerlink" href="#pd-agent" title="このヘッドラインへのパーマリンク">¶</a></h1>
 <div class="line-block">
 <div class="line">PD Agentは、PD Repeaterから制御メッセージ（JSON文字列）を受け取り、
-予め設定されたキーと値の一致を持ってユーザーが用意する実行オブジェクトもしくはシェルスクリプトを実行します。
+予め設定されたキーと値の一致を持ってユーザーが用意する実行オブジェクトもしくはシェルスクリプト、
+ダイナミックリンクモジュール又は Lua言語スクリプトを実行します。
 (PD Agentでの比較条件は文字列型での完全一致となります。)</div>
 <div class="line">PD Agentはユーザー定義のコンフィグ設定を用いることで下流方向の制御機能を持たないPD Handler BLE等と
 連携することを前提に用意されているアプリケーションですが、本章ではPD Handlerとは連携させず、
@@ -114,7 +115,7 @@ PD Agentをユーザー定義デバイスとして登録し単独で動作させ
 <div class="line">複数のデバイスに対する設定行う場合は「追加」をクリックし設定フォームを追加します。</div>
 </div>
 <div class="figure align-default">
-<a class="reference internal image-reference" href="../../../../_images/pd_agent.png"><img alt="../../../../_images/pd_agent.png" src="../../../../_images/pd_agent.png" style="width: 711.0px; height: 385.0px;" /></a>
+<a class="reference internal image-reference" href="../../../../_images/pd_agent.png"><img alt="../../../../_images/pd_agent.png" src="../../../../_images/pd_agent.png" style="width: 755.0px; height: 496.0px;" /></a>
 </div>
 <p>「使用設定」を「有効」にすると上図のように設定項目が表示されます。</p>
 <table class="colwidths-given docutils align-default" id="id6">
@@ -166,9 +167,14 @@ PD Agentをユーザー定義デバイスとして登録し単独で動作させ
 <td><p>「実行コマンド」に指定されるオブェクトの実行条件として評価される制御メッセージに含まれるJSON文字列の値を設定します。</p></td>
 </tr>
 <tr class="row-even"><td><p>実行コマンド</p></td>
-<td><p>「判定キー」に指定されるキーと「処理判断値」に指定される値が制御メッセージに含まれる場合に実行される実行オブジェクトもしくはシェルスクリプトのパス名を設定します。</p></td>
+<td><p>「判定キー」に指定されるキーと「処理判断値」に指定される値が制御メッセージに含まれる場合に実行される実行オブジェクトもしくはシェルスクリプト、
+ダイナミックリンクモジュール又は Lua 言語スクリプトのパス名を設定します。
+ダイナミックリンクモジュールの場合はパス名のディスクリプタを &quot;.so&quot;、Lua 言語スクリプトの場合は &quot;.lua&quot; として下さい。</p></td>
 </tr>
-<tr class="row-odd"><td><p>実行コマンド引数</p></td>
+<tr class="row-odd"><td><p>Lua 関数名</p></td>
+<td><p>実行される Lua 言語スクリプト内の関数名を指定します。</p></td>
+</tr>
+<tr class="row-even"><td><p>実行コマンド引数</p></td>
 <td><p>実行コマンドの引数を設定します。</p></td>
 </tr>
 </tbody>
@@ -198,17 +204,17 @@ Abstract UNIXドメインソケット名をサポートしない実行オブジ�
 <p>PD Agentの設定と制御メッセージの例を幾つか示します。</p>
 <p>次の設定に対する制御メッセージは  { &quot;switch&quot;: &quot;on&quot; }  となります。</p>
 <div class="figure align-default">
-<a class="reference internal image-reference" href="../../../../_images/pd_agent_1.png"><img alt="../../../../_images/pd_agent_1.png" src="../../../../_images/pd_agent_1.png" style="width: 421.0px; height: 209.0px;" /></a>
+<a class="reference internal image-reference" href="../../../../_images/pd_agent_1.png"><img alt="../../../../_images/pd_agent_1.png" src="../../../../_images/pd_agent_1.png" style="width: 408.0px; height: 236.0px;" /></a>
 </div>
 <p>一致する制御メッセージを受け取ると '/usr/local/bin/device_switch on' が実行されます。</p>
 <p>次の設定に対する制御メッセージは  { &quot;switch&quot;: &quot;off&quot; }  となります。</p>
 <div class="figure align-default">
-<a class="reference internal image-reference" href="../../../../_images/pd_agent_2.png"><img alt="../../../../_images/pd_agent_2.png" src="../../../../_images/pd_agent_2.png" style="width: 420.0px; height: 234.0px;" /></a>
+<a class="reference internal image-reference" href="../../../../_images/pd_agent_2.png"><img alt="../../../../_images/pd_agent_2.png" src="../../../../_images/pd_agent_2.png" style="width: 407.0px; height: 235.0px;" /></a>
 </div>
 <p>一致する制御メッセージを受け取ると '/usr/local/bin/device_switch off' が実行されます。</p>
 <p>次の設定に対する制御メッセージは  { &quot;report&quot;: &quot;do&quot; }  です。</p>
 <div class="figure align-default">
-<a class="reference internal image-reference" href="../../../../_images/pd_agent_3.png"><img alt="../../../../_images/pd_agent_3.png" src="../../../../_images/pd_agent_3.png" style="width: 419.0px; height: 236.0px;" /></a>
+<a class="reference internal image-reference" href="../../../../_images/pd_agent_3.png"><img alt="../../../../_images/pd_agent_3.png" src="../../../../_images/pd_agent_3.png" style="width: 412.0px; height: 240.0px;" /></a>
 </div>
 <p>一致する制御メッセージを受け取ると '/usr/local/bin/device_report' が実行されます。</p>
 <p>上記の例において制御メッセージとして {&quot;switch&quot;: &quot;on&quot;, &quot;report&quot;: &quot;do&quot; } 場合は、

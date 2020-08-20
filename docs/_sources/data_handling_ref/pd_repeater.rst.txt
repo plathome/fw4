@@ -178,7 +178,7 @@ PD Excheng(pd_ex)
       - 説明
     * - enable
       - 論理値
-      - デフォルト値はfalse
+      - デフォルト値はfalse.
     * - interval
       - 整数値
       - サーバへの送信間隔(sec). デフォルト値は 30.
@@ -191,6 +191,9 @@ PD Excheng(pd_ex)
     * - url
       - 文字列
       - 接続先URL. デフォルト値は'http://pd.plathome.com'. (MAXPATHLEN)
+    * - ssl_verify
+      - 論理値
+      - サーバー証明書の検証を行うか否か. デフォルト値はfalse.
     * - poll_interval
       - 整数値
       - PD Exchange からコマンド(下流方向へのメッセージ) を読み出す間隔(sec). デフォルト値は 30.
@@ -219,7 +222,7 @@ Proxy を使用する場合は、環境変数 http_proxy 又は https_proxy に�
       - 説明
     * - enable
       - 論理値
-      - デフォルト値はfalse
+      - デフォルト値はfalse.
     * - interval
       - 整数値
       - サーバへの送信間隔(sec). デフォルト値は 30.
@@ -327,7 +330,7 @@ IBM Watson IoT for device (w4d)
       - 説明
     * - enable
       - 論理値
-      - デフォルト値はfalse
+      - デフォルト値はfalse.
     * - interval
       - 整数値
       - サーバへの送信間隔(sec). デフォルト値は 30.
@@ -412,7 +415,7 @@ Amazon Kinesis (kinesis)
       - 説明
     * - enable
       - 論理値
-      - デフォルト値はfalse
+      - デフォルト値はfalse.
     * - interval
       - 整数値
       - サーバへの送信間隔(sec). デフォルト値は 30.
@@ -425,6 +428,9 @@ Amazon Kinesis (kinesis)
     * - domain
       - 文字列
       - 接続先ドメイン名. デフォルト値は'amazonaws.com'. (MAXHOSTNAMELEN)
+    * - ssl_verify
+      - 論理値
+      - サーバー証明書の検証を行うか否か. デフォルト値はfalse.
     * - region
       - 文字列
       - 接続先リージョン名. デフォルト値は'ap-northeast-1'. (64byte)
@@ -452,7 +458,7 @@ PostgreSQL (pgsql)
       - 説明
     * - enable
       - 論理値
-      - デフォルト値はfalse
+      - デフォルト値はfalse.
     * - interval
       - 整数値
       - サーバへの送信間隔(sec). デフォルト値は 30.
@@ -512,7 +518,7 @@ MySQL (mysql)
       - 説明
     * - enable
       - 論理値
-      - デフォルト値はfalse
+      - デフォルト値はfalse.
     * - interval
       - 整数値
       - サーバへの送信間隔(sec). デフォルト値は 30.
@@ -562,7 +568,7 @@ MySQL (mysql)
       - 説明
     * - enable
       - 論理値
-      - デフォルト値はfalse
+      - デフォルト値はfalse.
     * - interval
       - 整数値
       - サーバへの送信間隔(sec). デフォルト値は 30.
@@ -575,6 +581,9 @@ MySQL (mysql)
     * - url
       - 文字列
       - 接続先URL. (MAXPATHLEN)
+    * - ssl_verify
+      - 論理値
+      - サーバー証明書の検証を行うか否か. デフォルト値はfalse.
     * - username
       - 文字列
       - BASIC 認証用ユーザー名. 空の場合、認証は行わない. (32byte)
@@ -607,7 +616,7 @@ Amazon AWS IoT (awsiot)
       - 説明
     * - enable
       - 論理値
-      - デフォルト値はfalse
+      - デフォルト値はfalse.
     * - interval
       - 整数値
       - サーバへの送信間隔(sec). デフォルト値は 30.
@@ -669,7 +678,7 @@ Microsoft Azure Event Hubs (eventhub)
       - 説明
     * - enable
       - 論理値
-      - デフォルト値はfalse
+      - デフォルト値はfalse.
     * - interval
       - 整数値
       - サーバへの送信間隔(sec). デフォルト値は 30.
@@ -705,7 +714,7 @@ IBM Watson IoT for gateway (w4g)
       - 説明
     * - enable
       - 論理値
-      - デフォルト値はfalse
+      - デフォルト値はfalse.
     * - interval
       - 整数値
       - サーバへの送信間隔(sec). デフォルト値は 30.
@@ -802,7 +811,7 @@ Microsoft Azure IoT Hub(iothub)
       - 説明
     * - enable
       - 論理値
-      - デフォルト値はfalse
+      - デフォルト値はfalse.
     * - interval
       - 整数値
       - サーバへの送信間隔(sec). デフォルト値は 30.
@@ -880,7 +889,7 @@ NTT docomo Toami for docomo (t4d)
       - 説明
     * - enable
       - 論理値
-      - デフォルト値はfalse
+      - デフォルト値はfalse.
     * - interval
       - 整数値
       - サーバへの送信間隔(sec). デフォルト値は 30.
@@ -893,6 +902,9 @@ NTT docomo Toami for docomo (t4d)
     * - url
       - 文字列
       - 接続先URL. デフォルト値は'https://xxxx.to4do.com:443'. (MAX-PATHLEN)
+    * - ssl_verify
+      - 論理値
+      - サーバー証明書の検証を行うか否か. デフォルト値はfalse.
 
 Proxy を使用する場合は、環境変数 http_proxy 又は https_proxy に設定します。
 
@@ -908,7 +920,7 @@ UNIXドメインソケット (lsocket)
       - 説明
     * - enable
       - 論理値
-      - デフォルト値はfalse
+      - デフォルト値はfalse.
     * - interval
       - 整数値
       - サーバへの送信間隔(sec). デフォルト値は 30.
@@ -938,7 +950,7 @@ KDDI IoTクラウドStandard(kddi_std)
       - 説明
     * - enable
       - 論理値
-      - デフォルト値はfalse
+      - デフォルト値はfalse.
     * - interval
       - 整数値
       - サーバへの送信間隔(sec). デフォルト値は 30.
@@ -951,6 +963,9 @@ KDDI IoTクラウドStandard(kddi_std)
     * - domain
       - 文字列
       - 接続先ドメイン名. デフォルト値は'datalink.m2m-cloud-std.kddi.ne.jp'. (MAXHOSTNAMELEN)
+    * - ssl_verify
+      - 論理値
+      - サーバー証明書の検証を行うか否か. デフォルト値はfalse.
     * - port
       - 整数値
       - 接続先ポート番号. デフォルト値は443.
@@ -978,7 +993,7 @@ NIFTY IoT Device Hub (nf_dvhub)
       - 説明
     * - enable
       - 論理値
-      - デフォルト値はfalse
+      - デフォルト値はfalse.
     * - interval
       - 整数値
       - サーバへの送信間隔(sec). デフォルト値は 30.
@@ -1030,7 +1045,7 @@ Plat'Home 独自仕様Web サーバ(pd web)
       - 説明
     * - enable
       - 論理値
-      - デフォルト値はfalse
+      - デフォルト値はfalse.
     * - interval
       - 整数値
       - サーバへの送信間隔(sec). デフォルト値は 30.
@@ -1043,6 +1058,9 @@ Plat'Home 独自仕様Web サーバ(pd web)
     * - url
       - 文字列
       - 接続先URL. (MAXPATHLEN)
+    * - ssl_verify
+      - 論理値
+      - サーバー証明書の検証を行うか否か. デフォルト値はfalse.
     * - poll_interval
       - 整数値
       - PD Web ではメッセージの送信と同時に下流方向へのメッセージを取得するが、poll interval には送信すべきメッセージが存在しない場合を想定し、空の接続を起こす間隔(sec) を指定する. デフォルト値は30.
@@ -1074,7 +1092,7 @@ Google Cloud IoT Core (iotcore)
       - 説明
     * - enable
       - 論理値
-      - デフォルト値はfalse
+      - デフォルト値はfalse.
     * - interval
       - 整数値
       - サーバへの送信間隔(sec). デフォルト値は 30.
@@ -1145,7 +1163,7 @@ TCPソケット (ltcp)
       - 説明
     * - enable
       - 論理値
-      - デフォルト値はfalse
+      - デフォルト値はfalse.
     * - interval
       - 整数値
       - サーバへの送信間隔(sec). デフォルト値は 30.
@@ -1178,7 +1196,7 @@ Amazon AWS IoT [Websocket](awsiot_ws)
       - 説明
     * - enable
       - 論理値
-      - デフォルト値はfalse
+      - デフォルト値はfalse.
     * - interval
       - 整数値
       - サーバへの送信間隔(sec). デフォルト値は 30.
@@ -1246,7 +1264,7 @@ Microsoft Azure IoT Hub[Websocket] (iothub_ws)
       - 説明
     * - enable
       - 論理値
-      - デフォルト値はfalse
+      - デフォルト値はfalse.
     * - interval
       - 整数値
       - サーバへの送信間隔(sec). デフォルト値は 30.
@@ -1313,7 +1331,7 @@ Proxy を使用する場合は、環境変数 http_proxy 又は https_proxy に�
       - 説明
     * - enable
       - 論理値
-      - デフォルト値はfalse
+      - デフォルト値はfalse.
     * - interval
       - 整数値
       - サーバへの送信間隔(sec). デフォルト値は 30.
@@ -1343,7 +1361,7 @@ SoftBank IoT (sbiot)
       - 説明
     * - enable
       - 論理値
-      - デフォルト値はfalse
+      - デフォルト値はfalse.
     * - interval
       - 整数値
       - サーバへの送信間隔(sec). デフォルト値は 30.
@@ -1429,7 +1447,7 @@ Things クラウド(things)
       - 説明
     * - enable
       - 論理値
-      - デフォルト値はfalse
+      - デフォルト値はfalse.
     * - interval
       - 整数値
       - サーバへの送信間隔(sec). デフォルト値は 30.
@@ -1515,7 +1533,7 @@ FTP サーバ(ftp)
       - 説明
     * - enable
       - 論理値
-      - デフォルト値はfalse
+      - デフォルト値はfalse.
     * - interval
       - 整数値
       - サーバへの送信間隔(sec). デフォルト値は 30.

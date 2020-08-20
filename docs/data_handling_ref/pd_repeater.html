@@ -4,7 +4,7 @@
 <html lang="ja">
   <head>
     <meta charset="utf-8" />
-    <title>PD Repeater &#8212; OpenBlocks FW4 1.0.0 ドキュメント</title>
+    <title>PD Repeater &#8212; OpenBlocks FW4 1.0.1 ドキュメント</title>
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     
@@ -62,7 +62,7 @@
         <li class="right" >
           <a href="common.html" title="共通事項"
              accesskey="P">前へ</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">OpenBlocks FW4 1.0.0 ドキュメント</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">OpenBlocks FW4 1.0.1 ドキュメント</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="data_handling_ref.html" accesskey="U">データハンドリング設定リファレンスガイド</a> &#187;</li> 
       </ul>
     </div>
@@ -325,7 +325,7 @@
 <tbody>
 <tr class="row-even"><td><p>enable</p></td>
 <td><p>論理値</p></td>
-<td><p>デフォルト値はfalse</p></td>
+<td><p>デフォルト値はfalse.</p></td>
 </tr>
 <tr class="row-odd"><td><p>interval</p></td>
 <td><p>整数値</p></td>
@@ -343,15 +343,19 @@
 <td><p>文字列</p></td>
 <td><p>接続先URL. デフォルト値は'<a class="reference external" href="http://pd.plathome.com">http://pd.plathome.com</a>'. (MAXPATHLEN)</p></td>
 </tr>
-<tr class="row-odd"><td><p>poll_interval</p></td>
+<tr class="row-odd"><td><p>ssl_verify</p></td>
+<td><p>論理値</p></td>
+<td><p>サーバー証明書の検証を行うか否か. デフォルト値はfalse.</p></td>
+</tr>
+<tr class="row-even"><td><p>poll_interval</p></td>
 <td><p>整数値</p></td>
 <td><p>PD Exchange からコマンド(下流方向へのメッセージ) を読み出す間隔(sec). デフォルト値は 30.</p></td>
 </tr>
-<tr class="row-even"><td><p>deid_prefix</p></td>
+<tr class="row-odd"><td><p>deid_prefix</p></td>
 <td><p>文字列</p></td>
 <td><p>PD Exchange のデバイスID プリフィック. (10byte)</p></td>
 </tr>
-<tr class="row-odd"><td><p>secretkey</p></td>
+<tr class="row-even"><td><p>secretkey</p></td>
 <td><p>文字列</p></td>
 <td><p>接続に用いるsecretkey. (16byte)</p></td>
 </tr>
@@ -377,7 +381,7 @@
 <tbody>
 <tr class="row-even"><td><p>enable</p></td>
 <td><p>論理値</p></td>
-<td><p>デフォルト値はfalse</p></td>
+<td><p>デフォルト値はfalse.</p></td>
 </tr>
 <tr class="row-odd"><td><p>interval</p></td>
 <td><p>整数値</p></td>
@@ -525,7 +529,7 @@ rcv_topic_prefix/# で待ち受け、デバイス設定オブジェクト'unique
 <tbody>
 <tr class="row-even"><td><p>enable</p></td>
 <td><p>論理値</p></td>
-<td><p>デフォルト値はfalse</p></td>
+<td><p>デフォルト値はfalse.</p></td>
 </tr>
 <tr class="row-odd"><td><p>interval</p></td>
 <td><p>整数値</p></td>
@@ -637,7 +641,7 @@ rcv_topic_prefix/# で待ち受け、デバイス設定オブジェクト'unique
 <tbody>
 <tr class="row-even"><td><p>enable</p></td>
 <td><p>論理値</p></td>
-<td><p>デフォルト値はfalse</p></td>
+<td><p>デフォルト値はfalse.</p></td>
 </tr>
 <tr class="row-odd"><td><p>interval</p></td>
 <td><p>整数値</p></td>
@@ -655,19 +659,23 @@ rcv_topic_prefix/# で待ち受け、デバイス設定オブジェクト'unique
 <td><p>文字列</p></td>
 <td><p>接続先ドメイン名. デフォルト値は'amazonaws.com'. (MAXHOSTNAMELEN)</p></td>
 </tr>
-<tr class="row-odd"><td><p>region</p></td>
+<tr class="row-odd"><td><p>ssl_verify</p></td>
+<td><p>論理値</p></td>
+<td><p>サーバー証明書の検証を行うか否か. デフォルト値はfalse.</p></td>
+</tr>
+<tr class="row-even"><td><p>region</p></td>
 <td><p>文字列</p></td>
 <td><p>接続先リージョン名. デフォルト値は'ap-northeast-1'. (64byte)</p></td>
 </tr>
-<tr class="row-even"><td><p>accessid</p></td>
+<tr class="row-odd"><td><p>accessid</p></td>
 <td><p>文字列</p></td>
 <td><p>アクセスID. (128byte)</p></td>
 </tr>
-<tr class="row-odd"><td><p>accesskey</p></td>
+<tr class="row-even"><td><p>accesskey</p></td>
 <td><p>文字列</p></td>
 <td><p>アクセスキー. (128byte)</p></td>
 </tr>
-<tr class="row-even"><td><p>streamname</p></td>
+<tr class="row-odd"><td><p>streamname</p></td>
 <td><p>文字列</p></td>
 <td><p>ストリーム名. (128byte)</p></td>
 </tr>
@@ -693,7 +701,7 @@ rcv_topic_prefix/# で待ち受け、デバイス設定オブジェクト'unique
 <tbody>
 <tr class="row-even"><td><p>enable</p></td>
 <td><p>論理値</p></td>
-<td><p>デフォルト値はfalse</p></td>
+<td><p>デフォルト値はfalse.</p></td>
 </tr>
 <tr class="row-odd"><td><p>interval</p></td>
 <td><p>整数値</p></td>
@@ -772,7 +780,7 @@ rcv_topic_prefix/# で待ち受け、デバイス設定オブジェクト'unique
 <tbody>
 <tr class="row-even"><td><p>enable</p></td>
 <td><p>論理値</p></td>
-<td><p>デフォルト値はfalse</p></td>
+<td><p>デフォルト値はfalse.</p></td>
 </tr>
 <tr class="row-odd"><td><p>interval</p></td>
 <td><p>整数値</p></td>
@@ -843,7 +851,7 @@ rcv_topic_prefix/# で待ち受け、デバイス設定オブジェクト'unique
 <tbody>
 <tr class="row-even"><td><p>enable</p></td>
 <td><p>論理値</p></td>
-<td><p>デフォルト値はfalse</p></td>
+<td><p>デフォルト値はfalse.</p></td>
 </tr>
 <tr class="row-odd"><td><p>interval</p></td>
 <td><p>整数値</p></td>
@@ -861,19 +869,23 @@ rcv_topic_prefix/# で待ち受け、デバイス設定オブジェクト'unique
 <td><p>文字列</p></td>
 <td><p>接続先URL. (MAXPATHLEN)</p></td>
 </tr>
-<tr class="row-odd"><td><p>username</p></td>
+<tr class="row-odd"><td><p>ssl_verify</p></td>
+<td><p>論理値</p></td>
+<td><p>サーバー証明書の検証を行うか否か. デフォルト値はfalse.</p></td>
+</tr>
+<tr class="row-even"><td><p>username</p></td>
 <td><p>文字列</p></td>
 <td><p>BASIC 認証用ユーザー名. 空の場合、認証は行わない. (32byte)</p></td>
 </tr>
-<tr class="row-even"><td><p>password</p></td>
+<tr class="row-odd"><td><p>password</p></td>
 <td><p>文字列</p></td>
 <td><p>BASIC 認証用パスワード. 空の場合、認証は行わない. (32byte)</p></td>
 </tr>
-<tr class="row-odd"><td><p>max_post_msize</p></td>
+<tr class="row-even"><td><p>max_post_msize</p></td>
 <td><p>整数値</p></td>
 <td><p>最大ポストサイズ(Mbyte). デフォルト値は1.</p></td>
 </tr>
-<tr class="row-even"><td><p>content_type</p></td>
+<tr class="row-odd"><td><p>content_type</p></td>
 <td><p>文字列</p></td>
 <td><p>'Content-Type' を指定する. 'text/plain' もしくは'application/json' が指定された場合はペイロードのURL セーフエンコードを行わない.
 デフォルト値は無指定. (64byte)</p></td>
@@ -900,7 +912,7 @@ rcv_topic_prefix/# で待ち受け、デバイス設定オブジェクト'unique
 <tbody>
 <tr class="row-even"><td><p>enable</p></td>
 <td><p>論理値</p></td>
-<td><p>デフォルト値はfalse</p></td>
+<td><p>デフォルト値はfalse.</p></td>
 </tr>
 <tr class="row-odd"><td><p>interval</p></td>
 <td><p>整数値</p></td>
@@ -987,7 +999,7 @@ rcv_topic_prefix/# で待ち受け、デバイス設定オブジェクト'unique
 <tbody>
 <tr class="row-even"><td><p>enable</p></td>
 <td><p>論理値</p></td>
-<td><p>デフォルト値はfalse</p></td>
+<td><p>デフォルト値はfalse.</p></td>
 </tr>
 <tr class="row-odd"><td><p>interval</p></td>
 <td><p>整数値</p></td>
@@ -1034,7 +1046,7 @@ rcv_topic_prefix/# で待ち受け、デバイス設定オブジェクト'unique
 <tbody>
 <tr class="row-even"><td><p>enable</p></td>
 <td><p>論理値</p></td>
-<td><p>デフォルト値はfalse</p></td>
+<td><p>デフォルト値はfalse.</p></td>
 </tr>
 <tr class="row-odd"><td><p>interval</p></td>
 <td><p>整数値</p></td>
@@ -1162,7 +1174,7 @@ rcv_topic_prefix/# で待ち受け、デバイス設定オブジェクト'unique
 <tbody>
 <tr class="row-even"><td><p>enable</p></td>
 <td><p>論理値</p></td>
-<td><p>デフォルト値はfalse</p></td>
+<td><p>デフォルト値はfalse.</p></td>
 </tr>
 <tr class="row-odd"><td><p>interval</p></td>
 <td><p>整数値</p></td>
@@ -1265,7 +1277,7 @@ rcv_topic_prefix/# で待ち受け、デバイス設定オブジェクト'unique
 <tbody>
 <tr class="row-even"><td><p>enable</p></td>
 <td><p>論理値</p></td>
-<td><p>デフォルト値はfalse</p></td>
+<td><p>デフォルト値はfalse.</p></td>
 </tr>
 <tr class="row-odd"><td><p>interval</p></td>
 <td><p>整数値</p></td>
@@ -1282,6 +1294,10 @@ rcv_topic_prefix/# で待ち受け、デバイス設定オブジェクト'unique
 <tr class="row-even"><td><p>url</p></td>
 <td><p>文字列</p></td>
 <td><p>接続先URL. デフォルト値は'<a class="reference external" href="https://xxxx.to4do.com:443">https://xxxx.to4do.com:443</a>'. (MAX-PATHLEN)</p></td>
+</tr>
+<tr class="row-odd"><td><p>ssl_verify</p></td>
+<td><p>論理値</p></td>
+<td><p>サーバー証明書の検証を行うか否か. デフォルト値はfalse.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1305,7 +1321,7 @@ rcv_topic_prefix/# で待ち受け、デバイス設定オブジェクト'unique
 <tbody>
 <tr class="row-even"><td><p>enable</p></td>
 <td><p>論理値</p></td>
-<td><p>デフォルト値はfalse</p></td>
+<td><p>デフォルト値はfalse.</p></td>
 </tr>
 <tr class="row-odd"><td><p>interval</p></td>
 <td><p>整数値</p></td>
@@ -1344,7 +1360,7 @@ rcv_topic_prefix/# で待ち受け、デバイス設定オブジェクト'unique
 <tbody>
 <tr class="row-even"><td><p>enable</p></td>
 <td><p>論理値</p></td>
-<td><p>デフォルト値はfalse</p></td>
+<td><p>デフォルト値はfalse.</p></td>
 </tr>
 <tr class="row-odd"><td><p>interval</p></td>
 <td><p>整数値</p></td>
@@ -1362,19 +1378,23 @@ rcv_topic_prefix/# で待ち受け、デバイス設定オブジェクト'unique
 <td><p>文字列</p></td>
 <td><p>接続先ドメイン名. デフォルト値は'datalink.m2m-cloud-std.kddi.ne.jp'. (MAXHOSTNAMELEN)</p></td>
 </tr>
-<tr class="row-odd"><td><p>port</p></td>
+<tr class="row-odd"><td><p>ssl_verify</p></td>
+<td><p>論理値</p></td>
+<td><p>サーバー証明書の検証を行うか否か. デフォルト値はfalse.</p></td>
+</tr>
+<tr class="row-even"><td><p>port</p></td>
 <td><p>整数値</p></td>
 <td><p>接続先ポート番号. デフォルト値は443.</p></td>
 </tr>
-<tr class="row-even"><td><p>termid</p></td>
+<tr class="row-odd"><td><p>termid</p></td>
 <td><p>文字列</p></td>
 <td><p>端末ID. (16byte)</p></td>
 </tr>
-<tr class="row-odd"><td><p>username</p></td>
+<tr class="row-even"><td><p>username</p></td>
 <td><p>文字列</p></td>
 <td><p>BASIC 認証用ユーザー名. 空の場合、認証は行わない. (32byte)</p></td>
 </tr>
-<tr class="row-even"><td><p>password</p></td>
+<tr class="row-odd"><td><p>password</p></td>
 <td><p>文字列</p></td>
 <td><p>BASIC 認証用パスワード. 空の場合、認証は行わない. (32byte)</p></td>
 </tr>
@@ -1400,7 +1420,7 @@ rcv_topic_prefix/# で待ち受け、デバイス設定オブジェクト'unique
 <tbody>
 <tr class="row-even"><td><p>enable</p></td>
 <td><p>論理値</p></td>
-<td><p>デフォルト値はfalse</p></td>
+<td><p>デフォルト値はfalse.</p></td>
 </tr>
 <tr class="row-odd"><td><p>interval</p></td>
 <td><p>整数値</p></td>
@@ -1468,7 +1488,7 @@ rcv_topic_prefix/# で待ち受け、デバイス設定オブジェクト'unique
 <tbody>
 <tr class="row-even"><td><p>enable</p></td>
 <td><p>論理値</p></td>
-<td><p>デフォルト値はfalse</p></td>
+<td><p>デフォルト値はfalse.</p></td>
 </tr>
 <tr class="row-odd"><td><p>interval</p></td>
 <td><p>整数値</p></td>
@@ -1486,19 +1506,23 @@ rcv_topic_prefix/# で待ち受け、デバイス設定オブジェクト'unique
 <td><p>文字列</p></td>
 <td><p>接続先URL. (MAXPATHLEN)</p></td>
 </tr>
-<tr class="row-odd"><td><p>poll_interval</p></td>
+<tr class="row-odd"><td><p>ssl_verify</p></td>
+<td><p>論理値</p></td>
+<td><p>サーバー証明書の検証を行うか否か. デフォルト値はfalse.</p></td>
+</tr>
+<tr class="row-even"><td><p>poll_interval</p></td>
 <td><p>整数値</p></td>
 <td><p>PD Web ではメッセージの送信と同時に下流方向へのメッセージを取得するが、poll interval には送信すべきメッセージが存在しない場合を想定し、空の接続を起こす間隔(sec) を指定する. デフォルト値は30.</p></td>
 </tr>
-<tr class="row-even"><td><p>username</p></td>
+<tr class="row-odd"><td><p>username</p></td>
 <td><p>文字列</p></td>
 <td><p>BASIC 認証用ユーザー名. 空の場合、認証は行わない. (32byte)</p></td>
 </tr>
-<tr class="row-odd"><td><p>password</p></td>
+<tr class="row-even"><td><p>password</p></td>
 <td><p>文字列</p></td>
 <td><p>BASIC 認証用パスワード. 空の場合、認証は行わない. (32byte)</p></td>
 </tr>
-<tr class="row-even"><td><p>max_post_msize</p></td>
+<tr class="row-odd"><td><p>max_post_msize</p></td>
 <td><p>整数値</p></td>
 <td><p>最大ポストサイズ(Mbyte). デフォルト値は1.</p></td>
 </tr>
@@ -1524,7 +1548,7 @@ rcv_topic_prefix/# で待ち受け、デバイス設定オブジェクト'unique
 <tbody>
 <tr class="row-even"><td><p>enable</p></td>
 <td><p>論理値</p></td>
-<td><p>デフォルト値はfalse</p></td>
+<td><p>デフォルト値はfalse.</p></td>
 </tr>
 <tr class="row-odd"><td><p>interval</p></td>
 <td><p>整数値</p></td>
@@ -1623,7 +1647,7 @@ rcv_topic_prefix/# で待ち受け、デバイス設定オブジェクト'unique
 <tbody>
 <tr class="row-even"><td><p>enable</p></td>
 <td><p>論理値</p></td>
-<td><p>デフォルト値はfalse</p></td>
+<td><p>デフォルト値はfalse.</p></td>
 </tr>
 <tr class="row-odd"><td><p>interval</p></td>
 <td><p>整数値</p></td>
@@ -1666,7 +1690,7 @@ rcv_topic_prefix/# で待ち受け、デバイス設定オブジェクト'unique
 <tbody>
 <tr class="row-even"><td><p>enable</p></td>
 <td><p>論理値</p></td>
-<td><p>デフォルト値はfalse</p></td>
+<td><p>デフォルト値はfalse.</p></td>
 </tr>
 <tr class="row-odd"><td><p>interval</p></td>
 <td><p>整数値</p></td>
@@ -1754,7 +1778,7 @@ rcv_topic_prefix/# で待ち受け、デバイス設定オブジェクト'unique
 <tbody>
 <tr class="row-even"><td><p>enable</p></td>
 <td><p>論理値</p></td>
-<td><p>デフォルト値はfalse</p></td>
+<td><p>デフォルト値はfalse.</p></td>
 </tr>
 <tr class="row-odd"><td><p>interval</p></td>
 <td><p>整数値</p></td>
@@ -1846,7 +1870,7 @@ rcv_topic_prefix/# で待ち受け、デバイス設定オブジェクト'unique
 <tbody>
 <tr class="row-even"><td><p>enable</p></td>
 <td><p>論理値</p></td>
-<td><p>デフォルト値はfalse</p></td>
+<td><p>デフォルト値はfalse.</p></td>
 </tr>
 <tr class="row-odd"><td><p>interval</p></td>
 <td><p>整数値</p></td>
@@ -1885,7 +1909,7 @@ rcv_topic_prefix/# で待ち受け、デバイス設定オブジェクト'unique
 <tbody>
 <tr class="row-even"><td><p>enable</p></td>
 <td><p>論理値</p></td>
-<td><p>デフォルト値はfalse</p></td>
+<td><p>デフォルト値はfalse.</p></td>
 </tr>
 <tr class="row-odd"><td><p>interval</p></td>
 <td><p>整数値</p></td>
@@ -1997,7 +2021,7 @@ rcv_topic_prefix/# で待ち受け、デバイス設定オブジェクト'unique
 <tbody>
 <tr class="row-even"><td><p>enable</p></td>
 <td><p>論理値</p></td>
-<td><p>デフォルト値はfalse</p></td>
+<td><p>デフォルト値はfalse.</p></td>
 </tr>
 <tr class="row-odd"><td><p>interval</p></td>
 <td><p>整数値</p></td>
@@ -2109,7 +2133,7 @@ rcv_topic_prefix/# で待ち受け、デバイス設定オブジェクト'unique
 <tbody>
 <tr class="row-even"><td><p>enable</p></td>
 <td><p>論理値</p></td>
-<td><p>デフォルト値はfalse</p></td>
+<td><p>デフォルト値はfalse.</p></td>
 </tr>
 <tr class="row-odd"><td><p>interval</p></td>
 <td><p>整数値</p></td>

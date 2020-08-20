@@ -4,7 +4,7 @@
 <html lang="ja">
   <head>
     <meta charset="utf-8" />
-    <title>PD Handler SW4x &#8212; OpenBlocks FW4 1.0.0 ドキュメント</title>
+    <title>PD Handler SW4x &#8212; OpenBlocks FW4 1.0.1 ドキュメント</title>
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     
@@ -62,7 +62,7 @@
         <li class="right" >
           <a href="modbus2.html" title="PD Handler Modbus 2"
              accesskey="P">前へ</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">OpenBlocks FW4 1.0.0 ドキュメント</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">OpenBlocks FW4 1.0.1 ドキュメント</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="data_handling_ref.html" accesskey="U">データハンドリング設定リファレンスガイド</a> &#187;</li> 
       </ul>
     </div>
@@ -185,6 +185,11 @@
 </td>
 </tr>
 <tr class="row-even"></tr>
+<tr class="row-odd"><td><p>バイタルセンサーノード</p></td>
+<td><p>SW-42L0-4000</p></td>
+<td><p>0xA0</p></td>
+<td><p>脈拍・体温のモニター</p></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -341,23 +346,27 @@
 <td><p>電力モニターノード</p></td>
 <td><p>SW-4260-1120</p></td>
 </tr>
-<tr class="row-odd"><td><p>SW4100_1000</p></td>
+<tr class="row-odd"><td><p>SW42L0_4000</p></td>
+<td><p>バイタルセンサーノード</p></td>
+<td><p>SW-42L0-4000</p></td>
+</tr>
+<tr class="row-even"><td><p>SW4100_1000</p></td>
 <td><p>ルーターノード</p></td>
 <td><p>SW-4100-1000</p></td>
 </tr>
-<tr class="row-even"><td><p>SB4020_1000</p></td>
+<tr class="row-odd"><td><p>SB4020_1000</p></td>
 <td><p>OpenBlocksシリーズ アドオンモジュール</p></td>
 <td><p>SB-4020-1000</p></td>
 </tr>
-<tr class="row-odd"><td><p>SW4000_1000</p></td>
+<tr class="row-even"><td><p>SW4000_1000</p></td>
 <td><p>USBベース</p></td>
 <td><p>SW-4000-1000</p></td>
 </tr>
-<tr class="row-even"><td><p>SW4300_1000</p></td>
+<tr class="row-odd"><td><p>SW4300_1000</p></td>
 <td><p>Ethernet ベース</p></td>
 <td><p>SW-4300-1000</p></td>
 </tr>
-<tr class="row-odd"><td><p>SW4500_1000</p></td>
+<tr class="row-even"><td><p>SW4500_1000</p></td>
 <td><p>RS-232 ベース</p></td>
 <td><p>SW-4500-1000</p></td>
 </tr>
@@ -2955,11 +2964,112 @@
 </tbody>
 </table>
 </div>
+<div class="section" id="sw42l0-4000">
+<h4>SW42L0_4000 オブジェクト<a class="headerlink" href="#sw42l0-4000" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p>SW42L0_4000 オブジェクトで設定可能なブジェクトを示します。</p>
+<table class="colwidths-given docutils align-default" id="id60">
+<caption><span class="caption-text">SW42L0_4000 オブジェクト</span><a class="headerlink" href="#id60" title="このテーブルへのパーマリンク">¶</a></caption>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 12%" />
+<col style="width: 68%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>キー</p></th>
+<th class="head"><p>データ型</p></th>
+<th class="head"><p>説明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>enable</p></td>
+<td><p>論理型</p></td>
+<td><p>デフォルト値 true</p></td>
+</tr>
+<tr class="row-odd"><td><p>keys</p></td>
+<td><p>JSON配列</p></td>
+<td><p>オブジェクト数 6</p></td>
+</tr>
+<tr class="row-even"><td><p>infos</p></td>
+<td><p>JSON obj</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>precision</p></td>
+<td><p>整数値</p></td>
+<td><p>デフォルト値 5</p></td>
+</tr>
+</tbody>
+</table>
+<p>SW42L0_4000 オブジェクトに記載される keys オブジェクトの並びとデフォルト値を示します。</p>
+<table class="colwidths-given docutils align-default" id="id61">
+<caption><span class="caption-text">SW42L0_4000 の keys オブジェクト</span><a class="headerlink" href="#id61" title="このテーブルへのパーマリンク">¶</a></caption>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 30%" />
+<col style="width: 9%" />
+<col style="width: 7%" />
+<col style="width: 6%" />
+<col style="width: 44%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>列番</p></th>
+<th class="head"><p>key</p></th>
+<th class="head"><p>include</p></th>
+<th class="head"><p>form</p></th>
+<th class="head"><p>ratio</p></th>
+<th class="head"><p>説明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>pulse</p></td>
+<td><p>true</p></td>
+<td></td>
+<td><p>0</p></td>
+<td><p>脈拍(bpm)  30 〜 240</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>temperature</p></td>
+<td><p>true</p></td>
+<td></td>
+<td><p>-1</p></td>
+<td><p>体温(℃)  10.0 〜 45.0</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>sensorStaus</p></td>
+<td><p>true</p></td>
+<td><p>bool</p></td>
+<td></td>
+<td><p>Gセンサーの状態</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p>helpAlart</p></td>
+<td><p>true</p></td>
+<td><p>bool</p></td>
+<td></td>
+<td><p>HELP 発報</p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td><p>pulseStaus</p></td>
+<td><p>true</p></td>
+<td><p>bool</p></td>
+<td></td>
+<td><p>脈拍の測定ステータス</p></td>
+</tr>
+<tr class="row-odd"><td><p>6</p></td>
+<td><p>tempeStaus</p></td>
+<td><p>true</p></td>
+<td><p>bool</p></td>
+<td></td>
+<td><p>体温の測定ステータス</p></td>
+</tr>
+</tbody>
+</table>
+</div>
 <div class="section" id="sw4000-1000-sw4100-1000-sb4020-1000-sw4300-1000-sw4500-1000">
 <h4>SW4000_1000, SW4100_1000, SB4020_1000, SW4300_1000, SW4500_1000 オブジェクト<a class="headerlink" href="#sw4000-1000-sw4100-1000-sb4020-1000-sw4300-1000-sw4500-1000" title="このヘッドラインへのパーマリンク">¶</a></h4>
 <p>SW4000_1000, SW4100_1000, SB4020_1000, SW4300_1000, SW4500_1000 オブジェクトで設定可能なブジェクトを示します。</p>
-<table class="colwidths-given docutils align-default" id="id60">
-<caption><span class="caption-text">SW4000_1000, SW4100_1000, SB4020_1000, SW4300_1000, SW4500_1000 オブジェクト</span><a class="headerlink" href="#id60" title="このテーブルへのパーマリンク">¶</a></caption>
+<table class="colwidths-given docutils align-default" id="id62">
+<caption><span class="caption-text">SW4000_1000, SW4100_1000, SB4020_1000, SW4300_1000, SW4500_1000 オブジェクト</span><a class="headerlink" href="#id62" title="このテーブルへのパーマリンク">¶</a></caption>
 <colgroup>
 <col style="width: 20%" />
 <col style="width: 12%" />
@@ -2987,8 +3097,8 @@
 </tbody>
 </table>
 <p>SW4000_1000, SW4100_1000, SB4020_1000, SW4300_1000, SW4500_1000 オブジェクトに記載される keys オブジェクトの並びとデフォルト値を示します。</p>
-<table class="colwidths-given docutils align-default" id="id61">
-<caption><span class="caption-text">SW4000_1000, SW4100_1000, SB4020_1000, SW4300_1000, SW4500_1000 の keys オブジェクト</span><a class="headerlink" href="#id61" title="このテーブルへのパーマリンク">¶</a></caption>
+<table class="colwidths-given docutils align-default" id="id63">
+<caption><span class="caption-text">SW4000_1000, SW4100_1000, SB4020_1000, SW4300_1000, SW4500_1000 の keys オブジェクト</span><a class="headerlink" href="#id63" title="このテーブルへのパーマリンク">¶</a></caption>
 <colgroup>
 <col style="width: 4%" />
 <col style="width: 30%" />
@@ -3052,8 +3162,8 @@
 <div class="line">基準時刻制御は、polls オブジェクトの time_sync で有効となり、同オブジェクトの interval キーに設定される「取得時間間隔」と base_time キーに設定される「基準時刻」に基づき、定時刻にデータの収集を行う機能です。</div>
 <div class="line">基準時刻制御における「取得時間間隔」は60, 120, 180, 300, 600, 900, 1800, 3600, 7200, 10800, 14400, 21600, 28800, 43200と86400の倍数に限られます。 「取得時間間隔」としてこれら以外の値が設定されると PD Handler SW4x 内で次のように扱われます。</div>
 </div>
-<table class="docutils align-default" id="id62">
-<caption><span class="caption-text">基準時刻制御における取得時間間隔の設定と実動作値</span><a class="headerlink" href="#id62" title="このテーブルへのパーマリンク">¶</a></caption>
+<table class="docutils align-default" id="id64">
+<caption><span class="caption-text">基準時刻制御における取得時間間隔の設定と実動作値</span><a class="headerlink" href="#id64" title="このテーブルへのパーマリンク">¶</a></caption>
 <colgroup>
 <col style="width: 50%" />
 <col style="width: 50%" />
@@ -3147,8 +3257,8 @@
 </div>
 <div class="section" id="id12">
 <h3>設定オブジェクト<a class="headerlink" href="#id12" title="このヘッドラインへのパーマリンク">¶</a></h3>
-<table class="colwidths-given docutils align-default" id="id63">
-<caption><span class="caption-text">PD Handler sw4x の設定 オブジェクト</span><a class="headerlink" href="#id63" title="このテーブルへのパーマリンク">¶</a></caption>
+<table class="colwidths-given docutils align-default" id="id65">
+<caption><span class="caption-text">PD Handler sw4x の設定 オブジェクト</span><a class="headerlink" href="#id65" title="このテーブルへのパーマリンク">¶</a></caption>
 <colgroup>
 <col style="width: 20%" />
 <col style="width: 12%" />
@@ -3241,8 +3351,8 @@
 <div class="section" id="id14">
 <h3>コマンド入力オブジェクト<a class="headerlink" href="#id14" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>コマンド入力に用いられる JSON オブジェクトを示します。</p>
-<table class="colwidths-given docutils align-default" id="id64">
-<caption><span class="caption-text">コマンド入力オブジェクト</span><a class="headerlink" href="#id64" title="このテーブルへのパーマリンク">¶</a></caption>
+<table class="colwidths-given docutils align-default" id="id66">
+<caption><span class="caption-text">コマンド入力オブジェクト</span><a class="headerlink" href="#id66" title="このテーブルへのパーマリンク">¶</a></caption>
 <colgroup>
 <col style="width: 20%" />
 <col style="width: 12%" />
@@ -3299,8 +3409,8 @@
 <div class="line">応答メッセージは設定オブジェクトの reply キーが true に設定されている場合に出力されます。</div>
 <div class="line">応答メッセージに用いられる JSON オブジェクトをしめします。</div>
 </div>
-<table class="colwidths-given docutils align-default" id="id65">
-<caption><span class="caption-text">応答メッセージオブジェクト</span><a class="headerlink" href="#id65" title="このテーブルへのパーマリンク">¶</a></caption>
+<table class="colwidths-given docutils align-default" id="id67">
+<caption><span class="caption-text">応答メッセージオブジェクト</span><a class="headerlink" href="#id67" title="このテーブルへのパーマリンク">¶</a></caption>
 <colgroup>
 <col style="width: 20%" />
 <col style="width: 12%" />
@@ -3446,6 +3556,7 @@
 <li><a class="reference internal" href="#sw4260-1x00">SW4260_1x00 オブジェクト</a></li>
 <li><a class="reference internal" href="#sw4280-1000">SW4280_1000 オブジェクト</a></li>
 <li><a class="reference internal" href="#sw4260-1x20">SW4260_1x20 オブジェクト</a></li>
+<li><a class="reference internal" href="#sw42l0-4000">SW42L0_4000 オブジェクト</a></li>
 <li><a class="reference internal" href="#sw4000-1000-sw4100-1000-sb4020-1000-sw4300-1000-sw4500-1000">SW4000_1000, SW4100_1000, SB4020_1000, SW4300_1000, SW4500_1000 オブジェクト</a></li>
 </ul>
 </li>
