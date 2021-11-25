@@ -6,17 +6,17 @@
 <meta name="generator" content="Docusaurus v2.0.0-alpha.68">
 <title data-react-helmet="true">Azure IoT Edge設定 | ぷらっとホームどきゅめんと</title><meta data-react-helmet="true" name="twitter:card" content="summary_large_image"><meta data-react-helmet="true" name="docusaurus_language" content="en"><meta data-react-helmet="true" name="docusaurus_version" content="current"><meta data-react-helmet="true" name="docusaurus_tag" content="docs-default-current"><meta data-react-helmet="true" property="og:title" content="Azure IoT Edge設定 | ぷらっとホームどきゅめんと"><meta data-react-helmet="true" name="description" content="OpenBlocks用IoTゲートウェイソフトウェア「FW4」内で使用可能なファイルAzure IoT Edgeの設定方法についてのページです。"><meta data-react-helmet="true" property="og:description" content="OpenBlocks用IoTゲートウェイソフトウェア「FW4」内で使用可能なファイルAzure IoT Edgeの設定方法についてのページです。"><meta data-react-helmet="true" name="keywords" content="docs,OpenBlocks,IoT,Edge,Azure,ぷらっとホーム,Plat Home"><meta data-react-helmet="true" property="og:url" content="https://docs.plathome.co.jp/docs/openblocks/fw4/service/iotedge"><link data-react-helmet="true" rel="shortcut icon" href="/img/favicon.png"><link data-react-helmet="true" rel="canonical" href="https://docs.plathome.co.jp/docs/openblocks/fw4/service/iotedge"><link rel="stylesheet" href="/styles.62ee93f5.css">
 <link rel="preload" href="/styles.a8b53047.js" as="script">
-<link rel="preload" href="/runtime~main.56219699.js" as="script">
-<link rel="preload" href="/main.2e9352de.js" as="script">
-<link rel="preload" href="/1.c0624ef1.js" as="script">
-<link rel="preload" href="/1a4e3797.a0a70e34.js" as="script">
-<link rel="preload" href="/1be78505.96d89c8c.js" as="script">
-<link rel="preload" href="/c4f5d8e4.d9a738bc.js" as="script">
-<link rel="preload" href="/154.8b77e706.js" as="script">
-<link rel="preload" href="/153.2b3e4e43.js" as="script">
+<link rel="preload" href="/runtime~main.475a7f01.js" as="script">
+<link rel="preload" href="/main.520dacaa.js" as="script">
+<link rel="preload" href="/1.8bcf118c.js" as="script">
+<link rel="preload" href="/1a4e3797.10a10a2a.js" as="script">
+<link rel="preload" href="/1be78505.00ea2e83.js" as="script">
+<link rel="preload" href="/c4f5d8e4.3f315d1b.js" as="script">
+<link rel="preload" href="/154.66d2176e.js" as="script">
+<link rel="preload" href="/153.8962f019.js" as="script">
 <link rel="preload" href="/935f2afb.3d9c6c37.js" as="script">
-<link rel="preload" href="/152.897a548a.js" as="script">
-<link rel="preload" href="/528771dc.d91a8c8b.js" as="script">
+<link rel="preload" href="/152.8356d9f2.js" as="script">
+<link rel="preload" href="/528771dc.c03e0514.js" as="script">
 </head>
 <body>
 <script>!function(){function t(t){document.documentElement.setAttribute("data-theme",t)}var e=function(){var t=null;try{t=localStorage.getItem("theme")}catch(t){}return t}();t(null!==e?e:"light")}()</script><div id="__docusaurus">
@@ -32,16 +32,16 @@ Edgeのセットアップを行います。</p><table><thead><tr><th></th><th></
 こちらを参照の上、IoT Edgeのカスタマイズを実施してください。</p><p><a href="https://docs.microsoft.com/ja-jp/azure/iot-edge/tutorial-deploy-function#create-a-container-registry" target="_blank" rel="noopener noreferrer">https://docs.microsoft.com/ja-jp/azure/iot-edge/tutorial-deploy-function#create-a-container-registry</a></p><h2><a aria-hidden="true" tabindex="-1" class="anchor" id="openblocks-ix9での使用について"></a>OpenBlocks IX9での使用について<a aria-hidden="true" class="hash-link" href="#openblocks-ix9での使用について" title="Direct link to heading">#</a></h2><p>OpenBlocks IX9のeMMCブート時には、使用するコンテナによってストレージが十分なサイズではない可能性があります。<br>
 そのため、ファイルサイズが大きいコンテナを用いる場合にはSSDのご使用をご検討ください。</p></div></article><div class="margin-vert--lg"><nav class="pagination-nav" aria-label="Blog list page navigation"><div class="pagination-nav__item"><a class="pagination-nav__link" href="/docs/openblocks/fw4/service/docker"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">« Docker/Moby設定</div></a></div><div class="pagination-nav__item pagination-nav__item--next"><a class="pagination-nav__link" href="/docs/openblocks/fw4/service/samba"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Samba設定 »</div></a></div></nav></div></div></div><div class="col col--3"><div class="tableOfContents_3SO_ thin-scrollbar"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#web-ui込みazure-iot-edgeのインストール" class="table-of-contents__link">WEB-UI込みAzure IoT Edgeのインストール</a></li><li><a href="#事前準備iot-hubの設定" class="table-of-contents__link">[事前準備]IoT Hubの設定</a></li><li><a href="#web-uiからのazure-iot-edge設定について" class="table-of-contents__link">WEB-UIからのAzure IoT Edge設定について</a></li><li><a href="#azure-iot-edgeのセットアップ" class="table-of-contents__link">Azure IoT Edgeのセットアップ</a></li><li><a href="#azure-iot-edge操作" class="table-of-contents__link">Azure IoT Edge操作</a></li><li><a href="#azure-iot-edgeモジュールの環境変数" class="table-of-contents__link">Azure IoT Edgeモジュールの環境変数</a></li><li><a href="#web-ui用dockerとの連携" class="table-of-contents__link">WEB-UI用Dockerとの連携</a></li><li><a href="#azure-iot-edgeのコンテナ追加" class="table-of-contents__link">Azure IoT Edgeのコンテナ追加</a></li><li><a href="#openblocks-ix9での使用について" class="table-of-contents__link">OpenBlocks IX9での使用について</a></li></ul></div></div></div></div></main></div></div><footer class="footer footer--dark"><div class="container"><div class="row footer__links"><div class="col footer__col"><h4 class="footer__title">製品情報</h4><ul class="footer__items"><li class="footer__item"><a href="https://www.plathome.co.jp/product/openblocks-iot/" target="_blank" rel="noopener noreferrer" class="footer__link-item">OpenBlocks IoT</a></li><li class="footer__item"><a href="https://www.plathome.co.jp/product/openblocks/" target="_blank" rel="noopener noreferrer" class="footer__link-item">OpenBlocks - MicroServer</a></li><li class="footer__item"><a href="https://www.plathome.co.jp/product/easyblocks/" target="_blank" rel="noopener noreferrer" class="footer__link-item">EasyBlocksシリーズ</a></li><li class="footer__item"><a href="https://www.plathome.co.jp/product/airmanage2/" target="_blank" rel="noopener noreferrer" class="footer__link-item">AirManage2</a></li><li class="footer__item"><a href="https://www.plathome.co.jp/product/openblocks-idm/" target="_blank" rel="noopener noreferrer" class="footer__link-item">OpenBlocks IDMシリーズ</a></li></ul></div><div class="col footer__col"><h4 class="footer__title">SNS</h4><ul class="footer__items"><li class="footer__item"><a href="https://www.facebook.com/plathome.co.jp/" target="_blank" rel="noopener noreferrer" class="footer__link-item">Facebook</a></li><li class="footer__item"><a href="https://twitter.com/openblocks" target="_blank" rel="noopener noreferrer" class="footer__link-item">Twitter - OpenBlocks</a></li><li class="footer__item"><a href="https://twitter.com/OBSDEV" target="_blank" rel="noopener noreferrer" class="footer__link-item">Twitter - OpenBlocks開発の人</a></li></ul></div><div class="col footer__col"><h4 class="footer__title">サポート</h4><ul class="footer__items"><li class="footer__item"><a href="https://www.plathome.co.jp/contact/" target="_blank" rel="noopener noreferrer" class="footer__link-item">お問い合わせ</a></li><li class="footer__item"><a href="https://kb.plathome.co.jp/knowledge/" target="_blank" rel="noopener noreferrer" class="footer__link-item">FAQ</a></li></ul></div></div><div class="text--center"><div>Copyright © 2020 - 2021 Plat'Home Co., Ltd. All rights reserved.</div></div></div></footer></div>
 <script src="/styles.a8b53047.js"></script>
-<script src="/runtime~main.56219699.js"></script>
-<script src="/main.2e9352de.js"></script>
-<script src="/1.c0624ef1.js"></script>
-<script src="/1a4e3797.a0a70e34.js"></script>
-<script src="/1be78505.96d89c8c.js"></script>
-<script src="/c4f5d8e4.d9a738bc.js"></script>
-<script src="/154.8b77e706.js"></script>
-<script src="/153.2b3e4e43.js"></script>
+<script src="/runtime~main.475a7f01.js"></script>
+<script src="/main.520dacaa.js"></script>
+<script src="/1.8bcf118c.js"></script>
+<script src="/1a4e3797.10a10a2a.js"></script>
+<script src="/1be78505.00ea2e83.js"></script>
+<script src="/c4f5d8e4.3f315d1b.js"></script>
+<script src="/154.66d2176e.js"></script>
+<script src="/153.8962f019.js"></script>
 <script src="/935f2afb.3d9c6c37.js"></script>
-<script src="/152.897a548a.js"></script>
-<script src="/528771dc.d91a8c8b.js"></script>
+<script src="/152.8356d9f2.js"></script>
+<script src="/528771dc.c03e0514.js"></script>
 </body>
 </html>
