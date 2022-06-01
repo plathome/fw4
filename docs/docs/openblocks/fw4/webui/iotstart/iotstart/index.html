@@ -6,17 +6,17 @@
 <meta name="generator" content="Docusaurus v2.0.0-alpha.68">
 <title data-react-helmet="true">IoTセットアップ手順 | ぷらっとホームどきゅめんと</title><meta data-react-helmet="true" name="twitter:card" content="summary_large_image"><meta data-react-helmet="true" name="docusaurus_language" content="en"><meta data-react-helmet="true" name="docusaurus_version" content="current"><meta data-react-helmet="true" name="docusaurus_tag" content="docs-default-current"><meta data-react-helmet="true" property="og:title" content="IoTセットアップ手順 | ぷらっとホームどきゅめんと"><meta data-react-helmet="true" name="description" content="OpenBlocksでセンサーデータを受信してIoTクラウドへ送信するまでのステップの概要を説明しています。"><meta data-react-helmet="true" property="og:description" content="OpenBlocksでセンサーデータを受信してIoTクラウドへ送信するまでのステップの概要を説明しています。"><meta data-react-helmet="true" name="keywords" content="docs,OpenBlocks,IoT,FW4,WEB-UI,初期基本設定,ぷらっとホーム,Plat Home"><meta data-react-helmet="true" property="og:url" content="https://docs.plathome.co.jp/docs/openblocks/fw4/webui/iotstart/iotstart"><link data-react-helmet="true" rel="shortcut icon" href="/img/favicon.png"><link data-react-helmet="true" rel="canonical" href="https://docs.plathome.co.jp/docs/openblocks/fw4/webui/iotstart/iotstart"><link rel="stylesheet" href="/styles.345e0950.css">
 <link rel="preload" href="/styles.cc01a48c.js" as="script">
-<link rel="preload" href="/runtime~main.c30da65a.js" as="script">
-<link rel="preload" href="/main.9f865bad.js" as="script">
-<link rel="preload" href="/1.6defdc89.js" as="script">
-<link rel="preload" href="/1a4e3797.95fe2289.js" as="script">
-<link rel="preload" href="/1be78505.12085f99.js" as="script">
-<link rel="preload" href="/c4f5d8e4.27161039.js" as="script">
-<link rel="preload" href="/222.cd82fb72.js" as="script">
-<link rel="preload" href="/221.aeb92ae2.js" as="script">
+<link rel="preload" href="/runtime~main.85c5a88d.js" as="script">
+<link rel="preload" href="/main.c56c425d.js" as="script">
+<link rel="preload" href="/1.19bbf62b.js" as="script">
+<link rel="preload" href="/1a4e3797.5b315200.js" as="script">
+<link rel="preload" href="/1be78505.0e356c9a.js" as="script">
+<link rel="preload" href="/c4f5d8e4.46248e17.js" as="script">
+<link rel="preload" href="/222.cbfe63cb.js" as="script">
+<link rel="preload" href="/221.56b486fe.js" as="script">
 <link rel="preload" href="/935f2afb.9b529ec0.js" as="script">
 <link rel="preload" href="/220.00f29a6b.js" as="script">
-<link rel="preload" href="/02cbeb40.34debad4.js" as="script">
+<link rel="preload" href="/02cbeb40.0cb3e826.js" as="script">
 </head>
 <body>
 <script>!function(){function t(t){document.documentElement.setAttribute("data-theme",t)}var e=function(){var t=null;try{t=localStorage.getItem("theme")}catch(t){}return t}();t(null!==e?e:"light")}()</script><div id="__docusaurus">
@@ -126,16 +126,16 @@ STEP3で登録されたデバイス番号毎に表示されているので、そ
 最後に、IoTサーバー側の受信状態に関しては、その管理者に受信状態を確認してもらってください。<br>
 また、センサーデーターの送信jsonフォーマットについては以下を参照してください。  </p><ul><li><a href="/docs/openblocks/fw4/data_form/ble">BLEビーコンセンサー</a>  </li><li><a href="/docs/openblocks/fw4/data_form/enocean">EnOceanセンサー</a>  </li><li><a href="/docs/openblocks/fw4/data_form/wisun">Wi-SUN Bルート(低圧電力計)</a>  </li><li><a href="/docs/openblocks/fw4/data_form/hvsmc">HVSMC (高圧電力計)</a>  </li><li><a href="/docs/openblocks/fw4/data_form/modbus_merge">Modbus データサンプル</a>  </li><li><a href="/docs/openblocks/fw4/data_form/sw4x">SW4x ミスター省エネ</a>  </li></ul></div></article><div class="margin-vert--lg"><nav class="pagination-nav" aria-label="Blog list page navigation"><div class="pagination-nav__item"><a class="pagination-nav__link" href="/docs/openblocks/fw4/webui/service/service"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">« サービスの追加</div></a></div><div class="pagination-nav__item pagination-nav__item--next"><a class="pagination-nav__link" href="/docs/openblocks/fw4/service/basic"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">基本設定(IoTデータ) »</div></a></div></nav></div></div></div><div class="col col--3"><div class="tableOfContents_3SO_ thin-scrollbar"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#iot機能のセットアップ手順" class="table-of-contents__link">IoT機能のセットアップ手順</a><ul><li><a href="#step1-openblocksの基本設定" class="table-of-contents__link">STEP1 OpenBlocksの基本設定</a></li><li><a href="#step2-iotデータ制御サービス追加" class="table-of-contents__link">STEP2 IoTデータ制御サービス追加</a></li><li><a href="#step3-受信するセンサーを登録する" class="table-of-contents__link">STEP3 受信するセンサーを登録する</a></li><li><a href="#step4-アプリ起動制御を設定する" class="table-of-contents__link">STEP4 アプリ起動制御を設定する</a></li><li><a href="#step5-送信先iotクラウドの選択" class="table-of-contents__link">STEP5 送信先IoTクラウドの選択</a></li><li><a href="#step6-デバイスの送信設定をする" class="table-of-contents__link">STEP6 デバイスの送信設定をする</a></li><li><a href="#step7-センサー送信データの確認" class="table-of-contents__link">STEP7 センサー送信データの確認</a></li></ul></li></ul></div></div></div></div></main></div></div><footer class="footer footer--dark"><div class="container"><div class="row footer__links"><div class="col footer__col"><h4 class="footer__title">製品情報</h4><ul class="footer__items"><li class="footer__item"><a href="https://www.plathome.co.jp/product/openblocks-iot/" target="_blank" rel="noopener noreferrer" class="footer__link-item">OpenBlocks IoT</a></li><li class="footer__item"><a href="https://www.plathome.co.jp/product/openblocks/" target="_blank" rel="noopener noreferrer" class="footer__link-item">OpenBlocks - MicroServer</a></li><li class="footer__item"><a href="https://www.plathome.co.jp/product/easyblocks/" target="_blank" rel="noopener noreferrer" class="footer__link-item">EasyBlocksシリーズ</a></li><li class="footer__item"><a href="https://www.plathome.co.jp/product/airmanage2/" target="_blank" rel="noopener noreferrer" class="footer__link-item">AirManage2</a></li><li class="footer__item"><a href="https://www.plathome.co.jp/product/openblocks-idm/" target="_blank" rel="noopener noreferrer" class="footer__link-item">OpenBlocks IDMシリーズ</a></li></ul></div><div class="col footer__col"><h4 class="footer__title">SNS</h4><ul class="footer__items"><li class="footer__item"><a href="https://www.facebook.com/plathome.co.jp/" target="_blank" rel="noopener noreferrer" class="footer__link-item">Facebook</a></li><li class="footer__item"><a href="https://twitter.com/openblocks" target="_blank" rel="noopener noreferrer" class="footer__link-item">Twitter - OpenBlocks</a></li><li class="footer__item"><a href="https://twitter.com/OBSDEV" target="_blank" rel="noopener noreferrer" class="footer__link-item">Twitter - OpenBlocks開発の人</a></li></ul></div><div class="col footer__col"><h4 class="footer__title">サポート</h4><ul class="footer__items"><li class="footer__item"><a href="https://www.plathome.co.jp/contact/" target="_blank" rel="noopener noreferrer" class="footer__link-item">お問い合わせ</a></li><li class="footer__item"><a href="https://kb.plathome.co.jp/knowledge/" target="_blank" rel="noopener noreferrer" class="footer__link-item">FAQ</a></li></ul></div></div><div class="text--center"><div>Copyright © 2020 - 2022 Plat'Home Co., Ltd. All rights reserved.</div></div></div></footer></div>
 <script src="/styles.cc01a48c.js"></script>
-<script src="/runtime~main.c30da65a.js"></script>
-<script src="/main.9f865bad.js"></script>
-<script src="/1.6defdc89.js"></script>
-<script src="/1a4e3797.95fe2289.js"></script>
-<script src="/1be78505.12085f99.js"></script>
-<script src="/c4f5d8e4.27161039.js"></script>
-<script src="/222.cd82fb72.js"></script>
-<script src="/221.aeb92ae2.js"></script>
+<script src="/runtime~main.85c5a88d.js"></script>
+<script src="/main.c56c425d.js"></script>
+<script src="/1.19bbf62b.js"></script>
+<script src="/1a4e3797.5b315200.js"></script>
+<script src="/1be78505.0e356c9a.js"></script>
+<script src="/c4f5d8e4.46248e17.js"></script>
+<script src="/222.cbfe63cb.js"></script>
+<script src="/221.56b486fe.js"></script>
 <script src="/935f2afb.9b529ec0.js"></script>
 <script src="/220.00f29a6b.js"></script>
-<script src="/02cbeb40.34debad4.js"></script>
+<script src="/02cbeb40.0cb3e826.js"></script>
 </body>
 </html>
