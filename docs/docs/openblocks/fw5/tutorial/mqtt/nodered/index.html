@@ -6,17 +6,17 @@
 <meta name="generator" content="Docusaurus v2.0.0-alpha.68">
 <title data-react-helmet="true">Node-REDの設定 | ぷらっとホームどきゅめんと</title><meta data-react-helmet="true" name="twitter:card" content="summary_large_image"><meta data-react-helmet="true" name="docusaurus_language" content="en"><meta data-react-helmet="true" name="docusaurus_version" content="current"><meta data-react-helmet="true" name="docusaurus_tag" content="docs-default-current"><meta data-react-helmet="true" property="og:title" content="Node-REDの設定 | ぷらっとホームどきゅめんと"><meta data-react-helmet="true" name="description" content="OpenBlocksに用いているIoTゲートウェイソフトウェア「FW5」を用いたMQTTサーバーへのセンサーデータ送信チュートリアルドキュメントの「Node-REDの設定」のページです。"><meta data-react-helmet="true" property="og:description" content="OpenBlocksに用いているIoTゲートウェイソフトウェア「FW5」を用いたMQTTサーバーへのセンサーデータ送信チュートリアルドキュメントの「Node-REDの設定」のページです。"><meta data-react-helmet="true" name="keywords" content="IoT,Data Handling,PD Repeater,MQTT,mqtt,pd_repeater_mqtt,Node-RED,nodered"><meta data-react-helmet="true" property="og:url" content="https://docs.plathome.co.jp/docs/openblocks/fw5/tutorial/mqtt/nodered"><link data-react-helmet="true" rel="shortcut icon" href="/img/favicon.png"><link data-react-helmet="true" rel="canonical" href="https://docs.plathome.co.jp/docs/openblocks/fw5/tutorial/mqtt/nodered"><link rel="stylesheet" href="/styles.6a7f28c3.css">
 <link rel="preload" href="/styles.7630729b.js" as="script">
-<link rel="preload" href="/runtime~main.dec890d9.js" as="script">
-<link rel="preload" href="/main.8123f066.js" as="script">
-<link rel="preload" href="/1.06c06427.js" as="script">
-<link rel="preload" href="/1a4e3797.3e82512c.js" as="script">
-<link rel="preload" href="/1be78505.00fdc8a6.js" as="script">
-<link rel="preload" href="/c4f5d8e4.b38ffb6c.js" as="script">
-<link rel="preload" href="/367.52377bfb.js" as="script">
-<link rel="preload" href="/366.063570c7.js" as="script">
+<link rel="preload" href="/runtime~main.184c6265.js" as="script">
+<link rel="preload" href="/main.bebca1b1.js" as="script">
+<link rel="preload" href="/1.fd206da0.js" as="script">
+<link rel="preload" href="/1a4e3797.dac89970.js" as="script">
+<link rel="preload" href="/1be78505.a916c989.js" as="script">
+<link rel="preload" href="/c4f5d8e4.99b25c1c.js" as="script">
+<link rel="preload" href="/367.b4e7bc0d.js" as="script">
+<link rel="preload" href="/366.bfc2d4a0.js" as="script">
 <link rel="preload" href="/935f2afb.c5e3a9d9.js" as="script">
 <link rel="preload" href="/365.c7c3a2cd.js" as="script">
-<link rel="preload" href="/f06054f1.62ee5eb5.js" as="script">
+<link rel="preload" href="/f06054f1.39d6cacd.js" as="script">
 </head>
 <body>
 <script>!function(){function t(t){document.documentElement.setAttribute("data-theme",t)}var e=function(){var t=null;try{t=localStorage.getItem("theme")}catch(t){}return t}();t(null!==e?e:"light")}()</script><div id="__docusaurus">
@@ -37,16 +37,16 @@
 <strong>ダッシュボード コンテキスト サイドバー</strong>が表示されます。</p><p><img alt="Node-RED" src="/assets/images/node_dashboard_menu-387fceba3dd9aaeb289b9a7d25444d0b.png"></p><p><strong>ダッシュボード　コンテキスト サイドバー</strong>の<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAAPCAIAAABm5AhFAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEKSURBVDhPY/z//z8D6YCgtlsLomu2/YZyGFhd65emajMwsED5r452N047/RouDwGu9atSE7rib5ctvA2RgclDtD3d2rZaNGvWKm1uMBcVSJvaq66+fe0blAsGTGDyw7Nn2qZY9YCcUT3n2jd+LX15VqgQEEC04QIgPRNPf+Q3zW9tqO7uileF6wQGyf//V2aFzroCZiGBl0e6UkJDQ1O6jryEiiAALtuQ7Cm1FoMKIgB2ba92dSPpuTo7bPZVqAwUwCIAFYi5VVcx3JJyM8O0BwJwOVLAALceIIBoE5CSOnXswlcwGx18vXDslJSUAJQHBbDEhT2VgACrqGlWPXqwkJmU8Uc3DsDAAAB+Io1XZq0CBwAAAABJRU5ErkJggg==">ボタンクリックします。<br>
 ブラウザに新しいタブが開かれ<strong>ダッシュボード</strong>が表示されます。</p><p><img alt="Node-RED" src="/assets/images/node_dashboard-516677bdd1018a3e8f7949ef70ad9474.png"></p><p>正常に動作していれば上図のように温度と湿度のグラフが表示されます。</p></div></article><div class="margin-vert--lg"><nav class="pagination-nav" aria-label="Blog list page navigation"><div class="pagination-nav__item"><a class="pagination-nav__link" href="/docs/openblocks/fw5/tutorial/mqtt/openblocks_iot_sub"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">« OpenBlocks IoT の設定(受信側)</div></a></div><div class="pagination-nav__item pagination-nav__item--next"><a class="pagination-nav__link" href="/docs/openblocks/fw5/tutorial/mqtt/check"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">動作確認 »</div></a></div></nav></div></div></div><div class="col col--3"><div class="tableOfContents_3SO_ thin-scrollbar"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#0-はじめに" class="table-of-contents__link">0. はじめに</a></li><li><a href="#1-node-redパッケージのインストール" class="table-of-contents__link">1. Node-REDパッケージのインストール</a></li><li><a href="#2-node-redの起動" class="table-of-contents__link">2. Node-REDの起動</a></li><li><a href="#3-node-red-フローの作成" class="table-of-contents__link">3. Node-RED フローの作成</a></li><li><a href="#4-node-red-ダッシュボードの表示" class="table-of-contents__link">4. Node-RED ダッシュボードの表示</a></li></ul></div></div></div></div></main></div></div><footer class="footer footer--dark"><div class="container"><div class="row footer__links"><div class="col footer__col"><h4 class="footer__title">製品情報</h4><ul class="footer__items"><li class="footer__item"><a href="https://www.plathome.co.jp/product/openblocks-iot/" target="_blank" rel="noopener noreferrer" class="footer__link-item">OpenBlocks IoT</a></li><li class="footer__item"><a href="https://www.plathome.co.jp/product/openblocks/" target="_blank" rel="noopener noreferrer" class="footer__link-item">OpenBlocks - MicroServer</a></li><li class="footer__item"><a href="https://www.plathome.co.jp/product/easyblocks/" target="_blank" rel="noopener noreferrer" class="footer__link-item">EasyBlocksシリーズ</a></li><li class="footer__item"><a href="https://www.plathome.co.jp/product/airmanage2/" target="_blank" rel="noopener noreferrer" class="footer__link-item">AirManage2</a></li><li class="footer__item"><a href="https://www.plathome.co.jp/product/openblocks-idm/" target="_blank" rel="noopener noreferrer" class="footer__link-item">OpenBlocks IDMシリーズ</a></li></ul></div><div class="col footer__col"><h4 class="footer__title">SNS</h4><ul class="footer__items"><li class="footer__item"><a href="https://www.facebook.com/plathome.co.jp/" target="_blank" rel="noopener noreferrer" class="footer__link-item">Facebook</a></li><li class="footer__item"><a href="https://twitter.com/openblocks" target="_blank" rel="noopener noreferrer" class="footer__link-item">Twitter - OpenBlocks</a></li><li class="footer__item"><a href="https://twitter.com/OBSDEV" target="_blank" rel="noopener noreferrer" class="footer__link-item">Twitter - OpenBlocks開発の人</a></li></ul></div><div class="col footer__col"><h4 class="footer__title">サポート</h4><ul class="footer__items"><li class="footer__item"><a href="https://www.plathome.co.jp/contact/" target="_blank" rel="noopener noreferrer" class="footer__link-item">お問い合わせ</a></li><li class="footer__item"><a href="https://kb.plathome.co.jp/knowledge/" target="_blank" rel="noopener noreferrer" class="footer__link-item">FAQ</a></li></ul></div></div><div class="text--center"><div>Copyright © 2020 - 2023 Plat'Home Co., Ltd. All rights reserved.</div></div></div></footer></div>
 <script src="/styles.7630729b.js"></script>
-<script src="/runtime~main.dec890d9.js"></script>
-<script src="/main.8123f066.js"></script>
-<script src="/1.06c06427.js"></script>
-<script src="/1a4e3797.3e82512c.js"></script>
-<script src="/1be78505.00fdc8a6.js"></script>
-<script src="/c4f5d8e4.b38ffb6c.js"></script>
-<script src="/367.52377bfb.js"></script>
-<script src="/366.063570c7.js"></script>
+<script src="/runtime~main.184c6265.js"></script>
+<script src="/main.bebca1b1.js"></script>
+<script src="/1.fd206da0.js"></script>
+<script src="/1a4e3797.dac89970.js"></script>
+<script src="/1be78505.a916c989.js"></script>
+<script src="/c4f5d8e4.99b25c1c.js"></script>
+<script src="/367.b4e7bc0d.js"></script>
+<script src="/366.bfc2d4a0.js"></script>
 <script src="/935f2afb.c5e3a9d9.js"></script>
 <script src="/365.c7c3a2cd.js"></script>
-<script src="/f06054f1.62ee5eb5.js"></script>
+<script src="/f06054f1.39d6cacd.js"></script>
 </body>
 </html>
