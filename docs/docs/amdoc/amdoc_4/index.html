@@ -6,17 +6,17 @@
 <meta name="generator" content="Docusaurus v2.0.0-alpha.68">
 <title data-react-helmet="true">運用(テナント管理者向け) | ぷらっとホームどきゅめんと</title><meta data-react-helmet="true" name="twitter:card" content="summary_large_image"><meta data-react-helmet="true" name="docusaurus_language" content="en"><meta data-react-helmet="true" name="docusaurus_version" content="current"><meta data-react-helmet="true" name="docusaurus_tag" content="docs-default-current"><meta data-react-helmet="true" property="og:title" content="運用(テナント管理者向け) | ぷらっとホームどきゅめんと"><meta data-react-helmet="true" name="description" content="OpenBlocks/EasyBlocks向けの遠隔統合管理システム「AirManage2」のテナント管理者向けの運用ページです。"><meta data-react-helmet="true" property="og:description" content="OpenBlocks/EasyBlocks向けの遠隔統合管理システム「AirManage2」のテナント管理者向けの運用ページです。"><meta data-react-helmet="true" name="keywords" content="docs,AirManage,OpenBlocks,IoT,EasyBlocks,ぷらっとホーム,Plat Home"><meta data-react-helmet="true" property="og:url" content="https://docs.plathome.co.jp/docs/amdoc/amdoc_4"><link data-react-helmet="true" rel="shortcut icon" href="/img/favicon.png"><link data-react-helmet="true" rel="canonical" href="https://docs.plathome.co.jp/docs/amdoc/amdoc_4"><link rel="stylesheet" href="/styles.6a7f28c3.css">
 <link rel="preload" href="/styles.7630729b.js" as="script">
-<link rel="preload" href="/runtime~main.bff43da9.js" as="script">
-<link rel="preload" href="/main.daa38b3c.js" as="script">
-<link rel="preload" href="/1.b9ca0dca.js" as="script">
-<link rel="preload" href="/1a4e3797.83c6c582.js" as="script">
+<link rel="preload" href="/runtime~main.4aece14a.js" as="script">
+<link rel="preload" href="/main.d3de949a.js" as="script">
+<link rel="preload" href="/1.ac55d7a7.js" as="script">
+<link rel="preload" href="/1a4e3797.0b27950a.js" as="script">
 <link rel="preload" href="/1be78505.c1c0ab80.js" as="script">
 <link rel="preload" href="/c4f5d8e4.8cc5a687.js" as="script">
-<link rel="preload" href="/368.1e0b42d6.js" as="script">
-<link rel="preload" href="/367.92cdefa1.js" as="script">
+<link rel="preload" href="/368.1181256b.js" as="script">
+<link rel="preload" href="/367.e8a9b35c.js" as="script">
 <link rel="preload" href="/935f2afb.6bc2bd48.js" as="script">
 <link rel="preload" href="/366.e7052d79.js" as="script">
-<link rel="preload" href="/e8cc5bd4.f09058a6.js" as="script">
+<link rel="preload" href="/e8cc5bd4.13eadcc8.js" as="script">
 </head>
 <body>
 <script>!function(){function t(t){document.documentElement.setAttribute("data-theme",t)}var e=function(){var t=null;try{t=localStorage.getItem("theme")}catch(t){}return t}();t(null!==e?e:"light")}()</script><div id="__docusaurus">
@@ -25,16 +25,16 @@
 常時接続では、即時にリコンフィグが実行されます。オンデマンド接続では、次回接続時にリコンフィグが実行されます。</p><p>なお、サーバURLが記入されている場合には、記載内容のURLのAirManage2サーバへとリコンフィグ処理が行われます。未記入の場合には接続中のAirManage2サーバに対してリコンフィグ処理が行われます。</p><p>ここで配布されるconfigは、<a href="/docs/amdoc/amdoc_2#config%E7%AE%A1%E7%90%86">Config管理</a>で説明した、リコンフィグ用にチェックのついた世代ものとなります。</p><div class="admonition admonition-info alert alert--info"><div class="admonition-heading"><h5><span class="admonition-icon"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg></span>info</h5></div><div class="admonition-content"><p>Debianモデルではリコネクション機能のみサポートします。<br>
 リコンフィグ及びリコンフィグ(ネットワーク設定除く)を実施してもリコネクション動作となります。</p></div></div><h3><a aria-hidden="true" tabindex="-1" class="anchor" id="ノード状況"></a>ノード状況<a aria-hidden="true" class="hash-link" href="#ノード状況" title="Direct link to heading">#</a></h3><p><code>ノード状況</code>タブを選択します。</p><p>各項目はリンクになっています。クリックするとその項目でフィルタしたノード画面に遷移します。フィルタを解除するには、<code>✕</code>ボタンを押します。</p><table><thead><tr><th>項目</th><th>値</th></tr></thead><tbody><tr><td>ノード</td><td>テナント内のノードの個数です。</td></tr><tr><td>監視対象外ノード</td><td>監視対象外にチェックの入ったグループに所属するノードの個数です。</td></tr><tr><td>監視対象ノード</td><td>テナント内のノードの個数から監視対象外ノード数を引いたノードの個数です。</td></tr><tr><td>接続不能ノード</td><td>AirManage2サーバに接続していないノードの個数です。</td></tr><tr><td>接続ノード</td><td>AirManage2サーバに接続しているノードの個数です。<br>オンデマンド接続のノードで、接続を待機している場合は含まれません。</td></tr><tr><td>ダウンロード待ち</td><td>ダウンロード待ちしているノードの個数です。</td></tr><tr><td>ダウンロード中</td><td>ダウンロード中のノードの個数です。</td></tr><tr><td>ダウンロード失敗</td><td>ダウンロードを失敗したノードの個数です。</td></tr><tr><td>アップデート指示待ち</td><td>アップデート指示待ちのノードの個数です。</td></tr><tr><td>アップデート待ち</td><td>アップデート待ちのノードの個数です。</td></tr><tr><td>アップデート実行中</td><td>アップデート実行中のノードの個数です。</td></tr><tr><td>アップデート失敗</td><td>アップデートを失敗したノードの個数です。</td></tr><tr><td>アテンションあり</td><td>アテンションのあるノードの個数です。</td></tr></tbody></table></div></article><div class="margin-vert--lg"><nav class="pagination-nav" aria-label="Blog list page navigation"><div class="pagination-nav__item"><a class="pagination-nav__link" href="/docs/amdoc/amdoc_3"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">« 運用(システム管理者向け)</div></a></div><div class="pagination-nav__item pagination-nav__item--next"><a class="pagination-nav__link" href="/docs/amdoc/amdoc_webapi"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">WebAPI »</div></a></div></nav></div></div></div><div class="col col--3"><div class="tableOfContents_3SO_ thin-scrollbar"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#カテゴリ" class="table-of-contents__link">カテゴリ</a></li><li><a href="#グループ" class="table-of-contents__link">グループ</a></li><li><a href="#ノード" class="table-of-contents__link">ノード</a><ul><li><a href="#ステータス" class="table-of-contents__link">ステータス</a></li><li><a href="#ダウンロード" class="table-of-contents__link">ダウンロード</a></li><li><a href="#更新" class="table-of-contents__link">更新</a></li><li><a href="#詳細" class="table-of-contents__link">詳細</a></li><li><a href="#webアクセス" class="table-of-contents__link">Webアクセス</a></li><li><a href="#メンテナンスモード" class="table-of-contents__link">メンテナンスモード</a></li><li><a href="#ダウンロード設定" class="table-of-contents__link">ダウンロード設定</a></li><li><a href="#更新設定" class="table-of-contents__link">更新設定</a></li><li><a href="#一括編集" class="table-of-contents__link">一括編集</a></li><li><a href="#ファイルアップロード" class="table-of-contents__link">ファイルアップロード</a></li><li><a href="#リコンフィグ" class="table-of-contents__link">リコンフィグ</a></li><li><a href="#ノード状況" class="table-of-contents__link">ノード状況</a></li></ul></li></ul></div></div></div></div></main></div></div><footer class="footer footer--dark"><div class="container"><div class="row footer__links"><div class="col footer__col"><h4 class="footer__title">製品情報</h4><ul class="footer__items"><li class="footer__item"><a href="https://www.plathome.co.jp/product/openblocks-iot/" target="_blank" rel="noopener noreferrer" class="footer__link-item">OpenBlocks IoT</a></li><li class="footer__item"><a href="https://www.plathome.co.jp/product/openblocks/" target="_blank" rel="noopener noreferrer" class="footer__link-item">OpenBlocks - MicroServer</a></li><li class="footer__item"><a href="https://www.plathome.co.jp/product/easyblocks/" target="_blank" rel="noopener noreferrer" class="footer__link-item">EasyBlocksシリーズ</a></li><li class="footer__item"><a href="https://www.plathome.co.jp/product/airmanage2/" target="_blank" rel="noopener noreferrer" class="footer__link-item">AirManage2</a></li><li class="footer__item"><a href="https://www.plathome.co.jp/product/openblocks-idm/" target="_blank" rel="noopener noreferrer" class="footer__link-item">OpenBlocks IDMシリーズ</a></li></ul></div><div class="col footer__col"><h4 class="footer__title">SNS</h4><ul class="footer__items"><li class="footer__item"><a href="https://www.facebook.com/plathome.co.jp/" target="_blank" rel="noopener noreferrer" class="footer__link-item">Facebook</a></li><li class="footer__item"><a href="https://twitter.com/openblocks" target="_blank" rel="noopener noreferrer" class="footer__link-item">Twitter - OpenBlocks</a></li><li class="footer__item"><a href="https://twitter.com/OBSDEV" target="_blank" rel="noopener noreferrer" class="footer__link-item">Twitter - OpenBlocks開発の人</a></li></ul></div><div class="col footer__col"><h4 class="footer__title">サポート</h4><ul class="footer__items"><li class="footer__item"><a href="https://www.plathome.co.jp/contact/" target="_blank" rel="noopener noreferrer" class="footer__link-item">お問い合わせ</a></li><li class="footer__item"><a href="https://kb.plathome.co.jp/knowledge/" target="_blank" rel="noopener noreferrer" class="footer__link-item">FAQ</a></li></ul></div></div><div class="text--center"><div>Copyright © 2020 - 2023 Plat'Home Co., Ltd. All rights reserved.</div></div></div></footer></div>
 <script src="/styles.7630729b.js"></script>
-<script src="/runtime~main.bff43da9.js"></script>
-<script src="/main.daa38b3c.js"></script>
-<script src="/1.b9ca0dca.js"></script>
-<script src="/1a4e3797.83c6c582.js"></script>
+<script src="/runtime~main.4aece14a.js"></script>
+<script src="/main.d3de949a.js"></script>
+<script src="/1.ac55d7a7.js"></script>
+<script src="/1a4e3797.0b27950a.js"></script>
 <script src="/1be78505.c1c0ab80.js"></script>
 <script src="/c4f5d8e4.8cc5a687.js"></script>
-<script src="/368.1e0b42d6.js"></script>
-<script src="/367.92cdefa1.js"></script>
+<script src="/368.1181256b.js"></script>
+<script src="/367.e8a9b35c.js"></script>
 <script src="/935f2afb.6bc2bd48.js"></script>
 <script src="/366.e7052d79.js"></script>
-<script src="/e8cc5bd4.f09058a6.js"></script>
+<script src="/e8cc5bd4.13eadcc8.js"></script>
 </body>
 </html>

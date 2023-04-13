@@ -6,17 +6,17 @@
 <meta name="generator" content="Docusaurus v2.0.0-alpha.68">
 <title data-react-helmet="true">DHCP設定の直接編集 | ぷらっとホームどきゅめんと</title><meta data-react-helmet="true" name="twitter:card" content="summary_large_image"><meta data-react-helmet="true" name="docusaurus_language" content="en"><meta data-react-helmet="true" name="docusaurus_version" content="current"><meta data-react-helmet="true" name="docusaurus_tag" content="docs-default-current"><meta data-react-helmet="true" property="og:title" content="DHCP設定の直接編集 | ぷらっとホームどきゅめんと"><meta data-react-helmet="true" name="description" content="DHCPのコンフィグレーションを直接編集します。"><meta data-react-helmet="true" property="og:description" content="DHCPのコンフィグレーションを直接編集します。"><meta data-react-helmet="true" name="keywords" content="docs,EasyBlocks,EB,DHCP,直接編集,config,dhcpd.conf,ぷらっとホーム,Plat Home"><meta data-react-helmet="true" property="og:url" content="https://docs.plathome.co.jp/docs/easyblocks/dhcp/conf"><link data-react-helmet="true" rel="shortcut icon" href="/img/favicon.png"><link data-react-helmet="true" rel="canonical" href="https://docs.plathome.co.jp/docs/easyblocks/dhcp/conf"><link rel="stylesheet" href="/styles.6a7f28c3.css">
 <link rel="preload" href="/styles.7630729b.js" as="script">
-<link rel="preload" href="/runtime~main.bff43da9.js" as="script">
-<link rel="preload" href="/main.daa38b3c.js" as="script">
-<link rel="preload" href="/1.b9ca0dca.js" as="script">
-<link rel="preload" href="/1a4e3797.83c6c582.js" as="script">
+<link rel="preload" href="/runtime~main.4aece14a.js" as="script">
+<link rel="preload" href="/main.d3de949a.js" as="script">
+<link rel="preload" href="/1.ac55d7a7.js" as="script">
+<link rel="preload" href="/1a4e3797.0b27950a.js" as="script">
 <link rel="preload" href="/1be78505.c1c0ab80.js" as="script">
 <link rel="preload" href="/c4f5d8e4.8cc5a687.js" as="script">
-<link rel="preload" href="/368.1e0b42d6.js" as="script">
-<link rel="preload" href="/367.92cdefa1.js" as="script">
+<link rel="preload" href="/368.1181256b.js" as="script">
+<link rel="preload" href="/367.e8a9b35c.js" as="script">
 <link rel="preload" href="/935f2afb.6bc2bd48.js" as="script">
 <link rel="preload" href="/366.e7052d79.js" as="script">
-<link rel="preload" href="/f5be07c8.a2df8478.js" as="script">
+<link rel="preload" href="/f5be07c8.3bda6eac.js" as="script">
 </head>
 <body>
 <script>!function(){function t(t){document.documentElement.setAttribute("data-theme",t)}var e=function(){var t=null;try{t=localStorage.getItem("theme")}catch(t){}return t}();t(null!==e?e:"light")}()</script><div id="__docusaurus">
@@ -28,16 +28,16 @@ dhcpd.conf の書式についてはインターネットで学習してくださ
 設定内容を更新し<code>保存</code>ボタンを押したら「設定の検証」コントロールの<code>実行</code>ボタンでチェックしてください。<br>
 正常であれば作業完了です。</p><p><a href="/docs/easyblocks/dhcp#easyblocks-dhcp-%E5%88%9D%E6%9C%9F%E8%A8%AD%E5%AE%9A%E5%9B%BA%E6%9C%89">DHCPトップに戻る</a></p></div></article><div class="margin-vert--lg"><nav class="pagination-nav" aria-label="Blog list page navigation"><div class="pagination-nav__item"><a class="pagination-nav__link" href="/docs/easyblocks/dhcp/service"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">« DHCP サービスの設定</div></a></div><div class="pagination-nav__item pagination-nav__item--next"><a class="pagination-nav__link" href="/docs/easyblocks/dhcp/basic"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">DHCP サービスの基本設定 »</div></a></div></nav></div></div></div><div class="col col--3"><div class="tableOfContents_3SO_ thin-scrollbar"></div></div></div></div></main></div></div><footer class="footer footer--dark"><div class="container"><div class="row footer__links"><div class="col footer__col"><h4 class="footer__title">製品情報</h4><ul class="footer__items"><li class="footer__item"><a href="https://www.plathome.co.jp/product/openblocks-iot/" target="_blank" rel="noopener noreferrer" class="footer__link-item">OpenBlocks IoT</a></li><li class="footer__item"><a href="https://www.plathome.co.jp/product/openblocks/" target="_blank" rel="noopener noreferrer" class="footer__link-item">OpenBlocks - MicroServer</a></li><li class="footer__item"><a href="https://www.plathome.co.jp/product/easyblocks/" target="_blank" rel="noopener noreferrer" class="footer__link-item">EasyBlocksシリーズ</a></li><li class="footer__item"><a href="https://www.plathome.co.jp/product/airmanage2/" target="_blank" rel="noopener noreferrer" class="footer__link-item">AirManage2</a></li><li class="footer__item"><a href="https://www.plathome.co.jp/product/openblocks-idm/" target="_blank" rel="noopener noreferrer" class="footer__link-item">OpenBlocks IDMシリーズ</a></li></ul></div><div class="col footer__col"><h4 class="footer__title">SNS</h4><ul class="footer__items"><li class="footer__item"><a href="https://www.facebook.com/plathome.co.jp/" target="_blank" rel="noopener noreferrer" class="footer__link-item">Facebook</a></li><li class="footer__item"><a href="https://twitter.com/openblocks" target="_blank" rel="noopener noreferrer" class="footer__link-item">Twitter - OpenBlocks</a></li><li class="footer__item"><a href="https://twitter.com/OBSDEV" target="_blank" rel="noopener noreferrer" class="footer__link-item">Twitter - OpenBlocks開発の人</a></li></ul></div><div class="col footer__col"><h4 class="footer__title">サポート</h4><ul class="footer__items"><li class="footer__item"><a href="https://www.plathome.co.jp/contact/" target="_blank" rel="noopener noreferrer" class="footer__link-item">お問い合わせ</a></li><li class="footer__item"><a href="https://kb.plathome.co.jp/knowledge/" target="_blank" rel="noopener noreferrer" class="footer__link-item">FAQ</a></li></ul></div></div><div class="text--center"><div>Copyright © 2020 - 2023 Plat'Home Co., Ltd. All rights reserved.</div></div></div></footer></div>
 <script src="/styles.7630729b.js"></script>
-<script src="/runtime~main.bff43da9.js"></script>
-<script src="/main.daa38b3c.js"></script>
-<script src="/1.b9ca0dca.js"></script>
-<script src="/1a4e3797.83c6c582.js"></script>
+<script src="/runtime~main.4aece14a.js"></script>
+<script src="/main.d3de949a.js"></script>
+<script src="/1.ac55d7a7.js"></script>
+<script src="/1a4e3797.0b27950a.js"></script>
 <script src="/1be78505.c1c0ab80.js"></script>
 <script src="/c4f5d8e4.8cc5a687.js"></script>
-<script src="/368.1e0b42d6.js"></script>
-<script src="/367.92cdefa1.js"></script>
+<script src="/368.1181256b.js"></script>
+<script src="/367.e8a9b35c.js"></script>
 <script src="/935f2afb.6bc2bd48.js"></script>
 <script src="/366.e7052d79.js"></script>
-<script src="/f5be07c8.a2df8478.js"></script>
+<script src="/f5be07c8.3bda6eac.js"></script>
 </body>
 </html>
