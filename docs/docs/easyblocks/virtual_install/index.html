@@ -6,17 +6,17 @@
 <meta name="generator" content="Docusaurus v2.0.0-alpha.68">
 <title data-react-helmet="true">仮想アプライアンス インストール方法 | ぷらっとホームどきゅめんと</title><meta data-react-helmet="true" name="twitter:card" content="summary_large_image"><meta data-react-helmet="true" name="docusaurus_language" content="en"><meta data-react-helmet="true" name="docusaurus_version" content="current"><meta data-react-helmet="true" name="docusaurus_tag" content="docs-default-current"><meta data-react-helmet="true" property="og:title" content="仮想アプライアンス インストール方法 | ぷらっとホームどきゅめんと"><meta data-react-helmet="true" name="description" content="仮想アプライアンス版のEasyBlocksシリーズのインストールドキュメントページです。"><meta data-react-helmet="true" property="og:description" content="仮想アプライアンス版のEasyBlocksシリーズのインストールドキュメントページです。"><meta data-react-helmet="true" name="keywords" content="docs,EasyBlocks,EB,仮想アプライアンス,インストール,ぷらっとホーム,Plat Home"><meta data-react-helmet="true" property="og:url" content="https://docs.plathome.co.jp/docs/easyblocks/virtual_install"><link data-react-helmet="true" rel="shortcut icon" href="/img/favicon.png"><link data-react-helmet="true" rel="canonical" href="https://docs.plathome.co.jp/docs/easyblocks/virtual_install"><link rel="stylesheet" href="/styles.6a7f28c3.css">
 <link rel="preload" href="/styles.3a14cb36.js" as="script">
-<link rel="preload" href="/runtime~main.71eab80e.js" as="script">
-<link rel="preload" href="/main.d4f236f5.js" as="script">
-<link rel="preload" href="/1.a3915aba.js" as="script">
-<link rel="preload" href="/1a4e3797.2a597971.js" as="script">
-<link rel="preload" href="/1be78505.b50b8b72.js" as="script">
-<link rel="preload" href="/c4f5d8e4.492ed8f2.js" as="script">
-<link rel="preload" href="/375.e5e419e0.js" as="script">
-<link rel="preload" href="/374.2fe5b8f9.js" as="script">
-<link rel="preload" href="/935f2afb.de33c8fc.js" as="script">
-<link rel="preload" href="/373.ba8da2ff.js" as="script">
-<link rel="preload" href="/fb268bb9.94d2648c.js" as="script">
+<link rel="preload" href="/runtime~main.a0baa119.js" as="script">
+<link rel="preload" href="/main.77eb9743.js" as="script">
+<link rel="preload" href="/1.944a7859.js" as="script">
+<link rel="preload" href="/1a4e3797.b8d2adec.js" as="script">
+<link rel="preload" href="/1be78505.b36b4117.js" as="script">
+<link rel="preload" href="/c4f5d8e4.2d66b6b4.js" as="script">
+<link rel="preload" href="/375.b0b8b654.js" as="script">
+<link rel="preload" href="/374.07d97eab.js" as="script">
+<link rel="preload" href="/935f2afb.e5150b93.js" as="script">
+<link rel="preload" href="/373.a68c22d2.js" as="script">
+<link rel="preload" href="/fb268bb9.cb43a4b4.js" as="script">
 </head>
 <body>
 <script>!function(){function t(t){document.documentElement.setAttribute("data-theme",t)}var e=function(){var t=null;try{t=localStorage.getItem("theme")}catch(t){}return t}();t(null!==e?e:"light")}()</script><div id="__docusaurus">
@@ -27,16 +27,16 @@
 以下のように表示され、赤枠部分がIPアドレス(今回の場合、<b>172.16.7.137</b>)となります。</p></li></ol><p><img alt="ESXi_InstalledIPaddr" src="/assets/images/ESXi_InstalledIPaddr-fd6f4199ab2272f214019180bd19bd96.png"></p><ol start="3"><li>ログイン後に仮想マシンに付与されているDNSサーバー・デフォルトゲートウェイのIPアドレスを確認する為、<code>2</code>を入力します。<br>以下のように表示され黄枠部分がDNSサーバーのIPアドレス(<b>172.16.2.3</b>及び<b>172.16.2.6</b>)、オレンジ枠部分がデフォルトゲートウェイのIPアドレス(<b>172.16.7.1</b>)となります。</li></ol><p><img alt="ESXi_Installed_DNS_DefaultRoute" src="/assets/images/ESXi_Installed_DNS_DefaultRoute-56a628babbc62f5fa33fee6f20d3ef4c.png"></p><h2><a aria-hidden="true" tabindex="-1" class="anchor" id="補足"></a>補足<a aria-hidden="true" class="hash-link" href="#補足" title="Direct link to heading">#</a></h2><span id="setting"></span><h3><a aria-hidden="true" tabindex="-1" class="anchor" id="ipアドレス設定でのインストールについて"></a>IPアドレス設定でのインストールについて<a aria-hidden="true" class="hash-link" href="#ipアドレス設定でのインストールについて" title="Direct link to heading">#</a></h3><p>インストールメニューから<code>Setting Install</code>を選択した場合、途中で入力画面が表示されます。<br>
 以下の流れにて入力項目が表示されますので、設定してください。</p><ol><li>仮想アプライアンスに付与する静的IPアドレスを設定します。</li></ol><p><img alt="InputSetting_ipaddr" src="/assets/images/InputSetting_ipaddr-0366f6b3909229f631dcfc894d303662.png"></p><ol start="2"><li>仮想アプライアンスに付与する静的IPアドレスに対応するネットマスクを設定します。</li></ol><p><img alt="InputSetting_cidr" src="/assets/images/InputSetting_cidr-4e85cb87723645b6c4e7fe3c7076cf29.png"></p><ol start="3"><li>仮想アプライアンスにデフォルトゲートウェイのIPアドレスを設定します。</li></ol><p><img alt="InputSetting_gateway" src="/assets/images/InputSetting_gateway-f09bdf3694da0e9c4017f7708cc005df.png"></p><ol start="4"><li>仮想アプライアンスにDNSサーバーのIPアドレスを設定します。</li></ol><p><img alt="InputSetting_nameserver" src="/assets/images/InputSetting_nameserver-a4e4f17a7f4175ab49ad96be6853c92f.png"></p></div></article><div class="margin-vert--lg"><nav class="pagination-nav" aria-label="Blog list page navigation"><div class="pagination-nav__item"></div><div class="pagination-nav__item pagination-nav__item--next"></div></nav></div></div></div><div class="col col--3"><div class="tableOfContents_3SO_ thin-scrollbar"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#1-vmware-esxi-host-clientへのログイン" class="table-of-contents__link">1. VMware ESXi Host Clientへのログイン</a></li><li><a href="#2-仮想マシンの作成" class="table-of-contents__link">2. 仮想マシンの作成</a></li><li><a href="#3-仮想アプライアンスのネットワーク情報確認" class="table-of-contents__link">3. 仮想アプライアンスのネットワーク情報確認</a></li><li><a href="#補足" class="table-of-contents__link">補足</a><ul><li><a href="#ipアドレス設定でのインストールについて" class="table-of-contents__link">IPアドレス設定でのインストールについて</a></li></ul></li></ul></div></div></div></div></main></div></div><footer class="footer footer--dark"><div class="container"><div class="row footer__links"><div class="col footer__col"><h4 class="footer__title">製品情報</h4><ul class="footer__items"><li class="footer__item"><a href="https://www.plathome.co.jp/product/openblocks-iot/" target="_blank" rel="noopener noreferrer" class="footer__link-item">OpenBlocks IoT</a></li><li class="footer__item"><a href="https://www.plathome.co.jp/product/openblocks/" target="_blank" rel="noopener noreferrer" class="footer__link-item">OpenBlocks - MicroServer</a></li><li class="footer__item"><a href="https://www.plathome.co.jp/product/easyblocks/" target="_blank" rel="noopener noreferrer" class="footer__link-item">EasyBlocksシリーズ</a></li><li class="footer__item"><a href="https://www.plathome.co.jp/product/airmanage2/" target="_blank" rel="noopener noreferrer" class="footer__link-item">AirManage2</a></li><li class="footer__item"><a href="https://www.plathome.co.jp/product/openblocks-idm/" target="_blank" rel="noopener noreferrer" class="footer__link-item">OpenBlocks IDMシリーズ</a></li></ul></div><div class="col footer__col"><h4 class="footer__title">SNS</h4><ul class="footer__items"><li class="footer__item"><a href="https://www.facebook.com/plathome.co.jp/" target="_blank" rel="noopener noreferrer" class="footer__link-item">Facebook</a></li><li class="footer__item"><a href="https://twitter.com/openblocks" target="_blank" rel="noopener noreferrer" class="footer__link-item">Twitter - OpenBlocks</a></li><li class="footer__item"><a href="https://twitter.com/OBSDEV" target="_blank" rel="noopener noreferrer" class="footer__link-item">Twitter - OpenBlocks開発の人</a></li></ul></div><div class="col footer__col"><h4 class="footer__title">サポート</h4><ul class="footer__items"><li class="footer__item"><a href="https://www.plathome.co.jp/contact/" target="_blank" rel="noopener noreferrer" class="footer__link-item">お問い合わせ</a></li><li class="footer__item"><a href="https://kb.plathome.co.jp/knowledge/" target="_blank" rel="noopener noreferrer" class="footer__link-item">FAQ</a></li></ul></div></div><div class="text--center"><div>Copyright © 2020 - 2023 Plat'Home Co., Ltd. All rights reserved.</div></div></div></footer></div>
 <script src="/styles.3a14cb36.js"></script>
-<script src="/runtime~main.71eab80e.js"></script>
-<script src="/main.d4f236f5.js"></script>
-<script src="/1.a3915aba.js"></script>
-<script src="/1a4e3797.2a597971.js"></script>
-<script src="/1be78505.b50b8b72.js"></script>
-<script src="/c4f5d8e4.492ed8f2.js"></script>
-<script src="/375.e5e419e0.js"></script>
-<script src="/374.2fe5b8f9.js"></script>
-<script src="/935f2afb.de33c8fc.js"></script>
-<script src="/373.ba8da2ff.js"></script>
-<script src="/fb268bb9.94d2648c.js"></script>
+<script src="/runtime~main.a0baa119.js"></script>
+<script src="/main.77eb9743.js"></script>
+<script src="/1.944a7859.js"></script>
+<script src="/1a4e3797.b8d2adec.js"></script>
+<script src="/1be78505.b36b4117.js"></script>
+<script src="/c4f5d8e4.2d66b6b4.js"></script>
+<script src="/375.b0b8b654.js"></script>
+<script src="/374.07d97eab.js"></script>
+<script src="/935f2afb.e5150b93.js"></script>
+<script src="/373.a68c22d2.js"></script>
+<script src="/fb268bb9.cb43a4b4.js"></script>
 </body>
 </html>
