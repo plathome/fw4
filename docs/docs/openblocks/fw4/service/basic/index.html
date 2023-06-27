@@ -6,17 +6,17 @@
 <meta name="generator" content="Docusaurus v2.0.0-alpha.68">
 <title data-react-helmet="true">基本設定(IoTデータ) | ぷらっとホームどきゅめんと</title><meta data-react-helmet="true" name="twitter:card" content="summary_large_image"><meta data-react-helmet="true" name="docusaurus_language" content="en"><meta data-react-helmet="true" name="docusaurus_version" content="current"><meta data-react-helmet="true" name="docusaurus_tag" content="docs-default-current"><meta data-react-helmet="true" property="og:title" content="基本設定(IoTデータ) | ぷらっとホームどきゅめんと"><meta data-react-helmet="true" name="description" content="OpenBlocks用のIoTゲートウェイソフトウェア「FW4」におけるIoTサービスの基本機能の解説ページです。"><meta data-react-helmet="true" property="og:description" content="OpenBlocks用のIoTゲートウェイソフトウェア「FW4」におけるIoTサービスの基本機能の解説ページです。"><meta data-react-helmet="true" name="keywords" content="docs,OpenBlocks,IoT,FW4,WEB UI,サービス機能,基本機能,ぷらっとホーム,Plat Home,Modbus,BT,BLE"><meta data-react-helmet="true" property="og:url" content="https://docs.plathome.co.jp/docs/openblocks/fw4/service/basic"><link data-react-helmet="true" rel="shortcut icon" href="/img/favicon.png"><link data-react-helmet="true" rel="canonical" href="https://docs.plathome.co.jp/docs/openblocks/fw4/service/basic"><link rel="stylesheet" href="/styles.6a7f28c3.css">
 <link rel="preload" href="/styles.3a14cb36.js" as="script">
-<link rel="preload" href="/runtime~main.fc3623aa.js" as="script">
-<link rel="preload" href="/main.db3363a8.js" as="script">
-<link rel="preload" href="/1.841a1676.js" as="script">
-<link rel="preload" href="/1a4e3797.4a2991e0.js" as="script">
-<link rel="preload" href="/1be78505.cf30984c.js" as="script">
-<link rel="preload" href="/c4f5d8e4.d4595ee2.js" as="script">
-<link rel="preload" href="/375.0362d59c.js" as="script">
-<link rel="preload" href="/374.c18477d6.js" as="script">
+<link rel="preload" href="/runtime~main.c114b066.js" as="script">
+<link rel="preload" href="/main.0aebd349.js" as="script">
+<link rel="preload" href="/1.73cb1061.js" as="script">
+<link rel="preload" href="/1a4e3797.0c3c8576.js" as="script">
+<link rel="preload" href="/1be78505.6c0b9d87.js" as="script">
+<link rel="preload" href="/c4f5d8e4.741efa78.js" as="script">
+<link rel="preload" href="/375.91358714.js" as="script">
+<link rel="preload" href="/374.e43faf7b.js" as="script">
 <link rel="preload" href="/935f2afb.e5150b93.js" as="script">
 <link rel="preload" href="/373.a68c22d2.js" as="script">
-<link rel="preload" href="/c8f9e2af.3dbbc675.js" as="script">
+<link rel="preload" href="/c8f9e2af.dc4df15b.js" as="script">
 </head>
 <body>
 <script>!function(){function t(t){document.documentElement.setAttribute("data-theme",t)}var e=function(){var t=null;try{t=localStorage.getItem("theme")}catch(t){}return t}();t(null!==e?e:"light")}()</script><div id="__docusaurus">
@@ -85,16 +85,16 @@ Modbus製品のメーカー・ディストリビューターの方も、是非�
 使う目的のわかりやすい<code>ユーザーメモ</code>を設定して<code>登録</code>ボタンを押します。  </p><p>この定義を使ってOpenBlocks内でのIoTデータ制御のメッセージパスを様々な形式にカスタマイズできます。  </p><table><thead><tr><th></th></tr></thead><tbody><tr><td><img alt="userdev" src="/assets/images/userdev-311b6c4fd9207188f6b8a903bb08eba0.png"></td></tr></tbody></table><table><thead><tr><th>項目</th><th>説明</th></tr></thead><tbody><tr><td>ユーザーメモ</td><td>登録対象のUserデバイスに対して、メモを設定することが行えます。</td></tr></tbody></table><p><code>ユーザーメモ</code>の項目にメッセージパスにわかりやすい名前などと付けます。<br>
 その後に<code>保存</code>ボタンを押すと、ユーザー定義デバイスパスが自動採番によって生成されます。</p><table><thead><tr><th></th></tr></thead><tbody><tr><td><img alt="userdev" src="/assets/images/userdevset-b50fed6f0646d948ff0cbb8bde948387.png"></td></tr></tbody></table></div></article><div class="margin-vert--lg"><nav class="pagination-nav" aria-label="Blog list page navigation"><div class="pagination-nav__item"><a class="pagination-nav__link" href="/docs/openblocks/fw4/webui/iotstart/iotstart"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">« IoTセットアップ手順</div></a></div><div class="pagination-nav__item pagination-nav__item--next"><a class="pagination-nav__link" href="/docs/openblocks/fw4/service/iotdata"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">IoTデータ設定 »</div></a></div></nav></div></div></div><div class="col col--3"><div class="tableOfContents_3SO_ thin-scrollbar"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#bt-ble-関連" class="table-of-contents__link">BT BLE 関連</a><ul><li><a href="#bt-if制御" class="table-of-contents__link">BT I/F制御</a></li><li><a href="#状態" class="table-of-contents__link">状態</a></li><li><a href="#bt登録" class="table-of-contents__link">BT登録</a></li><li><a href="#ble登録" class="table-of-contents__link">BLE登録</a></li></ul></li><li><a href="#enocean登録" class="table-of-contents__link">EnOcean登録</a></li><li><a href="#modbus関連" class="table-of-contents__link">Modbus関連</a><ul><li><a href="#modbus2c登録" class="table-of-contents__link">Modbus2(C)登録</a></li><li><a href="#modbus2s登録" class="table-of-contents__link">Modbus2(S)登録</a></li><li><a href="#modbusc登録" class="table-of-contents__link">Modbus(C)登録</a></li><li><a href="#modbuss登録" class="table-of-contents__link">Modbus(S)登録</a></li></ul></li><li><a href="#userデバイス登録" class="table-of-contents__link">Userデバイス登録</a></li></ul></div></div></div></div></main></div></div><footer class="footer footer--dark"><div class="container"><div class="row footer__links"><div class="col footer__col"><h4 class="footer__title">製品情報</h4><ul class="footer__items"><li class="footer__item"><a href="https://www.plathome.co.jp/product/openblocks-iot/" target="_blank" rel="noopener noreferrer" class="footer__link-item">OpenBlocks IoT</a></li><li class="footer__item"><a href="https://www.plathome.co.jp/product/openblocks/" target="_blank" rel="noopener noreferrer" class="footer__link-item">OpenBlocks - MicroServer</a></li><li class="footer__item"><a href="https://www.plathome.co.jp/product/easyblocks/" target="_blank" rel="noopener noreferrer" class="footer__link-item">EasyBlocksシリーズ</a></li><li class="footer__item"><a href="https://www.plathome.co.jp/product/airmanage2/" target="_blank" rel="noopener noreferrer" class="footer__link-item">AirManage2</a></li><li class="footer__item"><a href="https://www.plathome.co.jp/product/openblocks-idm/" target="_blank" rel="noopener noreferrer" class="footer__link-item">OpenBlocks IDMシリーズ</a></li></ul></div><div class="col footer__col"><h4 class="footer__title">SNS</h4><ul class="footer__items"><li class="footer__item"><a href="https://www.facebook.com/plathome.co.jp/" target="_blank" rel="noopener noreferrer" class="footer__link-item">Facebook</a></li><li class="footer__item"><a href="https://twitter.com/openblocks" target="_blank" rel="noopener noreferrer" class="footer__link-item">Twitter - OpenBlocks</a></li><li class="footer__item"><a href="https://twitter.com/OBSDEV" target="_blank" rel="noopener noreferrer" class="footer__link-item">Twitter - OpenBlocks開発の人</a></li></ul></div><div class="col footer__col"><h4 class="footer__title">サポート</h4><ul class="footer__items"><li class="footer__item"><a href="https://www.plathome.co.jp/contact/" target="_blank" rel="noopener noreferrer" class="footer__link-item">お問い合わせ</a></li><li class="footer__item"><a href="https://kb.plathome.co.jp/knowledge/" target="_blank" rel="noopener noreferrer" class="footer__link-item">FAQ</a></li></ul></div></div><div class="text--center"><div>Copyright © 2020 - 2023 Plat'Home Co., Ltd. All rights reserved.</div></div></div></footer></div>
 <script src="/styles.3a14cb36.js"></script>
-<script src="/runtime~main.fc3623aa.js"></script>
-<script src="/main.db3363a8.js"></script>
-<script src="/1.841a1676.js"></script>
-<script src="/1a4e3797.4a2991e0.js"></script>
-<script src="/1be78505.cf30984c.js"></script>
-<script src="/c4f5d8e4.d4595ee2.js"></script>
-<script src="/375.0362d59c.js"></script>
-<script src="/374.c18477d6.js"></script>
+<script src="/runtime~main.c114b066.js"></script>
+<script src="/main.0aebd349.js"></script>
+<script src="/1.73cb1061.js"></script>
+<script src="/1a4e3797.0c3c8576.js"></script>
+<script src="/1be78505.6c0b9d87.js"></script>
+<script src="/c4f5d8e4.741efa78.js"></script>
+<script src="/375.91358714.js"></script>
+<script src="/374.e43faf7b.js"></script>
 <script src="/935f2afb.e5150b93.js"></script>
 <script src="/373.a68c22d2.js"></script>
-<script src="/c8f9e2af.3dbbc675.js"></script>
+<script src="/c8f9e2af.dc4df15b.js"></script>
 </body>
 </html>
