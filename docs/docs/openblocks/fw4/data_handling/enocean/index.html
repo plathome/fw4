@@ -6,17 +6,17 @@
 <meta name="generator" content="Docusaurus v2.0.0-alpha.68">
 <title data-react-helmet="true">EnOceanデバイス設定 | ぷらっとホームどきゅめんと</title><meta data-react-helmet="true" name="twitter:card" content="summary_large_image"><meta data-react-helmet="true" name="docusaurus_language" content="en"><meta data-react-helmet="true" name="docusaurus_version" content="current"><meta data-react-helmet="true" name="docusaurus_tag" content="docs-default-current"><meta data-react-helmet="true" property="og:title" content="EnOceanデバイス設定 | ぷらっとホームどきゅめんと"><meta data-react-helmet="true" name="description" content="OpenBlocksに用いているIoTゲートウェイソフトウェア「FW4」のデータハンドリングに関するドキュメントの「EnOceanデバイス設定」のページです。"><meta data-react-helmet="true" property="og:description" content="OpenBlocksに用いているIoTゲートウェイソフトウェア「FW4」のデータハンドリングに関するドキュメントの「EnOceanデバイス設定」のページです。"><meta data-react-helmet="true" name="keywords" content="IoT,Data Handling,PD Handler,EnOceanデバイス設定,enocean,pd_handler_enocean"><meta data-react-helmet="true" property="og:url" content="https://docs.plathome.co.jp/docs/openblocks/fw4/data_handling/enocean"><link data-react-helmet="true" rel="shortcut icon" href="/img/favicon.png"><link data-react-helmet="true" rel="canonical" href="https://docs.plathome.co.jp/docs/openblocks/fw4/data_handling/enocean"><link rel="stylesheet" href="/styles.6a7f28c3.css">
 <link rel="preload" href="/styles.13d06017.js" as="script">
-<link rel="preload" href="/runtime~main.db62af47.js" as="script">
-<link rel="preload" href="/main.42bac953.js" as="script">
-<link rel="preload" href="/1.4b42b1ed.js" as="script">
-<link rel="preload" href="/1a4e3797.273cd7fc.js" as="script">
-<link rel="preload" href="/1be78505.846e555c.js" as="script">
-<link rel="preload" href="/c4f5d8e4.9fa4f696.js" as="script">
-<link rel="preload" href="/417.d9b04e03.js" as="script">
-<link rel="preload" href="/416.2dcc0a3d.js" as="script">
+<link rel="preload" href="/runtime~main.4fc15d0e.js" as="script">
+<link rel="preload" href="/main.0e1ddd3b.js" as="script">
+<link rel="preload" href="/1.3abc06a5.js" as="script">
+<link rel="preload" href="/1a4e3797.411a1908.js" as="script">
+<link rel="preload" href="/1be78505.128035a1.js" as="script">
+<link rel="preload" href="/c4f5d8e4.78bb53d5.js" as="script">
+<link rel="preload" href="/417.c662ac9f.js" as="script">
+<link rel="preload" href="/416.758a111a.js" as="script">
 <link rel="preload" href="/935f2afb.dbbe4a65.js" as="script">
 <link rel="preload" href="/415.8b9c6990.js" as="script">
-<link rel="preload" href="/28e32956.b71756be.js" as="script">
+<link rel="preload" href="/28e32956.ee35a50c.js" as="script">
 </head>
 <body>
 <script>!function(){function t(t){document.documentElement.setAttribute("data-theme",t)}var e=function(){var t=null;try{t=localStorage.getItem("theme")}catch(t){}return t}();t(null!==e?e:"light")}()</script><div id="__docusaurus">
@@ -26,16 +26,16 @@ EnOceanデバイスから情報を取得するためには、WEB-UIの<code>サ�
 <code>EnOceanデバイス設定</code>メニューが表示されていない場合は、 <a href="/docs/openblocks/fw4/service/iotdata">アプリ設定</a>を参照し、PD Handler UARTを<code>使用する</code>に設定し<code>使用対象</code>として<code>EnOcean</code>を選択して下さい。</p><p><img src="/assets/images/enocean_init-50e49b6d1527366654be52f7a0dc694b.png"></p><p>登録済のEnOceanデバイスが存在している場合、初期状態では上図のようになっています。(デバイスが1個登録されている場合です。)</p><blockquote><p>EnOceanデバイス設定の初期設定項目</p></blockquote><table><thead><tr><th>設定項目</th><th>説明</th></tr></thead><tbody><tr><td>デバイスファイル</td><td>拡張追加モジュールを使用する場合は<code>/dev/ttyEX2</code>、USBドングルを使用する場合は対応するデバイスファイルを選択して下さい。<sup>*1</sup><ul><li>USBドングルの場合、USBデバイスの認識順によってデバイスファイル名が異なります。</li></ul></td></tr><tr><td>データ送信モード</td><td>PD Repeaterへ送信するデータのモードを設定します。<br>データ変換モードは対応しているEEPの場合は解析したデータをPD Repeaterへ送信します。<br>対応していないEEPの場合は、受信データを16進数文字列へ変換したデータをPD Repeaterへ送信します。<br>また、生データモードは対応EEPを問わず、受信データを16進数文字列へ変換したデータをPD Repeaterへ送信します。</td></tr><tr><td>EnOceanデータ管理設定</td><td>複数のEnOceanデバイスの送受信設定情報を同一として扱うかを設定します。<ul><li>送信データ個別管理 : 個々のEnOceanデバイス毎に送受信設定を用いて運用する方式です。</li><li>送信データ合同管理 : 全てのEnOceanデバイスの送受信設定を最初の有効な送受信設定のEnOceanデバイスのものを使用し共有します。(大量のEnOceanデバイスを扱う場合に用いることを想定しています。)</li></ul></td></tr></tbody></table><table><thead><tr><th>送信データ個別管理</th><th>送信データ合同管理</th></tr></thead><tbody><tr><td><img alt="individual_management" src="/assets/images/enocean_individual_management-a100214f0f29d5360f3f42fa43ddb5e1.png"></td><td><img alt="bulk_management" src="/assets/images/enocean_bulk_management-37da159a0ecd43057d3591bc9ab34495.png"></td></tr></tbody></table><p>デバイス毎に送信対象項目にて<code>送信する</code>を選択すると各設定項目が表示されます。<br>
 <code>送信対象一括有効</code>、<code>送信対象一括無効</code>ボタンにて全ての登録済のデバイスの送信対象を制御できます。</p><p><img src="/assets/images/enocean-25ad6550bafa049d30307ddb7d7eeaf4.png"></p><p><code>送信する</code>を選択すると各設定項目が上図のように表示されます。</p><blockquote><p>EnOceanデバイス設定の設定項目</p></blockquote><table><thead><tr><th>設定項目</th><th>説明</th></tr></thead><tbody><tr><td>デバイス番号</td><td>OpenBlocksシリーズのWEB-UI内で管理している番号です。変更はできません。</td></tr><tr><td>データ間引間隔</td><td>データを間引くための入力データを受け取らない時間をmsec単位で設定します。<br>0の場合、間引きは行われません。</td></tr><tr><td>バッファーサイズ</td><td>データの最大サイズを設定します。単位はバイトです。</td></tr><tr><td>デバイスID</td><td>登録されたEnOceanデバイスのIDを表示します。</td></tr><tr><td>EEP（機器情報プロファイル）</td><td>登録されたEnOceanデバイスの機器情報プロファイルを表示します。</td></tr><tr><td>ユーザーメモ</td><td>登録されたデバイスにて設定されたメモ情報を表示します。</td></tr><tr><td>固定情報付与(JSON)</td><td>データに付加する静的情報をJSON文字列で設定します。</td></tr><tr><td>送受信先設定</td><td><code>使用する</code>を選択した送信先に対してチェックボックスが選択できるようになります。<br>チェックを付けた送信先に対して、送信を行います。<br>チェックをつけると送信先固有の設定項目が表示されます。<br>送信先固有の設定については、<a href="/docs/openblocks/fw4/data_handling/pd_repeater/pd_repeater">送受信先毎の設定</a>を参照して下さい。</td></tr></tbody></table><div class="admonition admonition-info alert alert--info"><div class="admonition-heading"><h5><span class="admonition-icon"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg></span>info</h5></div><div class="admonition-content"><ol><li>USBドングルの場合、USBデバイスの認識順によってデバイスファイル名が異なります。</li></ol><ul><li>既存のデバイス不良等の差し替え時に以前のものと同様に扱う為に設定を同一にすることを推奨します。<br>（不良となったデバイスは送信対象設定を<code>送信しない</code>へ変更してください。）</li><li>未対応の EnOceanデバイスについては、<a href="/docs/openblocks/fw4/data_handling/lua_extention">Lua拡張</a>機能で対応することが可能です。</li></ul></div></div></div></article><div class="margin-vert--lg"><nav class="pagination-nav" aria-label="Blog list page navigation"><div class="pagination-nav__item"><a class="pagination-nav__link" href="/docs/openblocks/fw4/data_handling/ble"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">« BLEデバイス情報送信設定</div></a></div><div class="pagination-nav__item pagination-nav__item--next"><a class="pagination-nav__link" href="/docs/openblocks/fw4/data_handling/wi-sun_b"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Wi-SUN Bルート情報送信設定 »</div></a></div></nav></div></div></div><div class="col col--3"><div class="tableOfContents_3SO_ thin-scrollbar"></div></div></div></div></main></div></div><footer class="footer footer--dark"><div class="container"><div class="row footer__links"><div class="col footer__col"><h4 class="footer__title">製品情報</h4><ul class="footer__items"><li class="footer__item"><a href="https://www.plathome.co.jp/product/openblocks-iot/" target="_blank" rel="noopener noreferrer" class="footer__link-item">OpenBlocks IoT</a></li><li class="footer__item"><a href="https://www.plathome.co.jp/product/openblocks/" target="_blank" rel="noopener noreferrer" class="footer__link-item">OpenBlocks - MicroServer</a></li><li class="footer__item"><a href="https://www.plathome.co.jp/product/easyblocks/" target="_blank" rel="noopener noreferrer" class="footer__link-item">EasyBlocksシリーズ</a></li><li class="footer__item"><a href="https://www.plathome.co.jp/product/airmanage2/" target="_blank" rel="noopener noreferrer" class="footer__link-item">AirManage2</a></li><li class="footer__item"><a href="https://www.plathome.co.jp/product/openblocks-idm/" target="_blank" rel="noopener noreferrer" class="footer__link-item">OpenBlocks IDMシリーズ</a></li></ul></div><div class="col footer__col"><h4 class="footer__title">SNS</h4><ul class="footer__items"><li class="footer__item"><a href="https://www.facebook.com/plathome.co.jp/" target="_blank" rel="noopener noreferrer" class="footer__link-item">Facebook</a></li><li class="footer__item"><a href="https://twitter.com/openblocks" target="_blank" rel="noopener noreferrer" class="footer__link-item">Twitter - OpenBlocks</a></li><li class="footer__item"><a href="https://twitter.com/OBSDEV" target="_blank" rel="noopener noreferrer" class="footer__link-item">Twitter - OpenBlocks開発の人</a></li></ul></div><div class="col footer__col"><h4 class="footer__title">サポート</h4><ul class="footer__items"><li class="footer__item"><a href="https://www.plathome.co.jp/contact/" target="_blank" rel="noopener noreferrer" class="footer__link-item">お問い合わせ</a></li><li class="footer__item"><a href="https://kb.plathome.co.jp/knowledge/" target="_blank" rel="noopener noreferrer" class="footer__link-item">FAQ</a></li></ul></div></div><div class="text--center"><div>Copyright © 2020 - 2024 Plat'Home Co., Ltd. All rights reserved.</div></div></div></footer></div>
 <script src="/styles.13d06017.js"></script>
-<script src="/runtime~main.db62af47.js"></script>
-<script src="/main.42bac953.js"></script>
-<script src="/1.4b42b1ed.js"></script>
-<script src="/1a4e3797.273cd7fc.js"></script>
-<script src="/1be78505.846e555c.js"></script>
-<script src="/c4f5d8e4.9fa4f696.js"></script>
-<script src="/417.d9b04e03.js"></script>
-<script src="/416.2dcc0a3d.js"></script>
+<script src="/runtime~main.4fc15d0e.js"></script>
+<script src="/main.0e1ddd3b.js"></script>
+<script src="/1.3abc06a5.js"></script>
+<script src="/1a4e3797.411a1908.js"></script>
+<script src="/1be78505.128035a1.js"></script>
+<script src="/c4f5d8e4.78bb53d5.js"></script>
+<script src="/417.c662ac9f.js"></script>
+<script src="/416.758a111a.js"></script>
 <script src="/935f2afb.dbbe4a65.js"></script>
 <script src="/415.8b9c6990.js"></script>
-<script src="/28e32956.b71756be.js"></script>
+<script src="/28e32956.ee35a50c.js"></script>
 </body>
 </html>
