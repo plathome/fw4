@@ -6,17 +6,17 @@
 <meta name="generator" content="Docusaurus v2.0.0-alpha.68">
 <title data-react-helmet="true">フィルタルールの設定 | ぷらっとホームどきゅめんと</title><meta data-react-helmet="true" name="twitter:card" content="summary_large_image"><meta data-react-helmet="true" name="docusaurus_language" content="en"><meta data-react-helmet="true" name="docusaurus_version" content="current"><meta data-react-helmet="true" name="docusaurus_tag" content="docs-default-current"><meta data-react-helmet="true" property="og:title" content="フィルタルールの設定 | ぷらっとホームどきゅめんと"><meta data-react-helmet="true" name="description" content="ルータからの受信したSyslog向けにフィルタをルール化し、検索しやすいようにします。"><meta data-react-helmet="true" property="og:description" content="ルータからの受信したSyslog向けにフィルタをルール化し、検索しやすいようにします。"><meta data-react-helmet="true" name="keywords" content="docs,EasyBlocks,EB,Syslog,AirManage,Network Reporter,フィルタ,フィルタルール,ぷらっとホーム,Plat Home"><meta data-react-helmet="true" property="og:url" content="https://docs.plathome.co.jp/docs/easyblocks/reporter/reporter_rule"><link data-react-helmet="true" rel="shortcut icon" href="/img/favicon.png"><link data-react-helmet="true" rel="canonical" href="https://docs.plathome.co.jp/docs/easyblocks/reporter/reporter_rule"><link rel="stylesheet" href="/styles.6a7f28c3.css">
 <link rel="preload" href="/styles.13d06017.js" as="script">
-<link rel="preload" href="/runtime~main.4fc15d0e.js" as="script">
-<link rel="preload" href="/main.0e1ddd3b.js" as="script">
-<link rel="preload" href="/1.3abc06a5.js" as="script">
-<link rel="preload" href="/1a4e3797.411a1908.js" as="script">
-<link rel="preload" href="/1be78505.128035a1.js" as="script">
-<link rel="preload" href="/c4f5d8e4.78bb53d5.js" as="script">
-<link rel="preload" href="/417.c662ac9f.js" as="script">
-<link rel="preload" href="/416.758a111a.js" as="script">
+<link rel="preload" href="/runtime~main.861408fc.js" as="script">
+<link rel="preload" href="/main.e45fb926.js" as="script">
+<link rel="preload" href="/1.6b802d01.js" as="script">
+<link rel="preload" href="/1a4e3797.2d3d0caf.js" as="script">
+<link rel="preload" href="/1be78505.cbe3a833.js" as="script">
+<link rel="preload" href="/c4f5d8e4.90ee6682.js" as="script">
+<link rel="preload" href="/417.eacd92b9.js" as="script">
+<link rel="preload" href="/416.afe1bcfc.js" as="script">
 <link rel="preload" href="/935f2afb.dbbe4a65.js" as="script">
 <link rel="preload" href="/415.8b9c6990.js" as="script">
-<link rel="preload" href="/63578a34.b5308518.js" as="script">
+<link rel="preload" href="/63578a34.4415f21a.js" as="script">
 </head>
 <body>
 <script>!function(){function t(t){document.documentElement.setAttribute("data-theme",t)}var e=function(){var t=null;try{t=localStorage.getItem("theme")}catch(t){}return t}();t(null!==e?e:"light")}()</script><div id="__docusaurus">
@@ -25,16 +25,16 @@
 なお、ルール名はわかりやすい名称で設定してください。ルール名が設定されているフォームが保存対象となります。  </p><table><thead><tr><th>フィルタ</th><th>説明</th></tr></thead><tbody><tr><td>起点時刻</td><td>日時を対象にフィルタリングを行います。フィルタをかける起点の時刻を指定してください。<br>（入力欄をクリックするとカレンダーが表示されます。カレンダーから年月日時分秒を指定してください。）</td></tr><tr><td>終点時刻</td><td>日時でフィルタリングを行います。フィルタをかける起点の時刻を指定してください。<br>（入力欄をクリックするとカレンダーが表示されます。カレンダーから年月日時分秒を指定してください。）</td></tr><tr><td>ホスト</td><td>ホストでフィルタリングを行います。ホスト名を完全一致になるように指定してください。</td></tr><tr><td>Facility</td><td>Facility でフィルタリングを行います。クリックするとボタンの色が変わります。ボタンの色が明るい場合は有効となります。<br>Facility を複数同時に設定した場合は、ORでフィルタリングを行います。</td></tr><tr><td>Priority</td><td>Priority でフィルタリングを行います。クリックするとボタンの色が変わります。ボタンの色が明るい場合は有効となります。<br>Priority を複数同時に設定した場合は、ORでフィルタリングを行います。</td></tr><tr><td>プログラム</td><td>プログラムでフィルタリングを行います。プログラム名を完全一致になるように指定してください。</td></tr><tr><td>キーワード</td><td>データベースに登録されたメッセージ内のキーワードでフィルタリングを行います。<br>※キーワード検索を有効にしている場合に表示されます。</td></tr><tr><td>メッセージ</td><td>メッセージの文字列でフィルタリングを行います。部分一致となるように指定してください。<br>（複数ワードによるフィルタリングには対応しません。）</td></tr><tr><td>除外メッセージ</td><td>メッセージの文字列でフィルタリングを行います。指定した文字列が存在しないメッセージを表示します。<br>（複数ワードによるフィルタリングには対応しません。）</td></tr></tbody></table><p>追加でフィルタリングルールの入力フォームを増やす場合には<code>追加</code>ボタンを押してください。  </p><p>また、フィルタリングルールが1つでも登録されている場合ルールフォームのコピーが表示されます。<br>
 コピー元とするルールを選択し<code>コピー</code>ボタンを押すことで該当ルール内容がコピーされ末尾に追加されます。ルール名及び他の変更が必要な項目について変更を実施してください。  </p><p>ルールを設定したら<code>保存</code>ボタンを押してください。  </p><p>ルールが保存されると、以下の様に<a href="/docs/easyblocks/reporter/reporter_disp#%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF">ログ表示</a>画面のフィルター画面でプルダウンメニューでルールを適用できます。  </p><p><img alt="SYSLOGCHOICE" src="/assets/images/report_rule_choice-e340adbedf5bad4e7ec5e8976101e362.png"></p></div></article><div class="margin-vert--lg"><nav class="pagination-nav" aria-label="Blog list page navigation"><div class="pagination-nav__item"><a class="pagination-nav__link" href="/docs/easyblocks/reporter/reporter_basic"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">« 基本設定</div></a></div><div class="pagination-nav__item pagination-nav__item--next"><a class="pagination-nav__link" href="/docs/easyblocks/reporter/reporter_logcont"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Syslog ログ管理 »</div></a></div></nav></div></div></div><div class="col col--3"><div class="tableOfContents_3SO_ thin-scrollbar"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#フィルタリングルール-エクスポートインポート" class="table-of-contents__link">フィルタリングルール エクスポート/インポート</a></li><li><a href="#フィルタリングルール設定" class="table-of-contents__link">フィルタリングルール設定</a></li></ul></div></div></div></div></main></div></div><footer class="footer footer--dark"><div class="container"><div class="row footer__links"><div class="col footer__col"><h4 class="footer__title">製品情報</h4><ul class="footer__items"><li class="footer__item"><a href="https://www.plathome.co.jp/product/openblocks-iot/" target="_blank" rel="noopener noreferrer" class="footer__link-item">OpenBlocks IoT</a></li><li class="footer__item"><a href="https://www.plathome.co.jp/product/openblocks/" target="_blank" rel="noopener noreferrer" class="footer__link-item">OpenBlocks - MicroServer</a></li><li class="footer__item"><a href="https://www.plathome.co.jp/product/easyblocks/" target="_blank" rel="noopener noreferrer" class="footer__link-item">EasyBlocksシリーズ</a></li><li class="footer__item"><a href="https://www.plathome.co.jp/product/airmanage2/" target="_blank" rel="noopener noreferrer" class="footer__link-item">AirManage2</a></li><li class="footer__item"><a href="https://www.plathome.co.jp/product/openblocks-idm/" target="_blank" rel="noopener noreferrer" class="footer__link-item">OpenBlocks IDMシリーズ</a></li></ul></div><div class="col footer__col"><h4 class="footer__title">SNS</h4><ul class="footer__items"><li class="footer__item"><a href="https://www.facebook.com/plathome.co.jp/" target="_blank" rel="noopener noreferrer" class="footer__link-item">Facebook</a></li><li class="footer__item"><a href="https://twitter.com/openblocks" target="_blank" rel="noopener noreferrer" class="footer__link-item">Twitter - OpenBlocks</a></li><li class="footer__item"><a href="https://twitter.com/OBSDEV" target="_blank" rel="noopener noreferrer" class="footer__link-item">Twitter - OpenBlocks開発の人</a></li></ul></div><div class="col footer__col"><h4 class="footer__title">サポート</h4><ul class="footer__items"><li class="footer__item"><a href="https://www.plathome.co.jp/contact/" target="_blank" rel="noopener noreferrer" class="footer__link-item">お問い合わせ</a></li><li class="footer__item"><a href="https://kb.plathome.co.jp/knowledge/" target="_blank" rel="noopener noreferrer" class="footer__link-item">FAQ</a></li></ul></div></div><div class="text--center"><div>Copyright © 2020 - 2024 Plat'Home Co., Ltd. All rights reserved.</div></div></div></footer></div>
 <script src="/styles.13d06017.js"></script>
-<script src="/runtime~main.4fc15d0e.js"></script>
-<script src="/main.0e1ddd3b.js"></script>
-<script src="/1.3abc06a5.js"></script>
-<script src="/1a4e3797.411a1908.js"></script>
-<script src="/1be78505.128035a1.js"></script>
-<script src="/c4f5d8e4.78bb53d5.js"></script>
-<script src="/417.c662ac9f.js"></script>
-<script src="/416.758a111a.js"></script>
+<script src="/runtime~main.861408fc.js"></script>
+<script src="/main.e45fb926.js"></script>
+<script src="/1.6b802d01.js"></script>
+<script src="/1a4e3797.2d3d0caf.js"></script>
+<script src="/1be78505.cbe3a833.js"></script>
+<script src="/c4f5d8e4.90ee6682.js"></script>
+<script src="/417.eacd92b9.js"></script>
+<script src="/416.afe1bcfc.js"></script>
 <script src="/935f2afb.dbbe4a65.js"></script>
 <script src="/415.8b9c6990.js"></script>
-<script src="/63578a34.b5308518.js"></script>
+<script src="/63578a34.4415f21a.js"></script>
 </body>
 </html>
