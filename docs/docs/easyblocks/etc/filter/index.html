@@ -6,17 +6,17 @@
 <meta name="generator" content="Docusaurus v2.0.0-alpha.68">
 <title data-react-helmet="true">フィルタ開放 | ぷらっとホームどきゅめんと</title><meta data-react-helmet="true" name="twitter:card" content="summary_large_image"><meta data-react-helmet="true" name="docusaurus_language" content="en"><meta data-react-helmet="true" name="docusaurus_version" content="current"><meta data-react-helmet="true" name="docusaurus_tag" content="docs-default-current"><meta data-react-helmet="true" property="og:title" content="フィルタ開放 | ぷらっとホームどきゅめんと"><meta data-react-helmet="true" name="description" content="EasyBlocksのサービス提供をしているポートのフィルタを開放制御を行えます。"><meta data-react-helmet="true" property="og:description" content="EasyBlocksのサービス提供をしているポートのフィルタを開放制御を行えます。"><meta data-react-helmet="true" name="keywords" content="docs,EasyBlocks,WEB,フィルタ,PacketiX,Remote,Office,Syslog,Network,Reporter,監視,リモート監視管理,リソース監視,ぷらっとホーム,Plat Home"><meta data-react-helmet="true" property="og:url" content="https://docs.plathome.co.jp/docs/easyblocks/etc/filter"><link data-react-helmet="true" rel="shortcut icon" href="/img/favicon.png"><link data-react-helmet="true" rel="canonical" href="https://docs.plathome.co.jp/docs/easyblocks/etc/filter"><link rel="stylesheet" href="/styles.6a7f28c3.css">
 <link rel="preload" href="/styles.13d06017.js" as="script">
-<link rel="preload" href="/runtime~main.861408fc.js" as="script">
-<link rel="preload" href="/main.e45fb926.js" as="script">
-<link rel="preload" href="/1.6b802d01.js" as="script">
-<link rel="preload" href="/1a4e3797.2d3d0caf.js" as="script">
-<link rel="preload" href="/1be78505.cbe3a833.js" as="script">
-<link rel="preload" href="/c4f5d8e4.90ee6682.js" as="script">
-<link rel="preload" href="/417.eacd92b9.js" as="script">
-<link rel="preload" href="/416.afe1bcfc.js" as="script">
+<link rel="preload" href="/runtime~main.8cd584a8.js" as="script">
+<link rel="preload" href="/main.a8abef21.js" as="script">
+<link rel="preload" href="/1.edd242ef.js" as="script">
+<link rel="preload" href="/1a4e3797.74b92ef4.js" as="script">
+<link rel="preload" href="/1be78505.3e88ebcb.js" as="script">
+<link rel="preload" href="/c4f5d8e4.a1d439f3.js" as="script">
+<link rel="preload" href="/417.d8a9d775.js" as="script">
+<link rel="preload" href="/416.1ac72f75.js" as="script">
 <link rel="preload" href="/935f2afb.dbbe4a65.js" as="script">
 <link rel="preload" href="/415.8b9c6990.js" as="script">
-<link rel="preload" href="/1a2f58aa.281c8019.js" as="script">
+<link rel="preload" href="/1a2f58aa.f5c3bd76.js" as="script">
 </head>
 <body>
 <script>!function(){function t(t){document.documentElement.setAttribute("data-theme",t)}var e=function(){var t=null;try{t=localStorage.getItem("theme")}catch(t){}return t}();t(null!==e?e:"light")}()</script><div id="__docusaurus">
@@ -24,16 +24,16 @@
 デフォルトではWEB UIを用いる為のポート以外は閉じておりますので、使用するポート番号によって開放を行ってください。</p><p><img alt="vpn" src="/assets/images/filter_open-6a0d763e3cc37e28eb7f0aeb36b8278b.png"></p><p>この設定は対象製品のフィルタ開放を参照してください。</p><ul><li><a href="/docs/easyblocks/packetix/service_detail#%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E9%96%8B%E6%94%BE">EasyBlocks PacketiX VPN Server</a></li><li><a href="/docs/easyblocks/remote/service_detail#%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E9%96%8B%E6%94%BE">EasyBlocks Remote Office</a></li></ul><h3><a aria-hidden="true" tabindex="-1" class="anchor" id="その他のeasyblocksシリーズの場合"></a>その他のEasyBlocksシリーズの場合<a aria-hidden="true" class="hash-link" href="#その他のeasyblocksシリーズの場合" title="Direct link to heading">#</a></h3><p>通常のEasyBlocksの場合、製品として使用するポートについては全て開放しております。<br>
 特定のインターフェースのみの開放や閉鎖などをしたい場合にご使用ください。</p><p><img alt="common_filter" src="/assets/images/EB_common_port_filter-07c7ff7015ce331c3539f9e66f5ebde9.png"></p><div class="admonition admonition-info alert alert--info"><div class="admonition-heading"><h5><span class="admonition-icon"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg></span>info</h5></div><div class="admonition-content"><ul><li>EasyBlocksリモート監視管理にてモバイル回線側のフィルタの開放状況についてはサービス最小限のみ開放しております。<br>モバイル回線経由でのインターネット超しの監視については考慮した開放状況とはなっておりません。</li><li>本機能は実装移行中の為、製品によって対応状況が異なります。</li></ul></div></div></div></article><div class="margin-vert--lg"><nav class="pagination-nav" aria-label="Blog list page navigation"><div class="pagination-nav__item"><a class="pagination-nav__link" href="/docs/easyblocks/etc/mypage"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">« ログインユーザーのマイページ</div></a></div><div class="pagination-nav__item pagination-nav__item--next"><a class="pagination-nav__link" href="/docs/easyblocks/etc/opensource"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">オープンソースライセンス »</div></a></div></nav></div></div></div><div class="col col--3"><div class="tableOfContents_3SO_ thin-scrollbar"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#easyblocks-packetix-vpn-server-及び-easyblocks-remote-officeの場合" class="table-of-contents__link">EasyBlocks PacketiX VPN Server 及び EasyBlocks Remote Officeの場合</a></li><li><a href="#その他のeasyblocksシリーズの場合" class="table-of-contents__link">その他のEasyBlocksシリーズの場合</a></li></ul></div></div></div></div></main></div></div><footer class="footer footer--dark"><div class="container"><div class="row footer__links"><div class="col footer__col"><h4 class="footer__title">製品情報</h4><ul class="footer__items"><li class="footer__item"><a href="https://www.plathome.co.jp/product/openblocks-iot/" target="_blank" rel="noopener noreferrer" class="footer__link-item">OpenBlocks IoT</a></li><li class="footer__item"><a href="https://www.plathome.co.jp/product/openblocks/" target="_blank" rel="noopener noreferrer" class="footer__link-item">OpenBlocks - MicroServer</a></li><li class="footer__item"><a href="https://www.plathome.co.jp/product/easyblocks/" target="_blank" rel="noopener noreferrer" class="footer__link-item">EasyBlocksシリーズ</a></li><li class="footer__item"><a href="https://www.plathome.co.jp/product/airmanage2/" target="_blank" rel="noopener noreferrer" class="footer__link-item">AirManage2</a></li><li class="footer__item"><a href="https://www.plathome.co.jp/product/openblocks-idm/" target="_blank" rel="noopener noreferrer" class="footer__link-item">OpenBlocks IDMシリーズ</a></li></ul></div><div class="col footer__col"><h4 class="footer__title">SNS</h4><ul class="footer__items"><li class="footer__item"><a href="https://www.facebook.com/plathome.co.jp/" target="_blank" rel="noopener noreferrer" class="footer__link-item">Facebook</a></li><li class="footer__item"><a href="https://twitter.com/openblocks" target="_blank" rel="noopener noreferrer" class="footer__link-item">Twitter - OpenBlocks</a></li><li class="footer__item"><a href="https://twitter.com/OBSDEV" target="_blank" rel="noopener noreferrer" class="footer__link-item">Twitter - OpenBlocks開発の人</a></li></ul></div><div class="col footer__col"><h4 class="footer__title">サポート</h4><ul class="footer__items"><li class="footer__item"><a href="https://www.plathome.co.jp/contact/" target="_blank" rel="noopener noreferrer" class="footer__link-item">お問い合わせ</a></li><li class="footer__item"><a href="https://kb.plathome.co.jp/knowledge/" target="_blank" rel="noopener noreferrer" class="footer__link-item">FAQ</a></li></ul></div></div><div class="text--center"><div>Copyright © 2020 - 2024 Plat'Home Co., Ltd. All rights reserved.</div></div></div></footer></div>
 <script src="/styles.13d06017.js"></script>
-<script src="/runtime~main.861408fc.js"></script>
-<script src="/main.e45fb926.js"></script>
-<script src="/1.6b802d01.js"></script>
-<script src="/1a4e3797.2d3d0caf.js"></script>
-<script src="/1be78505.cbe3a833.js"></script>
-<script src="/c4f5d8e4.90ee6682.js"></script>
-<script src="/417.eacd92b9.js"></script>
-<script src="/416.afe1bcfc.js"></script>
+<script src="/runtime~main.8cd584a8.js"></script>
+<script src="/main.a8abef21.js"></script>
+<script src="/1.edd242ef.js"></script>
+<script src="/1a4e3797.74b92ef4.js"></script>
+<script src="/1be78505.3e88ebcb.js"></script>
+<script src="/c4f5d8e4.a1d439f3.js"></script>
+<script src="/417.d8a9d775.js"></script>
+<script src="/416.1ac72f75.js"></script>
 <script src="/935f2afb.dbbe4a65.js"></script>
 <script src="/415.8b9c6990.js"></script>
-<script src="/1a2f58aa.281c8019.js"></script>
+<script src="/1a2f58aa.f5c3bd76.js"></script>
 </body>
 </html>
