@@ -6,17 +6,17 @@
 <meta name="generator" content="Docusaurus v2.0.0-alpha.68">
 <title data-react-helmet="true">Zabbix設定 | ぷらっとホームどきゅめんと</title><meta data-react-helmet="true" name="twitter:card" content="summary_large_image"><meta data-react-helmet="true" name="docusaurus_language" content="en"><meta data-react-helmet="true" name="docusaurus_version" content="current"><meta data-react-helmet="true" name="docusaurus_tag" content="docs-default-current"><meta data-react-helmet="true" property="og:title" content="Zabbix設定 | ぷらっとホームどきゅめんと"><meta data-react-helmet="true" name="description" content="受信した特定のSyslogをZabbixサーバーへ送信する為のサーバー設定及び送信用ホストの設定ページです。"><meta data-react-helmet="true" property="og:description" content="受信した特定のSyslogをZabbixサーバーへ送信する為のサーバー設定及び送信用ホストの設定ページです。"><meta data-react-helmet="true" name="keywords" content="docs,EasyBlocks,EB,Syslog,Zabbix,zabbix_sender,AirManage,ぷらっとホーム,Plat Home"><meta data-react-helmet="true" property="og:url" content="https://docs.plathome.co.jp/docs/easyblocks/syslog/syslog_zabbix"><link data-react-helmet="true" rel="shortcut icon" href="/img/favicon.png"><link data-react-helmet="true" rel="canonical" href="https://docs.plathome.co.jp/docs/easyblocks/syslog/syslog_zabbix"><link rel="stylesheet" href="/styles.6a7f28c3.css">
 <link rel="preload" href="/styles.b209f061.js" as="script">
-<link rel="preload" href="/runtime~main.1193e824.js" as="script">
-<link rel="preload" href="/main.13b0f879.js" as="script">
-<link rel="preload" href="/1.5e3a9f27.js" as="script">
-<link rel="preload" href="/1a4e3797.ea090983.js" as="script">
-<link rel="preload" href="/1be78505.3ed67a73.js" as="script">
-<link rel="preload" href="/c4f5d8e4.bd2a2272.js" as="script">
-<link rel="preload" href="/426.27b41a43.js" as="script">
-<link rel="preload" href="/425.8244251e.js" as="script">
+<link rel="preload" href="/runtime~main.a6ea9a57.js" as="script">
+<link rel="preload" href="/main.cb7bfbd7.js" as="script">
+<link rel="preload" href="/1.a9d9a5d6.js" as="script">
+<link rel="preload" href="/1a4e3797.1c5bae0c.js" as="script">
+<link rel="preload" href="/1be78505.fc7e40cb.js" as="script">
+<link rel="preload" href="/c4f5d8e4.31867add.js" as="script">
+<link rel="preload" href="/426.7db2c86e.js" as="script">
+<link rel="preload" href="/425.35b180f6.js" as="script">
 <link rel="preload" href="/935f2afb.a6a998f2.js" as="script">
 <link rel="preload" href="/424.5d151742.js" as="script">
-<link rel="preload" href="/5c27a1d8.e5cdefe9.js" as="script">
+<link rel="preload" href="/5c27a1d8.e550f1a9.js" as="script">
 </head>
 <body>
 <script>!function(){function t(t){document.documentElement.setAttribute("data-theme",t)}var e=function(){var t=null;try{t=localStorage.getItem("theme")}catch(t){}return t}();t(null!==e?e:"light")}()</script><div id="__docusaurus">
@@ -29,16 +29,16 @@
 登録している条件の操作部の <strong>編集</strong> を選択した場合、Zabbixトラッパー連携条件設定フォームに設定値が反映されます。<br>
 <code>削除対象</code> を選択後に<code>選択削除</code>ボタンを押した場合、選択されている条件が削除されます。</p><table><thead><tr><th>設定項目</th><th>説明</th></tr></thead><tbody><tr><td>インポート</td><td>エクスポートしたZabbixトラッパー条件一覧のJSONファイルをインポートできます。<br>インポートした場合、既存のルールは削除されインポートした条件のみとなります。</td></tr><tr><td>エクスポート</td><td>登録されているZabbixトラッパー条件一覧をJSONファイルとしてエクスポートします。<br>本項目はZabbixトラッパー条件が1個以上登録されている場合に表示されます。</td></tr><tr><td>選択削除</td><td>Zabbixトラッパー条件にて、<code>削除対象</code>が選択されている条件の削除を行います。<br>本項目はZabbixトラッパー条件が1個以上登録されている場合に表示されます。</td></tr></tbody></table></div></article><div class="margin-vert--lg"><nav class="pagination-nav" aria-label="Blog list page navigation"><div class="pagination-nav__item"><a class="pagination-nav__link" href="/docs/easyblocks/syslog/syslog_cert"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">« 証明書管理</div></a></div><div class="pagination-nav__item pagination-nav__item--next"><a class="pagination-nav__link" href="/docs/easyblocks/packetix/service"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">サービス »</div></a></div></nav></div></div></div><div class="col col--3"><div class="tableOfContents_3SO_ thin-scrollbar"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#zabbixサーバー用設定" class="table-of-contents__link">Zabbixサーバー用設定</a></li><li><a href="#zabbix用ホスト登録" class="table-of-contents__link">Zabbix用ホスト登録</a><ul><li><a href="#zabbix用アイテムキー登録" class="table-of-contents__link">Zabbix用アイテムキー登録</a></li><li><a href="#登録ホスト・アイテム一覧" class="table-of-contents__link">登録ホスト・アイテム一覧</a></li></ul></li><li><a href="#zabbix用証明書" class="table-of-contents__link">Zabbix用証明書</a></li><li><a href="#zabbix-agent用証明書" class="table-of-contents__link">Zabbix Agent用証明書</a></li><li><a href="#zabbixトラッパー連携条件設定" class="table-of-contents__link">Zabbixトラッパー連携条件設定</a></li><li><a href="#zabbixトラッパー連携条件一覧" class="table-of-contents__link">Zabbixトラッパー連携条件一覧</a></li></ul></div></div></div></div></main></div></div><footer class="footer footer--dark"><div class="container"><div class="row footer__links"><div class="col footer__col"><h4 class="footer__title">製品情報</h4><ul class="footer__items"><li class="footer__item"><a href="https://www.plathome.co.jp/product/openblocks-iot/" target="_blank" rel="noopener noreferrer" class="footer__link-item">OpenBlocks IoT</a></li><li class="footer__item"><a href="https://www.plathome.co.jp/product/openblocks/" target="_blank" rel="noopener noreferrer" class="footer__link-item">OpenBlocks - MicroServer</a></li><li class="footer__item"><a href="https://www.plathome.co.jp/product/easyblocks/" target="_blank" rel="noopener noreferrer" class="footer__link-item">EasyBlocksシリーズ</a></li><li class="footer__item"><a href="https://www.plathome.co.jp/product/airmanage2/" target="_blank" rel="noopener noreferrer" class="footer__link-item">AirManage2</a></li><li class="footer__item"><a href="https://www.plathome.co.jp/product/openblocks-idm/" target="_blank" rel="noopener noreferrer" class="footer__link-item">OpenBlocks IDMシリーズ</a></li></ul></div><div class="col footer__col"><h4 class="footer__title">SNS</h4><ul class="footer__items"><li class="footer__item"><a href="https://www.facebook.com/plathome.co.jp/" target="_blank" rel="noopener noreferrer" class="footer__link-item">Facebook</a></li><li class="footer__item"><a href="https://x.com/openblocks" target="_blank" rel="noopener noreferrer" class="footer__link-item">X - OpenBlocks</a></li></ul></div><div class="col footer__col"><h4 class="footer__title">サポート</h4><ul class="footer__items"><li class="footer__item"><a href="https://www.plathome.co.jp/contact/" target="_blank" rel="noopener noreferrer" class="footer__link-item">お問い合わせ</a></li><li class="footer__item"><a href="https://kb.plathome.co.jp/knowledge/" target="_blank" rel="noopener noreferrer" class="footer__link-item">FAQ</a></li></ul></div></div><div class="text--center"><div>Copyright © 2020 - 2025 Plat'Home Co., Ltd. All rights reserved.</div></div></div></footer></div>
 <script src="/styles.b209f061.js"></script>
-<script src="/runtime~main.1193e824.js"></script>
-<script src="/main.13b0f879.js"></script>
-<script src="/1.5e3a9f27.js"></script>
-<script src="/1a4e3797.ea090983.js"></script>
-<script src="/1be78505.3ed67a73.js"></script>
-<script src="/c4f5d8e4.bd2a2272.js"></script>
-<script src="/426.27b41a43.js"></script>
-<script src="/425.8244251e.js"></script>
+<script src="/runtime~main.a6ea9a57.js"></script>
+<script src="/main.cb7bfbd7.js"></script>
+<script src="/1.a9d9a5d6.js"></script>
+<script src="/1a4e3797.1c5bae0c.js"></script>
+<script src="/1be78505.fc7e40cb.js"></script>
+<script src="/c4f5d8e4.31867add.js"></script>
+<script src="/426.7db2c86e.js"></script>
+<script src="/425.35b180f6.js"></script>
 <script src="/935f2afb.a6a998f2.js"></script>
 <script src="/424.5d151742.js"></script>
-<script src="/5c27a1d8.e5cdefe9.js"></script>
+<script src="/5c27a1d8.e550f1a9.js"></script>
 </body>
 </html>
